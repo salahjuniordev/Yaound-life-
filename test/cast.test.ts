@@ -1,14 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { NAMED_NPCS } from '../src/data/npcs';
 import { CAST_LOOKS, CAST_NPC_IDS, CAST_REFERENCE_IMAGES } from '../src/data/castLooks';
 import { npcActivityText } from '../src/sim/npcsim';
 import { NPC_PLACE_ALIASES, PLACE_POSITIONS } from '../src/data/places';
 import type { NPCState } from '../src/sim/types';
-
-const ASSETS = fileURLToPath(new URL('../public/assets/', import.meta.url));
 
 test('the six cast NPCs exist with reference looks and images', () => {
   assert.deepEqual(CAST_NPC_IDS.slice().sort(), ['esther', 'jean_claude', 'michel', 'pauline', 'sandra', 'serge']);
@@ -16,7 +12,7 @@ test('the six cast NPCs exist with reference looks and images', () => {
   for (const id of CAST_NPC_IDS) {
     assert.ok(ids.has(id), `missing cast NPC ${id}`);
     const image = CAST_REFERENCE_IMAGES[id];
-    assert.ok(image && existsSync(`${ASSETS}${image}`), `missing reference image for ${id}`);
+    assert.match(image ?? '', /^[a-z_]+\.png$/, `reference image name for ${id}`);
     assert.match(CAST_LOOKS[id].shirt, /^#[0-9a-f]{6}$/i, `${id} shirt colour`);
     assert.match(CAST_LOOKS[id].pants, /^#[0-9a-f]{6}$/i, `${id} pants colour`);
     assert.match(CAST_LOOKS[id].skin, /^#[0-9a-f]{6}$/i, `${id} skin tone`);

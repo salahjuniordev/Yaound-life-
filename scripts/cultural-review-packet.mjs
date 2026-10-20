@@ -9,7 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outPath = resolve(root, 'art/cultural_review_packet.md');
 
 const swatch = (hex) => `\`${hex}\` <sub>(CSS)</sub>`;
-const imageRef = (file) => `public/assets/${file}`;
+const imageRef = (file) => `\`${file}\` (archived in git history)`;
 
 const npcRows = NAMED_NPCS.map(
   (npc) =>
@@ -44,6 +44,7 @@ const lines = [
   'Status: **NOT YET REVIEWED**. This packet is reviewer material only; nothing here is an approval.',
   '',
   'Regenerate with `npm run review:packet` after any change to characters, presets, outfits or NPC seeds.',
+  'Concept reference images were removed from the build to cut 32 MB; recover any of them from git history with `git show daefdae:public/assets/<file> > <file>`.',
   'Reviewers: please work through each section, tick what passes, and write corrections with suggested replacements.',
   '',
   '## 1. Named NPC roster',

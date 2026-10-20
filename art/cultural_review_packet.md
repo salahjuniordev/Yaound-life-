@@ -3,6 +3,7 @@
 Status: **NOT YET REVIEWED**. This packet is reviewer material only; nothing here is an approval.
 
 Regenerate with `npm run review:packet` after any change to characters, presets, outfits or NPC seeds.
+Concept reference images were removed from the build to cut 32 MB; recover any of them from git history with `git show daefdae:public/assets/<file> > <file>`.
 Reviewers: please work through each section, tick what passes, and write corrections with suggested replacements.
 
 ## 1. Named NPC roster
@@ -30,20 +31,20 @@ Reviewers: please work through each section, tick what passes, and write correct
 
 | Name | Subtitle | Reference image | Skin tone | Hair | Body | Face | Shirt | Pants | Pattern | Bag |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Amina (Amina) | Student / Étudiante | public/assets/amina_student.png | 2 | twists | slim | oval | #f2b134 | #2a7d7b | weave | crossbody |
-| Brice (Brice) | Creative Hustler / Créatif débrouillard | public/assets/brice_hustler_creative.png | 1 | fade | medium | square | #e8e2d4 | #2c3e50 | none | sling |
-| Marie (Marie) | Market Trader / Commerçante | public/assets/marie_trader.png | 0 | braids | medium | round | #d94f6b | #1f2a30 | geo | tote |
+| Amina (Amina) | Student / Étudiante | `amina_student.png` (archived in git history) | 2 | twists | slim | oval | #f2b134 | #2a7d7b | weave | crossbody |
+| Brice (Brice) | Creative Hustler / Créatif débrouillard | `brice_hustler_creative.png` (archived in git history) | 1 | fade | medium | square | #e8e2d4 | #2c3e50 | none | sling |
+| Marie (Marie) | Market Trader / Commerçante | `marie_trader.png` (archived in git history) | 0 | braids | medium | round | #d94f6b | #1f2a30 | geo | tote |
 
 ## 3. Cast outfit looks
 
 | Id | Skin | Hair | Shirt | Pants | Headwear | Reference image |
 | --- | --- | --- | --- | --- | --- | --- |
-| michel | `#5b3a29` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#f2a71b` <sub>(CSS)</sub> | `#2b3450` <sub>(CSS)</sub> | — | public/assets/michel_moto_taxi_driver.png |
-| sandra | `#7a4a2f` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#2e57c4` <sub>(CSS)</sub> | `#2f333c` <sub>(CSS)</sub> | — | public/assets/sandra_graduate_applicant.png |
-| pauline | `#8d5a3a` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#21857c` <sub>(CSS)</sub> | `#21857c` <sub>(CSS)</sub> | `#21857c` <sub>(CSS)</sub> | public/assets/pauline_nurse.png |
-| serge | `#6b4327` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#7d2e4d` <sub>(CSS)</sub> | `#33363c` <sub>(CSS)</sub> | — | public/assets/serge_musician.png |
-| esther | `#5b3a29` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#2e51d6` <sub>(CSS)</sub> | `#2e51d6` <sub>(CSS)</sub> | — | public/assets/esther_footballer.png |
-| jean_claude | `#6b4327` <sub>(CSS)</sub> | `#9a9a94` <sub>(CSS)</sub> | `#7d2434` <sub>(CSS)</sub> | `#565c66` <sub>(CSS)</sub> | — | public/assets/jean_claude_teacher_parent.png |
+| michel | `#5b3a29` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#f2a71b` <sub>(CSS)</sub> | `#2b3450` <sub>(CSS)</sub> | — | `michel_moto_taxi_driver.png` (archived in git history) |
+| sandra | `#7a4a2f` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#2e57c4` <sub>(CSS)</sub> | `#2f333c` <sub>(CSS)</sub> | — | `sandra_graduate_applicant.png` (archived in git history) |
+| pauline | `#8d5a3a` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#21857c` <sub>(CSS)</sub> | `#21857c` <sub>(CSS)</sub> | `#21857c` <sub>(CSS)</sub> | `pauline_nurse.png` (archived in git history) |
+| serge | `#6b4327` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#7d2e4d` <sub>(CSS)</sub> | `#33363c` <sub>(CSS)</sub> | — | `serge_musician.png` (archived in git history) |
+| esther | `#5b3a29` <sub>(CSS)</sub> | `#1c1c1c` <sub>(CSS)</sub> | `#2e51d6` <sub>(CSS)</sub> | `#2e51d6` <sub>(CSS)</sub> | — | `esther_footballer.png` (archived in git history) |
+| jean_claude | `#6b4327` <sub>(CSS)</sub> | `#9a9a94` <sub>(CSS)</sub> | `#7d2434` <sub>(CSS)</sub> | `#565c66` <sub>(CSS)</sub> | — | `jean_claude_teacher_parent.png` (archived in git history) |
 
 ## 4. Review checklist
 

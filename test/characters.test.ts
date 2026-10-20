@@ -1,12 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { CHARACTER_PRESETS } from '../src/data/characterPresets';
 import { buildCharacter, animateCharacter } from '../src/render/characters';
 import type { Appearance } from '../src/sim/types';
-
-const ASSETS = fileURLToPath(new URL('../public/assets/', import.meta.url));
 
 const LEGACY_APPEARANCE: Appearance = {
   skinTone: 3,
@@ -30,7 +26,7 @@ test('three editable presets match the Amina, Brice, and Marie references', () =
     ['amina', 'brice', 'marie'],
   );
   for (const p of CHARACTER_PRESETS) {
-    assert.ok(existsSync(`${ASSETS}${p.referenceImage}`), `missing reference image ${p.referenceImage}`);
+    assert.match(p.referenceImage, /^[a-z_]+\.png$/, `reference image name for ${p.id}`);
   }
   const amina = CHARACTER_PRESETS[0].appearance;
   assert.equal(amina.hair, 'twists');
