@@ -124,7 +124,7 @@ Last updated: 2026-10-20
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 113 tests
+npm test                 # node --test, 117 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -134,6 +134,7 @@ npm run preview          # serve dist/
 ```
 
 ## Changelog
+- 2026-10-20: Interior fit-out round — framed interior camera and fog isolation on entering any building; dedicated prop layouts for all 15 interior types (`src/render/interiorProps.ts`, 14-30 props each, shared material cache, sit stool retained); walls/shelves/rails pulled off the structural shell; new `test/interiors.test.ts` validates layout coverage, per-type distinctness, room bounds and the player walking lane. +4 tests (117 total), all green; build ~36s, size budgets PASS.
 - 2026-10-20: Phase 4 completion round — fabric pattern system (`Appearance.pattern` weave/geo/stripe; canvas textures in `clothMaterial` with Node fallback; creator chips EN/FR; presets updated) and facial animation (eye/mouth groups, procedural blink + clip-based smile in `characters.ts`); GLTF export upgraded from rigid nodes to a skinned rig (15-bone `Skeleton`, 9 `SkinnedMesh` sharing it, 5 baked clips → `art/player_rig.glb`, 181.5 KB); `npm run review:packet` generates `art/cultural_review_packet.md` (16 NPCs, 3 presets, 6 cast looks) for Cameroonian reviewers. +2 tests (113 total), all green.
 - 2026-10-20: Phase 4 art/animation round — shared named skeleton with segmented arms/legs and blended procedural clips (idle, walk, run, sit, phone) wired into world, interiors and creator preview; face polish (3 face shapes, eyes/brows/nose/ears/smile, optional stubble/goatee/beard); crowd LOD full/simple/distant billboard impostors with quality-tier thresholds; outfit clipping tests; GLTF rig export (61 nodes, 5 clips) to `art/player_rig.glb`. +8 tests (111 total), all green; build ~37s, size budgets PASS.
 - 2026-10-16: Cast round — six roster characters as world NPCs (Michel, Pauline, Serge, Esther, Jean-Claude added; Sandra realigned to graduate/job seeker) with signature colours from the concept art (`src/data/castLooks.ts`; instanced crowd honours cast looks incl. headwear), 7 new EN/FR activity labels, schedule/place/activity validation (`test/cast.test.ts`), idle breathing + speed-scaled walk bob in `src/render/characters.ts`. +3 tests (103 total), all green; build ~36s.

@@ -23,7 +23,7 @@ React 19 · TypeScript · Vite 7 · three.js + @react-three/fiber · zustand · 
 npm install            # on Termux see SETUP.md for flags
 npm run dev            # dev server at http://localhost:5173
 npm run typecheck      # tsc --noEmit (includes tests)
-npm test               # 113 tests (node --test)
+npm test               # 117 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run export:character # bake idle/walk/run/sit/phone clips → art/player_rig.glb
