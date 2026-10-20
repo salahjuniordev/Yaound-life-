@@ -11,9 +11,9 @@ Last updated: 2026-10-20
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 103/103 (`npm test`)
-- [ ] CI sizes/perf budgets (PRD §8.1/8.3) — no CI pipeline yet (`npm run size` enforces budgets locally)
-- [ ] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 117/117 (`npm test`)
+- [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
+- [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
 ## Architecture (PRD §8.5)
 - [x] Headless sim core separate from rendering (`src/sim/*` — no three/react imports)
@@ -42,7 +42,7 @@ Last updated: 2026-10-20
 - [x] Supabase anonymous auth, push/pull cloud save, world_state fetch, email linking, cloud delete — offline-safe no-env mode
 - [x] Mini/no cloud mode degrades cleanly without env vars (dead-code eliminated from bundle)
 - [x] Migration SQL with RLS: `supabase/migrations/0001_init.sql` (profiles, characters, saves, ledger, businesses, njangi_*, world_state, content_*, purchases, achievements, reports)
-- [ ] Apply migration on a live Supabase project (Paris/Frankfurt) + verify RLS from client
+- [~] Apply migration on a live Supabase project (Paris/Frankfurt) + verify RLS from client — `npm run db:verify` signs in two anonymous users and checks profile trigger, save/character isolation, read-only content tables and report ownership; apply `0001_init.sql` to the production project and run it
 - [ ] pg_cron daily world_state generator (fuel, strike, delestage, weather, headlines)
 - [ ] Edge Functions: payment webhooks, economy validation, moderation
 
@@ -134,6 +134,7 @@ npm run preview          # serve dist/
 ```
 
 ## Changelog
+- 2026-10-20: Release-ops round — GitHub Actions CI (`.github/workflows/ci.yml`: typecheck, 117 tests, build, size budgets) plus a manual `supabase-verify` workflow; `scripts/verify-supabase.mjs` (`npm run db:verify`) probes live RLS with two anonymous sessions and cleans up after itself; Cloudflare Pages config (`wrangler.toml`, `public/_headers`, `npm run deploy:cf`); env-gated Sentry + PostHog telemetry lazy-loaded after first paint (`src/lib/telemetry.ts`); `sendReport` now sets `user_id` so the reports insert policy passes.
 - 2026-10-20: Interior fit-out round — framed interior camera and fog isolation on entering any building; dedicated prop layouts for all 15 interior types (`src/render/interiorProps.ts`, 14-30 props each, shared material cache, sit stool retained); walls/shelves/rails pulled off the structural shell; new `test/interiors.test.ts` validates layout coverage, per-type distinctness, room bounds and the player walking lane. +4 tests (117 total), all green; build ~36s, size budgets PASS.
 - 2026-10-20: Phase 4 completion round — fabric pattern system (`Appearance.pattern` weave/geo/stripe; canvas textures in `clothMaterial` with Node fallback; creator chips EN/FR; presets updated) and facial animation (eye/mouth groups, procedural blink + clip-based smile in `characters.ts`); GLTF export upgraded from rigid nodes to a skinned rig (15-bone `Skeleton`, 9 `SkinnedMesh` sharing it, 5 baked clips → `art/player_rig.glb`, 181.5 KB); `npm run review:packet` generates `art/cultural_review_packet.md` (16 NPCs, 3 presets, 6 cast looks) for Cameroonian reviewers. +2 tests (113 total), all green.
 - 2026-10-20: Phase 4 art/animation round — shared named skeleton with segmented arms/legs and blended procedural clips (idle, walk, run, sit, phone) wired into world, interiors and creator preview; face polish (3 face shapes, eyes/brows/nose/ears/smile, optional stubble/goatee/beard); crowd LOD full/simple/distant billboard impostors with quality-tier thresholds; outfit clipping tests; GLTF rig export (61 nodes, 5 clips) to `art/player_rig.glb`. +8 tests (111 total), all green; build ~37s, size budgets PASS.

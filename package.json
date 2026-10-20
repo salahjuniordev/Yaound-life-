@@ -12,7 +12,9 @@
     "size": "node scripts/size-check.mjs",
     "test": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node --test 'test/*.test.ts'",
     "export:character": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/export-character.mjs",
-    "review:packet": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/cultural-review-packet.mjs"
+    "review:packet": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/cultural-review-packet.mjs",
+    "db:verify": "node scripts/verify-supabase.mjs",
+    "deploy:cf": "npm run build && npx --yes wrangler pages deploy dist --project-name yaounde-life"
   },
   "dependencies": {
     "@react-three/fiber": "^9.0.0",

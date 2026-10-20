@@ -26,6 +26,8 @@ npm run typecheck      # tsc --noEmit (includes tests)
 npm test               # 117 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
+npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)
+npm run deploy:cf      # build + deploy dist/ to Cloudflare Pages
 npm run export:character # bake idle/walk/run/sit/phone clips → art/player_rig.glb
 npm run review:packet  # generate the cultural review packet → art/cultural_review_packet.md
 npm run preview        # serve the production build
@@ -34,6 +36,10 @@ npm run preview        # serve the production build
 Cloud sync is optional: copy `.env.example` to `.env` and fill in your Supabase
 URLs, then apply `supabase/migrations/0001_init.sql`. Without it the game runs
 fully offline. See `SETUP.md`.
+
+CI runs typecheck, tests, build and size budgets on every push
+(`.github/workflows/ci.yml`). Cloudflare Pages config lives in `wrangler.toml`
+and `public/_headers`; Sentry/PostHog are optional and env-gated.
 
 ## Project layout
 

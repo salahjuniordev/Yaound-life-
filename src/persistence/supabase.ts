@@ -138,6 +138,7 @@ export async function sendReport(report: { id: string; kind: string; refId: stri
     const status = await ensureSession();
     if (!status.userId) return;
     await sb.from('reports').insert({
+      user_id: status.userId,
       kind: report.kind,
       payload: { reportId: report.id, refId: report.refId, note: report.note, day: report.day, minute: report.minute, characterId },
     });

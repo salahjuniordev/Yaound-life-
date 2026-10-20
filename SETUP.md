@@ -45,6 +45,9 @@ No other special steps are needed on Android: use `npm run dev`, `npm test`,
 | `npm run preview` | Serve `dist/` locally |
 | `npm run typecheck` | `tsc --noEmit` (src, test, vite config) |
 | `npm test` | Node test runner on `test/*.test.ts` (sim core) |
+| `npm run db:verify` | Verify live Supabase schema + RLS (needs env; see below) |
+| `npm run deploy:cf` | Build and deploy `dist/` to Cloudflare Pages (needs wrangler auth) |
+| `npm run size` | gzip size budgets (run after build) |
 
 The test runner uses `scripts/test-register.mjs` (`registerHooks`) so the
 extensionless imports used across `src/` resolve under plain Node.
@@ -67,6 +70,13 @@ extensionless imports used across `src/` resolve under plain Node.
    ```
 6. Rebuild/restart. The Settings app in the Phone shows cloud status; saves
    push at day change and on tab close, and can be pushed/pulled manually.
+7. Verify the live schema and policies:
+   ```bash
+   npm run db:verify
+   ```
+   It signs in two anonymous users, checks the profile trigger, character/save
+   isolation, read-only content tables and report ownership, then deletes its
+   probe rows. `SUPABASE_URL` / `SUPABASE_ANON_KEY` are also accepted for CI.
 
 Without env vars the game runs in offline mode: IndexedDB only, no network
 calls, and the Supabase code is eliminated from the bundle.
@@ -76,6 +86,31 @@ calls, and the Supabase code is eliminated from the bundle.
 `npm run build` produces a static `dist/` (relative base path, `base: './'`),
 so it works on Cloudflare Pages, Netlify, GitHub Pages or any static host.
 Serve over HTTPS so the service worker and IndexedDB behave normally.
+
+### Cloudflare Pages
+
+- Dashboard (recommended): connect the repo, build command `npm run build`,
+  output directory `dist`, Node 26. `wrangler.toml` already points at `dist`.
+- CLI: `npm run deploy:cf` (builds, then `wrangler pages deploy dist
+  --project-name yaounde-life`).
+- `public/_headers` ships security and immutable-asset cache headers.
+- Set `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` and optionally
+  `VITE_SENTRY_DSN`, `VITE_POSTHOG_KEY`, `VITE_POSTHOG_HOST` as build-time
+  environment variables.
+
+### Telemetry
+
+Sentry (errors) and PostHog (pageviews) are opt-in through the env vars above.
+Pinned SDK versions load lazily from the official Sentry/PostHog CDNs after
+first paint, so they never block the first playable frame or the bundle
+budgets; with no keys set, the game makes no telemetry requests.
+
+### CI
+
+`.github/workflows/ci.yml` runs typecheck, tests, build and size budgets on
+every push to `main` and on pull requests. `.github/workflows/supabase-verify.yml`
+runs `npm run db:verify` on demand against the repository secrets
+`SUPABASE_URL` / `SUPABASE_ANON_KEY`.
 
 ## Troubleshooting
 
