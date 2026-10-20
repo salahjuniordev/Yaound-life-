@@ -1,0 +1,39 @@
+{
+  "name": "yaounde-life",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Yaounde Life - 3D browser life simulator set in Yaounde, Cameroon",
+  "scripts": {
+    "dev": "node scripts/vite.mjs dev --host 0.0.0.0",
+    "build": "node scripts/vite.mjs build",
+    "preview": "node scripts/vite.mjs preview --host 0.0.0.0",
+    "typecheck": "node ./node_modules/typescript/bin/tsc --noEmit",
+    "size": "node scripts/size-check.mjs",
+    "test": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node --test 'test/*.test.ts'",
+    "export:character": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/export-character.mjs",
+    "review:packet": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/cultural-review-packet.mjs"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.0.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "i18next": "^25.0.0",
+    "lucide-react": "^1.58.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^16.0.0",
+    "rollup": "npm:@rollup/wasm-node@^4.64.7",
+    "three": "^0.182.0",
+    "zod": "^4.0.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.182.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^7.0.0"
+  }
+}

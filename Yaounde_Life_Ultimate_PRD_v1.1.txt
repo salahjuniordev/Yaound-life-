@@ -1,0 +1,1530 @@
+================================================================================
+YAOUNDE LIFE (working title: MBOA LIFE: YAOUNDE)
+ULTIMATE PRODUCT REQUIREMENTS DOCUMENT (PRD)
+3D browser life simulator set in Yaounde, Cameroon
+Version 1.1 (merged with the second agent's Mboa Life PRD) - October 15, 2026
+Stack direction: 3D web (Three.js family) + TypeScript + Supabase
+================================================================================
+
+TABLE OF CONTENTS
+  0.  Document control and how this PRD was built
+  1.  Vision, pitch and design pillars
+  2.  Research findings
+  3.  Target players
+  4.  Goals, non-goals and success metrics
+  5.  Release scope (phases)
+  6.  Game design
+        6.1  Core loop
+        6.2  Time model
+        6.3  Character creation and backgrounds
+        6.4  Needs and stats
+        6.5  The world: 3D Yaounde and its districts
+        6.6  Camera, controls and interiors
+        6.7  Economy (FCFA)
+        6.8  Careers and skill trees
+        6.9  Business management
+        6.10 Njangi / tontine (signature system)
+        6.11 Relationships and family
+        6.12 Daily activities
+        6.13 The in-game phone
+        6.14 Events and the city calendar
+        6.15 Transport
+        6.16 Housing and property
+        6.17 Entertainment and hobbies
+        6.18 NPC life, personality and dialogue
+        6.19 A living city: time, weather, power cuts
+        6.20 Goals, quests and achievements
+        6.21 Multiplayer path
+        6.22 Language and tone
+        6.23 Fairness, recovery and play-style options          [v1.1]
+        6.24 Starter story chains and quest rules               [v1.1]
+        6.25 First 10 minutes (onboarding flow)                 [v1.1]
+        6.26 Cultural respect, content rules and validation     [v1.1]
+        6.27 Exploration, landmarks and photo moments           [v1.1]
+  7.  Art direction (3D)
+  8.  Technical architecture
+  9.  Data model
+  10. Monetization
+  11. Safety, content, legal and privacy
+  12. Roadmap
+  13. Risks and mitigations
+  14. Master feature backlog with priorities
+  15. Decisions needed from the founder
+  16. Appendix A: what we adopted, adjusted or deferred from the other agent's plan
+  16b. Appendix A2: second agent's PRD (Mboa Life) - review and merge  [v1.1]
+  17. Appendix B: MVP acceptance criteria
+  18. Appendix C: sources
+
+--------------------------------------------------------------------------------
+0. DOCUMENT CONTROL AND HOW THIS PRD WAS BUILT
+--------------------------------------------------------------------------------
+Owner: Founder (you). Author: Claude. Status: Draft for review.
+
+This PRD merges three inputs:
+  (a) our first PRD (Phaser 2D + Supabase, research-backed),
+  (b) the long concept proposed by another agent (rich feature and activity
+      ideas, phone-centric UI, careers, relationships, events, housing),
+  (c) the new decision that THE GAME IS 3D.
+
+Rules used for the merge:
+  - Keep every strong feature idea, but sequence it. A huge sandbox dies if
+    all of it is built at once.
+  - Keep what we learned about Cameroon (connectivity, devices, prices,
+    njangi, power cuts, transport). These shape what "3D in a browser" can
+    realistically mean here.
+  - Use Supabase (founder's preference) instead of a custom Node server, plus
+    a hand-rolled Postgres and WebSocket layer.
+  - Prices, wages and fares quoted here are indicative, come from secondary
+    sources, and must be verified before they drive balance or business
+    decisions. All game prices live in data tables, never in code.
+
+VERSION HISTORY
+  v1.0  Merged our first PRD + first agent concept + 3D decision.
+  v1.1  Reviewed the second agent's "Mboa Life: Yaounde" PRD (about 16,600
+        words). Gameplay content only (features, events, scenarios,
+        activities, jobs, rules) was merged; its engine and stack choices
+        (Babylon.js etc.) were NOT adopted here. New or expanded material is
+        marked [v1.1] below. See Appendix A2 for the full adopted / kept /
+        rejected list.
+
+--------------------------------------------------------------------------------
+1. VISION, PITCH AND DESIGN PILLARS
+--------------------------------------------------------------------------------
+PITCH
+Open your browser, create a character and start a new life in a 3D Yaounde.
+You wake up in your quartier, check your phone, decide what to eat, figure out
+how to make money, meet people, find work, build relationships, start a
+business and try to become somebody in the city. Your story is not the same as
+anyone else's.
+
+GENRE
+Open-world life simulator + social simulation + career/business management.
+
+PLATFORM
+Web browser (PWA), designed mobile-first but playable on desktop.
+
+PREMISE
+Start with limited resources. Build whatever life you want: student, hustler,
+trader, driver, developer, musician, footballer, creator, entrepreneur,
+property owner, or something we did not predict.
+
+DESIGN PILLARS
+  P1  Feels like Yaounde, not a generic African city. Real districts, local
+      food, slang, prices, rhythms (market days, Sunday matches, rainy
+      season, delestage).
+  P2  Freedom with trade-offs. Every action costs time, energy, money or
+      relationships. No single "right" life.
+  P3  Hustle with dignity. Struggle is real, tone is warm, funny, communal.
+      No poverty tourism, no stereotypes.
+  P4  Lives with memory. NPCs have routines, ambitions and remember what you
+      did. Stories emerge from systems, not scripts.
+  P5  Light enough to play on a Tecno with patchy data. 3D is a style choice,
+      not a license to be heavy. Performance budgets are product requirements.
+  P6  Expandable by design. New activities, careers and districts are added
+      as data and modules without rebuilding the core.
+
+--------------------------------------------------------------------------------
+2. RESEARCH FINDINGS
+--------------------------------------------------------------------------------
+2.1 Connectivity and devices (Cameroon)
+  - ~12.6 million internet users (41.9% penetration) and ~29.0 million
+    cellular connections at end of 2025 (DataReportal / GSMA). ~87.5% of
+    connections are 3G/4G/5G-capable, which does not mean everyone has data.
+  - Mobile is ~55.5% of web traffic (StatCounter, Aug 2026); desktop ~44.5%.
+  - Device mix mid-2026: Samsung ~20%, Tecno ~19%, Apple ~17-19%, Infinix ~7%,
+    Xiaomi ~6%. Expect many low-to-mid Android phones.
+  - Coverage, speed and price remain barriers. Typical fixed download speed is
+    single-digit to low-double-digit Mbps.
+  - Mobile money (MTN MoMo, Orange Money) is the main digital payment rail
+    (~40% penetration per a payment provider's docs).
+  IMPLICATION FOR 3D: assets must be tiny, streamed in chunks, cached
+  aggressively, with a Low quality tier that still looks good.
+
+2.2 Competition and culture
+  - Kiro'o Games (Yaounde) is Central Africa's first studio. Its mobile
+    satire "Le Responsable Mboa / Elites of Mboa" simulates an African civil
+    servant, monetizes via mobile money, and has a telco revenue-share deal.
+    Its CEO has argued that real-life simulations suit African audiences.
+    We are complementary: ours is open-ended, street-level and 3D.
+  - No dominant open-ended Yaounde life sim was found (absence of evidence;
+    do a deeper store scan before launch).
+  - Njangi/tontine: rotating savings where members contribute on a schedule
+    and take turns receiving the pot ("chop njangi"). Digital tontines exist;
+    fraud and losses are documented. Highly resonant, unique mechanic.
+
+2.3 City and economy facts for grounding
+  - Yaounde has 7 arrondissements. Areas: Mokolo (big market), Mvog-Mbi,
+    Nlongkak, Bastos (affluent, embassies), Essos, Mendong, Biyem-Assi,
+    Melen, Ngoa-Ekelle (university), Mvan, Odza, Ekounou, Mimboman, Kondengui.
+  - Shared taxis dominate. Standard fares ~250-350 FCFA by day, ~300-400 at
+    night per person (sources vary; fares rose in 2023). ~35,000 moto-taxis
+    operate in Yaounde and carry high accident risk. One guide estimates
+    modal share ~33% walking, ~40% taxi, ~12% moto.
+  - Power: recurring Eneo outages, load-shedding rotations and transformer
+    failures across many quartiers; shops and money-transfer kiosks use
+    generators. Mvan once went days without power.
+  - Wages (indicative): SMIG reported at ~41,875 FCFA/month (figures in
+    circulation range ~36,270 to ~43,969; a revision was promised, VERIFY).
+    Formal average ~120,000-200,000 FCFA. Moto-taxi ~50-150k, teacher
+    ~150-300k, nurse ~100-250k, security ~50-80k, bank staff ~200-800k,
+    telecom staff ~250k-1.5M. Rent ~50,000-150,000 FCFA, food ~30,000-50,000
+    FCFA/month. A majority of workers are informal.
+
+2.4 3D engine landscape (2026)
+  - Three.js: low-level, MIT, huge ecosystem, ~168 kB gzipped core, WebGPU
+    support in recent releases, React Three Fiber for React-style scenes.
+    Not a game engine: we build game systems on top.
+  - Babylon.js: full game engine (physics, audio, XR, editor), Babylon 9.0
+    released March 2026; heavier bundle, strong tooling.
+  - PlayCanvas: open-source engine with a Unity-like cloud editor,
+    WebGL2-first, reputation for mobile optimization.
+  - Unity WebGL: big downloads, slower startup, known mobile-browser pain.
+    Not recommended for this audience.
+  - Godot web export and other options exist but carry larger runtimes.
+
+--------------------------------------------------------------------------------
+3. TARGET PLAYERS
+--------------------------------------------------------------------------------
+  - Amina, 19, student (core): mid-range Android, shared data plan, plays in
+    short bursts, loves local humor, football and music.
+  - Brice, 27, young professional/hustler: uses MoMo daily, wants progression,
+    business building and bragging rights.
+  - Diaspora player (secondary): nostalgia for neighborhoods and food; desktop
+    or iPhone; can pay by card.
+  - Casual sim fans anywhere who like life/business sims (long-tail).
+
+--------------------------------------------------------------------------------
+4. GOALS, NON-GOALS AND SUCCESS METRICS
+--------------------------------------------------------------------------------
+GOALS (v1.0)
+  - A charming, replayable single-player 3D life sim with cloud saves.
+  - A believable Yaounde slice that grows district by district.
+  - Systems depth: economy, careers, relationships, njangi, events.
+  - Optional MoMo purchases; English and French.
+  - Architecture that keeps multiplayer possible.
+
+NON-GOALS (v1.0)
+  - Full persistent MMO city, real-money gambling, user-generated content,
+    photorealism, fully simulated vehicle driving, mandatory AI/LLM services.
+  - Exact 1:1 reproduction of Yaounde streets.
+
+METRICS (initial targets, to validate in playtests)
+  First load on 4G low-end Android .... <= 10 s to interactive, <= 6 MB first
+                                        load (Low tier), <= 25 MB total cached
+  Frame rate ........................... 30 FPS on 3 GB RAM Android (Low tier)
+  Day-1 / Day-7 retention .............. 30% / 10%
+  Average session ...................... 10-15 minutes
+  Crash-free sessions .................. >= 99%
+  Payer conversion (after monetization). 1-3% of MAU
+
+--------------------------------------------------------------------------------
+5. RELEASE SCOPE (PHASES)
+--------------------------------------------------------------------------------
+  PHASE 0 - TECH SPIKE (go/no-go for 3D): one district, one character, three
+            test phones, budgets measured. If budgets fail, fall back to a
+            2.5D/isometric render of the SAME simulation (see 8.2).
+  PHASE 1 - MVP "Slice of Yaounde": 3-4 connected locations (home quartier,
+            market, university area, commercial street), character creator,
+            needs, day cycle, FCFA economy, 2 earning paths (job + small
+            business), basic relationships, phone (messages, maps, jobs),
+            20-30 events, autosave and cloud save.
+  PHASE 2 - ALPHA: njangi, education/Concours, delestage and rainy season,
+            careers x6, housing stages 1-3, social feed, EN/FR.
+  PHASE 3 - BETA: live world state, MoMo purchases, achievements, analytics,
+            business competition, NPC memory, balance pass, Supabase Pro.
+  PHASE 4 - 1.0 LAUNCH: 7-10 districts, 10+ careers, property ownership,
+            hobbies, full event calendar, community tools.
+  PHASE 5 - 2.0: friend presence, shared njangi, player-to-player trade,
+            shops owned by players, Douala expansion.
+
+--------------------------------------------------------------------------------
+6. GAME DESIGN
+--------------------------------------------------------------------------------
+6.1 CORE LOOP
+  Wake up -> check needs and phone -> decide where to go and how -> walk/ride
+  to a district -> enter buildings / talk to NPCs -> do activities (work,
+  study, trade, socialize) -> handle an event -> go home, sleep -> new day.
+  The meta loop: Live -> Explore -> Meet people -> Earn money -> Make
+  decisions -> Build your future.
+
+6.2 TIME MODEL
+  - 1 in-game day ~ 10-12 real minutes (tunable). Day parts: morning,
+    afternoon, evening, night.
+  - Player controls when to sleep, rest, work or socialize; time can be
+    paused in menus and phone.
+  - Weekly rhythm (market days, Sunday church/matches), monthly rhythm
+    (rent, salary, njangi, school fees), seasonal rhythm (dry/rainy).
+  - Optional offline progress: capped passive income and energy recovery
+    (max 8 hours) so short, data-limited sessions still feel rewarding.
+
+6.3 CHARACTER CREATION AND BACKGROUNDS
+  Appearance: name, gender, body type, skin tone, face, hair (braids, natural,
+  fade, wigs), outfits; kept modular so cosmetics can be sold later.
+  Starting backgrounds (each changes cash, skills, debts, contacts):
+    THE STUDENT ........ arrives to study; low money, academic duties, maybe a
+                         part-time job.
+    THE HUSTLER ........ little money, big ambition; must find opportunities
+                         and pick risks.
+    THE GRADUATE ....... qualifications, but must navigate jobs/interviews.
+    THE ENTREPRENEUR ... small starting capital, wants to build a business.
+    THE ESTABLISHED CITIZEN  job, home, possessions, existing network.
+    THE TRADER'S CHILD . inherits stall knowledge and family expectations.
+    THE MOTO-TAXI DRIVER  rents a bike, daily target, high risk/high hustle.
+    THE VILLAGE ARRIVAL  new to the city, small network, big hopes.
+    THE CIVIL SERVANT WAITING FOR "INTEGRATION"  low pay, long bureaucracy
+                         quest.
+  Backgrounds shape the start; they never lock the future.
+  Options: language (FR/EN), Camfranglais flavor (off/light/heavy).
+
+[v1.1] ADDITIONAL BACKGROUNDS AND BALANCE RULE
+  THE FREELANCER / CREATIVE  a basic skill (design, editing, photo, music),
+                         a phone or laptop, and a client-seeking loop; can grow
+                         toward a studio or agency.
+  THE ENTRY-LEVEL EMPLOYEE  a job or probation period, steady but limited
+                         income, and a choice to advance or change direction.
+  Later: established business owner, transport worker, musician, athlete,
+  returning diaspora character.
+  RULE: no background may have a permanently superior power curve. Each starts
+  with different strengths and problems, and all can reach any life outcome.
+
+6.4 NEEDS AND STATS
+  Needs: energy, hunger, hygiene, health, mood, social.
+  Money: cash FCFA, mobile-money balance, bank balance, debts.
+  Skills: cooking, driving, sales, negotiation, management, marketing, tech,
+  creativity, music, fitness, academics, charisma.
+  Reputation: per quartier and per social circle (reliable, generous,
+  ambitious, untrustworthy...).
+  Assets: phone, bike/car, shop, home stages, land, inventory.
+  Life state: relationships, family obligations, goals, achievements.
+
+[v1.1] NEEDS TUNING RULES
+  - Needs decay slowly enough to allow exploring and socializing; they affect
+    the QUALITY of activities and mood, not every action or conversation.
+  - Several ways to fix each need (hunger: street food, home meal, friend's
+    invite; energy: sleep, nap, day off; mood: friends, hobby, music, walk).
+  - Cause and effect are always shown ("You are tired: work quality -10%").
+    Nothing silently lowers performance.
+  - SANDBOX / RELAXED NEEDS MODE: players can reduce or disable high-frequency
+    needs management and just explore, socialize and build.
+  - Optional later needs: phone credit/data, household cleanliness, fitness,
+    work-life balance.
+  - Skills grow from activity, training and courses. Skill levels are never
+    bought directly. Traits (outgoing, cautious, organized, creative,
+    competitive, empathetic, curious) are descriptive, give small dialogue or
+    activity bonuses, and NEVER lock jobs, relationships or housing.
+
+6.5 THE WORLD: 3D YAOUNDE AND ITS DISTRICTS
+  Scale: game-scale stylization, not a 1:1 map. Districts are separate
+  streamed "chunks" connected by roads and transport.
+
+  DISTRICT      WHAT PLAYERS EXPERIENCE
+  Bastos        Upscale homes, embassies, restaurants, nightlife, offices,
+                expensive property.
+  Mokolo        Huge market: trading, bargaining, porters, wholesale, chaos.
+  Marche Central Shopping, trading, errands, business opportunities.
+  Mvog-Mbi      Dense old quartier: community life, small trade, football.
+  Nlongkak      Shops, offices, restaurants, services, everyday city life.
+  Melen         Student life, affordable housing, food spots, hangouts.
+  Ngoa-Ekelle   University life, study groups, student communities.
+  Biyem-Assi    Residential life, small businesses, neighborhood hangouts.
+  Mendong       Housing estate, private schools, student rentals.
+  Essos         Residential, shops, food businesses, social interaction.
+  Mvan          Transport hub, industrial/commercial work, outage-prone.
+  Odza          Residential growth, property opportunities, long commutes.
+  Ekounou / Mimboman  Peri-urban living, rotation outages, cheap rent.
+  Landmarks and roundabouts (Nlongkak, Poste, Bastos junction) are used as
+  navigation anchors. Each district has its own prices, safety, ambiance,
+  NPC mix, music, power reliability and event pool.
+
+[v1.1] ADDITIONAL MAP ANCHORS AND LANDMARKS (verify all with local reviewers;
+  these come from public sources cited in the second PRD and were not
+  independently re-verified here)
+  Centre-ville / Place de l'Independance  Admin and commercial errands, office
+                work, networking, shopping, civic events, landmark photos.
+  Boulevard du 20 Mai   Big public gatherings, parades, seasonal events and
+                meeting points (for example the 8 March Women's Day parade).
+  Mont Febe / scenic outdoor area   Scenic walks, viewpoints, photography,
+                quiet dates, exercise, contrast to busy commercial streets.
+  Lac Municipal / recreation area   Walking, meetups, casual dates, photos,
+                public events, rest (confirm access and use before building).
+  Elig Effa / Elig Edzoa  Junctions, transfers, commuting, delivery routes.
+  Etoudi / national-unity landmark area  Public-viewpoint visits and photos
+                ONLY. No restricted government interiors, no security-
+                sensitive detail, no infiltration-style missions.
+  Cascades du Mfoundi (food and leisure space), National Museum,
+  Reunification Monument  Exploration, food, culture and photo spots
+                (confirm names, access and portrayal first).
+  Mvan, Elig Effa and Elig Edzoa are also the natural TRANSPORT HUBS of the
+  map (taxi transfers, commuting, delivery start points).
+
+  MAP DESIGN RULES
+  - Yaounde is hilly. Roads and footpaths rise and fall; landmarks are visible
+    from hilltops and bends. Steep shortcuts are a real route choice (faster
+    but tiring), and low-lying areas can flood in authored, limited ways.
+  - Every district contains several socioeconomic realities (homes, shops,
+    public places, characters). Price and venue-style differences are
+    balancing choices, never judgments about the people who live there.
+  - The map is a stylized scale model with real place-name anchors, not a
+    promise of street-by-street accuracy.
+
+6.6 CAMERA, CONTROLS AND INTERIORS
+  - Default camera: third-person, elevated, orbit-limited (readable on a small
+    screen, cheaper to render than free-roam). Optional close follow camera on
+    desktop.
+  - Mobile controls: tap-to-move plus an optional virtual stick; big tap
+    targets; interact button context-aware. Desktop: WASD + mouse + keyboard
+    shortcuts.
+  - Interiors (home, shops, offices, bars) are small instanced scenes loaded on
+    entry, keeping outdoor chunks light.
+  - Fast travel exists via transport (see 6.15) and costs time and money, so
+    travel is a decision, not a loading screen.
+  - Accessibility: text size, colorblind-safe palette, reduce motion, haptics
+    optional, simple controls mode.
+
+6.7 ECONOMY (FCFA)
+  - Currency: FCFA (XAF). Cash and mobile-money wallet are separate (cash is
+    stolen/lost, wallet has fees and can fail).
+  - Income sources: salaried work, freelancing, small business, buying and
+    reselling, transport services, content creation, music/entertainment,
+    investments, property rental, partnerships, one-off jobs and missions.
+  - Expenses: rent, food, transport, phone credit and data, electricity and
+    water, school fees, clothing, entertainment, healthcare, business costs,
+    family obligations, njangi contributions, taxes/fines/"small gifts".
+  - Prices are game-economy values stored in tables, tunable live. They are
+    inspired by real ranges but never presented as current real prices.
+  - Dynamics: district price multipliers, supply/demand per product, fuel
+    price shocks, inflation per season, wage inflation by career.
+  - Informal vs formal: informal income is high variance (market day, rain,
+    police raid); formal is stable but slow with bureaucracy.
+  - Debt: friends, family, njangi advances, loan sharks (high rates, social
+    consequences).
+
+[v1.1] BUDGETING TOOLS AND TRANSACTION CLARITY
+  - Every wallet entry shows amount in FCFA (whole numbers, clear
+    separators), direction, date/time, category, counterparty, a short
+    description and the resulting balance.
+  - Weekly and monthly summaries; savings goals; recurring-payment reminders;
+    planned vs actual spending; business profit/loss view.
+  - WARNINGS BEFORE CRISIS: rent, bills, school fees and njangi dates are
+    flagged days in advance so players can plan.
+  - Income categories: wages, gig pay, sales, commissions, gifts, rent revenue,
+    event prizes, business profit. Expense categories: rent, food, transport,
+    phone/data, utilities, study/training, clothing, entertainment, repairs,
+    health, stock, staff wages, business costs.
+  - Every price is a game-balance value, never a claim about real prices.
+
+6.8 CAREERS AND SKILL TREES
+  Careers have real progression: entry, training, performance, promotion,
+  switching, quitting. Skills grow by doing, not by clicking a menu.
+
+  CAREER                 GAMEPLAY
+  Entrepreneur           Find opportunities, manage stock, hire, expand.
+  Trader                 Source goods, negotiate, manage inventory, grow a stall
+                         into a shop.
+  Taxi / transport       Drive passengers, fuel and repair costs, own a fleet.
+  Moto-taxi (bendskin)   Daily rental, risk, accidents, checkpoints.
+  Software developer     Learn skills, complete projects, get hired, freelance,
+                         start a studio.
+  Designer               Client projects, portfolio, agency.
+  Content creator        Publish videos, grow followers, sponsorships,
+                         reputation risk.
+  Musician               Record, perform, build fanbase, contracts.
+  Footballer             Train, compete, improve, pursue club opportunities.
+  Hospitality worker     Restaurant/hotel/venue, path to management.
+  Office / civil service Apply, promotions, relationships, "integration" quest.
+  Teacher                Skills, teaching, progression, tutoring on the side.
+  Nurse / health worker  Shifts, training, emergencies.
+  MoMo agent / kiosk     Float management, fees, robbery risk, generator costs.
+  Mechanic / tailor / barber / hairdresser  Craft skills, clientele, shop.
+  Real estate investor   Buy, rent out, maintain, manage tenants (late game).
+
+  Example tree (Entrepreneur): Sales -> Negotiation -> Management ->
+  Marketing -> Business Expansion.
+  Example (Developer): Basics -> Web -> Freelance gigs -> Portfolio -> Hired
+  or Agency, with increasingly complex project types.
+  Implementation note: each career is a data module (jobs, skills, events,
+  mini-activities) so careers can be added without touching core code.
+  MVP careers: market trader, moto-taxi driver, small shop owner, student.
+
+[v1.1] MORE JOBS AND CAREER PATHS
+  Added to the career pool:
+  Retail / shop assistant   Stock shelves, serve customers, checkout, product
+                            knowledge, customer satisfaction score.
+  Food service              Prepare or serve, handle rush hours, cleanliness,
+                            menu skills.
+  Freelance digital work    Small design, website, editing, support or data
+                            tasks through the phone; ratings and portfolio.
+  Delivery / courier gigs   Pick up and drop off items, manage time, get paid
+                            on successful delivery (route abstracted in MVP).
+  Event organizer / promoter  Book venues, promote through the feed, sell
+                            tickets, manage a small show.
+  Photographer / videographer  Clients, shoots, editing, exhibitions.
+  Sales representative      Targets, clients, commissions.
+  Real estate agent / landlord  Listings, viewings, tenants, repairs.
+  Tailor / fashion designer  Alterations, custom orders, showcases.
+  Peri-urban farmer / food-supply business  Market gardening supply to stalls
+                            (optional, built with local review).
+  Hospitality and hotel operations, barber/salon, mechanic/repair, teacher or
+  tutor, civil/office career (fictionalized process), musician/producer,
+  footballer/athlete, video creator, software/IT support, taxi operator.
+
+[v1.1] JOB DISCOVERY, APPLICATIONS AND INTERVIEWS
+  - The phone's Jobs app lets players search by category, skill, schedule and
+    location.
+  - Applications may need a short CV profile, skills, prior work or a referral
+    (a contact who vouches for you).
+  - Interviews are dialogue scenes with preparation choices (outfit, research,
+    arriving on time, practicing answers).
+  - TRANSPARENCY RULE: the game shows why you qualify, what you are missing
+    and how to improve. No hidden dice rolls deciding a job.
+  - Each career defines: entry requirements, skill requirements, schedule and
+    location, actions during work, pay formula and timing, performance /
+    reputation, promotion or contract progression, fatigue trade-offs, and
+    optional narrative events.
+
+[v1.1] WORK SHIFTS AND PAY
+  - Work mixes short interactive tasks with strategic choices. No full shift of
+    button mashing. Once a role is understood, players can use a simplified
+    "work the shift" action with a readable time skip.
+  - Pay arrives as a clear transaction (employer, amount, date, job).
+  - Lateness, quality, customer feedback and reliability affect progression
+    without constant micromanagement.
+  - Players can resign, switch jobs, take leave, or accept/decline overtime
+    (income vs personal time).
+
+6.9 BUSINESS MANAGEMENT
+  Start tiny (a snack table, a phone-credit stand, a braised-fish stall),
+  rent premises, hire staff, manage inventory, set prices, open a second
+  location, face competition.
+  Competition factors: price, quality, reputation, location, marketing,
+  customer satisfaction, opening hours, power reliability (generator!).
+  Business Manager (phone app): revenue, costs, staff, stock, alerts.
+  Failure is allowed: bankruptcy, debt, restart with lessons learned.
+
+[v1.1] BUSINESS DEPTH ADDITIONS
+  STARTER BUSINESS TYPES: prepared-food stall or takeaway counter; small
+  neighborhood grocery; clothing and accessories stall; tailoring; barber or
+  salon; phone accessories and airtime/data retail (fictionalized); printing
+  and cyber-style computer service; freelance digital studio; photo/video
+  service; delivery service; car wash or basic vehicle service; small event or
+  music promotion venture; braised-fish (poisson braise) stand; MoMo-style
+  agent kiosk (fictionalized).
+  BUSINESS LOOP: choose idea -> research the area -> stall or rented premises
+  -> source stock or tools -> set prices -> open -> serve demand -> pay costs
+  -> review results -> reinvest, hire or change strategy.
+  KEY ATTRIBUTES: location and foot traffic, rent and upkeep, inventory
+  quantity/quality/cost, selling price and margin, customer satisfaction,
+  reputation, opening hours, staff skill and reliability, competitor density,
+  seasonal and event demand, owner time and fatigue.
+  SUPPLY: suppliers differ in cost, quality, delivery time and reliability;
+  market sourcing involves price negotiation; stockouts lose sales but are
+  not catastrophic; perishables expire in a simple, forgiving way; later
+  unlocks: bulk orders, delivery contracts, multi-location management.
+  EMPLOYEES: hire NPCs, cover shifts, pay wages, train skills, assign
+  responsibilities. Employees have morale, skill and reliability. Poor
+  management affects reputation and relationships (never played as an
+  abusive joke).
+  EXPANSION: second location, branding and shop decor, marketing campaigns via
+  the in-game social feed, partnerships with event organizers or other
+  businesses, wholesale and delivery, customer loyalty and regular clients,
+  customer reviews, savings goals and business loans with transparent
+  consequences and no predatory dark patterns.
+
+6.10 NJANGI / TONTINE (SIGNATURE SYSTEM)
+  - Join or create a group (friends, coworkers, family). Fixed contribution
+    and cadence. Each cycle one member receives the pot.
+  - Decisions: pick your turn (early = need cash, late = safer), cover a
+    missed contribution, trust members, set rules and penalties.
+  - Risks: a defaulting member, a fraudulent organizer, a delayed payout.
+    The game teaches how to spot scams without offering how-to for fraud.
+  - Variants: emergency fund, school-fees fund, project/business fund,
+    digital tontine apps (with risks).
+  - Reputation: reliability affects invitations and credit access.
+  - v2: real friends join the same njangi via Supabase.
+
+6.11 RELATIONSHIPS AND FAMILY
+  People: family, friends, partners, neighbors, colleagues, business
+  partners, customers, rivals, mentors.
+  Relationships are not simple meters. Model hidden and visible dimensions:
+  trust, affection, respect, compatibility, shared experiences, financial
+  strain, time spent, promises kept or broken.
+  Examples: cancel plans repeatedly and someone drifts away; help a friend
+  prepare for an event and they remember; study buddies become business
+  partners; a friendship group splits when two members dislike each other.
+  Romance: dating, commitment, moving in, marriage, children (all optional,
+  all with real costs and decisions).
+  Family life: visits, birthdays, weddings, funerals (deuil), baptisms, bride
+  price, financial support for relatives, caregiving, parenting, household
+  management. Saying yes drains savings, saying no costs mood and reputation.
+  Neither a career-first nor family-first life is "wrong".
+
+[v1.1] RELATIONSHIP STAGES AND RULES
+  Stages: stranger, acquaintance, friend, close friend, colleague, business
+  contact, rival, dating partner, long-term partner.
+  Actions: greet, chat, help, study together, invite out, give a gift, work
+  together, apologize, set boundaries, attend someone's event, keep or break a
+  promise (or repeatedly ignore commitments).
+  Rules:
+  - One gift never instantly unlocks a deep relationship. Changes are gradual
+    and always give feedback.
+  - NPC memory is bounded: store meaningful facts only (promise kept/broken,
+    helped in a real problem, hired/fired, attended a birthday, graduation,
+    wedding or show), not full conversation transcripts.
+  - Romance is adults only, optional, non-explicit and can be turned off. A
+    refusal is always a valid outcome. No stalking or coercion mechanics.
+  - Children and parenting are a later, carefully scoped feature (care,
+    schedules, school routines, costs, celebrations).
+  - NPC recommendations teach players about new vendors and places.
+
+6.12 DAILY ACTIVITIES
+  At home: sleep, cook, eat, shower, clean, TV, internet, study, decorate,
+  charge the phone, manage power cuts.
+  Around the city: shop, eat out (ndole, eru, koki, soya, poisson braise,
+  beignets-haricots, achu), visit friends, gym, explore, attend events, meet
+  people, run errands, queue (banks, offices, MoMo).
+  Personal development: study, practice, work out, learn skills, hobbies.
+  Entertainment: football, music, lounges, bars, concerts, matches, dancing.
+  Social: chat, call, plan, celebrate, organize gatherings, attend weddings.
+  Design rule: the activity system is modular. An activity is a data entry
+  (requirements, time, cost, effects, animations, outcomes), so we can add
+  hundreds over time.
+
+[v1.1] EXPANDED ACTIVITY CATALOGUE
+  FOOD AND SHOPPING: buy from street vendors, snack stalls, small restaurants
+  and cafes; compare price, freshness, quantity and convenience; bargain where
+  it fits; buy clothes, shoes, bags, accessories, phones and furniture; get
+  clothes altered; learn recipes; attend restaurant promotions and food events.
+  HEALTH AND FITNESS: gym, jogging or scenic walks, informal football, training
+  for a match, resting, a simplified clinic or pharmacy visit, wellness and
+  community fitness sessions. Health is non-graphic and gives no real
+  medical advice.
+  SPORT: casual football on a pitch, watching a local club or national-team
+  match as an event, neighborhood tournaments, basketball, running groups,
+  stamina/coordination training. Competitive leagues come later.
+  MUSIC AND CREATIVITY: live performances, rehearsals, karaoke, dance
+  sessions, practicing singing or an instrument, making beats and recording
+  tracks in an abstract studio interface, shooting short videos and photos,
+  building a portfolio or fanbase, art/design/photo/craft exhibitions,
+  promoting a show or booking a venue. Use original or licensed music only.
+  Bikutsi and other Cameroonian genres are represented after cultural
+  consultation, never reduced to one genre.
+  LEARNING: classes, workshops, library or campus study, skill challenges,
+  enrollment and exam deadlines, study groups, career fairs and networking
+  sessions, courses that unlock skills.
+  NIGHTLIFE AND LEISURE: lounge or music venue, dancing, karaoke, restaurant
+  with friends, watching a match with a group, comedy night, open mic, talent
+  show, night walks in safe authored spaces. Risk and closing times exist, but
+  not every street at night is dangerous.
+  PERSONAL STYLE: browse boutiques, tailors, footwear and accessories; mix
+  outfits for casual, professional, sport, celebration and nightlife
+  contexts; build a style reputation without making fashion mandatory; outfit
+  presets for fast changes on mobile.
+  SOCIAL: meet friends at food spots, casual walk invitations, non-explicit
+  dates for adults, study groups, work meetups, birthdays, graduations,
+  weddings and family gatherings, apologizing and resolving misunderstandings,
+  helping a friend with a practical task, meeting neighbors and building a
+  neighborhood reputation.
+  HOME: sleep or nap, shower, change clothes, cook, eat leftovers, tidy,
+  decorate and rearrange, store items, host gatherings, work or study from
+  home, manage utilities and repairs, (later) care for a pet.
+
+[v1.1] PERSONAL MILESTONES (celebrated moments, not requirements)
+  First salary; first own room or apartment; first client; first business
+  sale; first 100,000 FCFA saved; first million FCFA (adjustable game
+  milestones, not a claim about real cost of living); first promotion; first
+  concert or performance; first customer review; first close friendship;
+  graduation; owning a vehicle, business premises or second property; (later,
+  optional, non-explicit) engagement, marriage or child milestones.
+
+6.13 THE IN-GAME PHONE (PRIMARY UI)
+  The phone is the bridge between the city and the simulation. It is a
+  React-driven overlay on top of the 3D scene. Airtime and data credit are
+  real in-game resources (running out has consequences).
+
+  APP               FUNCTION
+  Contacts          Call and message characters.
+  Social Feed       Fictional local social platform: posts, trends, events,
+                    reactions, your content; viral moments.
+  Jobs              Search work and freelance opportunities, applications.
+  Marketplace       Buy/sell goods, second-hand phones, ingredients, scams.
+  Banking           Balances, transfers, history, loans.
+  Mobile Money      Fictional MoMo-style wallet: send, withdraw at agents,
+                    fees, failures, fraud attempts (fictional brand names).
+  Maps              Discover destinations, navigate, see traffic and events.
+  Transport         Find taxis/motos, price and wait time.
+  Calendar          Appointments, birthdays, njangi dates, events.
+  Property          Rooms, apartments, shops, land; viewings.
+  Music             Artists, tracks, concerts.
+  Business Manager  Revenue, employees, inventory, performance.
+  Notes/Goals       Active goals and obligations.
+  Camera/Gallery    Photos for the feed (cosmetic, light).
+  Rule: use fictional brand names for banks, telcos and apps to avoid
+  trademark and endorsement issues; optional licensed branded content later.
+
+[v1.1] PHONE ADDITIONS
+  MESSAGES: job replies, reminders, invitations, orders, event announcements
+  and friend messages; dialogue branches depend on relationship state.
+  NEWS: fictional city headlines (market openings, tournaments, weather,
+  careers, big in-game events). No real-world news without an editorial and
+  safety policy.
+  PHOTOS / GALLERY: take in-game photos, keep favorites, share through the
+  game's social features when enabled.
+  MUSIC / EVENTS: venue schedules, artists, auditions, tickets.
+  CONTACTS: relationship summary and a quick invite/message action.
+  CALENDAR: shifts, appointments, birthdays, event dates, course deadlines,
+  rent and njangi dates, weather alternatives.
+  PHONE RULES
+  - Important events, expenses and appointment changes get clear
+    notifications; notification volume can be reduced or turned off.
+  - NO FOMO: no daily-login punishments, no streak loss, no countdown timers
+    that penalize not playing, no pay-to-skip basic needs.
+  - Players can mute NPCs, hide the phone overlay and play immersively.
+  - Optional safety rule: movement is disabled while the phone is open so
+    characters do not walk into traffic.
+
+6.14 EVENTS AND THE CITY CALENDAR
+  A. WEEKLY: local football matches, weekend concerts, market promotions,
+     community sports, networking, university activities, restaurant promos,
+     nightlife, business fairs, njangi sittings.
+  B. SEASONAL AND CULTURAL: New Year, Valentine's Day, Youth Day (Feb 11),
+     International Women's Day (Mar 8), Labour Day (May 1), National Day
+     (May 20), Christmas, back-to-school (rentree), exam periods, festivals,
+     community and cultural celebrations. Cultural events are written with
+     local reviewers, not used as decoration. National vs Yaounde-specific vs
+     community-specific events are tagged separately.
+  C. RANDOM EVENTS (decision + consequence, not just good/bad):
+     - Unexpected opportunity: a diner needs a website developer.
+     - A friend needs help preparing for an event.
+     - A shop is closing and the owner wants someone to take over.
+     - Unexpected expense: phone breaks, bike needs repair.
+     - Viral moment: your funny video blows up.
+     - Police checkpoint, taxi strike, fuel price hike, flood, pickpocket,
+       sick relative, surprise windfall, power cut during an exam or a sale.
+  D. CITY-WIDE STATE (live ops): a daily "world state" row decides strikes,
+     fuel price, planned/unplanned outages by quartier, weather and match
+     days, so players feel one shared city at near-zero cost.
+
+[v1.1] EVENT SYSTEM DESIGN (content-level, not tech)
+  Every event is a content record with: ID and localized title/description;
+  type (public holiday, cultural, sport, music, market, university, social,
+  weather, career, business, random encounter); date/time and recurrence;
+  venue and district; eligibility; cost or free entry; reward and
+  consequences; NPCs involved; indoor/outdoor state and a WET-WEATHER
+  ALTERNATIVE; whether it is real-world inspired or purely fictional; for real
+  events a source, confirmed date and venue, reviewer and expiry/recheck date.
+  A designer can add a new festival or tournament without new game code.
+  RULE: never present a fictional game event as an officially confirmed
+  real-world event. If a real event's year/venue is not verified, use a clearly
+  fictional in-game event.
+
+[v1.1] FIXED-DATE EVENT ANCHORS (framed with respect)
+  JAN 1  NEW YEAR: neighborhood gatherings, family meals, venue parties, new
+         goals and new-year job openings.
+  FEB 11 YOUTH DAY: school and youth-group activities, performances, sports
+         matches, volunteering. Community participation, not compulsory
+         messaging.
+  MAR 8  INTERNATIONAL WOMEN'S DAY: public parade and gatherings on Boulevard
+         du 20 Mai, workshops, professional and community events, personal
+         storylines, optional themed clothing. Not reduced to buying an outfit
+         or taking a selfie.
+  MAY 1  LABOUR DAY: workplace gatherings, community events, work stories,
+         special schedules. Not everyone attends.
+  MAY 20 NATIONAL DAY: civic ceremonies, public gatherings, family and social
+         visits, optional photography missions. Symbolism sourced and reviewed.
+  CHRISTIAN OBSERVANCES (Christmas, Good Friday, Easter, Ascension, Assumption,
+  All Saints) and MUSLIM OBSERVANCES (Ramadan, Eid al-Fitr, Eid al-Adha):
+  optional, opt-in participation (visits, meals, greetings, changed NPC
+  schedules), verified year calendar (lunar dates shift). Never assume every
+  character shares a religion. Fasting is NEVER a punitive needs drain.
+  CULTURAL DAYS: music festival, crafts market or showcase as fictional
+  recurring events unless a real named festival is verified for that year and
+  place.
+
+[v1.1] MORE WEEKLY AND ROUTINE EVENTS
+  Weekend football match or neighborhood tournament; market promotion or
+  supplier arrival; university club activity, orientation, exams, graduation;
+  live music, open mic, karaoke; job fair, freelance networking, small-
+  business meetup; restaurant menu event or opening celebration; community
+  cleanup or volunteer activity; charity or community support; family
+  gathering or birthday; wedding invitation with guest preparation; new shop
+  opening or renovation; outdoor exercise group; student study group;
+  fashion/tailoring showcase; photography walk or scenic outing.
+
+[v1.1] MORE RANDOM ENCOUNTERS (each needs real choices and understandable
+  consequences; random events never chain expensive disasters)
+  - A nearby business owner wants a poster or digital service (potential
+    client).
+  - An employer offers overtime: income vs personal time.
+  - A supplier offers discounted stock for a limited window.
+  - A customer leaves a positive review after good service.
+  - Delayed taxi: wait, pay for another route, or notify someone.
+  - Heavy rain changes a market street and pushes an indoor plan.
+  - A musician wants a collaborator for a small show.
+  - A university club advertises a tournament or exhibition.
+  - A landlord offers a different room or a lease negotiation.
+  - A social post attracts unexpected attention and new contacts.
+  - A vehicle repair: fix now or cheaper later appointment.
+  - A neighbor offers a cooking lesson or asks to borrow something.
+  - A customer wants a custom order: higher profit, tough deadline.
+  - A family member asks for practical help: you choose time or money.
+
+[v1.1] EVENT REWARDS
+  Not every event pays money. Rewards mix: money or discounts, skills or
+  reputation, relationship progress, new contacts, job or business
+  opportunities, cosmetic items or outfits, photos/memories/achievements, and
+  access to venues or follow-up activities. Some events are only about
+  connection or a memorable story.
+
+6.15 TRANSPORT
+  - Options: walk, shared taxi, private taxi ("depot"), moto-taxi, own moto,
+    own car (later), later extras.
+  - Choices: cost vs speed vs safety vs comfort. Moto is fast and risky; taxi
+    is cheap but slow in traffic; walking is free but tiring and weather
+    dependent.
+  - Variation: traffic by district and time; rain slows everything; events
+    crowd areas; strikes remove options. Leave early for appointments.
+  - Ownership: fuel, repairs, insurance/fines, theft risk.
+  - Work in transport; build a transport company (late game).
+  - MVP: walk, shared taxi, moto. Driving is abstracted into a short
+    "ride" sequence, not full vehicle physics.
+
+[v1.1] TRANSPORT FLOW AND RULES
+  SHARED TAXI FLOW: reach a pickup point -> a taxi stops or is offered ->
+  choose destination or route -> FARE AND ESTIMATED TIME ARE SHOWN BEFORE YOU
+  COMMIT -> accept, wait for a cheaper/faster option, or walk -> short in-
+  vehicle moment or transition -> arrival updates time, money and any
+  appointment.
+  OPTIONS: walk (slopes, crossings, shortcuts), shared taxi (shared with
+  NPCs), private/contract taxi (pricier, more direct), moto-taxi (fast on
+  selected routes, safety framing, risk), later own moto/car.
+  RULES
+  - Time-of-day demand at junctions, markets, schools and work corridors.
+  - Rain slows certain trips, but must not randomly punish every trip.
+  - Route trade-offs: faster but costly, walkable but steep, cheaper but with
+    waiting and extra stops.
+  - NPCs can be late because of traffic, and the player gets enough info to
+    plan ahead.
+  - After a route is learned, offer FAST TRAVEL / skip for routine commutes.
+  - Traffic is not only chaos: show normal flow, careful driving, waiting and
+    pedestrian crossings. Weaving through crowds is never the optimal play.
+  - Delivery and pickup missions with route planning come later, with vehicle
+    ownership (fuel, maintenance, repairs, parking, insurance-style costs).
+
+6.16 HOUSING AND PROPERTY
+  Stage 1: basic room (shared compound, shared water/toilet).
+  Stage 2: better rented room or studio.
+  Stage 3: independent apartment, furnish and personalize.
+  Stage 4: buy land/house; build in stages as money allows.
+  Stage 5: property investment: rent to NPCs, maintain, handle tenants.
+  Business premises: shop, restaurant, office, studio.
+  Interior customization: furniture, colors, electronics, decor, generator or
+  solar, water tank. Home quality affects sleep, mood, health, social events.
+  Invite friends over to something you spent weeks building toward.
+
+[v1.1] RENTING AND LEASING DETAILS
+  - Property listings show rent, deposit, included utilities, room count,
+    furnishing, commute estimate and landlord/tenant rules.
+  - Players can negotiate some terms and improve the premises over time.
+  - Lease dates and recurring costs are always clear.
+  - Missing a payment triggers a WARNING AND A RECOVERY ROUTE before any forced
+    move. Never a soft lock.
+  - Conversations about deposits and housing conditions are written only after
+    local review of rental-market practice.
+  - Later property ownership: cash or mortgage-like purchase, repairs, rent
+    receipts, tenant relationships, vacancies and upgrades, using simple
+    fictional rules (no legal advice).
+
+6.17 ENTERTAINMENT AND HOBBIES
+  Football with friends, watching matches, gym, dance, karaoke, music
+  production, photography, gaming, cooking, reading, exploring, concerts,
+  restaurants, fashion collecting, clubs and community groups.
+  Each hobby feeds multiple systems (mood, skills, social network,
+  reputation, opportunities). Example: regular football improves fitness and
+  builds friendships; music production can unlock paid gigs.
+
+6.18 NPC LIFE, PERSONALITY AND DIALOGUE
+  - Hundreds of citizens exist, simulated at different levels of detail:
+      HIGH   nearby NPCs: full schedules, pathing, conversations.
+      MEDIUM  district NPCs: schedules as time-slot states.
+      LOW    city-wide NPCs: statistical simulation (jobs, relationships,
+             money) resolved at day boundaries.
+  - Each NPC has traits (ambitious, shy, outgoing, generous, competitive...),
+    routine, responsibilities, goals, relationships and a small memory of
+    important interactions with the player.
+  - Schedules: student (class, study, friends), shopkeeper (open, serve, buy
+    stock), musician (rehearse, create, perform).
+  - Social graph effects: you can befriend two rivals; hiring someone may
+    create a partner; reputation changes which opportunities appear.
+  - Dialogue stack: (1) handcrafted key scenes, (2) templated/procedural lines
+    with traits and context for variety, (3) OPTIONAL LLM-powered chat later.
+    The base game MUST work with no external AI API and no per-play cost.
+
+6.19 A LIVING CITY: TIME, WEATHER, POWER CUTS
+  - Day/night: shops open/close, crowds shift, safety changes.
+  - Weather: sun, clouds, rain, floods in low areas; affects travel, moods,
+    prices and activities.
+  - Delestage: per-quartier reliability. Outages spoil food, kill shop
+    income, hurt sleep, force choices (candles, generator, ice, cybercafe,
+    power bank). Scheduled and surprise outages are published in the city
+    world state and on the Maps/Notes apps.
+  - Dynamic demand: umbrellas and plastic stools sell more in rain; phone
+    credit spikes at month end; football match nights boost bars and grilled
+    fish.
+  - Neighborhood activity: busy hours, market peaks, church/mosque times.
+
+6.20 GOALS, QUESTS AND ACHIEVEMENTS
+  PERSONAL: save your first 100,000 FCFA; get a first job; make five friends;
+    move into your own place; learn a skill; buy a vehicle.
+  CAREER: ten freelance projects; get promoted; open a business; earn a
+    first million FCFA; hire an employee; open a second location.
+  LIFE: become a known musician; own several profitable businesses; build a
+    property portfolio; found a creative agency; complete your education;
+    start a family; become a respected community member; survive a rainy
+    season; win your njangi round without a default.
+  Goals are milestones, not the only definition of success. Peaceful lives
+  have meaningful progression. Hidden achievements reward unusual combos.
+  A "goals board" on the phone suggests directions without forcing them.
+
+6.21 MULTIPLAYER PATH
+  - v1.0 is single-player with a shared "city world state" (asynchronous
+    flavor). The architecture is multiplayer-ready (stable IDs, server-owned
+    economy rules, event logs).
+  - v2: see friends in your district (presence), shared njangi, visit homes
+    and shops, player-owned businesses listed in the marketplace, trade,
+    co-op events, leaderboards.
+  - Needs before any shared world: moderation, reporting, anti-cheat, server
+    authoritative economy, and a Supabase Pro plan sized for concurrency.
+
+6.22 LANGUAGE AND TONE
+  English and French at launch (Cameroon is bilingual), with an optional
+  Camfranglais flavor layer. All strings live in i18n files from day one.
+  Cameroonian writers review slang, humor and cultural content. Tone: warm,
+  witty, communal, never mocking. Voice acting optional later; ambient local
+  music and sound design are high priority and tightly compressed.
+
+6.23 FAIRNESS, RECOVERY AND PLAY-STYLE OPTIONS  [v1.1]
+  - Players can change career direction without losing all progress. No
+    mandatory path.
+  - LOW CASH IS A TRADE-OFF, NOT A DEAD END. Recovery tools: cheap activities,
+    small gigs, job applications, legitimate help from trusted contacts or
+    family, selling owned items, cutting expenses, njangi advance, a day off.
+  - No permanent soft locks from rent, food or utilities.
+  - A missed event gives an understandable consequence and never erases a
+    story arc.
+  - Death, homelessness, serious illness and family crises are sensitive: not
+    random shock mechanics, non-graphic and recoverable.
+  - Play-style options: sandbox / relaxed needs, skip routine commutes, simplified
+    "work the shift", pause time in menus, adjustable event and notification
+    frequency, text-only dialogue, accessibility presets.
+  - Always have 2+ useful things to do within two minutes of entering the world.
+
+6.24 STARTER STORY CHAINS AND QUEST RULES  [v1.1]
+  STORY A - FIRST DAYS IN YAOUNDE: find a room, learn transport choices, buy
+    food, find a first income source. Teaches movement, needs, phone and money
+    without a long unskippable tutorial.
+  STORY B - FIRST JOB / FIRST CLIENT: apply for work or take a small digital or
+    retail gig; learn skills, schedules, pay and customer feedback. Declining
+    is allowed and leads to other routes.
+  STORY C - THE NEIGHBORHOOD CONNECTION: meet several NPCs on a market street,
+    run optional errands, attend a gathering, see how choices affect
+    relationships and later opportunities.
+  STORY D - THE SMALL BUSINESS CHOICE: a market contact offers a limited set of
+    goods to sell; pick a product, judge demand, set a price, review results.
+  STORY E - THE CITY EVENT: see an announcement, choose how to travel, make
+    time for it, and meet someone who opens a new career or friendship branch.
+  MORE CHAINS (ours): STORY F - THE NJANGI INVITATION (join your first group,
+    pick your turn, handle a missed contribution); STORY G - THE LONG WEEK OF
+    POWER CUTS (delestage shapes a work, study and shopping week); STORY H -
+    THE CONCOURS SEASON (prepare, pay fees, travel, wait for results).
+  QUEST TYPES: tutorial/discovery, job or career task, business objective,
+  relationship request, shopping errand, event attendance, skill challenge,
+  housing upgrade, community task, landmark exploration.
+  QUEST QUALITY RULES: goal, location and likely reward are readable; most
+  optional tasks can be deferred or abandoned; no hidden timing precision
+  without warning; failures explain why and suggest recovery; major choices
+  have visible consequences; nothing requires real-money spending.
+
+6.25 FIRST 10 MINUTES (ONBOARDING FLOW)  [v1.1]
+  1. Short landing screen: "3D life simulator set in Yaounde" with a quick
+     preview, not a wall of text. Try-first flow if possible.
+  2. Choose language and basic accessibility settings.
+  3. Create a character and pick a background.
+  4. Wake up in the starter room; three OPTIONAL goals appear.
+  5. Explore one nearby street, buy or receive food, meet an NPC.
+  6. Find a small gig or job and earn the first money (target: first meaningful
+     reward in 5-10 minutes).
+  7. A phone message or event invitation shows the social/event system.
+  8. Autosave happens and the player sees how to resume.
+  Target: most players finish the first guided activity without outside help.
+  An in-game glossary explains local terms (njangi, delestage, bendskin,
+  poisson braise, etc.) so players who are not Cameroonian are never lost.
+
+6.26 CULTURAL RESPECT, CONTENT RULES AND VALIDATION  [v1.1]
+  CONTENT LABELS: every piece of local content is tagged VERIFIED (has a
+  source), DESIGN INTERPRETATION (inspired by fact, simplified for play) or
+  REQUIRES LOCAL VALIDATION (prices, slang, hours, routines).
+  RULES
+  - Yaounde is diverse: no single language, ethnicity, religion, class or
+    lifestyle represents the city. Cast characters of varied ages, regions,
+    jobs, beliefs and family situations.
+  - Local expressions and multilingual dialogue only after review by fluent
+    local speakers; no random slang sprinkled in to "sound African".
+  - Weddings, funerals, religious gatherings and family support are treated as
+    meaningful stories, not cheap spectacle.
+  - Corruption, bribery and unsafe transport are risks the game can show,
+    never the default way to succeed.
+  - Hardship is not a joke; players are never punished for not logging in.
+  - No real people (living or identifiable) as NPCs without informed
+    permission. No identifiable private vendors reproduced without consent.
+  - Clothing, hairstyles, music and food are not used as "costume gags".
+  VALIDATION PLAN (content, not code)
+  - Small paid local advisory panel of residents (different ages, jobs,
+    districts, genders, backgrounds) to review dialogue, holidays, markets,
+    clothes, food, neighborhood portrayal and story outcomes. One reviewer is
+    never treated as a spokesperson for everyone.
+  - Short paid interviews: students, vendors, taxi riders and drivers, service
+    workers, small-business owners, renters, creatives, parents, sports
+    participants.
+  - Playtests in Yaounde on real phones; reviewers mark inaccurate details
+    directly on screenshots; in-game "report inaccurate or offensive local
+    content" button.
+  - Event records for real events carry a source, reviewer and recheck date.
+
+6.27 EXPLORATION, LANDMARKS AND PHOTO MOMENTS  [v1.1]
+  - Public landmarks (stylized) give players reasons to wander: viewpoints,
+    monuments, parks, lakes and food spots.
+  - Photo mode and Photos app: take pictures of friends, food, landmarks and
+    events; photo missions on days like National Day and Women's Day when
+    appropriate; share selected shots when social features are on.
+  - Quiet-date and walk spots (Mont Febe, Lac Municipal) contrast with busy
+    markets.
+  - Discovery log: districts, landmarks, vendors found via NPC tips,
+    recipes learned, events attended.
+
+--------------------------------------------------------------------------------
+7. ART DIRECTION (3D)
+--------------------------------------------------------------------------------
+STYLE: stylized low-poly 3D with a warm, saturated palette, soft toon or
+lightly shaded materials, strong silhouettes and readable signage. Think
+"colorful neighborhood diorama", not photorealism. Reasons: it reads well on
+small screens, compresses well, runs on cheap phones and ages gracefully.
+
+KEY ELEMENTS
+  - Modular building kit: concrete block houses, corrugated roofs, shopfronts
+    with hand-painted signs, compound walls, satellite dishes, water tanks,
+    red-earth roads, hills and greenery, power lines and poles.
+  - Street life: yellow shared taxis, motos, market stalls, umbrellas,
+    plastic stools, braising grills, phone-credit stands, billboards.
+  - Characters: stylized, expressive, modular (body + head + hair + outfit).
+    Skin-tone and hair variety is a first-class requirement. 2 LOD levels,
+    billboard impostors for distant crowds.
+  - Lighting: baked ambient/occlusion plus one directional light. Day/night
+    and weather by color grading, fog and sky gradients, not by many dynamic
+    lights. Real-time shadows only on Mid/High tiers.
+  - UI: phone-style overlay with a coherent local visual language (colors,
+    patterns, type) so the interface itself feels Cameroonian.
+  - Audio: tightly compressed ambient city loops per district, taxi horns,
+    market noise, rain, generator hum, local-inspired music (licensed or
+    original; no copyrighted tracks).
+
+CHARACTER CREATOR: face/hair/outfit sliders and presets; cosmetic items are
+the primary monetization surface later.
+
+--------------------------------------------------------------------------------
+8. TECHNICAL ARCHITECTURE
+--------------------------------------------------------------------------------
+8.1 PRINCIPLES
+  1. SIMULATION IS SEPARATE FROM RENDERING. A headless TypeScript "sim core"
+     owns time, needs, economy, NPCs, events, relationships and njangi. The
+     3D layer only visualizes state. This keeps 3D optional/swappable (see
+     fallback in 8.2), makes testing easy, and prepares for multiplayer.
+  2. LOCAL-FIRST. Play never blocks on the network. Saves go to IndexedDB
+     first, then sync to Supabase.
+  3. DATA-DRIVEN. Careers, activities, events, items, prices, dialogue and
+     NPC archetypes are JSON/YAML content packs validated by schema.
+  4. QUALITY TIERS from day one (Low/Mid/High) with auto-detect.
+  5. BUDGETS ARE ENFORCED IN CI (bundle size, asset size, draw calls).
+
+8.2 ENGINE DECISION
+  RECOMMENDED: Three.js + React Three Fiber (+ drei) + TypeScript + Vite.
+    + Smallest core (~168 kB gzipped), biggest ecosystem and talent pool,
+      MIT license, active WebGPU path, great with React for the phone UI.
+    + Fine-grained control over what we load and render (vital on low-end).
+    - It is a rendering library, not a game engine: we assemble physics,
+      pathfinding, audio, animation state machines, scene streaming.
+  ALTERNATIVES
+    PlayCanvas: Unity-like cloud editor, WebGL2-first, mobile-optimized, MIT
+      engine. Strong if the team is editor-driven. Downside: tooling tied to
+      its cloud editor, smaller community.
+    Babylon.js: batteries included (physics, audio, editor, XR), strong
+      tooling, Babylon 9.0 (Mar 2026). Heavier bundle; more to ship by default.
+    Unity WebGL: not recommended (large downloads, slow startup, weak mobile
+      browser performance).
+  PHASE 0 BAKE-OFF (1 week): build the same test scene (one market chunk,
+    one animated character, 25 NPCs, day/night) in Three.js and one
+    alternative; measure load size, FPS, memory, and dev speed on real phones.
+  FALLBACK PLAN: if Low-tier budgets cannot be met in full 3D, render the same
+    sim as stylized 2.5D (pre-rendered or orthographic low-poly) without
+    rewriting game logic.
+
+8.3 3D PERFORMANCE BUDGETS (initial targets; validate in Phase 0)
+  TIER   TARGET DEVICE          TRIANGLES  DRAW CALLS  TEXTURES   SHADOWS
+  Low    3 GB RAM Android        <= 100k    <= 120      <= 1024px  baked/blob
+  Mid    4-6 GB RAM Android      <= 250k    <= 200      <= 2048px  1 cascade
+  High   desktop / recent iOS    <= 500k    <= 300      <= 2048px  full + SSAO-lite
+  - Render scale 0.7-1.0 by tier; device pixel ratio capped (e.g. 1.5).
+  - FPS target: Low 30, Mid 45-60, High 60. Dynamic resolution if FPS drops.
+  - Instancing for repeated props; merged static geometry per chunk.
+  - Frustum + distance culling; NPC LOD with billboard impostors.
+  - Animated NPCs on screen: Low <= 20-25, Mid <= 50, High <= 100.
+  - Post-processing off on Low. Particles minimal. Rain is a cheap overlay.
+  - Auto-detect: short GPU benchmark on first run, user override in settings,
+    "Battery saver / Data saver" mode.
+
+8.4 ASSET PIPELINE AND DATA BUDGETS
+  Blender -> glTF -> gltf-transform (meshopt or Draco, KTX2/Basis textures,
+  texture atlasing, dedupe, prune) -> CDN.
+  Targets: first load <= 6 MB (loading screen shows a 2D/stylized scene
+  immediately), character <= 300 KB, district chunk 1-2 MB, interior 300-600
+  KB, audio Opus <= 64 kbps loops. Total game ~25 MB after all chunks cached.
+  Chunk streaming per district with prefetch of adjacent districts when on
+  Wi-Fi or when data-saver is off. Service worker caches with versioned
+  manifests; players can "download all districts" on Wi-Fi.
+
+8.5 CLIENT ARCHITECTURE
+  Content packs (JSON/YAML, schema-validated)
+        |
+  SIM CORE (TypeScript, runs in a Web Worker): clock, needs, economy, jobs,
+  businesses, NPC LOD simulation (ECS), relationships graph, events engine,
+  njangi, seeded deterministic RNG
+        |  (event bus / state snapshots)
+        +--> RENDER LAYER (React Three Fiber): chunks, characters, camera,
+        |    animation, audio, effects
+        +--> UI LAYER (React): phone apps, menus, dialogue, business manager
+        |
+  PERSISTENCE: IndexedDB (local-first) <-> Supabase sync
+  Libraries (suggested): zustand (UI state), miniplex or bitECS (entities),
+  recast/navmesh library for pathfinding, howler/WebAudio for sound, i18next
+  for strings, zod for content validation, vitest for sim tests.
+  The sim worker keeps the main thread free for rendering on weak phones.
+  Determinism (seeded RNG + versioned rules) enables bug reproduction and
+  server-side validation of economy-critical events.
+
+8.6 SUPABASE (REPLACES THE OTHER AGENT'S NODE + POSTGRES + WEBSOCKET LAYER)
+  - AUTH: anonymous sign-in first (play instantly), then upgrade by linking
+    phone (SMS/WhatsApp OTP via a provider such as Twilio) or email/Google
+    so progress survives device changes. Test per-IP anonymous signup limits
+    (mobile carriers share IPs).
+  - POSTGRES + RLS: user-owned tables locked to auth.uid(); content tables
+    are read-only for clients.
+  - CLOUD SAVE: one compact, versioned, compressed JSONB snapshot per
+    character (target 5-20 KB uncompressed), synced at day change and on
+    close. Conflict rule: newest game_day + version wins, with a recovery
+    backup slot.
+  - EDGE FUNCTIONS: payment webhooks, purchase fulfillment, njangi settlement
+    (v2), economy validation, moderation, daily world-state job.
+  - pg_cron: generate the city WORLD STATE daily (fuel price, strikes,
+    outage schedule by quartier, weather, match days) as one cached row.
+  - REALTIME (v2): Broadcast for ephemeral positions in a district; Presence
+    only for join/leave. Avoid per-frame Presence updates.
+  - STORAGE: avatars/cosmetic packs, optional DLC content packs.
+  - REGION: Supabase has no African region; choose Paris (eu-west-3) or
+    Frankfurt. Expect ~150-250 ms round trips => local-first design.
+  - STATIC ASSETS: serve game bundle and 3D assets from a CDN (Cloudflare
+    Pages/R2 or similar), NOT from Supabase, to protect egress.
+
+  PLAN LIMITS THAT SHAPE THE DESIGN (verify on supabase.com/pricing)
+                              FREE            PRO ($25/mo base)
+  Database                    500 MB          8 GB included
+  Egress                      5 GB            higher, usage-billed
+  Monthly active users        50,000          higher
+  Realtime connections        200             500 (to 10,000 without spend cap)
+  Realtime messages/sec       100             500 (to 2,500 without spend cap)
+  Presence messages/sec       20              50 (to 1,000 without spend cap)
+  Inactivity                  pauses after 1 week   no pause
+  Back-of-envelope: at ~20 KB per save, 500 MB holds ~25,000 saves; 8 GB
+  holds ~400,000. Compress saves and keep history small.
+  Conclusion: Free is fine for prototyping and closed tests; move to PRO
+  before public beta (auto-pause and limits).
+
+8.7 PAYMENTS
+  MTN MoMo and Orange Money through an aggregator (Notch Pay, Campay or
+  Fapshi), webhook -> Edge Function verifies -> writes purchases -> grants
+  item with service role. Card (for diaspora) via a provider available to
+  you. Never trust the client for grants.
+
+8.8 HOSTING, OBSERVABILITY, QA
+  Cloudflare Pages (or similar) + CDN; GitHub Actions CI with size and
+  performance budgets that fail builds; Sentry for errors; PostHog (or own
+  events table) for funnels and retention; feature flags for live ops.
+  Device lab: Tecno (Spark/Camon class), Infinix Hot class, Samsung A-series,
+  an older iPhone, plus network throttling (3G/slow 4G) and CPU throttling.
+
+8.9 SECURITY AND ANTI-CHEAT
+  - Single-player progress is client-simulated for responsiveness.
+  - Anything with real-world value or cross-player impact is server
+    authoritative: purchases, premium items, njangi settlement (v2),
+    leaderboards, player trade (v2).
+  - Ledger table plus deterministic replay or bounds checks validate scores
+    before they reach leaderboards.
+  - Rate limits, input validation, RLS everywhere, secrets only in Edge
+    Functions, dependency pinning (script versions pinned and at least two
+    weeks old).
+
+--------------------------------------------------------------------------------
+9. DATA MODEL (v1 CORE)
+--------------------------------------------------------------------------------
+  profiles(id = auth.uid, display_name, locale, quality_tier, created_at)
+  characters(id, user_id, name, background, appearance jsonb, created_at)
+  saves(character_id, version, game_day, state jsonb (compressed), updated_at)
+  ledger(id, character_id, game_day, kind, amount_fcfa, meta jsonb)
+  businesses(id, character_id, kind, district, state jsonb)           [P1]
+  relationships_snapshot(character_id, npc_id, summary jsonb)         [in save]
+  njangi_groups(id, owner_id, name, contribution_fcfa, cadence_days, status)
+  njangi_members(group_id, character_id, turn_order, paid_cycles, reliability)
+  njangi_rounds(id, group_id, cycle, recipient_id, settled_at)
+  world_state(game_day, fuel_price, weather, strike jsonb, delestage jsonb,
+              events jsonb)
+  content_versions(pack, version, checksum, published_at)
+  content_events(id, locale, conditions jsonb, body jsonb, weight)
+  purchases(id, user_id, provider, reference, amount_xaf, sku, status,
+            created_at)
+  achievements(character_id, achievement_id, unlocked_at)
+  reports(id, user_id, kind, payload jsonb, created_at)
+  NOTE: NPC population and relationships live inside the save snapshot in
+  v1 (client simulated). They move to server tables only for shared-world v2.
+
+--------------------------------------------------------------------------------
+10. MONETIZATION
+--------------------------------------------------------------------------------
+  PRINCIPLES: free to play, no pay-to-win, no loot boxes, no real-money
+  gambling, no manipulative energy walls.
+  OFFERS
+    - MoMo / Orange Money micro-purchases (about 200-2,000 FCFA): cosmetics
+      (outfits, hair, phone skins, home decor), extra character slots,
+      story/chapter packs, supporter pack, optional convenience (limited
+      time skips) that never block free progress.
+    - Diaspora pricing in EUR/USD via card.
+    - Later: opt-in rewarded ads, carrier billing/telco bundle partnership,
+      clearly labeled sponsored in-world content from local brands.
+  Reminder: the other agent suggested a shared economy; any real-money
+  conversion between players is OUT OF SCOPE (legal and fraud risk).
+
+--------------------------------------------------------------------------------
+11. SAFETY, CONTENT, LEGAL AND PRIVACY
+--------------------------------------------------------------------------------
+  - Fictional institutions, brands and parties. No real politicians, parties
+    or living public figures. Sensitive current events (elections, regional
+    conflict) are omitted or clearly fictionalized.
+  - Cultural events and customs are researched and reviewed by Cameroonian
+    writers; avoid ethnic, regional, gender or class stereotypes.
+  - Scams, tontine fraud, bribery and violence appear as risks and
+    consequences, never as how-to guidance. No glorification of crime.
+  - Age rating target: 13+. No explicit content. Romance stays tasteful.
+  - Privacy: collect minimal data; phone numbers only on account upgrade;
+    delete-my-data flow; data-protection compliance in applicable regions.
+  - Moderation and reporting required before any chat, UGC or player trade.
+  - IP: original assets/music or properly licensed; avoid real brand logos
+    and copyrighted songs; use fictional brands for banks/telcos/apps.
+  - Real-world prices and wages are inspirations, not claims.
+
+--------------------------------------------------------------------------------
+12. ROADMAP (assumes a small team of ~3-6; solo = longer; estimates only)
+--------------------------------------------------------------------------------
+  M0  TECH SPIKE ............ 3-4 weeks
+      Engine bake-off, one market chunk, animated character, 25 NPC crowd,
+      quality tiers, device tests, CI budgets, Supabase anonymous auth + save
+      round trip. GO/NO-GO gate on 3D (else 2.5D fallback).
+  M1  VERTICAL SLICE ........ 10-12 weeks
+      Character creator, 3-4 connected locations, needs and day cycle, FCFA
+      economy, market trader + moto-taxi + shop owner + student paths, phone
+      (messages, maps, jobs, mobile wallet), 20-30 events, autosave + cloud.
+  M2  ALPHA ................. 8-10 weeks
+      Njangi, education/Concours, delestage + weather, careers x6, housing
+      1-3, social feed, relationships v1 with NPC memory, EN/FR, closed
+      playtests in Yaounde.
+  M3  BETA .................. 8 weeks
+      Live world state, MoMo purchases, achievements, analytics, business
+      competition, balance pass, move to Supabase Pro, performance pass.
+  M4  1.0 LAUNCH ............ 4-6 weeks + ongoing
+      7-10 districts, 10+ careers, property, hobbies, calendar events,
+      marketing (WhatsApp/TikTok/Facebook/creators), community.
+  M5  2.0 ................... later
+      Friend presence, shared njangi, player shops/trade, Douala.
+  Indicative total to 1.0: roughly 9-12 months for a small team.
+
+--------------------------------------------------------------------------------
+13. RISKS AND MITIGATIONS
+--------------------------------------------------------------------------------
+  RISK                                   MITIGATION
+  3D too heavy for target phones         Phase 0 go/no-go, Low tier, budgets in
+                                         CI, 2.5D fallback on same sim
+  Data cost/poor connectivity            Chunk streaming, aggressive caching,
+                                         data-saver, offline play
+  Scope explosion (huge feature pool)    Phased scope, data-driven modules, each
+                                         system must move a metric
+  Supabase limits/pause on Free          Pro before public beta, CDN for assets,
+                                         compressed saves
+  Latency (no African region)            Local-first, async sync, Paris region
+  Cultural errors/stereotypes            Local writers, playtests, content flags
+  NPC simulation cost                    LOD simulation, worker thread, day-
+                                         boundary resolution for far NPCs
+  Art production bottleneck (3D)         Modular kit, small team of artists,
+                                         asset marketplace/licensed bases,
+                                         stylized low-poly
+  Low payer conversion                   Cheap MoMo SKUs, cosmetics, diaspora
+  Price/wage drift                       Data tables + live-ops updates; verify
+                                         sources (SMIG, fares)
+  Anonymous signup abuse                 Rate-limit tuning, CAPTCHA fallback
+  Fraud around real-money features       No player-to-player cash-out, ledger,
+                                         server authority
+
+--------------------------------------------------------------------------------
+14. MASTER FEATURE BACKLOG WITH PRIORITIES
+--------------------------------------------------------------------------------
+  P0 = MVP, P1 = Alpha/Beta, P2 = 1.0, P3 = 2.0+
+
+  P0  3D character walking in a district chunk, tap-to-move, quality tiers
+  P0  Character creator (basic), 3-4 backgrounds
+  P0  Needs, day/night cycle, FCFA wallet, rent/food/transport costs
+  P0  Market trader, moto-taxi, shop owner, student paths
+  P0  Shared taxi / moto / walk travel
+  P0  Phone: messages, maps, jobs, mobile wallet
+  P0  20-30 events, goals board, autosave + cloud save (anonymous auth)
+  P1  Njangi system
+  P1  Education: GCE/Probatoire/Bac, Concours prep
+  P1  Delestage, rainy season, floods
+  P1  Relationship dimensions + NPC memory, family obligations
+  P1  Business management (stock, staff, pricing), competition
+  P1  Social feed (fictional platform), marketplace, banking
+  P1  Housing stages 1-3, interior customization basics
+  P1  English + French, Camfranglais flavor
+  P1  MoMo/Orange payments for cosmetics
+  P2  More careers (developer, designer, creator, musician, footballer,
+      teacher, nurse, hospitality, civil service)
+  P2  Property ownership and investment, business premises
+  P2  Hobbies (football, music production, photography, cooking, dance)
+  P2  Full cultural/seasonal calendar, city-wide events
+  P2  Achievements and hidden achievements, legacy/play-as-child
+  P2  Optional LLM dialogue (cost-capped, opt-in)
+  P3  Friend presence, shared njangi, player shops/trade
+  P3  Vehicle ownership and fleets, transport company
+  P3  Douala and other cities, native wrapper (Capacitor) for stores
+  P3  Voice acting, licensed local music partnerships
+
+  [v1.1] BACKLOG ADDITIONS FROM THE SECOND AGENT'S PRD
+  P0  Fare-and-time taxi decision screen; fast travel after learning a route
+  P0  Needs tuning rules + relaxed/sandbox needs mode
+  P0  Recovery paths (no soft locks) and rent/bill warnings
+  P0  First-10-minutes onboarding flow and in-game glossary
+  P0  Jobs app with transparent requirements and "why you qualify" feedback
+  P0  Repeatable event templates (15+) with wet-weather alternatives
+  P1  Starter story chains A-H
+  P1  Wallet budgeting: weekly summaries, savings goals, planned vs actual
+  P1  Retail assistant, food service, freelance digital, delivery gigs
+  P1  Supplier choices, perishables, employees' morale, marketing campaigns
+  P1  Relationship stages with refusal, bounded NPC memory
+  P1  News and Photos apps, Messages with branching dialogue
+  P1  Content labels (verified / design / needs validation) + report button
+  P2  Event organizer/promoter, photographer, sales rep, estate agent,
+      peri-urban food-supply careers
+  P2  Landmark exploration + photo missions (Mont Febe, Lac Municipal,
+      Boulevard du 20 Mai, National Museum, Reunification Monument)
+  P2  Religious observance packs (opt-in), Youth Day, Women's Day, Labour Day,
+      National Day event packs
+  P2  Comedy night, open mic, talent show, running groups, basketball
+  P2  Customer reviews, loyalty, business loans with transparent terms
+  P3  Pets; parenting and school-routine gameplay; pet and child care
+  P3  Landlord mode with tenants, vacancies and repairs
+
+--------------------------------------------------------------------------------
+15. DECISIONS NEEDED FROM THE FOUNDER
+--------------------------------------------------------------------------------
+  1. Engine: approve Three.js + R3F as the default and a 1-week bake-off?
+  2. Art: stylized low-poly 3D confirmed? Who makes assets (you, hire, buy
+     base kits)?
+  3. Default language: French first, English first, or auto-detect?
+  4. Tone dial: realistic survival, comedic satire, or a blend?
+  5. Experience target (from the other agent's A/B/C): Realistic life sim,
+     chaotic social sandbox, or the combination (recommended: combination
+     built on a realistic foundation).
+  6. Team and budget: solo, small team, local contractors?
+  7. Platform: PWA only at first, or also store wrapper at launch?
+  8. Real-money rewards for players: recommended NO.
+  9. Game name: keep "Yaounde Life", use "Mboa Life: Yaounde", or brainstorm.
+
+--------------------------------------------------------------------------------
+16. APPENDIX A - WHAT WE ADOPTED, ADJUSTED OR DEFERRED FROM THE OTHER AGENT
+--------------------------------------------------------------------------------
+ADOPTED (great ideas, now in this PRD)
+  - Phone as the main UI with many apps and a fictional social feed.
+  - Five starting backgrounds (Student, Hustler, Graduate, Entrepreneur,
+    Established Citizen), merged with ours.
+  - Business-building depth: hire, expand, competition by price, quality,
+    reputation, location, marketing and satisfaction.
+  - Career progression and skill trees (e.g., Sales -> Negotiation ->
+    Management -> Marketing -> Expansion).
+  - Relationships beyond meters (trust, affection, compatibility, shared
+    experiences, finances, time) and NPCs with their own ambitions.
+  - Family life events (weddings, birthdays, gatherings, support, parenting).
+  - Event calendar in three layers (weekly, seasonal/cultural, random) with
+    consequence-driven scenarios.
+  - Housing stages 1-5 and business premises; interior customization.
+  - Hobbies and entertainment pool; activities that feed several systems.
+  - NPC personalities, schedules and lightweight background simulation.
+  - Dialogue plan: handcrafted + procedural, AI optional later.
+  - Goals in three tiers (personal, career, life) plus hidden achievements.
+  - Multiplayer designed-in, shipped later; phased first playable.
+  - Autosave, responsive UI, touch controls, performance optimization.
+ADJUSTED
+  - Stack: their React + Node + Postgres + WebSockets becomes React +
+    Three.js + Supabase (Auth, Postgres, Realtime, Edge Functions), which
+    removes a custom backend and fits your preference.
+  - 3D: they recommended 2.5D; you chose 3D, so we add quality tiers,
+    chunk streaming, budgets, a Phase 0 go/no-go and a 2.5D fallback.
+  - Districts: kept their list and added Melen/Ngoa-Ekelle/Mvan/Odza etc.,
+    but district facts (e.g., Mvan outage-prone, Mokolo market) tie to our
+    research; district details must be verified with local reviewers.
+  - Mobile Money app: kept, but with fictional branding and in-game rules.
+  - Careers like footballer, musician, developer are P2 because each needs
+    dedicated mini-activities and content.
+DEFERRED OR REJECTED FOR v1
+  - Persistent shared city and player economy (P3, needs moderation,
+    server authority and Pro-scale infra).
+  - Full 3D vehicle driving (abstracted into ride sequences).
+  - LLM dialogue as a requirement (kept optional, cost-capped).
+  - "Chain of shops, fleets, property empires" as day-one content (late game).
+
+--------------------------------------------------------------------------------
+16b. APPENDIX A2 - SECOND AGENT'S PRD (MBOA LIFE) - REVIEW AND MERGE  [v1.1]
+--------------------------------------------------------------------------------
+Scope of review: features, events, scenarios, activities, jobs, game rules.
+Engine, stack and infrastructure choices were intentionally ignored.
+
+ADOPTED INTO THIS PRD (new or strengthened)
+  - Fairness and recovery philosophy: no soft locks, warnings before eviction,
+    recovery routes, no FOMO or login punishments (6.23).
+  - Needs tuning rules and a relaxed/sandbox mode (6.4).
+  - Starter story chains A-E, quest types and quest-quality rules (6.24).
+  - First-10-minutes onboarding flow with first reward in 5-10 minutes (6.25).
+  - In-game glossary for non-Cameroonian players (6.25).
+  - Content labels (verified / design interpretation / needs validation),
+    cultural review panel and a report-inaccurate-content button (6.26).
+  - Jobs app transparency: filters, CV, referrals, interviews, "why you
+    qualify" (6.8).
+  - Work-shift design: short interactive tasks, simplified shift option,
+    overtime, resign/leave, pay as clear transactions (6.8).
+  - Extra career pool: retail, food service, freelance digital, delivery, event
+    promoter, photographer, sales rep, estate agent, tailor/designer, peri-
+    urban food supply (6.8).
+  - Business depth: more starter business types, suppliers with trade-offs,
+    perishables, employee morale, marketing through the feed, loyalty,
+    customer reviews, transparent loans (6.9).
+  - Budgeting tools: summaries, savings goals, reminders, planned vs actual
+    (6.7).
+  - Relationship stages, refusal as a valid outcome, no instant gift unlocks,
+    bounded NPC memory (6.11).
+  - Expanded activity catalogue: sport, music studio, photography, comedy and
+    open mic, personal style, learning, nightlife (6.12).
+  - Personal milestones list (6.12).
+  - Phone additions: News, Photos, Messages with branching, Music/Events with
+    tickets, notification controls, no-FOMO rule (6.13).
+  - Event design: record fields, wet-weather alternatives, real vs fictional
+    events, respectful framing of Youth Day, Women's Day, Labour Day, National
+    Day, religious observances (opt-in, fasting never punitive) (6.14).
+  - Extra weekly events and 14 more random encounters, plus varied rewards
+    (6.14).
+  - Taxi decision flow with fare/time shown first, fast travel, route trade-
+    offs, traffic not only chaos (6.15).
+  - Renting details: listings, deposits, negotiation, lease clarity (6.16).
+  - Extra map anchors and landmarks, hills as a route-choice mechanic,
+    "every district has many realities" rule (6.5).
+  - Exploration and photo moments (6.27).
+
+KEPT FROM OUR PRD BECAUSE THE SECOND PRD LACKS THEM
+  - NJANGI / tontine (signature system) - absent in their PRD.
+  - DELESTAGE / power cuts and generator economy - absent.
+  - Moto-taxi (bendskin) and MoMo-agent careers as launch-era jobs.
+  - Family obligations (money requests, bride price, funerals) with real
+    trade-offs.
+  - Camfranglais flavor layer and a strong street-food/braise culture.
+  - Scams and fraud awareness (fake jobs, fake visa agents, tontine fraud).
+  - Sunday match culture, concours/GCE/Probatoire/Bac exam seasons.
+
+ADJUSTED OR CAUTIONED
+  - Their MVP excludes or limits motorcycle taxis; we keep moto-taxi because it
+    is a defining Yaounde job and transport mode, with safety framing.
+  - Etoudi and other sensitive government areas: public viewpoint only.
+  - Landmark names and events come from public sources they cited (city
+    council, ministries, planning studies); they were not independently
+    re-verified here. Treat as REQUIRES LOCAL VALIDATION.
+  - Their statistics (taxi/walking mode share) are sample-specific; used only
+    as design direction.
+
+NOT ADOPTED (outside the content scope you asked for)
+  - Engine choice (Babylon.js), React/Vite and backend details. Our tech
+    sections (8, 9) are unchanged by this review.
+
+--------------------------------------------------------------------------------
+17. APPENDIX B - MVP ACCEPTANCE CRITERIA
+--------------------------------------------------------------------------------
+  [ ] First load <= 10 s on 4G low-end Android; <= 6 MB before first play.
+  [ ] 30 FPS sustained on target Low-tier device in the busiest market scene.
+  [ ] Anonymous start, play offline for a full in-game week, cloud sync later.
+  [ ] Create a character, pick a background, wake up in a home quartier.
+  [ ] Needs, clock, money, rent and food loop produce meaningful trade-offs.
+  [ ] At least 3 earning paths playable end to end (trade, moto, small shop).
+  [ ] Travel by walk, taxi and moto with distinct cost/time/risk.
+  [ ] Phone works: messages, maps, jobs, wallet.
+  [ ] At least 20 events with consequences; no dead-end states.
+  [ ] A player can reach and feel progress toward at least 3 goals.
+  [ ] Autosave never loses more than one in-game day.
+  [ ] Crash-free sessions >= 99% in a 50-player closed test in Yaounde.
+  [ ] EN/FR strings externalized (FR complete, EN complete for MVP content).
+
+  [v1.1] ADDITIONAL MVP CONTENT TARGETS AND TESTS
+  [ ] 10+ named story/service NPCs with distinct schedules (not one schedule
+      per profession).
+  [ ] 20-40 background crowd characters per busy scene where devices allow.
+  [ ] 15+ repeatable event/encounter templates (social, work, market,
+      weather) with at least 3 recurring event types.
+  [ ] 20-30 reviewed shop items (food, clothing, household, phone, shop goods).
+  [ ] 3 earning paths: entry-level shift, freelance/gig task, small trading.
+  [ ] 1 small business mini-loop: source stock, price, serve, track revenue,
+      restock.
+  [ ] 1 optional starter story chain with multiple acceptable outcomes.
+  [ ] Player can buy food, eat it and see hunger change; sleep and see energy
+      restore while time passes.
+  [ ] Taxi trip works through an explicit fare/time decision.
+  [ ] A job or gig pays exactly once.
+  [ ] A skill grows and visibly unlocks something.
+  [ ] A relationship change from earlier choices shows up later.
+  [ ] A calendar/phone event can be found and attended.
+  [ ] Players can find an enjoyable activity without being forced into career
+      progression.
+  [ ] Players understand the in-game wallet has no real-world value.
+  [ ] Local reviewers understand the first-day loop without coaching.
+
+--------------------------------------------------------------------------------
+18. APPENDIX C - SOURCES CONSULTED
+--------------------------------------------------------------------------------
+  DataReportal Digital 2026: Cameroon; StatCounter (platform and device
+  share, 2026); Supabase documentation (regions, Realtime limits, Auth) and
+  several 2026 pricing guides; Phaser GitHub (engine landscape context);
+  Three.js vs Babylon.js vs PlayCanvas comparisons (2026) and the
+  Cinevva web-game-engines comparison (July 2026 versions); Notch Pay
+  developer docs (MTN/Orange); Business in Cameroon, PocketGamer.biz and
+  ITWeb (Kiro'o Games); Camer.be, AfricArrieres, Cameroon Tribune and travel
+  guides (cost of living, outages, fares, neighborhoods); academic and press
+  sources on njangi/tontine (SAJEMS, AFP). Wage, fare and price figures are
+  indicative secondary-source values and must be verified before use.
+  v1.1 ADDITION: the second agent's PRD cites Yaounde City Council pages,
+  Cameroon's Ministry of Tourism and Leisure (public holidays), government
+  reports on the 2026 Women's Day parade, MobiliseYourCity (mobility hubs), a
+  2022 travel-behavior study (Sustainability), a 2023 CAHF rental-market
+  summary and a weather-statistics site. Those were used only for event and
+  landmark ideas and are NOT independently re-verified in this document.
+
+================================================================================
+END OF DOCUMENT
+================================================================================

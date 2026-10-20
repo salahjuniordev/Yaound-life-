@@ -1,0 +1,20 @@
+
+
+> **Use these three images as the visual references for the playable characters.** Study them before implementing:
+> - `amina_student.png` — young woman student; natural twists, mustard-yellow top, teal trousers, coral-and-white sneakers, notebook and crossbody bag.
+> - `brice_hustler_creative.png` — young man creative hustler; short fade, orange overshirt, cream T-shirt, dark jeans, sling bag/camera.
+> - `marie_trader.png` — adult woman market trader; blue patterned headwrap, coral top, navy wrap skirt, patterned tote and calculator.
+>
+> Create actual **full-body 3D game characters** that closely match the references’ faces, skin tones, hairstyles, body proportions, outfits, signature colors, and friendly expressive feel. Don’t use the PNGs as flat billboards or simply display them in-game: they are visual references, not 3D models.  
+>
+> Keep the characters consistent with the project’s 3D engine and mobile performance targets. Use shared, modular character parts where practical—body, head, hair, clothing, shoes, and accessories—and make the three characters feel like they belong to the same game. Preserve their distinctive silhouettes and outfits, while simplifying geometry and materials as needed for performance. Include a preview or character-select screen if that fits the existing project.  
+>
+> First inspect the existing project structure, engine, and art pipeline. Then implement the characters in the project’s established style and report which assets are real 3D models, which are placeholders, and any remaining steps needed for rigging or animation.
+
+The references were generated as character illustrations, so your agent may need to build or source 3D models from them rather than import them directly as playable characters.
+
+- [Amina reference](amina_student.png)
+- [Brice reference](brice_hustler_creative.png)
+- [Marie reference](marie_trader.png)
+
+The full nine-character cast (adding Michel, Sandra, Pauline, Serge, Esther, and Jean-Claude) is documented in `Yaoundé_Life_—_Expanded_Character_Roster.md` with images alongside it.

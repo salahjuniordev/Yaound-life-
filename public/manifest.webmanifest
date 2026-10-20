@@ -1,0 +1,13 @@
+{
+  "name": "Yaounde Life",
+  "short_name": "Yaounde Life",
+  "description": "A 3D life simulator set in Yaounde, Cameroon",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1a1208",
+  "theme_color": "#1a1208",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
