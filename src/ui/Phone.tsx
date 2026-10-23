@@ -5,6 +5,7 @@ import { BUSINESS_KINDS, MARKETING_CAMPAIGNS, SUPPLIERS } from '../data/business
 import { EXAM_MAP, EXAM_TRACKS } from '../data/education';
 import { HOBBY_DEFS, hobbyProgressFor } from '../data/hobbies';
 import { PREMISES_LEVELS, RENTAL_PROPERTIES } from '../data/properties';
+import { FLEET_RIDERS, FLEET_RIDER_MAP, VEHICLES, VEHICLE_MAP, fleetEstimate, vehicleRepairCost, vehicleResaleValue } from '../data/vehicles';
 import { STORY_CHAINS } from '../data/storyChains';
 import { GLOSSARY } from '../data/glossary';
 import { ACHIEVEMENTS, GOALS } from '../data/goals';
@@ -28,6 +29,7 @@ const APPS: { id: string; name: string; nameFr: string; icon: IconName }[] = [
   { id: 'wallet', name: 'Wallet', nameFr: 'Portefeuille', icon: 'wallet' },
   { id: 'jobs', name: 'Jobs', nameFr: 'Emplois', icon: 'jobs' },
   { id: 'business', name: 'Business', nameFr: 'Business', icon: 'business' },
+  { id: 'garage', name: 'Garage', nameFr: 'Garage', icon: 'garage' },
   { id: 'njangi', name: 'Njangi', nameFr: 'Njangi', icon: 'njangi' },
   { id: 'news', name: 'News', nameFr: 'Actu', icon: 'news' },
   { id: 'social', name: 'Social', nameFr: 'Social', icon: 'social' },
@@ -92,6 +94,7 @@ export function Phone() {
                 {app.id === 'wallet' && <WalletApp />}
                 {app.id === 'jobs' && <JobsApp />}
                 {app.id === 'business' && <BusinessApp />}
+                {app.id === 'garage' && <GarageApp />}
                 {app.id === 'njangi' && <NjangiApp />}
                 {app.id === 'news' && <NewsApp />}
                 {app.id === 'social' && <SocialApp />}
@@ -940,6 +943,143 @@ function BusinessApp() {
           {fr ? 'Ouvrir' : 'Open'}
         </button>
       </div>
+    </div>
+  );
+}
+
+function GarageApp() {
+  const engine = useGame((s) => s.engine)!;
+  useGame((s) => s.version);
+  const s = engine.state;
+  const fr = s.settings.language === 'fr';
+  const d = useGame.getState().dispatch;
+  const balance = s.wallet.cash + s.wallet.momo + s.wallet.bank;
+  const driving = Math.floor(s.player.skills.driving ?? 0);
+  const fleetAssigned = s.vehicles.filter((v) => v.fleetRiderId).length;
+
+  return (
+    <div>
+      <div className="card">
+        <div className="job-title">
+          <Icon name="garage" size={15} /> {fr ? 'Mon garage' : 'My garage'}
+        </div>
+        <div className="muted small">
+          {fr
+            ? `Permis : niveau ${driving} · ${s.vehicles.length} véhicule(s) · ${fleetAssigned} en flotte`
+            : `Driving: level ${driving} · ${s.vehicles.length} vehicle(s) · ${fleetAssigned} in fleet`}
+        </div>
+        <div className="muted small">
+          {fr
+            ? 'Les motos confiées à un chauffeur rapportent chaque jour. Les voitures restent pour tes trajets.'
+            : 'Motos assigned to a rider earn every day. Cars stay for your own trips.'}
+        </div>
+      </div>
+
+      {s.vehicles.length === 0 && (
+        <p className="muted">{fr ? 'Aucun véhicule. Acheter une moto change la façon de travailler et de voyager.' : 'No vehicle yet. Buying a moto changes how you work and travel.'}</p>
+      )}
+
+      {s.vehicles.map((v) => {
+        const def = VEHICLE_MAP[v.modelId];
+        if (!def) return null;
+        const rider = v.fleetRiderId ? FLEET_RIDER_MAP[v.fleetRiderId] : null;
+        const estimate = rider ? fleetEstimate(def, rider, v.condition, s.world.fuelPrice) : null;
+        const refuelCost = Math.max(0, Math.round((def.tankLitres - v.fuel) * s.world.fuelPrice));
+        const repairCost = vehicleRepairCost(def, v.condition);
+        const sellValue = vehicleResaleValue(def, v.condition);
+        return (
+          <div key={v.id} className="card">
+            <div className="job-title">
+              <Icon name={def.kind === 'moto' ? 'moto' : 'car'} size={15} /> {fr ? def.nameFr : def.name}
+            </div>
+            <div className="muted small">
+              {fr ? 'Carburant' : 'Fuel'} {v.fuel.toFixed(1)}/{def.tankLitres} L · {fr ? 'État' : 'Condition'} {Math.round(v.condition)}%
+            </div>
+            <div className="muted small">
+              {fr ? 'Prix neuf' : 'New price'} {def.price.toLocaleString()} F · {fr ? 'Revente' : 'Resale'} {sellValue.toLocaleString()} F
+            </div>
+            <div className="btn-grid">
+              <button
+                className="mini"
+                disabled={v.fuel >= def.tankLitres - 0.05 || balance < refuelCost}
+                onClick={() => d({ type: 'vehicle_refuel', vehicleId: v.id })}
+              >
+                {fr ? 'Plein' : 'Fill tank'} · {refuelCost.toLocaleString()} F
+              </button>
+              <button
+                className="mini"
+                disabled={v.condition >= 99.5 || balance < repairCost}
+                onClick={() => d({ type: 'vehicle_repair', vehicleId: v.id })}
+              >
+                {fr ? 'Réparer' : 'Repair'} · {repairCost.toLocaleString()} F
+              </button>
+              <button className="mini" onClick={() => d({ type: 'vehicle_sell', vehicleId: v.id })}>
+                {fr ? 'Vendre' : 'Sell'} · {sellValue.toLocaleString()} F
+              </button>
+            </div>
+            {def.kind === 'moto' && (
+              <div>
+                <div className="muted small">{fr ? 'Chauffeur de flotte' : 'Fleet rider'}</div>
+                <select
+                  value={v.fleetRiderId ?? ''}
+                  onChange={(e) => d({ type: 'vehicle_assign_rider', vehicleId: v.id, riderId: e.target.value || null })}
+                >
+                  <option value="">{fr ? 'Usage personnel' : 'Personal use'}</option>
+                  {FLEET_RIDERS.map((r) => {
+                    const taken = s.vehicles.some((other) => other.id !== v.id && other.fleetRiderId === r.id);
+                    return (
+                      <option key={r.id} value={r.id} disabled={taken}>
+                        {fr ? r.nameFr : r.name} · {Math.round(r.reliability * 100)}% · {fr ? 'part' : 'cut'} {Math.round(r.cutRate * 100)}%
+                        {taken ? (fr ? ' · déjà pris' : ' · assigned') : ''}
+                      </option>
+                    );
+                  })}
+                </select>
+                {rider && estimate && (
+                  <div className="muted small">
+                    {fr ? 'Net estimé' : 'Estimated net'}: {estimate.net.toLocaleString()} F/{fr ? 'jour' : 'day'} ({fr ? 'brut' : 'gross'}{' '}
+                    {estimate.gross.toLocaleString()} F · {fr ? 'part' : 'cut'} {estimate.riderCut.toLocaleString()} F · {fr ? 'carburant' : 'fuel'}{' '}
+                    {estimate.fuel.toLocaleString()} F · {fr ? 'entretien' : 'upkeep'} {estimate.upkeep.toLocaleString()} F)
+                  </div>
+                )}
+                {rider && (
+                  <div className="muted small">
+                    {fr ? rider.descriptionFr : rider.description}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      <h3>{fr ? 'Acheter un véhicule' : 'Buy a vehicle'}</h3>
+      {VEHICLES.map((def) => {
+        const skillOk = driving >= def.drivingRequirement;
+        return (
+          <div key={def.id} className="card">
+            <div className="job-title">
+              {fr ? def.nameFr : def.name} · {def.price.toLocaleString()} F
+            </div>
+            <div className="muted small">{fr ? def.descriptionFr : def.description}</div>
+            <div className="muted small">
+              {fr ? 'Permis' : 'Driving'} {def.drivingRequirement} · {fr ? 'réservoir' : 'tank'} {def.tankLitres} L · {fr ? 'vitesse' : 'speed'}{' '}
+              {def.speed}
+              {def.kind === 'moto' ? ` · ${fr ? 'flotte possible' : 'fleet ready'}` : ''}
+            </div>
+            <button
+              disabled={!skillOk || balance < def.price}
+              onClick={() => d({ type: 'vehicle_buy', modelId: def.id })}
+            >
+              {!skillOk
+                ? fr ? `Permis niveau ${def.drivingRequirement} requis` : `Driving level ${def.drivingRequirement} required`
+                : balance < def.price
+                  ? fr ? 'Fonds insuffisants' : 'Not enough money'
+                  : fr ? 'Acheter' : 'Buy'}
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }

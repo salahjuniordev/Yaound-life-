@@ -3,7 +3,7 @@
 Persistent status board for the PRD (`Yaounde_Life_Ultimate_PRD_v1.1.txt`).
 Legend: [x] done · [~] partial · [ ] not started · [!] blocked
 
-Last updated: 2026-10-20
+Last updated: 2026-10-23
 
 ## Toolchain / Infrastructure
 - [x] Vite 7 + React 19 + TypeScript project bootstraps, typechecks, builds (`npm run build` → `dist/`)
@@ -11,7 +11,7 @@ Last updated: 2026-10-20
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 117/117 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 126/126 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -88,8 +88,11 @@ Last updated: 2026-10-20
 - [x] Hobbies: football, music, photography, cooking, dance — practice XP with 5 levels, gear purchases (+50% gain), neighbourhood competitions with prizes and cooldowns
 - [x] Cultural calendar: 10 holidays over a 360-day year (Youth Day, Women's Day, Labour Day, National Day, Eid, Christmas…) with HUD badge, morning flavor, festive x1.5 shift pay, parade/feast city events
 - [x] Property ownership/investment: buy your home (stage 4, rent-free), 3 rental properties paying net rent every Sunday, business premises upgrades (demand + rent tiers)
-- [x] Achievements depth: 10 new achievements (6 hidden, masked in Stats until unlocked), work streaks (current + best), milestone list in Journal, 3 legacy goals
-- [ ] Vehicles/fleets, Douala, multiplayer presence, player shops/trade
+- [x] Achievements depth: 12 new achievements (6 hidden, masked in Stats until unlocked), work streaks (current + best), milestone list in Journal, 5 legacy goals
+- [x] Vehicles/fleets: 4 models (2 motos, 2 cars) with fuel, condition, repairs, resale and driving-skill gates; personal driving travel option; Garage app; three moto-fleet riders with daily net income, reliability incidents and wear; own moto removes the daily rental fee from moto runs; 2 goals + 2 achievements (`src/data/vehicles.ts`, `src/ui/Phone.tsx`, `test/vehicles.test.ts`)
+- [ ] Douala expansion
+- [ ] Multiplayer presence
+- [ ] Player-owned shops and player-to-player trade
 
 ## PRD §17 — MVP acceptance criteria
 - [ ] First load ≤ 10 s on 4G low-end Android; ≤ 6 MB before first play — needs device test
@@ -124,7 +127,7 @@ Last updated: 2026-10-20
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 117 tests
+npm test                 # node --test, 126 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -134,6 +137,7 @@ npm run preview          # serve dist/
 ```
 
 ## Changelog
+- 2026-10-23: Phase 5 vehicles/fleets round — vehicle catalogue (used/new moto, Corolla, Hilux) with per-model price, tank, consumption, speed, risk and wear (`src/data/vehicles.ts`); ownership state + save migration (`src/sim/types.ts`, `src/sim/state.ts`); buy/sell/refuel/repair/assign actions and daily fleet settlement with rider cuts, fuel, upkeep, reliability incidents and wear (`src/sim/engine.ts`); personal vehicle travel option in Maps (no fare, burns fuel/condition) plus a car breakdown event; new Garage phone app (fleet rider assignment, live net estimate); own moto removes the 5,000 FCFA daily rental from moto runs; 2 goals + 2 achievements. `test/vehicles.test.ts` covers purchase gates, trip fuel/wear, fleet locking, refuel/repair/resale, daily income and legacy save migration. +9 tests (126 total), all green; build ~32s, JS 465.5 KB gzip, size budgets PASS.
 - 2026-10-20: Release-ops round — GitHub Actions CI (`.github/workflows/ci.yml`: typecheck, 117 tests, build, size budgets) plus a manual `supabase-verify` workflow; `scripts/verify-supabase.mjs` (`npm run db:verify`) probes live RLS with two anonymous sessions and cleans up after itself; Cloudflare Pages config (`wrangler.toml`, `public/_headers`, `npm run deploy:cf`); env-gated Sentry + PostHog telemetry lazy-loaded after first paint (`src/lib/telemetry.ts`); `sendReport` now sets `user_id` so the reports insert policy passes.
 - 2026-10-20: Interior fit-out round — framed interior camera and fog isolation on entering any building; dedicated prop layouts for all 15 interior types (`src/render/interiorProps.ts`, 14-30 props each, shared material cache, sit stool retained); walls/shelves/rails pulled off the structural shell; new `test/interiors.test.ts` validates layout coverage, per-type distinctness, room bounds and the player walking lane. +4 tests (117 total), all green; build ~36s, size budgets PASS.
 - 2026-10-20: Phase 4 completion round — fabric pattern system (`Appearance.pattern` weave/geo/stripe; canvas textures in `clothMaterial` with Node fallback; creator chips EN/FR; presets updated) and facial animation (eye/mouth groups, procedural blink + clip-based smile in `characters.ts`); GLTF export upgraded from rigid nodes to a skinned rig (15-bone `Skeleton`, 9 `SkinnedMesh` sharing it, 5 baked clips → `art/player_rig.glb`, 181.5 KB); `npm run review:packet` generates `art/cultural_review_packet.md` (16 NPCs, 3 presets, 6 cast looks) for Cameroonian reviewers. +2 tests (113 total), all green.

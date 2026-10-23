@@ -9,6 +9,7 @@ import {
   Briefcase,
   Calendar,
   Camera,
+  Car,
   CarTaxiFront,
   Check,
   ChevronDown,
@@ -96,6 +97,8 @@ export const ICONS = {
   holiday: PartyPopper,
   taxi: CarTaxiFront,
   moto: Bike,
+  car: Car,
+  garage: Car,
   power: Zap,
   event: Zap,
 

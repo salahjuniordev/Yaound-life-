@@ -42,7 +42,20 @@ export type BackgroundId =
   | 'freelancer'
   | 'employee';
 
-export type TravelMode = 'walk' | 'taxi' | 'moto' | 'fast';
+export type TravelMode = 'walk' | 'taxi' | 'moto' | 'vehicle' | 'fast';
+
+export type VehicleKind = 'moto' | 'car';
+
+export interface VehicleState {
+  id: string;
+  modelId: string;
+  fuel: number;
+  condition: number;
+  district: DistrictId;
+  fleetRiderId: string | null;
+  boughtDay: number;
+  trips: number;
+}
 
 export interface NeedsState {
   energy: number;
@@ -340,6 +353,7 @@ export interface GameState {
   npcs: Record<string, NPCState>;
   relationships: Record<string, RelationshipState>;
   businesses: BusinessState[];
+  vehicles: VehicleState[];
   njangi: { groups: NjangiGroup[]; membership: NjangiMembership | null };
   messages: Message[];
   pendingEvents: PendingEvent[];

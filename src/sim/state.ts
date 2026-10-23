@@ -14,6 +14,7 @@ import type {
 } from './types';
 import { BACKGROUND_MAP } from '../data/backgrounds';
 import { NAMED_NPCS } from '../data/npcs';
+import { VEHICLE_MAP } from '../data/vehicles';
 import { RNG, seedFromString } from './rng';
 import { defaultRelationship } from './relationships';
 import { ZONES } from '../data/districts';
@@ -214,6 +215,7 @@ export function createGameState(opts: NewGameOptions): GameState {
     npcs,
     relationships,
     businesses: [],
+    vehicles: [],
     njangi: { groups: createNjangiGroups(rng), membership: null },
     messages,
     pendingEvents: [],
@@ -285,6 +287,17 @@ export function migrateState(raw: unknown): GameState | null {
       pendingDeliveries: b.pendingDeliveries ?? [],
       premises: b.premises ?? 0,
     })),
+    vehicles: (s.vehicles ?? []).map((v) => {
+      const def = VEHICLE_MAP[v.modelId];
+      return {
+        ...v,
+        fuel: Math.max(0, Math.min(def?.tankLitres ?? 10, v.fuel ?? 0)),
+        condition: Math.max(0, Math.min(100, v.condition ?? 100)),
+        fleetRiderId: v.fleetRiderId ?? null,
+        boughtDay: v.boughtDay ?? s.world?.day ?? 1,
+        trips: v.trips ?? 0,
+      };
+    }),
     travelLog: s.travelLog ?? [],
     storyFlags: { ...base.storyFlags, ...(s.storyFlags ?? {}) },
     budget: { planned: s.budget?.planned ?? {}, goals: s.budget?.goals ?? [] },

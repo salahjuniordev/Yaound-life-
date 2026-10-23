@@ -5,6 +5,8 @@ import type {
   PendingEvent,
   SkillKey,
   TravelMode,
+  VehicleKind,
+  VehicleState,
 } from './types';
 import { RNG, seedFromString } from './rng';
 import { ACTIVITY_MAP } from '../data/activities';
@@ -17,6 +19,7 @@ import { holidayForDay } from '../data/calendar';
 import { PREMISES_LEVELS, PROPERTY_MAP, RENTAL_PROPERTIES, premisesLevelDef } from '../data/properties';
 import { HOBBY_DEFS, HOBBY_MAP, hobbyLevelFor, hobbyXpForActivity } from '../data/hobbies';
 import { STORY_CHAINS } from '../data/storyChains';
+import { FLEET_RIDER_MAP, VEHICLE_MAP, fleetEstimate, vehicleRepairCost, vehicleResaleValue, type VehicleDef } from '../data/vehicles';
 import { GOAL_MAP, ACHIEVEMENTS } from '../data/goals';
 import { DISTRICT_MAP, ZONES } from '../data/districts';
 import { applyNeedEffects, clamp, decayNeeds, qualityModifier } from './needs';
@@ -46,6 +49,11 @@ export interface TravelQuote {
   risk: number;
   available: boolean;
   unavailableReason?: string;
+  vehicleId?: string;
+  vehicleLabel?: string;
+  vehicleKind?: VehicleKind;
+  fuelLitres?: number;
+  fuelCost?: number;
 }
 
 export interface TravelPlan {
@@ -74,7 +82,7 @@ export interface QualificationReport {
 
 export type GameAction =
   | { type: 'activity'; activityId: string; npcId?: string; businessId?: string }
-  | { type: 'travel'; to: DistrictId; mode: TravelMode }
+  | { type: 'travel'; to: DistrictId; mode: TravelMode; vehicleId?: string }
   | { type: 'walk_enter'; to: DistrictId }
   | { type: 'talk'; npcId: string; kind: 'greet' | 'chat' | 'gift' | 'help' | 'invite' | 'apologize' }
   | { type: 'buy'; itemId: string; qty: number; vendor: string }
@@ -114,6 +122,11 @@ export type GameAction =
   | { type: 'hobby_buy_gear'; hobbyId: string }
   | { type: 'hobby_compete'; hobbyId: string }
   | { type: 'property_buy'; propertyId: string }
+  | { type: 'vehicle_buy'; modelId: string }
+  | { type: 'vehicle_sell'; vehicleId: string }
+  | { type: 'vehicle_refuel'; vehicleId: string }
+  | { type: 'vehicle_repair'; vehicleId: string }
+  | { type: 'vehicle_assign_rider'; vehicleId: string; riderId: string | null }
   | { type: 'business_premises_upgrade'; businessId: string }
   | { type: 'njangi_join'; groupId: string; turn: 'early' | 'middle' | 'late' }
   | { type: 'njangi_contribute' }
@@ -183,10 +196,61 @@ export function getTravelPlan(state: GameState, from: DistrictId, to: DistrictId
       available: true,
     },
   ];
+
+  if (state.vehicles.length > 0) {
+    const owned = state.vehicles.map((vehicle) => ({ vehicle, def: VEHICLE_MAP[vehicle.modelId] })).filter((entry) => entry.def);
+    const ready = owned.filter(({ vehicle, def }) => {
+      const litres = Math.round(distance * def.fuelPerDistance * 10) / 10;
+      return !vehicle.fleetRiderId && vehicle.condition >= 15 && vehicle.fuel >= litres;
+    });
+    ready.sort((a, b) => b.def.speed - a.def.speed);
+    const chosen = ready[0];
+    if (chosen) {
+      const { vehicle, def } = chosen;
+      const litres = Math.round(distance * def.fuelPerDistance * 10) / 10;
+      const conditionFactor = 1 + (100 - vehicle.condition) / 150;
+      options.push({
+        mode: 'vehicle',
+        minutes: Math.max(3, Math.round((distance / def.speed) * rainFactor) + 2),
+        cost: 0,
+        risk: def.baseRisk * conditionFactor * (state.world.weather === 'rain' ? 1.2 : 1),
+        available: true,
+        vehicleId: vehicle.id,
+        vehicleLabel: def.name,
+        vehicleKind: def.kind,
+        fuelLitres: litres,
+        fuelCost: Math.round(litres * state.world.fuelPrice),
+      });
+    } else {
+      const assigned = owned.find((entry) => entry.vehicle.fleetRiderId);
+      const lowCondition = owned.find((entry) => entry.vehicle.condition < 15);
+      const dry = owned.find((entry) => entry.vehicle.fuel < Math.round(distance * entry.def.fuelPerDistance * 10) / 10);
+      options.push({
+        mode: 'vehicle',
+        minutes: 0,
+        cost: 0,
+        risk: 0,
+        available: false,
+        unavailableReason: assigned && owned.every((entry) => entry.vehicle.fleetRiderId)
+          ? 'All your vehicles are with fleet riders today.'
+          : lowCondition
+            ? 'Your vehicle needs repairs before a long trip.'
+            : dry
+              ? 'Not enough fuel in the tank. Fill up in the Garage app.'
+              : 'No vehicle is ready for this trip.',
+      });
+    }
+  }
+
   if (state.learnedRoutes.includes(to)) {
     options.push({ mode: 'fast', minutes: 5, cost: 0, risk: 0, available: true });
   }
   return { from, to, toName: zone?.name ?? to, toNameFr: zone?.nameFr ?? to, distance, options };
+}
+
+function doTravelOptionFor(options: TravelQuote[], mode: TravelMode, vehicleId?: string): TravelQuote | undefined {
+  if (mode !== 'vehicle') return options.find((o) => o.mode === mode);
+  return options.find((o) => o.mode === 'vehicle' && (!vehicleId || o.vehicleId === vehicleId));
 }
 
 const VENDOR_STOCK: Record<string, { itemId: string; wholesale?: boolean }[]> = {
@@ -494,6 +558,8 @@ export class GameEngine {
     if (streak >= 7) this.unlockAchievement('sleepless_hustler');
     if (streak >= 30) this.unlockAchievement('marathon_hustler');
     if ((s.player.properties?.length ?? 0) >= 1) this.unlockAchievement('landlord');
+    if (s.vehicles.length >= 1) this.unlockAchievement('first_wheels');
+    if (s.vehicles.filter((v) => v.fleetRiderId).length >= 3) this.unlockAchievement('fleet_owner');
     if (s.businesses.length >= 3) this.unlockAchievement('tycoon');
     if (s.player.education.level === 'Concours réussi') this.unlockAchievement('scholar');
     const hobbyLevels = HOBBY_DEFS.filter((hb) => hobbyLevelFor(hb.id, Number(s.player.hobbies[hb.id] ?? 0)) >= 2).length;
@@ -520,6 +586,7 @@ export class GameEngine {
     this.processNjangiSitting();
     this.processHoliday();
     this.processBusinessDay();
+    this.processFleetDay();
     this.processPayroll(dom);
     this.processExams();
     this.processRentalIncome();
@@ -984,7 +1051,7 @@ export class GameEngine {
         result = this.doActivity(action.activityId, action.businessId);
         break;
       case 'travel':
-        result = this.doTravel(action.to, action.mode);
+        result = this.doTravel(action.to, action.mode, action.vehicleId);
         break;
       case 'walk_enter':
         result = this.doWalkEnter(action.to);
@@ -1102,6 +1169,21 @@ export class GameEngine {
         break;
       case 'property_buy':
         result = this.doPropertyBuy(action.propertyId);
+        break;
+      case 'vehicle_buy':
+        result = this.doVehicleBuy(action.modelId);
+        break;
+      case 'vehicle_sell':
+        result = this.doVehicleSell(action.vehicleId);
+        break;
+      case 'vehicle_refuel':
+        result = this.doVehicleRefuel(action.vehicleId);
+        break;
+      case 'vehicle_repair':
+        result = this.doVehicleRepair(action.vehicleId);
+        break;
+      case 'vehicle_assign_rider':
+        result = this.doVehicleAssignRider(action.vehicleId, action.riderId);
         break;
       case 'business_premises_upgrade':
         result = this.doBusinessPremisesUpgrade(action.businessId);
@@ -1328,17 +1410,35 @@ export class GameEngine {
     return { ok: true, message: def.name };
   }
 
-  private doTravel(to: DistrictId, mode: TravelMode): ActionResult {
+  private doTravel(to: DistrictId, mode: TravelMode, vehicleId?: string): ActionResult {
     const s = this.state;
     if (to === s.player.district) return { ok: false, message: 'You are already there.' };
     const plan = getTravelPlan(s, s.player.district, to);
-    const option = plan.options.find((o) => o.mode === mode);
+    const option = doTravelOptionFor(plan.options, mode, vehicleId);
     if (!option) return { ok: false, message: 'That option is not available.' };
     if (!option.available) return { ok: false, message: option.unavailableReason ?? 'Unavailable.' };
-    if (mode !== 'walk' && option.cost > 0) {
+    if (mode !== 'walk' && mode !== 'vehicle' && option.cost > 0) {
       const wallet = s.wallet.cash >= option.cost ? 'cash' : 'momo';
       if (!this.spend(wallet, option.cost, 'transport', mode === 'taxi' ? 'Taxi' : mode === 'moto' ? 'Moto-taxi' : 'Transport', `To ${plan.toName}`)) {
         return { ok: false, message: `You need ${option.cost.toLocaleString()} FCFA. Walk for free or earn some money first.` };
+      }
+    }
+    let vehicle: VehicleState | null = null;
+    let vehicleDef: VehicleDef | undefined;
+    if (mode === 'vehicle') {
+      vehicle = s.vehicles.find((v) => v.id === (vehicleId ?? option.vehicleId)) ?? null;
+      vehicleDef = vehicle ? VEHICLE_MAP[vehicle.modelId] : undefined;
+      if (!vehicle || !vehicleDef) return { ok: false, message: 'That vehicle is not in your garage.' };
+      if (vehicle.fleetRiderId) return { ok: false, message: 'That vehicle is with a fleet rider today. Reassign it in the Garage app first.' };
+      const litres = Math.round(plan.distance * vehicleDef.fuelPerDistance * 10) / 10;
+      if (vehicle.condition < 15) return { ok: false, message: 'Your vehicle needs repairs before this trip.' };
+      if (vehicle.fuel < litres) return { ok: false, message: `Not enough fuel. This trip needs about ${litres.toFixed(1)} L.` };
+      vehicle.fuel = Math.round((vehicle.fuel - litres) * 100) / 100;
+      vehicle.condition = Math.max(0, Math.round((vehicle.condition - vehicleDef.wearPerTrip) * 10) / 10);
+      vehicle.trips += 1;
+      vehicle.district = to;
+      if (vehicle.condition < 20) {
+        this.notifyApp('garage', 'Vehicle needs repairs', `${vehicleDef.name} is at ${Math.round(vehicle.condition)}% condition. Repairs get more expensive the longer you wait.`);
       }
     }
     this.advanceMinutes(option.minutes, { decay: true, rollEvents: true });
@@ -1350,8 +1450,15 @@ export class GameEngine {
     s.travelLog.unshift({ day: s.world.day, mode, from: plan.from, to, cost: option.cost });
     if (s.travelLog.length > 100) s.travelLog.length = 100;
     this.advanceTutorial('traveled');
-    this.pushLog(`Travelled to ${plan.toName} (${mode}, ${option.minutes} min).`);
-    if (mode === 'moto' && this.rng.chance(option.risk)) {
+    this.pushLog(`Travelled to ${plan.toName} (${mode === 'vehicle' ? vehicleDef?.name ?? 'own vehicle' : mode}, ${option.minutes} min).`);
+    if (mode === 'vehicle' && vehicle && vehicleDef && this.rng.chance(option.risk)) {
+      if (vehicleDef.kind === 'moto') {
+        this.queueEvent('moto_accident');
+      } else {
+        vehicle.condition = Math.max(0, vehicle.condition - 8);
+        this.queueEvent('vehicle_breakdown');
+      }
+    } else if (mode === 'moto' && this.rng.chance(option.risk)) {
       this.queueEvent('moto_accident');
     } else if (mode === 'taxi' && this.rng.chance(0.02)) {
       this.queueEvent('delayed_taxi');
@@ -1686,7 +1793,17 @@ export class GameEngine {
       return { ok: false, message: 'Driving skill 2 required. Take driving lessons first (look for the workshop in Mvan).' };
     }
     const rentalDay = Number(s.storyFlags['rental_paid_day'] ?? 0);
-    if (rentalDay !== s.world.day) {
+    const ownMoto = s.vehicles.find((v) => {
+      const def = VEHICLE_MAP[v.modelId];
+      return def?.kind === 'moto' && !v.fleetRiderId && v.condition >= 15 && v.fuel >= 2.2;
+    });
+    if (ownMoto) {
+      const def = VEHICLE_MAP[ownMoto.modelId];
+      ownMoto.fuel = Math.round((ownMoto.fuel - 2.2) * 100) / 100;
+      ownMoto.condition = Math.max(0, Math.round((ownMoto.condition - 1.2) * 10) / 10);
+      ownMoto.trips += trips;
+      this.pushLog(`Used your own ${def.name} for ${trips} trips.`);
+    } else if (rentalDay !== s.world.day) {
       if (!this.spend('cash', 5000, 'business_costs', 'Bike owner', 'Daily bike rental')) {
         return { ok: false, message: 'The bike rental is 5,000 FCFA for the day. Come back with the money.' };
       }
@@ -2247,6 +2364,148 @@ export class GameEngine {
       const net = Math.max(0, def.weeklyRent - def.maintenance);
       if (net <= 0) continue;
       this.giveIncome('bank', net, 'property', def.name, 'Weekly rent');
+    }
+  }
+
+  private doVehicleBuy(modelId: string): ActionResult {
+    const s = this.state;
+    const def = VEHICLE_MAP[modelId];
+    if (!def) return { ok: false, message: 'Unknown vehicle model.' };
+    if ((s.player.skills.driving ?? 0) < def.drivingRequirement) {
+      return { ok: false, message: `Driving skill ${def.drivingRequirement} required for the ${def.name}. Take driving lessons first.` };
+    }
+    const balance = totalMoney(s.wallet);
+    if (balance < def.price) {
+      return { ok: false, message: `${def.name} costs ${def.price.toLocaleString()} FCFA. You have ${balance.toLocaleString()}. Keep saving.` };
+    }
+    const wallet = s.wallet.cash >= def.price ? 'cash' : s.wallet.momo >= def.price ? 'momo' : 'bank';
+    if (!this.spend(wallet, def.price, 'transport', 'Vehicle dealer', `Purchase: ${def.name}`)) {
+      return { ok: false, message: 'Payment failed.' };
+    }
+    const vehicle: VehicleState = {
+      id: `veh_${modelId}_${Date.now().toString(36)}_${s.vehicles.length + 1}`,
+      modelId,
+      fuel: Math.round(def.tankLitres * 0.5 * 10) / 10,
+      condition: 100,
+      district: s.player.district,
+      fleetRiderId: null,
+      boughtDay: s.world.day,
+      trips: 0,
+    };
+    s.vehicles.push(vehicle);
+    this.refreshGoals();
+    this.milestone(`Vehicle bought: ${def.name}`);
+    this.notifyApp('garage', 'New vehicle', `${def.name} is in your garage with half a tank. Fill up before a long trip.`);
+    this.pushLog(`Bought ${def.name} for ${def.price.toLocaleString()} FCFA.`);
+    return { ok: true, message: `${def.name} is yours. Open the Garage app to refuel, repair or assign a rider.`, toast: 'success' };
+  }
+
+  private doVehicleSell(vehicleId: string): ActionResult {
+    const s = this.state;
+    const index = s.vehicles.findIndex((v) => v.id === vehicleId);
+    if (index < 0) return { ok: false, message: 'Vehicle not found.' };
+    const vehicle = s.vehicles[index];
+    const def = VEHICLE_MAP[vehicle.modelId];
+    if (!def) return { ok: false, message: 'Unknown vehicle.' };
+    const value = vehicleResaleValue(def, vehicle.condition);
+    s.vehicles.splice(index, 1);
+    this.giveIncome('cash', value, 'transport', 'Vehicle buyer', `Sale: ${def.name}`);    const riderNote = vehicle.fleetRiderId ? ` ${FLEET_RIDER_MAP[vehicle.fleetRiderId]?.name ?? 'The rider'} returned the keys.` : '';
+    this.pushLog(`Sold ${def.name} for ${value.toLocaleString()} FCFA.`);
+    return { ok: true, message: `Sold ${def.name} for ${value.toLocaleString()} FCFA.${riderNote}`, toast: 'money' };
+  }
+
+  private doVehicleRefuel(vehicleId: string): ActionResult {
+    const s = this.state;
+    const vehicle = s.vehicles.find((v) => v.id === vehicleId);
+    if (!vehicle) return { ok: false, message: 'Vehicle not found.' };
+    const def = VEHICLE_MAP[vehicle.modelId];
+    if (!def) return { ok: false, message: 'Unknown vehicle.' };
+    const missing = Math.round((def.tankLitres - vehicle.fuel) * 10) / 10;
+    if (missing <= 0.05) return { ok: false, message: 'The tank is already full.' };
+    const cost = Math.round(missing * s.world.fuelPrice);
+    const wallet = s.wallet.cash >= cost ? 'cash' : s.wallet.momo >= cost ? 'momo' : 'bank';
+    if (!this.spend(wallet, cost, 'transport', 'Fuel station', `${missing.toFixed(1)} L for ${def.name}`)) {
+      return { ok: false, message: `Filling the tank costs ${cost.toLocaleString()} FCFA. You do not have it right now.` };
+    }
+    vehicle.fuel = def.tankLitres;
+    this.pushLog(`Filled ${def.name} (${missing.toFixed(1)} L for ${cost.toLocaleString()} FCFA).`);
+    return { ok: true, message: `Tank full: ${missing.toFixed(1)} L for ${cost.toLocaleString()} FCFA.`, toast: 'money' };
+  }
+
+  private doVehicleRepair(vehicleId: string): ActionResult {
+    const s = this.state;
+    const vehicle = s.vehicles.find((v) => v.id === vehicleId);
+    if (!vehicle) return { ok: false, message: 'Vehicle not found.' };
+    const def = VEHICLE_MAP[vehicle.modelId];
+    if (!def) return { ok: false, message: 'Unknown vehicle.' };
+    if (vehicle.condition >= 99.5) return { ok: false, message: 'This vehicle is already in good condition.' };
+    const cost = vehicleRepairCost(def, vehicle.condition);
+    const wallet = s.wallet.cash >= cost ? 'cash' : s.wallet.momo >= cost ? 'momo' : 'bank';
+    if (!this.spend(wallet, cost, 'repairs', 'Mechanic', `Repair: ${def.name}`)) {
+      return { ok: false, message: `The mechanic wants ${cost.toLocaleString()} FCFA for the work.` };
+    }
+    vehicle.condition = 100;
+    this.pushLog(`Repaired ${def.name} for ${cost.toLocaleString()} FCFA.`);
+    return { ok: true, message: `${def.name} is back to 100% condition.`, toast: 'money' };
+  }
+
+  private doVehicleAssignRider(vehicleId: string, riderId: string | null): ActionResult {
+    const s = this.state;
+    const vehicle = s.vehicles.find((v) => v.id === vehicleId);
+    if (!vehicle) return { ok: false, message: 'Vehicle not found.' };
+    const def = VEHICLE_MAP[vehicle.modelId];
+    if (!def) return { ok: false, message: 'Unknown vehicle.' };
+    if (riderId === null) {
+      const previous = vehicle.fleetRiderId;
+      vehicle.fleetRiderId = null;
+      this.refreshGoals();
+      return { ok: true, message: previous ? `${FLEET_RIDER_MAP[previous]?.name ?? 'The rider'} returned ${def.name}.` : 'No rider assigned.' };
+    }
+    if (def.kind !== 'moto') return { ok: false, message: 'Fleet riders only take motos. Cars are for personal use.' };
+    const rider = FLEET_RIDER_MAP[riderId];
+    if (!rider) return { ok: false, message: 'Unknown rider.' };
+    const already = s.vehicles.find((v) => v.id !== vehicle.id && v.fleetRiderId === riderId);
+    if (already) {
+      const other = VEHICLE_MAP[already.modelId];
+      return { ok: false, message: `${rider.name} already rides your ${other?.name ?? 'other moto'}. One rider, one bike.` };
+    }
+    if (vehicle.condition < 20) return { ok: false, message: `${def.name} is too run-down for a full day of passengers. Repair it first.` };
+    vehicle.fleetRiderId = riderId;
+    this.refreshGoals();
+    const estimate = fleetEstimate(def, rider, vehicle.condition, s.world.fuelPrice);
+    return {
+      ok: true,
+      message: `${rider.name} takes ${def.name}. Estimated net after cut, fuel and upkeep: ${estimate.net.toLocaleString()} FCFA/day.`,
+      toast: 'success',
+    };
+  }
+
+  private processFleetDay() {
+    const s = this.state;
+    for (const vehicle of s.vehicles) {
+      if (!vehicle.fleetRiderId) continue;
+      const def = VEHICLE_MAP[vehicle.modelId];
+      const rider = FLEET_RIDER_MAP[vehicle.fleetRiderId];
+      if (!def || !rider) {
+        vehicle.fleetRiderId = null;
+        continue;
+      }
+      if (vehicle.condition < 20) {
+        this.notifyApp('garage', 'Fleet moto parked', `${def.name} is at ${Math.round(vehicle.condition)}% condition. ${rider.name} will not risk passengers on it. Repair it in the Garage app.`);
+        continue;
+      }
+      if (this.rng.chance(1 - rider.reliability)) {
+        vehicle.condition = Math.max(0, Math.round((vehicle.condition - 3) * 10) / 10);
+        this.notifyApp('garage', 'Fleet rider trouble', `${rider.name} had a difficult day with ${def.name}: a breakdown, a checkpoint, or an empty cash box. No income today.`);
+        this.pushLog(`Fleet: no income from ${def.name} today (${rider.name}).`);
+        continue;
+      }
+      const estimate = fleetEstimate(def, rider, vehicle.condition, s.world.fuelPrice);
+      vehicle.condition = Math.max(0, Math.round((vehicle.condition - def.fleetWearPerDay) * 10) / 10);
+      if (estimate.net > 0) {
+        this.giveIncome('cash', estimate.net, 'fleet', rider.name, `${def.name} daily route`);
+      }
+      this.pushLog(`Fleet: ${def.name} earned ${estimate.net.toLocaleString()} FCFA net with ${rider.name}.`);
     }
   }
 

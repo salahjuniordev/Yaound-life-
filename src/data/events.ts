@@ -696,6 +696,26 @@ export const EVENT_TEMPLATES: EventTemplate[] = [
     contentLabel: 'design_interpretation',
   },
   {
+    id: 'vehicle_breakdown',
+    kind: 'expense',
+    title: 'The engine gives up',
+    titleFr: 'Le moteur abandonne',
+    body: 'A hard clunk, then steam from under the bonnet. The car rolls to the roadside and refuses to start again. A mechanic nearby looks up from his bench.',
+    bodyFr: 'Un bruit sec, puis de la vapeur sous le capot. La voiture s’arrête sur le bas-côté et refuse de redémarrer. Un mécanicien lève la tête.',
+    weight: 0,
+    choices: [
+      { id: 'proper_fix', label: 'Let the mechanic do a proper repair' },
+      { id: 'roadside_fix', label: 'Roadside patch with what is available' },
+      { id: 'tow_home', label: 'Tow it home and deal with it later' },
+    ],
+    outcomes: {
+      proper_fix: { text: 'The mechanic replaced the worn part and showed you the old one. Expensive, but the engine runs clean again.', money: -18000, needs: { mood: -6 } },
+      roadside_fix: { text: 'A wire, a clamp and a prayer. It starts, but you drive home slowly and avoid every pothole.', money: -4000, needs: { energy: -10, mood: -8 } },
+      tow_home: { text: 'You paid a tow truck and left the car at home. The problem waits for another day and another pay packet.', money: -7000, needs: { mood: -4 } },
+    },
+    contentLabel: 'design_interpretation',
+  },
+  {
     id: 'holiday_parade',
     kind: 'city',
     title: 'The parade is forming',

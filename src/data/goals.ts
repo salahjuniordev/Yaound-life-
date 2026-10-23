@@ -20,6 +20,8 @@ export const GOALS: GoalDef[] = [
   { id: 'two_properties', tier: 'life', name: 'Own two rental properties', nameFr: 'Posséder deux biens locatifs', description: 'Two addresses paying you every Sunday.', descriptionFr: 'Deux adresses qui te paient chaque dimanche.', target: 2, check: (s) => s.player.properties?.length ?? 0 },
   { id: 'reputation_25', tier: 'life', name: 'Become a pillar of the quartier', nameFr: 'Devenir un pilier du quartier', description: 'Reach reputation 25 in any district.', descriptionFr: 'Atteins réputation 25 dans un quartier.', target: 25, check: (s) => Math.max(0, ...Object.values(s.reputation.perDistrict).map((v) => v ?? 0)) },
   { id: 'education_top', tier: 'career', name: 'Pass the Concours', nameFr: 'Réussir le Concours', description: 'Earn the top academic rank: Concours réussi.', descriptionFr: 'Obtiens le rang académique suprême : Concours réussi.', target: 1, check: (s) => (s.player.education.level === 'Concours réussi' ? 1 : 0) },
+  { id: 'own_wheels', tier: 'personal', name: 'Buy your first vehicle', nameFr: 'Acheter ton premier véhicule', description: 'Own a moto or car of your own.', descriptionFr: 'Possède ta propre moto ou voiture.', target: 1, check: (s) => s.vehicles?.length ?? 0 },
+  { id: 'moto_fleet', tier: 'career', name: 'Run a three-moto fleet', nameFr: 'Gérer une flotte de trois motos', description: 'Assign three motos to trusted riders.', descriptionFr: 'Confie trois motos à des chauffeurs de confiance.', target: 3, check: (s) => s.vehicles?.filter((v) => v.fleetRiderId).length ?? 0 },
 ];
 
 export const GOAL_MAP: Record<string, GoalDef> = Object.fromEntries(GOALS.map((g) => [g.id, g]));
@@ -45,4 +47,6 @@ export const ACHIEVEMENTS: { id: string; name: string; nameFr: string; desc: str
   { id: 'renaissance', name: 'Renaissance Life', nameFr: 'Vie Renaissance', desc: 'Reach level 2 in three different hobbies.', descFr: 'Atteins le niveau 2 dans trois loisirs différents.', hidden: true },
   { id: 'festive', name: 'Fete Regular', nameFr: 'Habitué des fêtes', desc: 'Live through five public holidays.', descFr: 'Vis cinq jours fériés.', hidden: true },
   { id: 'philanthropist', name: 'Philanthropist', nameFr: 'Philanthrope', desc: 'Give over 100,000 FCFA to family and friends.', descFr: 'Donne plus de 100 000 FCFA à la famille et aux amis.', hidden: true },
+  { id: 'first_wheels', name: 'First Wheels', nameFr: 'Premières roues', desc: 'Buy your own moto or car.', descFr: 'Achète ta propre moto ou voiture.', hidden: false },
+  { id: 'fleet_owner', name: 'Fleet Owner', nameFr: 'Patron de flotte', desc: 'Run three motos with fleet riders.', descFr: 'Fais rouler trois motos avec des chauffeurs.', hidden: false },
 ];
