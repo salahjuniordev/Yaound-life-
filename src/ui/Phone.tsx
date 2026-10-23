@@ -19,7 +19,7 @@ import { NEED_KEYS, NEED_LABELS, formatClock } from '../sim/needs';
 import { RELATION_STAGE_LABELS, relationshipSummary } from '../sim/relationships';
 import { DISTRICT_MAP, ZONES } from '../data/districts';
 import { setLanguage } from '../i18n';
-import { deleteCloudData, linkEmail } from '../persistence/supabase';
+import { AccountPanel } from './Account';
 import { ReportButton } from './ReportButton';
 import { Icon, type IconName } from './icons';
 
@@ -1316,7 +1316,6 @@ function SettingsApp() {
   const s = engine.state;
   const fr = s.settings.language === 'fr';
   const store = useGame.getState;
-  const [email, setEmail] = useState('');
   const [importErr, setImportErr] = useState('');
   const set = <K extends keyof typeof s.settings>(k: K, v: (typeof s.settings)[K]) => store().setSetting(k, v);
 
@@ -1418,43 +1417,8 @@ function SettingsApp() {
       </div>
       {importErr && <div className="money-out small">{importErr}</div>}
 
-      <h3>{fr ? 'Cloud (optionnel)' : 'Cloud (optional)'}</h3>
-      <p className="muted small">
-        {useGame.getState().cloud.connected
-          ? fr
-            ? 'Synchronisation cloud active.'
-            : 'Cloud sync active.'
-          : fr
-            ? 'Hors-ligne. La progression reste sur cet appareil.'
-            : 'Offline. Progress stays on this device.'}
-      </p>
-      <div className="btn-grid">
-        <button onClick={() => void store().connectCloud()}>{fr ? 'Connecter' : 'Connect'}</button>
-        <button onClick={() => void store().syncCloud()}>{fr ? 'Envoyer' : 'Push'}</button>
-        <button onClick={() => void store().loadCloudLast()}>{fr ? 'Charger' : 'Pull'}</button>
-        <button
-          className="danger"
-          onClick={() => {
-            const msg = fr ? 'Supprimer les données cloud ?' : 'Delete cloud data?';
-            if (window.confirm(msg)) {
-              void deleteCloudData().then((r) => store().pushToast(r.message, r.ok ? 'success' : 'error'));
-            }
-          }}
-        >
-          {fr ? 'Supprimer cloud' : 'Delete cloud'}
-        </button>
-      </div>
-      <div className="amount-row">
-        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder={fr ? 'email@exemple.com' : 'you@example.com'} />
-        <button
-          disabled={!email.includes('@')}
-          onClick={() => {
-            void linkEmail(email).then((r) => store().pushToast(r.message, r.ok ? 'success' : 'error'));
-          }}
-        >
-          {fr ? 'Lier' : 'Link'}
-        </button>
-      </div>
+      <h3>{fr ? 'Compte et cloud' : 'Account & cloud'}</h3>
+      <AccountPanel />
 
       <h3>{fr ? 'Partie' : 'Session'}</h3>
       <button

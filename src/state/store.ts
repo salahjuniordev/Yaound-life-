@@ -3,7 +3,22 @@ import { GameEngine, type GameAction, type Toast } from '../sim/engine';
 import type { GameState, GameSettings } from '../sim/types';
 import { createGameState, type NewGameOptions } from '../sim/state';
 import { saveLocal, loadLocal, listLocalSaves, deleteLocal, exportSaveJSON, importSaveJSON, type LocalSaveRecord } from '../persistence/idb';
-import { ensureSession, pushCloudSave, pullCloudSave, sendReport, type CloudStatus } from '../persistence/supabase';
+import {
+  deleteCloudData,
+  ensureSession,
+  pushCloudSave,
+  pullCloudSave,
+  requestPasswordReset,
+  resendConfirmation,
+  sendReport,
+  signInAccount,
+  signOutAccount,
+  signUpAccount,
+  updateDisplayName,
+  updatePassword,
+  type AuthResult,
+  type CloudStatus,
+} from '../persistence/supabase';
 
 export type Screen = 'menu' | 'create' | 'game';
 export type PanelId = 'none' | 'phone' | 'settings';
@@ -47,6 +62,7 @@ interface StoreShape {
   menuSaves: LocalSaveRecord[];
   cloud: CloudStatus;
   cloudMessage: string | null;
+  accountOpen: boolean;
   panel: PanelId;
   phoneApp: string | null;
   modal: ModalState;
@@ -67,6 +83,17 @@ interface StoreShape {
   syncCloud: () => Promise<void>;
   loadCloudLast: () => Promise<boolean>;
   connectCloud: () => Promise<void>;
+  setCloud: (cloud: CloudStatus) => void;
+  openAccount: () => void;
+  closeAccount: () => void;
+  authSignIn: (email: string, password: string) => Promise<AuthResult>;
+  authSignUp: (email: string, password: string) => Promise<AuthResult>;
+  authSignOut: () => Promise<AuthResult>;
+  authResetPassword: (email: string) => Promise<AuthResult>;
+  authUpdatePassword: (password: string) => Promise<AuthResult>;
+  authUpdateDisplayName: (displayName: string, locale: string) => Promise<AuthResult>;
+  authResendConfirmation: (email: string) => Promise<AuthResult>;
+  authDeleteCloud: () => Promise<AuthResult>;
   dispatch: (action: GameAction) => void;
   setPanel: (p: PanelId) => void;
   setPhoneApp: (app: string | null) => void;
@@ -106,8 +133,18 @@ export const useGame = create<StoreShape>((set, get) => ({
   toasts: [],
   booting: true,
   menuSaves: [],
-  cloud: { connected: false, userId: null, anonymous: false, email: null, lastSyncAt: null, lastError: null },
+  cloud: {
+    connected: false,
+    userId: null,
+    anonymous: false,
+    email: null,
+    emailVerified: false,
+    displayName: null,
+    lastSyncAt: null,
+    lastError: null,
+  },
   cloudMessage: null,
+  accountOpen: false,
   panel: 'none',
   phoneApp: null,
   modal: { kind: 'none' },
@@ -209,6 +246,74 @@ export const useGame = create<StoreShape>((set, get) => ({
   connectCloud: async () => {
     const cloud = await ensureSession();
     set({ cloud, cloudMessage: cloud.lastError ?? get().cloudMessage });
+  },
+
+  setCloud: (cloud) => set({ cloud }),
+  openAccount: () => set({ accountOpen: true }),
+  closeAccount: () => set({ accountOpen: false }),
+
+  authSignIn: async (email, password) => {
+    const res = await signInAccount(email, password);
+    set((s) => ({ cloud: res.status ?? s.cloud, cloudMessage: res.message }));
+    return res;
+  },
+
+  authSignUp: async (email, password) => {
+    const res = await signUpAccount(email, password);
+    set((s) => ({ cloud: res.status ?? s.cloud, cloudMessage: res.message }));
+    return res;
+  },
+
+  authSignOut: async () => {
+    const res = await signOutAccount();
+    set((s) => ({ cloud: res.status ?? s.cloud, cloudMessage: res.message }));
+    return res;
+  },
+
+  authResetPassword: async (email) => {
+    const res = await requestPasswordReset(email);
+    set({ cloudMessage: res.message });
+    return res;
+  },
+
+  authUpdatePassword: async (password) => {
+    const res = await updatePassword(password);
+    set({ cloudMessage: res.message });
+    return res;
+  },
+
+  authUpdateDisplayName: async (displayName, locale) => {
+    const res = await updateDisplayName(displayName, locale);
+    set((s) => ({ cloud: res.status ?? s.cloud, cloudMessage: res.message }));
+    return res;
+  },
+
+  authResendConfirmation: async (email) => {
+    const res = await resendConfirmation(email);
+    set({ cloudMessage: res.message });
+    return res;
+  },
+
+  authDeleteCloud: async () => {
+    const res = await deleteCloudData();
+    if (res.ok) {
+      set({
+        cloud: {
+          connected: false,
+          userId: null,
+          anonymous: false,
+          email: null,
+          emailVerified: false,
+          displayName: null,
+          lastSyncAt: null,
+          lastError: null,
+        },
+        cloudMessage: res.message,
+      });
+    } else {
+      set({ cloudMessage: res.message });
+    }
+    return res;
   },
 
   dispatch: (action) => {

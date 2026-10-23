@@ -745,6 +745,85 @@ select {
   gap: 6px;
 }
 
+.account-modal {
+  width: min(560px, 100%);
+}
+
+.account-tabs {
+  margin: 12px 0 4px;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.account-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.account-form input {
+  width: 100%;
+}
+
+.account-submit {
+  text-align: center;
+}
+
+.account-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #161a20;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.account-status-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.account-status-main strong {
+  overflow-wrap: anywhere;
+}
+
+.account-msg {
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.account-msg.error {
+  color: #ff9a9a;
+}
+
+.account-msg.ok {
+  color: #8ed6a8;
+}
+
+.account-divider {
+  border-top: 1px solid var(--line);
+  margin: 14px 0;
+}
+
+.account-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.account-actions button {
+  flex: 1 1 140px;
+}
+
 .event-body {
   font-size: 15px;
   line-height: 1.5;

@@ -58,6 +58,7 @@ import {
   Trophy,
   Truck,
   UserPlus,
+  UserRound,
   Users,
   Utensils,
   Wallet,
@@ -82,6 +83,7 @@ export const ICONS = {
 
   play: Play,
   newLife: UserPlus,
+  account: UserRound,
   cloudDownload: CloudDownload,
   cloud: Cloud,
   offline: WifiOff,

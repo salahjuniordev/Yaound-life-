@@ -9,6 +9,7 @@ import { Modals } from './ui/modals/Modals';
 import { Toasts } from './ui/Toasts';
 import { MainMenu } from './ui/MainMenu';
 import { CharacterCreator } from './ui/CharacterCreator';
+import { AccountModal } from './ui/Account';
 import { openNearby } from './ui/interactions';
 import { detectAndApply, initPowerWatcher } from './render/perf';
 
@@ -19,6 +20,10 @@ export default function App() {
   useEffect(() => {
     void refreshMenuSaves();
   }, [refreshMenuSaves]);
+
+  useEffect(() => {
+    if (window.location.hash.includes('type=recovery')) useGame.getState().openAccount();
+  }, []);
 
   useEffect(() => {
     if (screen !== 'game') return;
@@ -81,6 +86,7 @@ export default function App() {
           <Modals />
         </div>
       )}
+      <AccountModal />
       <Toasts />
     </>
   );

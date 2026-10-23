@@ -7,6 +7,7 @@ export function MainMenu() {
   const booting = useGame((s) => s.booting);
   const cloud = useGame((s) => s.cloud);
   const cloudMessage = useGame((s) => s.cloudMessage);
+  const openAccount = useGame((s) => s.openAccount);
   const setScreen = useGame((s) => s.setScreen);
   const continueGame = useGame((s) => s.continueGame);
   const deleteSave = useGame((s) => s.deleteSave);
@@ -45,6 +46,18 @@ export function MainMenu() {
             )}
             <button className="menu-btn" onClick={() => setScreen('create')}>
               <Icon name="newLife" size={16} /> {fr ? 'Nouvelle vie' : 'New life'}
+            </button>
+            <button className="menu-btn" onClick={openAccount}>
+              <Icon name="account" size={16} />{' '}
+              {cloud.connected
+                ? cloud.anonymous
+                  ? fr
+                    ? 'Compte anonyme'
+                    : 'Anonymous account'
+                  : cloud.email ?? (fr ? 'Mon compte' : 'My account')
+                : fr
+                  ? 'Connexion / inscription'
+                  : 'Sign in / create account'}
             </button>
             {cloud.connected && (
               <button className="menu-btn" onClick={() => void loadCloudLast()}>

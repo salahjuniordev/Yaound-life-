@@ -1,8 +1,9 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient, type User } from '@supabase/supabase-js';
 import type { GameState } from '../sim/types';
 
 const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim();
 const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim();
+const authOptOutKey = 'yaounde-auth-optout';
 
 export const supabaseEnabled = Boolean(url && anonKey);
 
@@ -12,7 +13,7 @@ export function getSupabase(): SupabaseClient | null {
   if (!supabaseEnabled) return null;
   if (!client && url && anonKey) {
     client = createClient(url, anonKey, {
-      auth: { persistSession: true, autoRefreshToken: true },
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
     });
   }
   return client;
@@ -23,47 +24,227 @@ export interface CloudStatus {
   userId: string | null;
   anonymous: boolean;
   email: string | null;
+  emailVerified: boolean;
+  displayName: string | null;
   lastSyncAt: number | null;
   lastError: string | null;
 }
 
-export async function ensureSession(): Promise<CloudStatus> {
-  const sb = getSupabase();
-  const base: CloudStatus = { connected: false, userId: null, anonymous: false, email: null, lastSyncAt: null, lastError: null };
-  if (!sb) return { ...base, lastError: 'Supabase not configured (offline mode).' };
+export interface AuthResult {
+  ok: boolean;
+  message: string;
+  status?: CloudStatus;
+  needsConfirmation?: boolean;
+}
+
+function baseStatus(lastError: string | null = null): CloudStatus {
+  return {
+    connected: false,
+    userId: null,
+    anonymous: false,
+    email: null,
+    emailVerified: false,
+    displayName: null,
+    lastSyncAt: null,
+    lastError,
+  };
+}
+
+function authOptedOut(): boolean {
   try {
-    const { data: sessionData } = await sb.auth.getSession();
-    if (sessionData.session?.user) {
-      return {
-        connected: true,
-        userId: sessionData.session.user.id,
-        anonymous: Boolean(sessionData.session.user.is_anonymous),
-        email: sessionData.session.user.email ?? null,
-        lastSyncAt: null,
-        lastError: null,
-      };
-    }
-    const { data, error } = await sb.auth.signInAnonymously();
-    if (error) return { ...base, connected: false, lastError: error.message };
-    return {
-      connected: true,
-      userId: data.user?.id ?? null,
-      anonymous: true,
-      email: null,
-      lastSyncAt: null,
-      lastError: null,
-    };
-  } catch (err) {
-    return { ...base, lastError: err instanceof Error ? err.message : 'auth failed' };
+    return localStorage.getItem(authOptOutKey) === '1';
+  } catch {
+    return false;
   }
 }
 
-export async function linkEmail(email: string): Promise<{ ok: boolean; message: string }> {
+function setAuthOptedOut(value: boolean): void {
+  try {
+    if (value) localStorage.setItem(authOptOutKey, '1');
+    else localStorage.removeItem(authOptOutKey);
+  } catch {
+    return;
+  }
+}
+
+function redirectUrl(): string | undefined {
+  if (typeof window === 'undefined') return undefined;
+  return `${window.location.origin}${window.location.pathname}`;
+}
+
+async function statusFromUser(sb: SupabaseClient, user: User): Promise<CloudStatus> {
+  let displayName: string | null = null;
+  try {
+    const { data } = await sb.from('profiles').select('display_name').eq('id', user.id).maybeSingle();
+    displayName = (data as { display_name?: string | null } | null)?.display_name ?? null;
+  } catch {
+    displayName = null;
+  }
+  return {
+    connected: true,
+    userId: user.id,
+    anonymous: Boolean(user.is_anonymous),
+    email: user.email ?? null,
+    emailVerified: Boolean(user.email_confirmed_at),
+    displayName,
+    lastSyncAt: null,
+    lastError: null,
+  };
+}
+
+export async function getAuthStatus(): Promise<CloudStatus> {
+  const sb = getSupabase();
+  if (!sb) return baseStatus('Supabase not configured (offline mode).');
+  try {
+    const { data } = await sb.auth.getSession();
+    if (!data.session?.user) return baseStatus();
+    return await statusFromUser(sb, data.session.user);
+  } catch (err) {
+    return baseStatus(err instanceof Error ? err.message : 'auth failed');
+  }
+}
+
+export async function ensureSession(): Promise<CloudStatus> {
+  const sb = getSupabase();
+  if (!sb) return baseStatus('Supabase not configured (offline mode).');
+  if (authOptedOut()) return baseStatus();
+  try {
+    const { data: sessionData } = await sb.auth.getSession();
+    if (sessionData.session?.user) return await statusFromUser(sb, sessionData.session.user);
+    const { data, error } = await sb.auth.signInAnonymously();
+    if (error) return baseStatus(error.message);
+    if (!data.user) return baseStatus('Anonymous sign-in returned no user.');
+    return await statusFromUser(sb, data.user);
+  } catch (err) {
+    return baseStatus(err instanceof Error ? err.message : 'auth failed');
+  }
+}
+
+export async function signUpAccount(email: string, password: string): Promise<AuthResult> {
   const sb = getSupabase();
   if (!sb) return { ok: false, message: 'Supabase not configured. Your progress stays on this device.' };
-  const { error } = await sb.auth.updateUser({ email });
-  if (error) return { ok: false, message: error.message };
-  return { ok: true, message: 'Check your inbox for the confirmation link. Your progress will sync after linking.' };
+  try {
+    const { data: sessionData } = await sb.auth.getSession();
+    const current = sessionData.session?.user;
+    if (current?.is_anonymous) {
+      const { data, error } = await sb.auth.updateUser({ email: email.trim(), password });
+      if (error) return { ok: false, message: error.message };
+      setAuthOptedOut(false);
+      const confirmed = Boolean(data.user?.email_confirmed_at);
+      return {
+        ok: true,
+        message: confirmed
+          ? 'Account created. Your progress is now linked.'
+          : 'Account created. Check your inbox to confirm your email.',
+        status: data.user ? await statusFromUser(sb, data.user) : undefined,
+        needsConfirmation: !confirmed,
+      };
+    }
+    const { data, error } = await sb.auth.signUp({
+      email: email.trim(),
+      password,
+      options: redirectUrl() ? { emailRedirectTo: redirectUrl() } : undefined,
+    });
+    if (error) return { ok: false, message: error.message };
+    if (data.session?.user) {
+      setAuthOptedOut(false);
+      return { ok: true, message: 'Account created. You are signed in.', status: await statusFromUser(sb, data.session.user) };
+    }
+    setAuthOptedOut(true);
+    return {
+      ok: true,
+      message: 'Account created. Check your inbox to confirm your email, then sign in.',
+      needsConfirmation: true,
+    };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'sign up failed' };
+  }
+}
+
+export async function signInAccount(email: string, password: string): Promise<AuthResult> {
+  const sb = getSupabase();
+  if (!sb) return { ok: false, message: 'Supabase not configured. Your progress stays on this device.' };
+  try {
+    const { data, error } = await sb.auth.signInWithPassword({ email: email.trim(), password });
+    if (error) return { ok: false, message: error.message };
+    setAuthOptedOut(false);
+    return {
+      ok: true,
+      message: 'Signed in. Your cloud save is available.',
+      status: data.user ? await statusFromUser(sb, data.user) : undefined,
+    };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'sign in failed' };
+  }
+}
+
+export async function signOutAccount(): Promise<AuthResult> {
+  const sb = getSupabase();
+  if (!sb) return { ok: false, message: 'Supabase not configured.' };
+  try {
+    const { error } = await sb.auth.signOut();
+    if (error) return { ok: false, message: error.message };
+    setAuthOptedOut(true);
+    return { ok: true, message: 'Signed out. Local saves stay on this device.', status: baseStatus() };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'sign out failed' };
+  }
+}
+
+export async function requestPasswordReset(email: string): Promise<AuthResult> {
+  const sb = getSupabase();
+  if (!sb) return { ok: false, message: 'Supabase not configured.' };
+  try {
+    const { error } = await sb.auth.resetPasswordForEmail(email.trim(), redirectUrl() ? { redirectTo: redirectUrl() } : undefined);
+    if (error) return { ok: false, message: error.message };
+    return { ok: true, message: 'Password reset link sent. Check your inbox.' };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'reset failed' };
+  }
+}
+
+export async function resendConfirmation(email: string): Promise<AuthResult> {
+  const sb = getSupabase();
+  if (!sb) return { ok: false, message: 'Supabase not configured.' };
+  try {
+    const { error } = await sb.auth.resend({
+      type: 'signup',
+      email: email.trim(),
+      options: redirectUrl() ? { emailRedirectTo: redirectUrl() } : undefined,
+    });
+    if (error) return { ok: false, message: error.message };
+    return { ok: true, message: 'Confirmation email resent.' };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'resend failed' };
+  }
+}
+
+export async function updatePassword(password: string): Promise<AuthResult> {
+  const sb = getSupabase();
+  if (!sb) return { ok: false, message: 'Supabase not configured.' };
+  try {
+    const { error } = await sb.auth.updateUser({ password });
+    if (error) return { ok: false, message: error.message };
+    return { ok: true, message: 'Password updated.' };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'update failed' };
+  }
+}
+
+export async function updateDisplayName(displayName: string, locale: string): Promise<AuthResult> {
+  const sb = getSupabase();
+  if (!sb) return { ok: false, message: 'Supabase not configured.' };
+  const status = await getAuthStatus();
+  if (!status.userId) return { ok: false, message: 'Not signed in.' };
+  try {
+    const { error } = await sb
+      .from('profiles')
+      .upsert({ id: status.userId, display_name: displayName.trim() || null, locale }, { onConflict: 'id' });
+    if (error) return { ok: false, message: error.message };
+    return { ok: true, message: 'Profile updated.', status: { ...status, displayName: displayName.trim() || null } };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'profile update failed' };
+  }
 }
 
 export async function pushCloudSave(state: GameState): Promise<{ ok: boolean; message: string }> {
@@ -157,6 +338,7 @@ export async function deleteCloudData(): Promise<{ ok: boolean; message: string 
     await sb.from('characters').delete().match({});
     const { error } = await sb.auth.signOut();
     if (error) return { ok: false, message: error.message };
+    setAuthOptedOut(true);
     return { ok: true, message: 'Cloud data deleted. Local save remains on this device.' };
   } catch (err) {
     return { ok: false, message: err instanceof Error ? err.message : 'delete failed' };
