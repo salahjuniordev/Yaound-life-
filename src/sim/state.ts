@@ -18,6 +18,7 @@ import { VEHICLE_MAP } from '../data/vehicles';
 import { RNG, seedFromString } from './rng';
 import { defaultRelationship } from './relationships';
 import { ZONES } from '../data/districts';
+import { createCityHallState, ensureCityHall, syncCityFlags } from './city';
 
 const ALL_SKILLS: SkillKey[] = ['cooking', 'driving', 'sales', 'negotiation', 'management', 'marketing', 'tech', 'creativity', 'music', 'fitness', 'academics', 'charisma'];
 
@@ -236,12 +237,20 @@ export function createGameState(opts: NewGameOptions): GameState {
     storyFlags: { housing_stage: 1, tutorialStep: 0, rent: 15000, rentDueDay: 30, dayOfMonth: 1 },
     budget: { planned: {}, goals: [] },
     reports: [],
+    city: createCityHallState(1),
+    home: { items: [], comfort: 0, lastBonusDay: 0 },
+    socialFeed: [
+      { id: 'feed_1', authorId: 'david_hustler', authorName: 'David', text: 'Morning market run done. If you need a small delivery today, my line is open.', textFr: 'Tour du marché terminé. Si tu as besoin d’une petite livraison aujourd’hui, ma ligne est ouverte.', day: 1, minute: 7 * 60 + 20, likes: 7, likedByPlayer: false },
+      { id: 'feed_2', authorId: 'sandra', authorName: 'Sandra', text: 'Anyone knows a quiet spot to study near Ngoa-Ekelle? The library is full again.', textFr: 'Quelqu’un connaît un coin calme pour étudier près de Ngoa-Ekelle ? La bibliothèque est encore pleine.', day: 1, minute: 7 * 60 + 34, likes: 4, likedByPlayer: false },
+      { id: 'feed_3', authorId: 'brandon', authorName: 'Brandon', text: 'Roads are moving well this morning. Avoid the usual jam at the roundabout after 17h.', textFr: 'La circulation est fluide ce matin. Évite le bouchon habituel après 17h.', day: 1, minute: 7 * 60 + 45, likes: 9, likedByPlayer: false },
+    ],
     log: [
       { day: 1, minute: 7 * 60, text: 'You wake up in Yaounde. The day is yours.' },
     ],
   };
 
   void ZONES;
+  syncCityFlags(state);
   return state;
 }
 
@@ -302,8 +311,13 @@ export function migrateState(raw: unknown): GameState | null {
     storyFlags: { ...base.storyFlags, ...(s.storyFlags ?? {}) },
     budget: { planned: s.budget?.planned ?? {}, goals: s.budget?.goals ?? [] },
     reports: s.reports ?? [],
+    city: s.city ?? createCityHallState(s.world?.day ?? 1),
+    home: s.home ?? { items: [], comfort: 0, lastBonusDay: 0 },
+    socialFeed: s.socialFeed ?? [],
     log: s.log ?? [],
   };
+  ensureCityHall(merged);
+  syncCityFlags(merged);
   for (const n of NAMED_NPCS) {
     if (!merged.npcs[n.id]) {
       merged.npcs[n.id] = {

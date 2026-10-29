@@ -46,63 +46,82 @@ export function HUD() {
   const tutorialStep = Number(s.storyFlags['tutorialStep'] ?? 0);
   const hint = JOURNAL_HINTS[tutorialStep];
   const holiday = holidayForDay(s.world.day);
+  const policyLabel = String(s.storyFlags['city_policy_label'] ?? '');
+  const sortedNeeds = [...NEED_KEYS].sort((a, b) => s.player.needs[a] - s.player.needs[b]);
+  const shownNeeds = needsExpanded ? NEED_KEYS : sortedNeeds.slice(0, 3);
+  const unread = s.phone.notifications.some((n) => !n.read);
+  const initial = (s.player.name || 'Y').trim().charAt(0).toUpperCase();
 
   return (
     <div className="hud">
       <div className="hud-top">
         <div className="hud-left">
-          <div className="hud-district">
-            <span className="hud-district-name">{fr ? zone?.nameFr : zone?.name}</span>
-            <span className="hud-time">
-              {dayName} · Day {s.world.day} · {formatClock(nowMin)} · {partLabel} <Icon name={weather} size={13} />
+          <div className="hud-location">
+            <span className="hud-location-avatar">{initial}</span>
+            <div className="hud-location-main">
+              <span className="hud-district-name">{fr ? zone?.nameFr : zone?.name}</span>
+              <span className="hud-time">
+                <Icon name={weather} size={11} /> {formatClock(nowMin)} · {partLabel}
+              </span>
+            </div>
+          </div>
+          <div className="hud-flags">
+            <span className="flag">
+              <Icon name="clock" size={11} /> {dayName} · {fr ? 'Jour' : 'Day'} {s.world.day}
             </span>
-            <div className="hud-flags">
-              {holiday && (
-                <span className="flag flag-holiday">
-                  <Icon name="holiday" size={12} /> {fr ? holiday.nameFr : holiday.name}
-                </span>
-              )}
-              {strike && (
-                <span className="flag flag-warn">
-                  <Icon name="taxi" size={12} /> {fr ? 'Grève taxis' : 'Taxi strike'}
-                </span>
-              )}
-              {inOutage && (
-                <span className="flag flag-warn">
-                  <Icon name="power" size={12} /> {fr ? 'Délestage' : 'Power out'}
+            {holiday && (
+              <span className="flag flag-holiday">
+                <Icon name="holiday" size={11} /> {fr ? holiday.nameFr : holiday.name}
+              </span>
+            )}
+            {strike && (
+              <span className="flag flag-warn">
+                <Icon name="taxi" size={11} /> {fr ? 'Grève taxis' : 'Taxi strike'}
+              </span>
+            )}
+            {inOutage && (
+              <span className="flag flag-warn">
+                <Icon name="power" size={11} /> {fr ? 'Délestage' : 'Power out'}
+              </span>
+            )}
+            {policyLabel && (
+              <span className="flag">
+                <Icon name="city" size={11} /> {policyLabel}
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="hud-right">
+          <div className="hud-wallet">
+            <div className="hud-wallet-main">
+              <span>{fr ? 'Espèces' : 'Cash'}</span>
+              <strong>{s.wallet.cash.toLocaleString()} F</strong>
+            </div>
+            <div className="hud-wallet-more">
+              <span className="chip" title={fr ? 'Mobile Money' : 'Mobile Money'}>
+                <Icon name="momo" size={11} /> {s.wallet.momo.toLocaleString()}
+              </span>
+              <span className="chip" title={fr ? 'Banque' : 'Bank'}>
+                <Icon name="bank" size={11} /> {s.wallet.bank.toLocaleString()}
+              </span>
+              {s.wallet.debt > 0 && (
+                <span className="chip chip-debt" title={fr ? 'Dette' : 'Debt'}>
+                  <Icon name="debt" size={11} /> -{s.wallet.debt.toLocaleString()}
                 </span>
               )}
             </div>
           </div>
         </div>
-        <div className="hud-right">
-          <div className="money-chips">
-            <span className="chip">
-              <Icon name="cash" size={13} /> {s.wallet.cash.toLocaleString()}
-            </span>
-            <span className="chip">
-              <Icon name="momo" size={13} /> {s.wallet.momo.toLocaleString()}
-            </span>
-            <span className="chip">
-              <Icon name="bank" size={13} /> {s.wallet.bank.toLocaleString()}
-            </span>
-            {s.wallet.debt > 0 && (
-              <span className="chip chip-debt">
-                <Icon name="debt" size={13} /> -{s.wallet.debt.toLocaleString()}
-              </span>
-            )}
-          </div>
-        </div>
       </div>
 
       <div className={`needs ${needsExpanded ? 'needs-open' : ''}`} onClick={() => setNeedsExpanded((v) => !v)}>
-        {(needsExpanded ? NEED_KEYS : NEED_KEYS.filter((k) => s.player.needs[k] < 45)).map((k) => {
+        {shownNeeds.map((k) => {
           const v = Math.round(s.player.needs[k]);
           const label = NEED_LABELS[k];
           return (
             <div key={k} className="need">
               <span className="need-icon">
-                <Icon name={NEED_ICONS[label.icon] ?? 'needMood'} size={13} />
+                <Icon name={NEED_ICONS[label.icon] ?? 'needMood'} size={12} />
               </span>
               <div className="need-bar">
                 <div
@@ -110,16 +129,13 @@ export function HUD() {
                   style={{ width: `${v}%` }}
                 />
               </div>
-              <span className="need-value">{v}</span>
               <span className="need-label">{fr ? label.fr : label.en}</span>
             </div>
           );
         })}
-        {!needsExpanded && (
-          <span className="needs-more">
-            <Icon name="more" size={12} />
-          </span>
-        )}
+        <span className="needs-more">
+          <Icon name={needsExpanded ? 'close' : 'more'} size={12} />
+        </span>
       </div>
 
       {nearby && (
@@ -141,26 +157,30 @@ export function HUD() {
         </div>
       )}
 
-      <div className="action-buttons">
-        {nearby && (
-          <button className="action-btn action-interact" onClick={() => openNearby(nearby)}>
-            <Icon name="act" size={22} />
-            <em>{fr ? 'Agir' : 'Act'}</em>
-          </button>
-        )}
-        <button className="action-btn" onClick={() => openPhone('journal')}>
+      <div className="dock">
+        <button className="dock-btn" onClick={() => openPhone('journal')}>
           <Icon name="journal" size={20} />
           <em>{fr ? 'Journal' : 'Journal'}</em>
         </button>
-        <button className="action-btn action-phone" onClick={() => openPhone('messages')}>
+        <button className="dock-btn" onClick={() => openPhone('messages')}>
           <Icon name="phone" size={20} />
           <em>{fr ? 'Téléphone' : 'Phone'}</em>
-          {s.phone.notifications.some((n) => !n.read) && <span className="badge-dot" />}
+          {unread && <span className="badge-dot" />}
         </button>
-        <button className="action-btn" onClick={() => useGame.getState().setModal({ kind: 'travel' })}>
-          <Icon name="taxi" size={20} />
-          <em>{fr ? 'Voyager' : 'Travel'}</em>
+        <button className="dock-btn" onClick={() => openPhone('map')}>
+          <Icon name="map" size={20} />
+          <em>{fr ? 'Carte' : 'Map'}</em>
         </button>
+        <button className="dock-btn" onClick={() => openPhone('city')}>
+          <Icon name="city" size={20} />
+          <em>{fr ? 'Mairie' : 'City'}</em>
+        </button>
+        {nearby && (
+          <button className="dock-btn dock-btn-active" onClick={() => openNearby(nearby)}>
+            <Icon name="act" size={20} />
+            <em>{fr ? 'Agir' : 'Act'}</em>
+          </button>
+        )}
       </div>
     </div>
   );

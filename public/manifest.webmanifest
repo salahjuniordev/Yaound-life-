@@ -1,13 +1,16 @@
 {
-  "name": "Yaounde Life",
-  "short_name": "Yaounde Life",
-  "description": "A 3D life simulator set in Yaounde, Cameroon",
+  "name": "Yaoundé Life",
+  "short_name": "Yaoundé Life",
+  "description": "A Sims-style life game set in Yaoundé. Ride taxis, hustle, vote for mayor and live your Yaoundé story.",
+  "id": "./",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#1a1208",
-  "theme_color": "#1a1208",
+  "background_color": "#eef2f7",
+  "theme_color": "#eef2f7",
   "icons": [
-    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
   ]
 }

@@ -1,6 +1,17 @@
-const CACHE = 'yaounde-life-v1';
+const CACHE = 'yaounde-life-v2';
 
 self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches
+      .open(CACHE)
+      .then((cache) =>
+        Promise.allSettled([
+          cache.add('/fonts/fredoka-latin.woff2'),
+          cache.add('/fonts/plus-jakarta-sans-latin.woff2'),
+          cache.add('/icon.svg'),
+        ]),
+      ),
+  );
   self.skipWaiting();
 });
 

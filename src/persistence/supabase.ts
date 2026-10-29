@@ -107,10 +107,10 @@ export async function getAuthStatus(): Promise<CloudStatus> {
 export async function ensureSession(): Promise<CloudStatus> {
   const sb = getSupabase();
   if (!sb) return baseStatus('Supabase not configured (offline mode).');
-  if (authOptedOut()) return baseStatus();
   try {
     const { data: sessionData } = await sb.auth.getSession();
     if (sessionData.session?.user) return await statusFromUser(sb, sessionData.session.user);
+    if (authOptedOut()) return baseStatus();
     const { data, error } = await sb.auth.signInAnonymously();
     if (error) return baseStatus(error.message);
     if (!data.user) return baseStatus('Anonymous sign-in returned no user.');
@@ -334,8 +334,8 @@ export async function deleteCloudData(): Promise<{ ok: boolean; message: string 
   const status = await ensureSession();
   if (!status.userId) return { ok: false, message: 'Not signed in.' };
   try {
-    await sb.from('saves').delete().match({});
-    await sb.from('characters').delete().match({});
+    const { error: deleteError } = await sb.from('characters').delete().eq('user_id', status.userId);
+    if (deleteError) return { ok: false, message: deleteError.message };
     const { error } = await sb.auth.signOut();
     if (error) return { ok: false, message: error.message };
     setAuthOptedOut(true);

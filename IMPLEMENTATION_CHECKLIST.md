@@ -3,7 +3,7 @@
 Persistent status board for the PRD (`Yaounde_Life_Ultimate_PRD_v1.1.txt`).
 Legend: [x] done · [~] partial · [ ] not started · [!] blocked
 
-Last updated: 2026-10-23
+Last updated: 2026-10-29
 
 ## Toolchain / Infrastructure
 - [x] Vite 7 + React 19 + TypeScript project bootstraps, typechecks, builds (`npm run build` → `dist/`)
@@ -11,7 +11,7 @@ Last updated: 2026-10-23
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 126/126 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 135/135 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -56,7 +56,7 @@ Last updated: 2026-10-23
 - [x] Work paths: market trader (buy/sell, street stall), moto-taxi runs, shop/business owner, student part-time; 10 job definitions
 - [x] Travel: walk / shared taxi / moto with cost+time+risk; fare-and-time decision modal; taxi strike disables taxis; moto accident event
 - [x] Fast travel after learning routes (Maps app + travel modal)
-- [x] Phone: Journal, Messages, Wallet, Jobs, Business, Njangi, News, Social, Contacts, Glossary, Stats, Settings
+- [x] Phone: Journal, Messages, Map, City Hall, Home, Wallet, Jobs, Business, Garage, Njangi, News, Social, Contacts, Glossary, Stats, Settings
 - [x] Events: 30+ templates incl. `moto_accident`, `delayed_taxi`, wet-weather handling, `contentLabel` markers
 - [x] Goals board (13 goals, 3 tiers) + 11 achievements incl. hidden ones
 - [x] Autosave (day change + visibility) with one-backup recovery; cloud sync optional
@@ -74,8 +74,8 @@ Last updated: 2026-10-23
 - [x] Relationship dimensions (trust/affection/respect/compatibility), stages incl. refusal, bounded NPC memory
 - [x] NPC schedules, personalities, city news generation, morning messages
 - [x] Business management: stock, pricing, staff hire/fire, delivery preference, openness toggle, daily demand model
-- [x] Social feed + posting, banking (deposit/withdraw/loans), Momo transfers to NPCs
-- [x] Housing stages 1-3 (`housing_upgrade`), interiors per place
+- [x] Social feed + posting + likes + daily neighbour posts, banking (deposit/withdraw/loans), Momo transfers to NPCs
+- [x] Housing stages 1-3 (`housing_upgrade`), interiors per place, furniture shop with comfort bonuses
 - [x] English + French strings, Camfranglais flavor setting (`light`/full)
 - [x] News app headlines, Photos app (photo moments + achievements), Messages with reply options
 - [x] Education: exam chains (Probatoire/Bac/Concours) — registration fees, prep days, district exams, pass/fail/missed with recovery, level unlocks (school administrator, public service) + Journal Education panel
@@ -92,6 +92,8 @@ Last updated: 2026-10-23
 - [x] Property ownership/investment: buy your home (stage 4, rent-free), 3 rental properties paying net rent every Sunday, business premises upgrades (demand + rent tiers)
 - [x] Achievements depth: 12 new achievements (6 hidden, masked in Stats until unlocked), work streaks (current + best), milestone list in Journal, 5 legacy goals
 - [x] Vehicles/fleets: 4 models (2 motos, 2 cars) with fuel, condition, repairs, resale and driving-skill gates; personal driving travel option; Garage app; three moto-fleet riders with daily net income, reliability incidents and wear; own moto removes the daily rental fee from moto runs; 2 goals + 2 achievements (`src/data/vehicles.ts`, `src/ui/Phone.tsx`, `test/vehicles.test.ts`)
+- [x] City Hall elections: five candidates, five policies, player candidacy, campaign rallies, approval, policy effects wired into fares/wages/food/outages (`src/sim/city.ts`, `test/city.test.ts`)
+- [x] Lagos Life-style UI overhaul: light/dark tokens, Fredoka + Plus Jakarta Sans, wizard creator, new HUD/dock/phone, install prompt, About/Privacy/Terms
 - [ ] Douala expansion
 - [ ] Multiplayer presence
 - [ ] Player-owned shops and player-to-player trade
@@ -139,6 +141,7 @@ npm run preview          # serve dist/
 ```
 
 ## Changelog
+- 2026-10-23: Auth regression pass — exercised the real persistence layer against live Supabase: anonymous session → permanent account upgrade (same user ID), display-name save/reload, sign-out opt-out, wrong/old password rejection, duplicate-email rejection, password change, session restore across a fresh client, and cloud push/pull/delete. Fixed two bugs found: restored sessions now win over a stale opt-out flag (email-confirmation links work), and cloud delete now filters by `user_id` and cascades saves instead of silently doing nothing. All auth/cloud flow checks pass.
 - 2026-10-23: Account system — email/password sign-up, sign-in, sign-out, password reset, confirmation resend, display-name profile editing and anonymous-account upgrade (`src/persistence/supabase.ts`, `src/state/store.ts`, `src/ui/Account.tsx`); auth-aware Account panel in Main Menu and Settings, plus explicit opt-out so signing out does not auto-create a new anonymous session. Configured live auth redirects for localhost and `yaounde-life.pages.dev`; verified live sign-in, profile update, wrong-password rejection, anonymous sign-in and anonymous→email upgrade with same user ID. Autoconfirm is enabled for dev until custom SMTP is configured (see Persistence & Backend).
 - 2026-10-23: Live Supabase setup — applied `0001_init.sql` to project `euiagjlekpyipbdwotsg` ("mboa life", eu-west-1), enabled anonymous auth, wrote `.env.local`, and ran `npm run db:verify` against the live database (14/14 checks pass: profile trigger, character/save isolation, read-only content tables, report ownership). Production build now bundles the Supabase client (58.6 KB gzip); size budgets still PASS.
 - 2026-10-23: Phase 5 vehicles/fleets round — vehicle catalogue (used/new moto, Corolla, Hilux) with per-model price, tank, consumption, speed, risk and wear (`src/data/vehicles.ts`); ownership state + save migration (`src/sim/types.ts`, `src/sim/state.ts`); buy/sell/refuel/repair/assign actions and daily fleet settlement with rider cuts, fuel, upkeep, reliability incidents and wear (`src/sim/engine.ts`); personal vehicle travel option in Maps (no fare, burns fuel/condition) plus a car breakdown event; new Garage phone app (fleet rider assignment, live net estimate); own moto removes the 5,000 FCFA daily rental from moto runs; 2 goals + 2 achievements. `test/vehicles.test.ts` covers purchase gates, trip fuel/wear, fleet locking, refuel/repair/resale, daily income and legacy save migration. +9 tests (126 total), all green; build ~32s, JS 465.5 KB gzip, size budgets PASS.

@@ -340,6 +340,78 @@ export interface PlayerState {
   hygieneDays?: number;
 }
 
+
+export type CityPolicyId =
+  | 'transport_subsidy'
+  | 'minimum_wage'
+  | 'fun_boost'
+  | 'food_discount'
+  | 'power_deal';
+
+export interface CityCandidateSeed {
+  id: string;
+  npcId: string;
+  name: string;
+  nameFr: string;
+  role: string;
+  roleFr: string;
+  slogan: string;
+  sloganFr: string;
+  policy: CityPolicyId;
+  popularity: number;
+}
+
+export interface CityCandidate extends CityCandidateSeed {
+  player?: boolean;
+}
+
+export interface CityElectionResult {
+  day: number;
+  winnerId: string;
+  winnerName: string;
+  winnerNameFr: string;
+  policy: CityPolicyId;
+  playerVote: string | null;
+  playerWon: boolean;
+  votes: Record<string, number>;
+}
+
+export interface CityHallState {
+  cycle: number;
+  electionDay: number;
+  votingOpenDay: number;
+  candidates: CityCandidate[];
+  votes: Record<string, number>;
+  playerVotes: number;
+  votedCandidateId: string | null;
+  votedDay: number | null;
+  playerRunning: boolean;
+  playerPolicy: CityPolicyId | null;
+  campaignSpend: number;
+  policy: CityPolicyId | null;
+  policyUntilDay: number;
+  approval: number;
+  lastResult: CityElectionResult | null;
+}
+
+export interface SocialPost {
+  id: string;
+  authorId: string;
+  authorName: string;
+  text: string;
+  textFr?: string;
+  day: number;
+  minute: number;
+  likes: number;
+  likedByPlayer: boolean;
+}
+
+export interface HomeState {
+  items: string[];
+  comfort: number;
+  lastBonusDay: number;
+}
+
 export interface GameState {
   version: number;
   characterId: string;
@@ -371,6 +443,9 @@ export interface GameState {
   log: { day: number; minute: number; text: string }[];
   budget: { planned: Record<string, number>; goals: SavingsGoal[] };
   reports: ContentReport[];
+  city: CityHallState;
+  home: HomeState;
+  socialFeed: SocialPost[];
 }
 
 export interface ActivityDef {

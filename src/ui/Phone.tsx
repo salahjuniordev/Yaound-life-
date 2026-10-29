@@ -22,10 +22,18 @@ import { setLanguage } from '../i18n';
 import { AccountPanel } from './Account';
 import { ReportButton } from './ReportButton';
 import { Icon, type IconName } from './icons';
+import { MapApp } from './apps/MapApp';
+import { CityHallApp } from './apps/CityHallApp';
+import { HomeApp } from './apps/HomeApp';
+import { SocialFeedApp } from './apps/SocialFeedApp';
+import { useInstallPrompt } from './InstallPrompt';
 
 const APPS: { id: string; name: string; nameFr: string; icon: IconName }[] = [
   { id: 'journal', name: 'Journal', nameFr: 'Journal', icon: 'journal' },
   { id: 'messages', name: 'Messages', nameFr: 'Messages', icon: 'messages' },
+  { id: 'map', name: 'Map', nameFr: 'Carte', icon: 'map' },
+  { id: 'city', name: 'City Hall', nameFr: 'Mairie', icon: 'city' },
+  { id: 'home', name: 'Home', nameFr: 'Chez moi', icon: 'home' },
   { id: 'wallet', name: 'Wallet', nameFr: 'Portefeuille', icon: 'wallet' },
   { id: 'jobs', name: 'Jobs', nameFr: 'Emplois', icon: 'jobs' },
   { id: 'business', name: 'Business', nameFr: 'Business', icon: 'business' },
@@ -53,6 +61,18 @@ export function Phone() {
   const s = engine.state;
   const fr = s.settings.language === 'fr';
   const app = APPS.find((a) => a.id === phoneApp);
+  const hour = s.world.minute / 60;
+  const greeting = fr
+    ? hour < 12
+      ? 'Bonjour'
+      : hour < 17
+        ? 'Bon après-midi'
+        : 'Bonsoir'
+    : hour < 12
+      ? 'Good morning'
+      : hour < 17
+        ? 'Good afternoon'
+        : 'Good evening';
 
   return (
     <div className="phone-overlay" onClick={close}>
@@ -68,16 +88,39 @@ export function Phone() {
         </div>
         <div className="phone-body">
           {!app ? (
-            <div className="app-grid">
-              {APPS.map((a) => (
-                <button key={a.id} className="app-icon" onClick={() => useGame.getState().setPhoneApp(a.id)}>
-                  <span className="app-icon-tile">
-                    <Icon name={a.icon} size={24} />
+            <>
+              <div className="phone-home-head">
+                <p className="phone-greeting">
+                  {greeting}, <em>{s.player.name.split(' ')[0]}</em>
+                </p>
+                <p className="phone-date">
+                  {fr ? 'Jour' : 'Day'} {s.world.day} · {formatClock(s.world.minute)} ·{' '}
+                  {fr ? 'Yaoundé' : 'Yaounde'}
+                </p>
+                <div className="phone-quick">
+                  <span className="chip">
+                    <Icon name="cash" size={11} /> {s.wallet.cash.toLocaleString()} F
                   </span>
-                  <span className="app-name">{fr ? a.nameFr : a.name}</span>
-                </button>
-              ))}
-            </div>
+                  <span className="chip">
+                    <Icon name="needEnergy" size={11} /> {Math.round(s.player.needs.energy)}
+                  </span>
+                  <span className="chip">
+                    <Icon name="messages" size={11} />{' '}
+                    {s.phone.notifications.filter((n) => !n.read).length}
+                  </span>
+                </div>
+              </div>
+              <div className="app-grid">
+                {APPS.map((a) => (
+                  <button key={a.id} className="app-icon" onClick={() => useGame.getState().setPhoneApp(a.id)}>
+                    <span className="app-icon-tile">
+                      <Icon name={a.icon} size={24} />
+                    </span>
+                    <span className="app-name">{fr ? a.nameFr : a.name}</span>
+                  </button>
+                ))}
+              </div>
+            </>
           ) : (
             <div className="app-view">
               <div className="app-header">
@@ -91,13 +134,16 @@ export function Phone() {
               <div className="app-content">
                 {app.id === 'journal' && <JournalApp />}
                 {app.id === 'messages' && <MessagesApp />}
+                {app.id === 'map' && <MapApp />}
+                {app.id === 'city' && <CityHallApp />}
+                {app.id === 'home' && <HomeApp />}
                 {app.id === 'wallet' && <WalletApp />}
                 {app.id === 'jobs' && <JobsApp />}
                 {app.id === 'business' && <BusinessApp />}
                 {app.id === 'garage' && <GarageApp />}
                 {app.id === 'njangi' && <NjangiApp />}
                 {app.id === 'news' && <NewsApp />}
-                {app.id === 'social' && <SocialApp />}
+                {app.id === 'social' && <SocialFeedApp />}
                 {app.id === 'contacts' && <ContactsApp />}
                 {app.id === 'glossary' && <GlossaryApp />}
                 {app.id === 'stats' && <StatsApp />}
@@ -1166,33 +1212,6 @@ function NewsApp() {
   );
 }
 
-function SocialApp() {
-  const engine = useGame((s) => s.engine)!;
-  const s = engine.state;
-  const fr = s.settings.language === 'fr';
-  const [post, setPost] = useState('');
-  const d = useGame.getState().dispatch;
-  return (
-    <div>
-      <p className="muted small">
-        {fr ? 'Posts publiés' : 'Posts published'}: {s.stats.socialPosts}. {fr ? 'Une publication coûte un peu de data.' : 'Posting costs a little data.'}
-      </p>
-      <div className="compose">
-        <input value={post} onChange={(e) => setPost(e.target.value)} placeholder={fr ? 'Quoi de neuf à Yaoundé ?' : "What's happening in Yaounde?"} />
-        <button
-          disabled={!post.trim()}
-          onClick={() => {
-            d({ type: 'social_post', text: post.trim() });
-            setPost('');
-          }}
-        >
-          {fr ? 'Publier' : 'Post'}
-        </button>
-      </div>
-    </div>
-  );
-}
-
 function ContactsApp() {
   const engine = useGame((s) => s.engine)!;
   const s = engine.state;
@@ -1317,10 +1336,61 @@ function SettingsApp() {
   const fr = s.settings.language === 'fr';
   const store = useGame.getState;
   const [importErr, setImportErr] = useState('');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() =>
+    typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+  );
+  const [fullscreen, setFullscreen] = useState(() => typeof document !== 'undefined' && Boolean(document.fullscreenElement));
+  const install = useInstallPrompt();
   const set = <K extends keyof typeof s.settings>(k: K, v: (typeof s.settings)[K]) => store().setSetting(k, v);
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    if (next === 'dark') document.documentElement.dataset.theme = 'dark';
+    else delete document.documentElement.dataset.theme;
+    try {
+      localStorage.setItem('yaounde-theme', next);
+    } catch {
+      /* private mode */
+    }
+  };
+  const toggleFullscreen = async () => {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+        setFullscreen(false);
+      } else {
+        await document.documentElement.requestFullscreen();
+        setFullscreen(true);
+      }
+    } catch {
+      /* unsupported */
+    }
+  };
 
   return (
     <div>
+      <h3>{fr ? 'Apparence et app' : 'Look and app'}</h3>
+      <div className="row toggle-row">
+        <label>{fr ? 'Thème' : 'Theme'}</label>
+        <button className={`toggle ${theme === 'dark' ? 'toggle-on' : ''}`} onClick={toggleTheme}>
+          {theme === 'dark' ? (fr ? 'SOMBRE' : 'DARK') : fr ? 'CLAIR' : 'LIGHT'}
+        </button>
+      </div>
+      <div className="row toggle-row">
+        <label>{fr ? 'Plein écran' : 'Full screen'}</label>
+        <button className={`toggle ${fullscreen ? 'toggle-on' : ''}`} onClick={() => void toggleFullscreen()}>
+          {fullscreen ? 'ON' : 'OFF'}
+        </button>
+      </div>
+      {install.available && (
+        <button onClick={() => void install.install()}>
+          <Icon name="phone" size={14} /> {fr ? 'Installer Yaoundé Life' : 'Install Yaounde Life'}
+        </button>
+      )}
+      {install.ios && !install.installed && (
+        <div className="muted small">{fr ? 'iOS : Partager → Sur l’écran d’accueil.' : 'iOS: Share → Add to Home Screen.'}</div>
+      )}
+
       <h3>{fr ? 'Jeu' : 'Game'}</h3>
       <div className="row">
         <label>{fr ? 'Langue' : 'Language'}</label>

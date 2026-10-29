@@ -1,4 +1,5 @@
 import type {
+  CityPolicyId,
   DistrictId,
   GameSettings,
   GameState,
@@ -27,6 +28,20 @@ import { addIncome, districtPrice, momoFee, spendMoney, totalMoney } from './eco
 import { applyRelationDelta, dailyRelationshipDrift, npcRelationshipScore } from './relationships';
 import { BUDGET_CATEGORIES, budgetCategoryLabel, weeklyBudgetView, type BudgetCategoryId } from './budget';
 import { generateCityNews } from './npcsim';
+import { FURNITURE_MAP } from '../data/furniture';
+import { FEED_TEMPLATES } from '../data/socialFeed';
+import { CITY_CAMPAIGN_UNIT, CITY_PLAYER_VOTE_WEIGHT, CITY_POLICY_MAP, CITY_RUN_FEE } from '../data/cityHall';
+import {
+  castPlayerVote,
+  cityFunMoodBonus,
+  cityPolicyMultiplier,
+  declareCandidacy,
+  ensureCityHall,
+  isVotingOpen,
+  processCityHallDay,
+  runCityCampaign,
+  syncCityFlags,
+} from './city';
 
 export interface ActionResult {
   ok: boolean;
@@ -144,7 +159,13 @@ export type GameAction =
   | { type: 'pay_arrears' }
   | { type: 'set_setting'; key: keyof GameSettings; value: GameSettings[keyof GameSettings] }
   | { type: 'tutorial'; tag: string }
-  | { type: 'notification_read'; id: string };
+  | { type: 'notification_read'; id: string }
+  | { type: 'city_vote'; candidateId: string }
+  | { type: 'city_run'; policy: CityPolicyId }
+  | { type: 'city_campaign'; amount: number }
+  | { type: 'home_buy'; itemId: string }
+  | { type: 'home_sell'; itemId: string }
+  | { type: 'social_like'; postId: string };
 
 let toastId = 0;
 
@@ -175,8 +196,9 @@ export function getTravelPlan(state: GameState, from: DistrictId, to: DistrictId
   const taxiMin = Math.max(5, Math.round((distance / TAXI_SPEED) * rainFactor) + 4);
   const motoMin = Math.max(4, Math.round((distance / MOTO_SPEED) * rainFactor) + 2);
 
-  const taxiCost = Math.round((isNight ? 350 : 300) + distance * 0.4);
-  const motoCost = Math.round(300 + distance * 1.1 + (isNight ? 150 : 0));
+  const transportFactor = cityPolicyMultiplier(state, 'transport_subsidy');
+  const taxiCost = Math.round(((isNight ? 350 : 300) + distance * 0.4) * transportFactor);
+  const motoCost = Math.round((300 + distance * 1.1 + (isNight ? 150 : 0)) * transportFactor);
 
   const options: TravelQuote[] = [
     { mode: 'walk', minutes: walkMin, cost: 0, risk: 0, available: true },
@@ -292,7 +314,8 @@ export function getVendorStock(state: GameState, vendorKind: string, district: D
     const base = entry.wholesale ? def.wholesalePrice : def.basePrice;
     const districtBase = districtPrice(state, district, base);
     const discount = 1 - Math.min(0.1, negot * 0.012);
-    return { itemId: entry.itemId, price: Math.round(districtBase * discount), wholesale: Boolean(entry.wholesale) };
+    const foodFactor = def.category === 'food' || def.category === 'drink' ? cityPolicyMultiplier(state, 'food_discount') : 1;
+    return { itemId: entry.itemId, price: Math.round(districtBase * discount * foodFactor), wholesale: Boolean(entry.wholesale) };
   });
 }
 
@@ -579,6 +602,24 @@ export class GameEngine {
     this.rollWeather();
     this.rollOutages();
     this.rollCityLife();
+    const cityResult = processCityHallDay(s, this.rng);
+    if (cityResult) {
+      const fr = s.settings.language === 'fr';
+      const winner = fr ? cityResult.winnerNameFr : cityResult.winnerName;
+      const policyDef = CITY_POLICY_MAP[cityResult.policy];
+      const policyName = fr ? policyDef.nameFr : policyDef.name;
+      const body = fr
+        ? `${winner} remporte la mairie. Nouvelle politique : ${policyName}.`
+        : `${winner} wins City Hall. New policy: ${policyName}.`;
+      this.notifyApp('city', fr ? 'Résultat de l’élection' : 'Election result', body);
+      this.addMessage('uncle_baba', body, 'news');
+      this.toast(body, cityResult.playerWon ? 'success' : 'info');
+      if (cityResult.playerWon) {
+        this.giveIncome('cash', 25000, 'civic', 'City Hall', 'Mayor salary');
+        this.milestone(fr ? 'Tu es maire de Yaoundé !' : 'You are the mayor of Yaounde!');
+      }
+      this.pushLog(body);
+    }
     if (s.world.outages[s.player.district]) {
       s.storyFlags['outage_days_seen'] = Number(s.storyFlags['outage_days_seen'] ?? 0) + 1;
     }
@@ -591,6 +632,15 @@ export class GameEngine {
     this.processExams();
     this.processRentalIncome();
     dailyRelationshipDrift(s, this.rng);
+    const comfort = s.home?.comfort ?? 0;
+    if (comfort > 0) {
+      applyNeedEffects(s.player.needs, {
+        mood: Math.min(8, Math.round(comfort / 5)),
+        energy: Math.min(6, Math.round(comfort / 8)),
+        hygiene: comfort >= 30 ? 1 : 0,
+      });
+    }
+    this.processSocialFeedDay();
     this.sendWeeklyBudgetSummary();
     this.sendMorningMessages(dom);
     this.refreshGoals();
@@ -636,7 +686,7 @@ export class GameEngine {
     const s = this.state;
     s.world.outages = {};
     for (const zone of ZONES) {
-      if (this.rng.chance(0.45 * (1.2 - zone.powerReliability))) {
+      if (this.rng.chance(0.45 * (1.2 - zone.powerReliability) * cityPolicyMultiplier(s, 'power_deal'))) {
         const start = this.rng.pick([7 * 60, 9 * 60, 13 * 60, 17 * 60, 19 * 60]);
         const dur = this.rng.int(120, 300);
         s.world.outages[zone.id] = { start, end: start + dur };
@@ -1261,6 +1311,24 @@ export class GameEngine {
         this.advanceTutorial(action.tag);
         result = { ok: true };
         break;
+      case 'city_vote':
+        result = this.doCityVote(action.candidateId);
+        break;
+      case 'city_run':
+        result = this.doCityRun(action.policy);
+        break;
+      case 'city_campaign':
+        result = this.doCityCampaign(action.amount);
+        break;
+      case 'home_buy':
+        result = this.doHomeBuy(action.itemId);
+        break;
+      case 'home_sell':
+        result = this.doHomeSell(action.itemId);
+        break;
+      case 'social_like':
+        result = this.doSocialLike(action.postId);
+        break;
       case 'notification_read': {
         const n = this.state.phone.notifications.find((x) => x.id === action.id);
         if (n) n.read = true;
@@ -1306,10 +1374,11 @@ export class GameEngine {
     if (physical && s.player.needs.energy < 8) {
       return { ok: false, message: 'You are too exhausted for this. Rest, nap, or call it a day.' };
     }
-    if (def.cost && def.cost > 0) {
-      const wallet = s.wallet.cash >= def.cost ? 'cash' : 'momo';
-      if (!this.spend(wallet, def.cost, 'activity', def.name, def.name)) {
-        return { ok: false, message: `You need ${def.cost.toLocaleString()} FCFA for this.` };
+    const activityCost = Math.round((def.cost ?? 0) * (def.category === 'food' ? cityPolicyMultiplier(s, 'food_discount') : 1));
+    if (activityCost > 0) {
+      const wallet = s.wallet.cash >= activityCost ? 'cash' : 'momo';
+      if (!this.spend(wallet, activityCost, 'activity', def.name, def.name)) {
+        return { ok: false, message: `You need ${activityCost.toLocaleString()} FCFA for this.` };
       }
     }
 
@@ -1321,6 +1390,9 @@ export class GameEngine {
     }
 
     applyNeedEffects(s.player.needs, def.effects);
+    if (def.category === 'fun') {
+      applyNeedEffects(s.player.needs, { mood: cityFunMoodBonus(s) });
+    }
     if (def.skill) {
       const cur = s.player.skills[def.skill.key];
       const gain = def.skill.gain * Math.max(0.25, 1 - cur * 0.06);
@@ -1759,8 +1831,9 @@ export class GameEngine {
     const festive = holidayForDay(s.world.day)?.wageMultiplier ?? 1;
     if (def.payCadence === 'shift' || def.payCadence === 'day') {
       const raise = Number(s.storyFlags[`raise_${jobId}`] ?? 1);
-      pay = Math.round(def.pay * (worked / shiftLength) * raise * festive);
-      if (worked >= shiftLength * 0.8) pay = Math.round(def.pay * raise * festive);
+      const wageFactor = cityPolicyMultiplier(s, 'minimum_wage');
+      pay = Math.round(def.pay * (worked / shiftLength) * raise * festive * wageFactor);
+      if (worked >= shiftLength * 0.8) pay = Math.round(def.pay * raise * festive * wageFactor);
       this.giveIncome('cash', pay, 'wage', def.employer, `Shift (${Math.round(worked / 60)}h)${festive > 1 ? ' · holiday' : ''}`);
     }
     if (s.world.weather === 'rain') s.storyFlags['worked_in_rain'] = true;
@@ -1775,6 +1848,64 @@ export class GameEngine {
   private minutesUntil(now: number, target: number): number {
     const diff = target - now;
     return diff >= 0 ? diff : diff + 1440;
+  }
+
+  private doHomeBuy(itemId: string): ActionResult {
+    const s = this.state;
+    const def = FURNITURE_MAP[itemId];
+    if (!def) return { ok: false, message: 'Unknown furniture.' };
+    if (s.home.items.includes(itemId)) return { ok: false, message: 'You already own that piece.' };
+    const wallet = s.wallet.cash >= def.price ? 'cash' : 'momo';
+    if (!this.spend(wallet, def.price, 'home', 'Furniture seller', def.name)) {
+      return { ok: false, message: `You need ${def.price.toLocaleString()} FCFA for the ${def.name}.` };
+    }
+    s.home.items.push(itemId);
+    s.home.comfort += def.comfort;
+    this.pushLog(`Bought ${def.name} for the room (+${def.comfort} comfort).`);
+    return { ok: true, message: `${def.name} delivered. Comfort +${def.comfort}.`, toast: 'success' };
+  }
+
+  private doHomeSell(itemId: string): ActionResult {
+    const s = this.state;
+    const def = FURNITURE_MAP[itemId];
+    if (!def || !s.home.items.includes(itemId)) return { ok: false, message: 'You do not own that.' };
+    const resale = Math.round(def.price * 0.5);
+    s.home.items = s.home.items.filter((id) => id !== itemId);
+    s.home.comfort = Math.max(0, s.home.comfort - def.comfort);
+    this.giveIncome('cash', resale, 'home', 'Second-hand buyer', `Sold ${def.name}`);
+    this.pushLog(`Sold ${def.name} for ${resale.toLocaleString()} FCFA.`);
+    return { ok: true, message: `Sold ${def.name} for ${resale.toLocaleString()} FCFA.`, toast: 'money' };
+  }
+
+  private doCityVote(candidateId: string): ActionResult {
+    const s = this.state;
+    ensureCityHall(s);
+    const res = castPlayerVote(s, candidateId, CITY_PLAYER_VOTE_WEIGHT);
+    if (!res.ok) return { ok: false, message: res.message };
+    const candidate = s.city.candidates.find((c) => c.id === candidateId);
+    this.pushLog(`Voted for ${candidate?.name ?? candidateId} at City Hall.`);
+    return { ok: true, message: res.message, toast: 'success' };
+  }
+
+  private doCityRun(policy: CityPolicyId): ActionResult {
+    const s = this.state;
+    if (!isVotingOpen(s)) return { ok: false, message: 'You can only declare candidacy while voting is open.' };
+    const res = declareCandidacy(s, policy, CITY_RUN_FEE);
+    if (!res.ok) return { ok: false, message: res.message };
+    this.pushLog(`Declared candidacy for City Hall (${policy}).`);
+    return { ok: true, message: res.message, toast: 'success' };
+  }
+
+  private doCityCampaign(amount: number): ActionResult {
+    const s = this.state;
+    const spend = Math.round(amount / CITY_CAMPAIGN_UNIT) * CITY_CAMPAIGN_UNIT;
+    if (spend < CITY_CAMPAIGN_UNIT || spend > CITY_CAMPAIGN_UNIT * 10) {
+      return { ok: false, message: `Campaign spend must be between ${CITY_CAMPAIGN_UNIT.toLocaleString()} and ${(CITY_CAMPAIGN_UNIT * 10).toLocaleString()} FCFA.` };
+    }
+    const res = runCityCampaign(s, spend);
+    if (!res.ok) return { ok: false, message: res.message };
+    this.pushLog(`Campaign rally: ${spend.toLocaleString()} FCFA.`);
+    return { ok: true, message: res.message, toast: 'money' };
   }
 
   private doResign(): ActionResult {
@@ -2741,9 +2872,53 @@ export class GameEngine {
     s.storyFlags['followers'] = followers + gain;
     applyNeedEffects(s.player.needs, { mood: 4 });
     s.stats.socialPosts += 1;
-    void text;
+    s.socialFeed.unshift({
+      id: `post_${Date.now().toString(36)}_${this.rng.int(1000, 9999)}`,
+      authorId: 'player',
+      authorName: s.player.name,
+      text: text.slice(0, 280),
+      day: s.world.day,
+      minute: Math.floor(s.world.minute),
+      likes: this.rng.int(0, 3),
+      likedByPlayer: false,
+    });
+    if (s.socialFeed.length > 40) s.socialFeed.length = 40;
     this.pushLog(`Posted to the feed. +${gain} followers.`);
     return { ok: true, message: `Posted. +${gain} followers.`, toast: 'success' };
+  }
+
+  private doSocialLike(postId: string): ActionResult {
+    const s = this.state;
+    const post = s.socialFeed.find((p) => p.id === postId);
+    if (!post) return { ok: false, message: 'That post is gone.' };
+    post.likedByPlayer = !post.likedByPlayer;
+    post.likes = Math.max(0, post.likes + (post.likedByPlayer ? 1 : -1));
+    applyNeedEffects(s.player.needs, { mood: post.likedByPlayer ? 1 : 0 });
+    if (post.likedByPlayer && post.authorId !== 'player' && s.relationships[post.authorId]) {
+      applyRelationDelta(s, post.authorId, { affection: 0.5 });
+    }
+    return { ok: true, message: post.likedByPlayer ? 'Liked.' : 'Like removed.' };
+  }
+
+  private processSocialFeedDay(): void {
+    const s = this.state;
+    if (this.rng.chance(0.55)) return;
+    const used = new Set(s.socialFeed.filter((p) => p.day === s.world.day).map((p) => p.authorId));
+    const options = FEED_TEMPLATES.filter((t) => !used.has(t.authorId));
+    if (options.length === 0) return;
+    const t = this.rng.pick(options);
+    s.socialFeed.unshift({
+      id: `post_${Date.now().toString(36)}_${this.rng.int(1000, 9999)}`,
+      authorId: t.authorId,
+      authorName: t.authorName,
+      text: t.text,
+      textFr: t.textFr,
+      day: s.world.day,
+      minute: this.rng.int(6 * 60, 21 * 60),
+      likes: this.rng.int(0, 12),
+      likedByPlayer: false,
+    });
+    if (s.socialFeed.length > 40) s.socialFeed.length = 40;
   }
 
   private doPhoto(landmarkId?: string): ActionResult {
