@@ -3,11 +3,38 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { BACKGROUNDS } from '../data/backgrounds';
 import { HAIR_STYLES, SHIRT_COLORS, SKIN_TONES, PANTS_COLORS } from '../data/backgrounds';
 import { NEED_LABELS } from '../sim/needs';
+import { DISTRICT_MAP } from '../data/districts';
 import { CHARACTER_PRESETS } from '../data/characterPresets';
 import { animateCharacter, buildCharacter } from '../render/characters';
 import { useGame } from '../state/store';
 import { Icon } from './icons';
 import type { Appearance, BackgroundId, NeedsState, SkillKey } from '../sim/types';
+
+const SKILL_LABELS_FR: Record<string, string> = {
+  academics: 'Études',
+  tech: 'Tech',
+  sales: 'Vente',
+  negotiation: 'Négociation',
+  music: 'Musique',
+  fitness: 'Forme',
+  cooking: 'Cuisine',
+  driving: 'Conduite',
+  charisma: 'Charisme',
+  crafts: 'Artisanat',
+  management: 'Gestion',
+  marketing: 'Marketing',
+  creativity: 'Créativité',
+};
+
+const HAIR_LABELS: Record<string, { en: string; fr: string }> = {
+  fade: { en: 'Fade', fr: 'Dégradé' },
+  braids: { en: 'Braids', fr: 'Tresses' },
+  natural: { en: 'Natural', fr: 'Naturel' },
+  bald: { en: 'Bald', fr: 'Rasé' },
+  locks: { en: 'Locks', fr: 'Locks' },
+  wig: { en: 'Wig', fr: 'Perruque' },
+  twists: { en: 'Twists', fr: 'Torsades' },
+};
 
 const SKILL_LABELS: Record<string, string> = {
   academics: 'Academics',
@@ -68,6 +95,8 @@ export function CharacterCreator() {
   const skills = Object.entries(bg.skills) as [SkillKey, number][];
   const needs = Object.entries(bg.needs) as [keyof NeedsState, number][];
   const startMoney = bg.cash + bg.momo + bg.bank;
+  const skillLabel = (key: string) => (fr ? SKILL_LABELS_FR[key] : SKILL_LABELS[key]) ?? key;
+  const district = fr ? DISTRICT_MAP[bg.district].nameFr : DISTRICT_MAP[bg.district].name;
 
   const surprise = () => {
     const preset = CHARACTER_PRESETS[Math.floor(Math.random() * CHARACTER_PRESETS.length)];
@@ -147,7 +176,7 @@ export function CharacterCreator() {
               </div>
               <div className="creator-section">
                 <h3>{t('Gender', 'Genre')}</h3>
-                <div className="segmented creator-gender" style={{ padding: 0 }}>
+                <div className="creator-gender" style={{ padding: 0 }}>
                   {(['m', 'f', 'x'] as const).map((g) => (
                     <button key={g} className={gender === g ? 'selected' : ''} onClick={() => setGender(g)}>
                       {g === 'm' ? t('Man', 'Homme') : g === 'f' ? t('Woman', 'Femme') : t('Other', 'Autre')}
@@ -186,7 +215,7 @@ export function CharacterCreator() {
               <div className="bg-detail">
                 <div className="muted small">
                   <Icon name="cash" size={13} /> {startMoney.toLocaleString()} F · <Icon name="location" size={13} />{' '}
-                  {bg.district.replace('_', ' ')}
+                  {district}
                   {bg.debt > 0 ? (
                     <>
                       {' '}
@@ -197,12 +226,12 @@ export function CharacterCreator() {
                   )}
                 </div>
                 <div className="muted small">
-                  {skills.map(([k, v]) => `${SKILL_LABELS[k] ?? k} ${v}`).join(' · ')}
+                  {skills.map(([k, v]) => `${skillLabel(k)} ${v}`).join(' · ')}
                 </div>
                 <div className="muted small">
-                  {needs.map(([k, v]) => `${NEED_LABELS[k].en} ${v}`).join(' · ')}
+                  {needs.map(([k, v]) => `${NEED_LABELS[k][fr ? 'fr' : 'en']} ${v}`).join(' · ')}
                 </div>
-                <p className="muted small">{bg.storyStart}</p>
+                <p className="muted small">{fr ? bg.blurbFr : bg.storyStart}</p>
               </div>
             </div>
           )}
@@ -255,7 +284,7 @@ export function CharacterCreator() {
                 <div className="chip-row">
                   {HAIR_STYLES.map((h) => (
                     <button key={h} className={appearance.hair === h ? 'selected' : ''} onClick={() => setAppearance({ ...appearance, hair: h })}>
-                      {h}
+                      {HAIR_LABELS[h]?.[fr ? 'fr' : 'en'] ?? h}
                     </button>
                   ))}
                 </div>
@@ -404,7 +433,7 @@ export function CharacterCreator() {
                 </div>
                 <div className="summary-row">
                   <span>{t('Quartier', 'Quartier')}</span>
-                  <strong>{bg.district.replace('_', ' ')}</strong>
+                  <strong>{district}</strong>
                 </div>
                 <div className="summary-row">
                   <span>{t('Money', 'Argent')}</span>
@@ -416,7 +445,7 @@ export function CharacterCreator() {
                 </div>
                 <div className="summary-row">
                   <span>{t('Skills', 'Compétences')}</span>
-                  <strong>{skills.map(([k, v]) => `${SKILL_LABELS[k] ?? k} ${v}`).join(', ') || '—'}</strong>
+                  <strong>{skills.map(([k, v]) => `${skillLabel(k)} ${v}`).join(', ') || '—'}</strong>
                 </div>
               </div>
               <div className="bg-detail">
