@@ -1624,18 +1624,19 @@ textarea::placeholder {
 
 .joystick-zone {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 200px;
-  height: 200px;
+  left: calc(12px + var(--safe-left));
+  bottom: calc(88px + var(--safe-bottom));
+  width: 150px;
+  height: 150px;
   z-index: 12;
+  touch-action: none;
 }
 
 .joystick-base {
   position: absolute;
-  left: 108px;
-  bottom: 40px;
-  transform: translateX(-50%);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 118px;
   height: 118px;
   border-radius: 50%;
@@ -3142,13 +3143,15 @@ textarea::placeholder {
   }
 
   .joystick-zone {
-    width: 160px;
-    height: 160px;
+    left: calc(8px + var(--safe-left));
+    bottom: calc(84px + var(--safe-bottom));
+    width: 128px;
+    height: 128px;
   }
 
   .joystick-base {
-    left: 88px;
-    bottom: 32px;
+    left: 50%;
+    top: 50%;
     width: 96px;
     height: 96px;
   }
