@@ -1,4 +1,4 @@
-const CACHE = 'yaounde-life-v2';
+const CACHE = 'yaounde-life-v3';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -8,7 +8,8 @@ self.addEventListener('install', (event) => {
         Promise.allSettled([
           cache.add('/fonts/fredoka-latin.woff2'),
           cache.add('/fonts/plus-jakarta-sans-latin.woff2'),
-          cache.add('/icon.svg'),
+          cache.add('/app-icon.ico'),
+          cache.add('/game-loading-screen.png'),
         ]),
       ),
   );

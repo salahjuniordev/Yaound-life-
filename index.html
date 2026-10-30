@@ -14,8 +14,8 @@
       content="A Sims-style life game set in Yaoundé. Ride taxis in Mvog-Mbi, eat at Mokolo, survive delestage, vote for your mayor — and live your Yaoundé story. Free in your browser."
     />
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="icon" href="./app-icon.ico" sizes="any" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="./app-icon.ico" />
     <link rel="preload" href="/fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <title>Yaoundé Life — live your Yaoundé story</title>
@@ -64,14 +64,20 @@
         font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
       }
       #boot .mark {
-        width: 64px;
-        height: 64px;
-        border-radius: 20px;
+        width: 112px;
+        height: 112px;
+        padding: 10px;
+        border-radius: 28px;
         display: grid;
         place-items: center;
         background: #fff;
-        color: #2f7d4f;
         box-shadow: 0 10px 30px rgba(16, 24, 40, 0.12);
+      }
+      #boot .mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
       }
       #boot .logo {
         font-family: 'Fredoka', system-ui, sans-serif;
@@ -143,16 +149,7 @@
     <div id="root"></div>
     <div id="boot">
       <div class="mark">
-        <svg width="34" height="34" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="44" cy="17" r="6" />
-          <path d="M6 52h52" />
-          <path d="M9 52V38h9v14" />
-          <path d="M20 52V27h13v25" />
-          <path d="M35 52V39h8v13" />
-          <path d="M45 52V31h9v21" />
-          <path d="M23 33h2.5M27.5 33H30M23 38h2.5M27.5 38H30M23 43h2.5M27.5 43H30" />
-          <path d="M47 37h1.5M50.5 37H52M47 42h1.5M50.5 42H52" />
-        </svg>
+        <img src="./game-loading-screen.png" alt="" width="112" height="112" />
       </div>
       <div class="logo">Yaoundé Life</div>
       <div class="sub">Waking up the city…</div>
