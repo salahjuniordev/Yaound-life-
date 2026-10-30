@@ -88,8 +88,8 @@ export function InteriorScene({ interiorId }: { interiorId: string }) {
         <PropMesh key={i} prop={prop} />
       ))}
       {clip === 'sit' ? (
-        <mesh position={[0, 0.18, 0.6]}>
-          <boxGeometry args={[0.62, 0.36, 0.62]} />
+        <mesh position={[0, 0.225, 0.6]}>
+          <boxGeometry args={[0.62, 0.45, 0.62]} />
           <meshLambertMaterial color="#6d4c41" />
         </mesh>
       ) : null}

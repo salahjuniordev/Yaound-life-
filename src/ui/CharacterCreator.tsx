@@ -57,7 +57,7 @@ function PreviewCharacter({ appearance }: { appearance: Appearance }) {
   const parts = useMemo(() => buildCharacter(appearance), [appearanceKey]);
   useFrame(({ clock }, dt) => {
     animateCharacter(parts, clock.elapsedTime, false, 1, 'idle', Math.min(dt, 0.1));
-    parts.group.rotation.y = Math.sin(clock.elapsedTime * 0.35) * 0.55;
+    parts.group.rotation.y = Math.PI + Math.sin(clock.elapsedTime * 0.35) * 0.55;
   });
   return (
     <group position={[0, -0.9, 0]}>

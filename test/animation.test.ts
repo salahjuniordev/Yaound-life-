@@ -57,7 +57,11 @@ test('sit clip seats the hips, bends both knees and keeps the feet on the ground
   const parts = poseClip(LEGACY, 'sit');
   assert.ok(parts.offsetRoot.position.y < -0.2, 'hips lower onto the seat');
   assert.ok(parts.legL.rotation.x > 1.2 && parts.legR.rotation.x > 1.2, 'thighs fold forward');
-  assert.ok(parts.shinL.rotation.x < -1.2 && parts.shinR.rotation.x < -1.2, 'knees fold back');
+  assert.ok(
+    parts.legL.rotation.x - parts.shinL.rotation.x > 1.0 &&
+      parts.legR.rotation.x - parts.shinR.rotation.x > 1.0,
+    'knees bend',
+  );
   for (const foot of [parts.footL, parts.footR]) {
     const box = worldBox(foot);
     assert.ok(box.min.y > -0.03 && box.min.y < 0.06, `foot grounded (min y ${box.min.y.toFixed(3)})`);

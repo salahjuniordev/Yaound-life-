@@ -64,18 +64,19 @@ test('new appearance parts are optional and default safely for legacy saves', ()
   const wrapped = meshCount(buildCharacter({ ...LEGACY_APPEARANCE, headwear: 'headwrap' }).group);
   assert.ok(wrapped > base, 'headwrap replaces the plain hair cap');
   const bagged = meshCount(buildCharacter({ ...LEGACY_APPEARANCE, bag: 'crossbody' }).group);
-  assert.equal(bagged, base + 2, 'crossbody adds strap and pouch');
+  assert.equal(bagged, base + 4, 'crossbody adds strap, pouch, flap and buckle');
   const shoed = meshCount(buildCharacter({ ...LEGACY_APPEARANCE, shoeColor: '#e0532f' }).group);
-  assert.equal(shoed, base + 2, 'shoes are added to both feet');
+  assert.equal(shoed, base, 'shoe color applies to the existing shoes');
   const skirted = meshCount(buildCharacter({ ...LEGACY_APPEARANCE, bottomStyle: 'skirt' }).group);
-  assert.equal(skirted, base + 1, 'skirt adds one wrap mesh');
+  assert.equal(skirted, base + 2, 'skirt adds a wrap and hem');
 });
 
 test('body type scales the assembled character without moving its feet', () => {
   const slim = buildCharacter({ ...LEGACY_APPEARANCE, bodyType: 'slim' });
   const tall = buildCharacter({ ...LEGACY_APPEARANCE, bodyType: 'tall' });
   const medium = buildCharacter({ ...LEGACY_APPEARANCE, bodyType: 'medium' });
-  assert.ok(slim.group.scale.x < 1 && slim.group.scale.y < 1);
+  assert.ok(slim.group.scale.x < 1 && slim.group.scale.z < 1);
+  assert.equal(slim.group.scale.y, 1);
   assert.ok(tall.group.scale.y > 1);
   assert.deepEqual([medium.group.scale.x, medium.group.scale.y, medium.group.scale.z], [1, 1, 1]);
 });
