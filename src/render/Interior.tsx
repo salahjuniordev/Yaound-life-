@@ -62,11 +62,12 @@ export function InteriorScene({ interiorId }: { interiorId: string }) {
   const { floorColor, props } = useMemo(() => interiorLayout(interiorId), [interiorId]);
   const appearance = engine?.state.player.appearance;
   const appearanceKey = appearance ? JSON.stringify(appearance) : '';
+  const sex = engine?.state.player.gender ?? 'x';
 
   useMemo(() => {
     if (!appearance) return;
-    partsRef.current = buildCharacter(appearance);
-  }, [appearanceKey]);
+    partsRef.current = buildCharacter(appearance, sex);
+  }, [appearanceKey, sex]);
 
   const clip: CharacterClip = SIT_INTERIORS.has(interiorId) ? 'sit' : 'idle';
 

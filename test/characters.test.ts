@@ -80,3 +80,25 @@ test('body type scales the assembled character without moving its feet', () => {
   assert.ok(tall.group.scale.y > 1);
   assert.deepEqual([medium.group.scale.x, medium.group.scale.y, medium.group.scale.z], [1, 1, 1]);
 });
+
+test('male and female builds change shoulders, hips and height', () => {
+  const base = meshCount(buildCharacter(LEGACY_APPEARANCE).group);
+  const male = buildCharacter(LEGACY_APPEARANCE, 'm');
+  const female = buildCharacter(LEGACY_APPEARANCE, 'f');
+  assert.equal(meshCount(female.group), base + 2, 'female build adds two chest meshes');
+  assert.ok(male.group.scale.y > female.group.scale.y, 'male build stands taller');
+  const maleShoulder = male.group.getObjectByName('shoulderL');
+  const femaleShoulder = female.group.getObjectByName('shoulderL');
+  const maleHip = male.group.getObjectByName('hipL');
+  const femaleHip = female.group.getObjectByName('hipL');
+  assert.ok(maleShoulder && femaleShoulder && maleHip && femaleHip, 'named joints exist');
+  const shoulderX = (o: { position: { x: number } }) => Math.abs(o.position.x);
+  assert.ok(shoulderX(maleShoulder) > shoulderX(femaleShoulder), 'male shoulders are wider');
+  assert.ok(shoulderX(maleHip) < shoulderX(femaleHip), 'female hips are wider');
+});
+
+test('unknown sex falls back to the neutral legacy build', () => {
+  const neutral = meshCount(buildCharacter(LEGACY_APPEARANCE, 'x').group);
+  const legacy = meshCount(buildCharacter(LEGACY_APPEARANCE).group);
+  assert.equal(neutral, legacy);
+});

@@ -52,9 +52,9 @@ const SKILL_LABELS: Record<string, string> = {
   creativity: 'Creativity',
 };
 
-function PreviewCharacter({ appearance }: { appearance: Appearance }) {
+function PreviewCharacter({ appearance, sex }: { appearance: Appearance; sex: 'm' | 'f' | 'x' }) {
   const appearanceKey = JSON.stringify(appearance);
-  const parts = useMemo(() => buildCharacter(appearance), [appearanceKey]);
+  const parts = useMemo(() => buildCharacter(appearance, sex), [appearanceKey, sex]);
   useFrame(({ clock }, dt) => {
     animateCharacter(parts, clock.elapsedTime, false, 1, 'idle', Math.min(dt, 0.1));
     parts.group.rotation.y = Math.PI + Math.sin(clock.elapsedTime * 0.35) * 0.55;
@@ -120,7 +120,7 @@ export function CharacterCreator() {
         <Canvas camera={{ position: [1.6, 1.4, 2.6], fov: 40 }} dpr={1.2}>
           <ambientLight intensity={0.9} />
           <directionalLight position={[2, 4, 3]} intensity={1.15} />
-          <PreviewCharacter appearance={appearance} />
+          <PreviewCharacter appearance={appearance} sex={gender} />
         </Canvas>
         <div className="creator-preview-bottom">
           <div className="creator-name-row">

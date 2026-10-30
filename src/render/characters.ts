@@ -4,6 +4,7 @@ import type { Appearance, BagStyle, BottomStyle, ClothPattern, DistrictId } from
 import { HAIR_STYLES, SKIN_TONES } from '../data/backgrounds';
 
 export type CharacterClip = 'idle' | 'walk' | 'run' | 'sit' | 'phone';
+export type CharacterSex = 'm' | 'f' | 'x';
 
 export type CharacterJointName =
   | 'hips'
@@ -203,6 +204,88 @@ const TORSO_PROFILE: [number, number][] = [
   [0.062, 0.59],
 ];
 
+const TORSO_PROFILE_M: [number, number][] = [
+  [0.14, 0.02],
+  [0.135, 0.1],
+  [0.141, 0.18],
+  [0.16, 0.3],
+  [0.176, 0.42],
+  [0.178, 0.5],
+  [0.17, 0.53],
+  [0.143, 0.555],
+  [0.094, 0.575],
+  [0.065, 0.59],
+];
+
+const TORSO_PROFILE_F: [number, number][] = [
+  [0.147, 0.02],
+  [0.139, 0.1],
+  [0.134, 0.18],
+  [0.138, 0.28],
+  [0.145, 0.38],
+  [0.151, 0.47],
+  [0.148, 0.52],
+  [0.13, 0.55],
+  [0.087, 0.575],
+  [0.06, 0.59],
+];
+
+interface BodyShape {
+  shoulderX: number;
+  hipX: number;
+  pelvisX: number;
+  pelvisY: number;
+  armRadius: number;
+  legRadius: number;
+  shoeScale: number;
+  headScale: number;
+  torsoDepth: number;
+  profile: [number, number][];
+  bust: boolean;
+}
+
+const BODY_SHAPES: Record<CharacterSex, BodyShape> = {
+  x: {
+    shoulderX: SHOULDER_X,
+    hipX: 0.072,
+    pelvisX: 0.15,
+    pelvisY: 0.105,
+    armRadius: 1,
+    legRadius: 1,
+    shoeScale: 1,
+    headScale: 1,
+    torsoDepth: 0.64,
+    profile: TORSO_PROFILE,
+    bust: false,
+  },
+  m: {
+    shoulderX: 0.168,
+    hipX: 0.069,
+    pelvisX: 0.141,
+    pelvisY: 0.1,
+    armRadius: 1.07,
+    legRadius: 1.06,
+    shoeScale: 1.04,
+    headScale: 1.015,
+    torsoDepth: 0.65,
+    profile: TORSO_PROFILE_M,
+    bust: false,
+  },
+  f: {
+    shoulderX: 0.143,
+    hipX: 0.08,
+    pelvisX: 0.164,
+    pelvisY: 0.112,
+    armRadius: 0.91,
+    legRadius: 0.94,
+    shoeScale: 0.95,
+    headScale: 0.97,
+    torsoDepth: 0.67,
+    profile: TORSO_PROFILE_F,
+    bust: true,
+  },
+};
+
 function headScaleFor(face: Appearance['faceShape']): [number, number, number] {
   switch (face) {
     case 'round':
@@ -215,12 +298,13 @@ function headScaleFor(face: Appearance['faceShape']): [number, number, number] {
   }
 }
 
-const bodyScaleFor = (bodyType: Appearance['bodyType']): THREE.Vector3 =>
-  bodyType === 'slim'
-    ? new THREE.Vector3(0.93, 1, 0.93)
-    : bodyType === 'tall'
-      ? new THREE.Vector3(1, 1.06, 1)
-      : new THREE.Vector3(1, 1, 1);
+const bodyScaleFor = (bodyType: Appearance['bodyType'], sex: CharacterSex): THREE.Vector3 => {
+  const width = bodyType === 'slim' ? 0.93 : 1;
+  const height = bodyType === 'tall' ? 1.06 : 1;
+  const sexWidth = sex === 'f' ? 0.985 : sex === 'm' ? 1.005 : 1;
+  const sexHeight = sex === 'f' ? 0.972 : sex === 'm' ? 1.012 : 1;
+  return new THREE.Vector3(width * sexWidth, height * sexHeight, width * sexWidth);
+};
 
 function ellipsoid(
   rx: number,
@@ -555,24 +639,26 @@ function armFor(
   side: 1 | -1,
   skinMat: THREE.Material,
   shirtMat: THREE.Material,
+  shape: BodyShape,
 ): { shoulder: THREE.Group; elbow: THREE.Group; wrist: THREE.Group } {
+  const r = shape.armRadius;
   const shoulder = new THREE.Group();
   shoulder.name = side > 0 ? 'shoulderL' : 'shoulderR';
-  shoulder.position.set(SHOULDER_X * side, SHOULDER_Y, -0.06);
-  const sleeve = capsule(0.056, 0.4, shirtMat, 14);
+  shoulder.position.set(shape.shoulderX * side, SHOULDER_Y, -0.06);
+  const sleeve = capsule(0.056 * r, 0.4, shirtMat, 14);
   sleeve.scale.y = 0.45;
   sleeve.position.y = -0.115;
-  const upper = tapered(0.053, 0.048, UPPER_ARM - 0.05, skinMat);
+  const upper = tapered(0.053 * r, 0.048 * r, UPPER_ARM - 0.05, skinMat);
   upper.position.y = -UPPER_ARM / 2 - 0.025;
   upper.userData.limb = side > 0 ? 'armL' : 'armR';
   shoulder.add(sleeve, upper);
   const elbow = new THREE.Group();
   elbow.name = side > 0 ? 'elbowL' : 'elbowR';
   elbow.position.y = -UPPER_ARM;
-  const elbowJoint = ellipsoid(0.049, 0.049, 0.049, skinMat);
+  const elbowJoint = ellipsoid(0.049 * r, 0.049 * r, 0.049 * r, skinMat);
   elbow.add(elbowJoint);
   shoulder.add(elbow);
-  const fore = tapered(0.048, 0.041, FOREARM, skinMat);
+  const fore = tapered(0.048 * r, 0.041 * r, FOREARM, skinMat);
   fore.position.y = -FOREARM / 2;
   fore.userData.limb = side > 0 ? 'foreArmL' : 'foreArmR';
   elbow.add(fore);
@@ -580,10 +666,10 @@ function armFor(
   wrist.name = side > 0 ? 'wristL' : 'wristR';
   wrist.position.y = -FOREARM;
   elbow.add(wrist);
-  const hand = ellipsoid(0.047, 0.064, 0.037, skinMat);
+  const hand = ellipsoid(0.047 * r, 0.064 * r, 0.037 * r, skinMat);
   hand.position.y = -0.058;
   hand.userData.limb = side > 0 ? 'handL' : 'handR';
-  const thumb = ellipsoid(0.014, 0.029, 0.015, skinMat);
+  const thumb = ellipsoid(0.014 * r, 0.029 * r, 0.015 * r, skinMat);
   thumb.position.set(side * 0.036, -0.044, -0.011);
   thumb.rotation.z = side * 0.5;
   wrist.add(hand, thumb);
@@ -593,22 +679,24 @@ function armFor(
 function legFor(
   side: 1 | -1,
   material: THREE.Material,
+  shape: BodyShape,
   shoeColor?: string,
 ): { hip: THREE.Group; knee: THREE.Group; ankle: THREE.Group } {
+  const r = shape.legRadius;
   const hip = new THREE.Group();
   hip.name = side > 0 ? 'hipL' : 'hipR';
-  hip.position.set(0.072 * side, 0, 0);
-  const thigh = tapered(0.08, 0.064, THIGH, material);
+  hip.position.set(shape.hipX * side, 0, 0);
+  const thigh = tapered(0.08 * r, 0.064 * r, THIGH, material);
   thigh.position.y = -THIGH / 2;
   thigh.userData.limb = side > 0 ? 'thighL' : 'thighR';
   hip.add(thigh);
   const knee = new THREE.Group();
   knee.name = side > 0 ? 'kneeL' : 'kneeR';
   knee.position.y = -THIGH;
-  const kneeJoint = ellipsoid(0.064, 0.064, 0.064, material);
+  const kneeJoint = ellipsoid(0.064 * r, 0.064 * r, 0.064 * r, material);
   knee.add(kneeJoint);
   hip.add(knee);
-  const shin = tapered(0.064, 0.047, SHIN, material);
+  const shin = tapered(0.064 * r, 0.047 * r, SHIN, material);
   shin.position.y = -SHIN / 2;
   shin.userData.limb = side > 0 ? 'shinL' : 'shinR';
   knee.add(shin);
@@ -616,13 +704,16 @@ function legFor(
   ankle.name = side > 0 ? 'ankleL' : 'ankleR';
   ankle.position.y = -SHIN;
   knee.add(ankle);
-  const shoe = roundedBox(0.088, 0.065, 0.2, 0.02, clothMaterial(shoeColor ?? '#2b2b2b'));
+  const shoeMat = clothMaterial(shoeColor ?? '#2b2b2b');
+  const shoe = roundedBox(0.088, 0.065, 0.2, 0.02, shoeMat);
   shoe.position.set(0, -0.048, -0.035);
+  shoe.scale.set(shape.shoeScale, 1, shape.shoeScale);
   shoe.userData.limb = side > 0 ? 'footL' : 'footR';
-  const toe = ellipsoid(0.043, 0.028, 0.042, clothMaterial(shoeColor ?? '#2b2b2b'));
+  const toe = ellipsoid(0.043, 0.028, 0.042, shoeMat);
   toe.position.set(0, -0.06, -0.125);
   const sole = roundedBox(0.094, 0.038, 0.215, 0.01, clothMaterial('#161616'));
   sole.position.set(0, -0.101, -0.035);
+  sole.scale.set(shape.shoeScale, 1, shape.shoeScale);
   ankle.add(shoe, toe, sole);
   return { hip, knee, ankle };
 }
@@ -640,9 +731,10 @@ function buildPhone(): THREE.Group {
   return g;
 }
 
-export function buildCharacter(app: Appearance): CharacterParts {
+export function buildCharacter(app: Appearance, sex: CharacterSex = 'x'): CharacterParts {
+  const shape = BODY_SHAPES[sex];
   const group = new THREE.Group();
-  group.scale.copy(bodyScaleFor(app.bodyType));
+  group.scale.copy(bodyScaleFor(app.bodyType, sex));
   const skin = SKIN_TONES[app.skinTone % SKIN_TONES.length];
   const skinMat = skinMaterial(skin);
   const pattern = app.pattern ?? 'none';
@@ -667,7 +759,7 @@ export function buildCharacter(app: Appearance): CharacterParts {
   spine.name = 'spine';
   hips.add(spine);
 
-  const pelvis = ellipsoid(0.15, 0.105, 0.108, pantsMat);
+  const pelvis = ellipsoid(shape.pelvisX, shape.pelvisY, 0.108, pantsMat);
   pelvis.position.y = -0.005;
   hips.add(pelvis);
 
@@ -678,13 +770,21 @@ export function buildCharacter(app: Appearance): CharacterParts {
 
   const torso = new THREE.Mesh(
     new THREE.LatheGeometry(
-      TORSO_PROFILE.map(([r, y]) => new THREE.Vector2(r, y)),
+      shape.profile.map(([r, y]) => new THREE.Vector2(r, y)),
       24,
     ),
     shirtMat,
   );
-  torso.scale.z = 0.64;
+  torso.scale.z = shape.torsoDepth;
   spine.add(torso);
+
+  if (shape.bust) {
+    for (const side of [-1, 1]) {
+      const chest = ellipsoid(0.058, 0.052, 0.045, shirtMat);
+      chest.position.set(side * 0.061, 0.392, -0.073);
+      spine.add(chest);
+    }
+  }
 
   const collar = new THREE.Mesh(new THREE.TorusGeometry(0.078, 0.01, 8, 20), shirtMat);
   collar.rotation.x = Math.PI / 2;
@@ -702,7 +802,7 @@ export function buildCharacter(app: Appearance): CharacterParts {
 
   const headGroup = new THREE.Group();
   headGroup.position.y = HEAD_CENTER_Y;
-  headGroup.scale.set(...headScaleFor(app.faceShape));
+  headGroup.scale.set(...headScaleFor(app.faceShape)).multiplyScalar(shape.headScale);
   headPivot.add(headGroup);
 
   const head = new THREE.Mesh(
@@ -725,13 +825,13 @@ export function buildCharacter(app: Appearance): CharacterParts {
     if (hair) headGroup.add(hair);
   }
 
-  const left = armFor(1, skinMat, sleeveMat);
-  const right = armFor(-1, skinMat, sleeveMat);
+  const left = armFor(1, skinMat, sleeveMat, shape);
+  const right = armFor(-1, skinMat, sleeveMat, shape);
   spine.add(left.shoulder, right.shoulder);
 
   const legMat = bottom === 'skirt' ? skinMat : pantsMat;
-  const leftLeg = legFor(1, legMat, app.shoeColor);
-  const rightLeg = legFor(-1, legMat, app.shoeColor);
+  const leftLeg = legFor(1, legMat, shape, app.shoeColor);
+  const rightLeg = legFor(-1, legMat, shape, app.shoeColor);
   hips.add(leftLeg.hip, rightLeg.hip);
 
   if (bottom === 'skirt') {

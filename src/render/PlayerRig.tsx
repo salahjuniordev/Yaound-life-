@@ -57,15 +57,16 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
 
   const appearance = engine?.state.player.appearance;
   const appearanceKey = appearance ? JSON.stringify(appearance) : '';
+  const sex = engine?.state.player.gender ?? 'x';
 
   useMemo(() => {
     if (!appearance) return;
-    const parts = buildCharacter(appearance);
+    const parts = buildCharacter(appearance, sex);
     parts.group.traverse((o) => {
       o.castShadow = quality === 'high';
     });
     partsRef.current = parts;
-  }, [appearanceKey]);
+  }, [appearanceKey, sex]);
 
   useEffect(() => {
     obstaclesRef.current = buildWorldGeometry(quality).obstacles;
