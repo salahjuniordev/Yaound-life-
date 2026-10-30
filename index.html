@@ -14,7 +14,7 @@
       content="A Sims-style life game set in Yaoundé. Ride taxis in Mvog-Mbi, eat at Mokolo, survive delestage, vote for your mayor — and live your Yaoundé story. Free in your browser."
     />
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="icon" href="./app-icon.ico" sizes="any" type="image/x-icon" />
+    <link rel="icon" href="./new-app-icon.png" sizes="1024x1024" type="image/png" />
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
     <link rel="preload" href="/fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -66,11 +66,11 @@
       #boot .mark {
         width: 112px;
         height: 112px;
-        padding: 10px;
         border-radius: 28px;
+        overflow: hidden;
         display: grid;
         place-items: center;
-        background: #fff;
+        background: #000;
         box-shadow: 0 10px 30px rgba(16, 24, 40, 0.12);
       }
       #boot .mark img {
@@ -133,7 +133,7 @@
           color: #f4efe7;
         }
         html[data-theme='dark'] #boot .mark {
-          background: #181e29;
+          background: #000;
           color: #4cc38a;
         }
         html[data-theme='dark'] #boot .sub {
@@ -149,7 +149,7 @@
     <div id="root"></div>
     <div id="boot">
       <div class="mark">
-        <img src="./game-loading-screen.png" alt="" width="112" height="112" />
+        <img src="./new-app-icon.png" alt="" width="112" height="112" />
       </div>
       <div class="logo">Yaoundé Life</div>
       <div class="sub">Waking up the city…</div>
