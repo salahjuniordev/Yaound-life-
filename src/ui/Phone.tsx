@@ -26,7 +26,7 @@ import { MapApp } from './apps/MapApp';
 import { CityHallApp } from './apps/CityHallApp';
 import { HomeApp } from './apps/HomeApp';
 import { SocialFeedApp } from './apps/SocialFeedApp';
-import { useInstallPrompt } from './InstallPrompt';
+import { installHelpText, useInstallPrompt } from './InstallPrompt';
 
 const APPS: { id: string; name: string; nameFr: string; icon: IconName }[] = [
   { id: 'journal', name: 'Journal', nameFr: 'Journal', icon: 'journal' },
@@ -1341,7 +1341,16 @@ function SettingsApp() {
   );
   const [fullscreen, setFullscreen] = useState(() => typeof document !== 'undefined' && Boolean(document.fullscreenElement));
   const install = useInstallPrompt();
+  const [installHelp, setInstallHelp] = useState(false);
   const set = <K extends keyof typeof s.settings>(k: K, v: (typeof s.settings)[K]) => store().setSetting(k, v);
+  const handleInstall = async () => {
+    if (!install.available) {
+      setInstallHelp(true);
+      return;
+    }
+    const outcome = await install.install();
+    if (outcome === 'unavailable') setInstallHelp(true);
+  };
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
@@ -1382,13 +1391,13 @@ function SettingsApp() {
           {fullscreen ? 'ON' : 'OFF'}
         </button>
       </div>
-      {install.available && (
-        <button onClick={() => void install.install()}>
-          <Icon name="phone" size={14} /> {fr ? 'Installer Yaoundé Life' : 'Install Yaounde Life'}
+      {!install.installed && (
+        <button onClick={() => void handleInstall()}>
+          <Icon name="phone" size={14} /> {fr ? 'Installer Yaoundé Life' : 'Install Yaoundé Life'}
         </button>
       )}
-      {install.ios && !install.installed && (
-        <div className="muted small">{fr ? 'iOS : Partager → Sur l’écran d’accueil.' : 'iOS: Share → Add to Home Screen.'}</div>
+      {!install.installed && (installHelp || install.ios) && (
+        <div className="muted small">{installHelpText(fr, install.helpKind)}</div>
       )}
 
       <h3>{fr ? 'Jeu' : 'Game'}</h3>

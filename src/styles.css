@@ -755,6 +755,12 @@ textarea::placeholder {
   font-size: 13px;
 }
 
+.install-help {
+  display: block;
+  margin-top: 2px;
+  opacity: 0.86;
+}
+
 .install-banner-actions {
   display: flex;
   gap: 6px;
