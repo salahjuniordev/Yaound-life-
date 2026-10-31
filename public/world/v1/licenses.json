@@ -1,0 +1,29 @@
+{
+  "worldVersion": "nlongkak-2026-10-30-v1",
+  "generatedAt": "2026-10-31T10:20:22.132Z",
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons, POIs and neighbourhood boundaries."
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the Nlongkak slice."
+    }
+  ],
+  "obligations": [
+    "OpenStreetMap data is (c) OpenStreetMap contributors and licensed under ODbL 1.0. Attribution and share-alike obligations apply to derived data.",
+    "Copernicus DEM GLO-30 is (c) ESA and is used under the Copernicus DEM licence. Attribution is required.",
+    "Google Open Buildings V3 was not used for this slice; its licence obligations do not apply to this package."
+  ]
+}

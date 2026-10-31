@@ -1,0 +1,503 @@
+[
+  {
+    "id": "osm-n3153728819",
+    "sourceId": "n3153728819",
+    "name": "Restaurant Royal",
+    "kind": "restaurant",
+    "pos": [
+      621.0023978180252,
+      -209.96846754511353
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3153728819",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4377508874",
+    "sourceId": "n4377508874",
+    "name": "Corlorix",
+    "kind": "copyshop",
+    "pos": [
+      694.4691774854437,
+      -393.22340755607
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4377508874",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5310402832",
+    "sourceId": "n5310402832",
+    "name": "Cabinet Dentaire Effila Ebe",
+    "kind": "dentist",
+    "pos": [
+      634.8678157371469,
+      -285.8442322521587
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5310402832",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311081058",
+    "sourceId": "n6311081058",
+    "name": "Bureaux du Gouverneur et Préfecture du Mfoundi",
+    "kind": "government",
+    "pos": [
+      554.4494770064484,
+      -440.6152342930436
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311081058",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311081059",
+    "sourceId": "n6311081059",
+    "name": "Ministère de l'Emploi et de la Formation Professionnelle",
+    "kind": "government",
+    "pos": [
+      576.9206820720574,
+      -500.0529763257364
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311081059",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935433",
+    "sourceId": "n6315935433",
+    "name": "Secrétariat Général EPC",
+    "kind": "place_of_worship",
+    "pos": [
+      987.5664573216345,
+      -432.8770330377156
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935433",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935434",
+    "sourceId": "n6315935434",
+    "name": "Église Presbytérienne",
+    "kind": "place_of_worship",
+    "pos": [
+      961.1648739653174,
+      -491.5718621984706
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935434",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935445",
+    "sourceId": "n6315935445",
+    "name": "CAON-FED Cooperation Cameroun-UE",
+    "kind": "ngo",
+    "pos": [
+      769.4891327049118,
+      -495.1497020816314
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935445",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935622",
+    "sourceId": "n6315935622",
+    "name": "EBAT",
+    "kind": "government",
+    "pos": [
+      856.1473470227793,
+      -21.51347520330455
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935622",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935655",
+    "sourceId": "n6315935655",
+    "name": "Réseau des Institutions De Formation Forestière Et Environnementale d’Afrique Centrale",
+    "kind": "ngo",
+    "pos": [
+      725.9670554661425,
+      -97.0712079568184
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935655",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935664",
+    "sourceId": "n6315935664",
+    "name": "Hôtel Yahoot",
+    "kind": "hotel",
+    "pos": [
+      632.6946485445369,
+      -239.36783277307404
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935664",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6817067985",
+    "sourceId": "n6817067985",
+    "name": "Passport Office",
+    "nameFr": "Passport Services, DGSN, Yaoundé",
+    "kind": "post_office",
+    "pos": [
+      609.2718027394731,
+      -428.67413161322474
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6817067985",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n7171631844",
+    "sourceId": "n7171631844",
+    "name": "abe",
+    "kind": "hospital",
+    "pos": [
+      893.1351554305293,
+      -494.0244930101326
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7171631844",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8194659122",
+    "sourceId": "n8194659122",
+    "name": "Shiva Plus",
+    "kind": "electronics",
+    "pos": [
+      714.167353007826,
+      -129.9080526046455
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8194659122",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8338896951",
+    "sourceId": "n8338896951",
+    "name": "Canopy",
+    "kind": "energy",
+    "pos": [
+      630.2832098159706,
+      -448.39789648051374
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8338896951",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8338918380",
+    "sourceId": "n8338918380",
+    "name": "Choco-suisse",
+    "kind": "confectionery",
+    "pos": [
+      666.8810134932864,
+      -469.81666507420596
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8338918380",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n9961406829",
+    "sourceId": "n9961406829",
+    "name": "Marché parc Kyriakides",
+    "kind": "playground",
+    "pos": [
+      614.0702040777542,
+      -85.93952785409056
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n9961406829",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11365498669",
+    "sourceId": "n11365498669",
+    "name": "LÉA PRESSING",
+    "kind": "laundry",
+    "pos": [
+      579.5774886453291,
+      -111.42856686358573
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11365498669",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438694962",
+    "sourceId": "a438694962",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      842.9804662908427,
+      -468.5709887135308
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438694962",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667562",
+    "sourceId": "a439667562",
+    "name": "École EPC Djoungolo",
+    "kind": "school",
+    "pos": [
+      838.7259264425375,
+      -471.7226960862754
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667562",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667618",
+    "sourceId": "a439667618",
+    "name": "École Primarie et Maternelle les Cherubins",
+    "kind": "school",
+    "pos": [
+      645.1310223909095,
+      -134.48237304197391
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667618",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264346",
+    "sourceId": "a440264346",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      751.8013445356628,
+      -449.03641155257355
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264346",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264586",
+    "sourceId": "a440264586",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      575.0363487413852,
+      -83.90929706621682
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264586",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a821034732",
+    "sourceId": "a821034732",
+    "name": "Hôtel Franco",
+    "kind": "hostel",
+    "pos": [
+      708.8902779156342,
+      -461.5661261418136
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a821034732",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a832220452",
+    "sourceId": "a832220452",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      949.8841813725885,
+      -473.28214510163525
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a832220452",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

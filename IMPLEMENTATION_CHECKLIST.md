@@ -3,7 +3,7 @@
 Persistent status board for the PRD (`Yaounde_Life_Ultimate_PRD_v1.1.txt`).
 Legend: [x] done · [~] partial · [ ] not started · [!] blocked
 
-Last updated: 2026-10-29
+Last updated: 2026-10-31
 
 ## Toolchain / Infrastructure
 - [x] Vite 7 + React 19 + TypeScript project bootstraps, typechecks, builds (`npm run build` → `dist/`)
@@ -11,9 +11,22 @@ Last updated: 2026-10-29
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 135/135 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 160/160 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
+
+## Geographic world (first vertical slice)
+- [x] Real Nlongkak data pack: OSM Cameroon 2026-10-30 extract + Copernicus DEM GLO-30, generated into `public/world/v1/`
+- [x] Pure world layer under `src/world/`: UTM 32N transforms, 512 m chunks, terrain heightfields, road graph, building binary format/collision, manifest/loader/validation
+- [x] Build pipeline: `npm run world:acquire`, `world:inspect`, `world:build`, `world:validate`; raw/intermediate geodata gitignored, derived pack committed
+- [x] Streaming geo renderer under `src/render/geo/`: terrain, roads, buildings with near/far LOD, water, Cameroonian street props, collision grid, road index, runtime adapter
+- [x] Geographic Nlongkak wired as the default for that district with legacy fallback and Settings/URL/localStorage rollback; other districts remain procedural
+- [x] Offline world delivery: `precache.json` + service-worker precache/cache-first world assets
+- [x] Documentation and attribution: `docs/WORLD.md`, `licenses.json`, in-pack provenance
+- [~] Whole-city geographic expansion: only Nlongkak is real geography; eight districts still need packs and acceptance
+- [~] Geographic gameplay parity: Nlongkak places/NPCs are mapped onto real roads as designed content; taxi/travel uses legacy district worlds for other areas
+- [ ] Real-device performance and local cultural/geographic review for the Nlongkak slice
+- [ ] Water-line streams, richer landmarks, and district boundary packs beyond Nlongkak
 
 ## Architecture (PRD §8.5)
 - [x] Headless sim core separate from rendering (`src/sim/*` — no three/react imports)
@@ -131,16 +144,20 @@ Last updated: 2026-10-29
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 126 tests
+npm test                 # node --test, 160 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
 npm run review:packet    # cultural review packet → art/cultural_review_packet.md
 npm run dev              # dev server (mirror mode on /storage)
 npm run preview          # serve dist/
+npm run world:inspect    # inspect Nlongkak source/area data
+npm run world:build      # rebuild public/world/v1
+npm run world:validate   # validate manifest, hashes, chunk payloads
 ```
 
 ## Changelog
+- 2026-10-31: Geographic Nlongkak vertical slice — acquired and pinned OSM Cameroon (2026-10-30) and Copernicus DEM GLO-30 data; built a 16-chunk, 2 km x 2 km world pack at `public/world/v1` with 426 roads, 8,085 buildings, 409 POIs, and 2 water polygons; added pure `src/world` data layer and streaming `src/render/geo` Three.js renderer with terrain, roads, LOD buildings, props, water, collision and road indexing; wired geographic Nlongkak as the default for that district with Settings/URL/localStorage fallback to legacy, offline precache, attribution, and `docs/WORLD.md`. Typecheck clean, 160/160 tests pass, build and size budgets pass.
 - 2026-10-23: Auth regression pass — exercised the real persistence layer against live Supabase: anonymous session → permanent account upgrade (same user ID), display-name save/reload, sign-out opt-out, wrong/old password rejection, duplicate-email rejection, password change, session restore across a fresh client, and cloud push/pull/delete. Fixed two bugs found: restored sessions now win over a stale opt-out flag (email-confirmation links work), and cloud delete now filters by `user_id` and cascades saves instead of silently doing nothing. All auth/cloud flow checks pass.
 - 2026-10-23: Account system — email/password sign-up, sign-in, sign-out, password reset, confirmation resend, display-name profile editing and anonymous-account upgrade (`src/persistence/supabase.ts`, `src/state/store.ts`, `src/ui/Account.tsx`); auth-aware Account panel in Main Menu and Settings, plus explicit opt-out so signing out does not auto-create a new anonymous session. Configured live auth redirects for localhost and `yaounde-life.pages.dev`; verified live sign-in, profile update, wrong-password rejection, anonymous sign-in and anonymous→email upgrade with same user ID. Autoconfirm is enabled for dev until custom SMTP is configured (see Persistence & Backend).
 - 2026-10-23: Live Supabase setup — applied `0001_init.sql` to project `euiagjlekpyipbdwotsg` ("mboa life", eu-west-1), enabled anonymous auth, wrote `.env.local`, and ran `npm run db:verify` against the live database (14/14 checks pass: profile trigger, character/save isolation, read-only content tables, report ownership). Production build now bundles the Supabase client (58.6 KB gzip); size budgets still PASS.

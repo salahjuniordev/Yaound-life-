@@ -4,7 +4,8 @@ A playable 3D browser life simulator set in Yaoundé, Cameroon. Built from the
 requirements in `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 
 - Day/night cycle (1 in-game day ≈ 12 real minutes), needs, FCFA economy (cash / MoMo / bank / debt)
-- 9 districts on one continuous map, walk / shared taxi / moto with real cost, time and risk
+- 9 districts; Nlongkak is the first real-geography slice (OSM + Copernicus), other districts use the procedural world
+- Walk / shared taxi / moto with real cost, time and risk
 - 8 starting backgrounds, 10 jobs, 30+ events, 13 goals, 11 achievements
 - Njangi/tontine system (reliable group + fraudulent "Fast Pot" to learn from)
 - Businesses with stock, pricing, staff and daily demand; delestage (power cuts) and generator economy
@@ -23,13 +24,16 @@ React 19 · TypeScript · Vite 7 · three.js + @react-three/fiber · zustand · 
 npm install            # on Termux see SETUP.md for flags
 npm run dev            # dev server at http://localhost:5173
 npm run typecheck      # tsc --noEmit (includes tests)
-npm test               # 117 tests (node --test)
+npm test               # 160 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)
 npm run deploy:cf      # build + deploy dist/ to Cloudflare Pages
 npm run export:character # bake idle/walk/run/sit/phone clips → art/player_rig.glb
 npm run review:packet  # generate the cultural review packet → art/cultural_review_packet.md
+npm run world:inspect  # inspect the Nlongkak source data and 4 x 4 chunk grid
+npm run world:build    # rebuild public/world/v1 from processed geodata
+npm run world:validate # validate manifest, hashes and chunk payloads
 npm run preview        # serve the production build
 ```
 
@@ -47,7 +51,8 @@ and `public/_headers`; Sentry/PostHog are optional and env-gated.
 src/
   sim/          headless simulation: engine, state, needs, economy, relationships, rng
   data/         content packs: districts, items, activities, jobs, events, goals, places, NPCs
-  render/       three.js layer: world geometry, crowd, player rig, interiors, sky
+  world/        pure geographic world data layer: UTM, chunks, terrain, roads, buildings, loader
+  render/       three.js layer: world geometry, crowd, player rig, interiors, sky, geo renderer
   ui/           React phone, HUD, toasts, modals (travel, vendors, dialogue, njangi)
   state/        zustand bridge between sim and UI
   persistence/  IndexedDB saves + Supabase sync
@@ -58,7 +63,8 @@ scripts/vite.mjs       dev/build launcher with Android/Termux workarounds
 ```
 
 Status board: `IMPLEMENTATION_CHECKLIST.md` (maps every PRD backlog item and
-acceptance criterion to its state). PRD: `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
+acceptance criterion to its state). Geographic world notes and attribution:
+`docs/WORLD.md`. PRD: `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 
 ## Notes
 

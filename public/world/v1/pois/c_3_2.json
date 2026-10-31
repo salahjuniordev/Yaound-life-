@@ -1,0 +1,22 @@
+[
+  {
+    "id": "osm-a397044722",
+    "sourceId": "a397044722",
+    "name": "marketplace",
+    "kind": "marketplace",
+    "pos": [
+      1899.7520326614613,
+      -1406.2780006116955
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a397044722",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

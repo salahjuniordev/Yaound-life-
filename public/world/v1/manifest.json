@@ -1,0 +1,384 @@
+{
+  "format": "yaounde-life-world",
+  "formatVersion": 1,
+  "worldVersion": "nlongkak-2026-10-30-v1",
+  "generatorVersion": "1.0.0",
+  "generatedAt": "2026-10-31T10:20:22.132Z",
+  "area": {
+    "id": "nlongkak",
+    "name": "Nlongkak",
+    "description": "First playable geographical slice centred on the Nlongkak neighbourhood of Yaoundé."
+  },
+  "projection": {
+    "id": "EPSG:32632",
+    "name": "WGS 84 / UTM zone 32N",
+    "zone": 32,
+    "hemisphere": "N",
+    "datum": "WGS84",
+    "centralMeridian": 9
+  },
+  "origin": {
+    "lon": 11.512546690536405,
+    "lat": 3.878000158820163,
+    "east": 779036.8796419629,
+    "north": 429056.09154497687
+  },
+  "unitsPerMetre": 1,
+  "verticalScale": 1,
+  "verticalOffset": 713.3,
+  "elevationDatum": "Copernicus DEM GLO-30 (EGM2008), local offset",
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "chunkSize": 512,
+  "bounds": {
+    "minX": 0,
+    "maxX": 1995.1371908708243,
+    "minZ": -1997.4945094923023,
+    "maxZ": 0,
+    "minEast": 779036.8796419629,
+    "maxEast": 781032.0168328338,
+    "minNorth": 429056.09154497687,
+    "maxNorth": 431053.58605446917
+  },
+  "waterLevel": 27.060003905843722,
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons, POIs and neighbourhood boundaries."
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the Nlongkak slice."
+    }
+  ],
+  "featureCounts": {
+    "chunks": 16,
+    "roads": 426,
+    "buildings": 8085,
+    "pois": 409,
+    "waterPolygons": 2,
+    "terrainSamples": 62750
+  },
+  "chunks": [
+    {
+      "id": "c_0_0",
+      "ix": 0,
+      "iz": 0,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_0_0.bin",
+      "roadsFile": "roads/c_0_0.json",
+      "buildingsFile": "buildings/c_0_0.bin",
+      "buildingsMetaFile": "buildings/c_0_0.json",
+      "poisFile": "pois/c_0_0.json",
+      "buildingCount": 126,
+      "roadCount": 62,
+      "hash": "fad8cf14f7dfc55ea2e49b3d7db6b1f7a5f27674d58c1204f35714e2cebdbf63"
+    },
+    {
+      "id": "c_1_0",
+      "ix": 1,
+      "iz": 0,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_1_0.bin",
+      "roadsFile": "roads/c_1_0.json",
+      "buildingsFile": "buildings/c_1_0.bin",
+      "buildingsMetaFile": "buildings/c_1_0.json",
+      "poisFile": "pois/c_1_0.json",
+      "buildingCount": 200,
+      "roadCount": 22,
+      "hash": "3a02b5cb182cc23266664125d6416eda9557a64910df161bdee683b71dde5c67"
+    },
+    {
+      "id": "c_2_0",
+      "ix": 2,
+      "iz": 0,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_2_0.bin",
+      "roadsFile": "roads/c_2_0.json",
+      "buildingsFile": "buildings/c_2_0.bin",
+      "buildingsMetaFile": "buildings/c_2_0.json",
+      "poisFile": "pois/c_2_0.json",
+      "buildingCount": 333,
+      "roadCount": 33,
+      "hash": "48dbda4bf646f66a106b1913939fe9ac63fa4f73bddced8ed2ce81447d67a9f3"
+    },
+    {
+      "id": "c_3_0",
+      "ix": 3,
+      "iz": 0,
+      "bounds": {
+        "minX": 1536,
+        "maxX": 2048,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_3_0.bin",
+      "roadsFile": "roads/c_3_0.json",
+      "buildingsFile": "buildings/c_3_0.bin",
+      "buildingsMetaFile": "buildings/c_3_0.json",
+      "poisFile": "pois/c_3_0.json",
+      "buildingCount": 222,
+      "roadCount": 30,
+      "hash": "476a8b4f70b0d6f45b0aaa7c52060d47f68e7c739ac448379f679c92abd55b1c"
+    },
+    {
+      "id": "c_0_1",
+      "ix": 0,
+      "iz": 1,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_0_1.bin",
+      "roadsFile": "roads/c_0_1.json",
+      "buildingsFile": "buildings/c_0_1.bin",
+      "buildingsMetaFile": "buildings/c_0_1.json",
+      "poisFile": "pois/c_0_1.json",
+      "buildingCount": 389,
+      "roadCount": 23,
+      "hash": "2cebf70529bacf61d1df435449071df8b867c3fd2cbd66fcca46cc829aa41051"
+    },
+    {
+      "id": "c_1_1",
+      "ix": 1,
+      "iz": 1,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_1_1.bin",
+      "roadsFile": "roads/c_1_1.json",
+      "buildingsFile": "buildings/c_1_1.bin",
+      "buildingsMetaFile": "buildings/c_1_1.json",
+      "poisFile": "pois/c_1_1.json",
+      "buildingCount": 418,
+      "roadCount": 35,
+      "hash": "37af9e58341bf789d37306c2a516955f9c0fc5df020897c960e9af0d4482af92"
+    },
+    {
+      "id": "c_2_1",
+      "ix": 2,
+      "iz": 1,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_2_1.bin",
+      "roadsFile": "roads/c_2_1.json",
+      "buildingsFile": "buildings/c_2_1.bin",
+      "buildingsMetaFile": "buildings/c_2_1.json",
+      "poisFile": "pois/c_2_1.json",
+      "buildingCount": 448,
+      "roadCount": 8,
+      "hash": "033c1c9c97d4c3ef6f68e07380b24a4e283393a1309f3c62cd7b45bc38555f7e"
+    },
+    {
+      "id": "c_3_1",
+      "ix": 3,
+      "iz": 1,
+      "bounds": {
+        "minX": 1536,
+        "maxX": 2048,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_3_1.bin",
+      "roadsFile": "roads/c_3_1.json",
+      "buildingsFile": "buildings/c_3_1.bin",
+      "buildingsMetaFile": "buildings/c_3_1.json",
+      "poisFile": "pois/c_3_1.json",
+      "buildingCount": 373,
+      "roadCount": 19,
+      "hash": "d68a77c6deeeaa7db1bcc1b2dbc2d2a53554a45db267274329d0a549d35d570d"
+    },
+    {
+      "id": "c_0_2",
+      "ix": 0,
+      "iz": 2,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_0_2.bin",
+      "roadsFile": "roads/c_0_2.json",
+      "buildingsFile": "buildings/c_0_2.bin",
+      "buildingsMetaFile": "buildings/c_0_2.json",
+      "poisFile": "pois/c_0_2.json",
+      "buildingCount": 405,
+      "roadCount": 18,
+      "hash": "424c3f3e982568cc84690a9979a5fdfc21f8016f5875c2806743950fa9e4a8c1"
+    },
+    {
+      "id": "c_1_2",
+      "ix": 1,
+      "iz": 2,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_1_2.bin",
+      "roadsFile": "roads/c_1_2.json",
+      "buildingsFile": "buildings/c_1_2.bin",
+      "buildingsMetaFile": "buildings/c_1_2.json",
+      "poisFile": "pois/c_1_2.json",
+      "buildingCount": 778,
+      "roadCount": 24,
+      "hash": "5c2d7105066b4e69eb5dfc9c0c9cd31b13e11e638e0c5886d9b6c079bd11723f"
+    },
+    {
+      "id": "c_2_2",
+      "ix": 2,
+      "iz": 2,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_2_2.bin",
+      "roadsFile": "roads/c_2_2.json",
+      "buildingsFile": "buildings/c_2_2.bin",
+      "buildingsMetaFile": "buildings/c_2_2.json",
+      "poisFile": "pois/c_2_2.json",
+      "buildingCount": 790,
+      "roadCount": 27,
+      "hash": "e40ff75e9c551db7376a9b9c643f4c09f02568108f51a505c8a22d06abdcafdb"
+    },
+    {
+      "id": "c_3_2",
+      "ix": 3,
+      "iz": 2,
+      "bounds": {
+        "minX": 1536,
+        "maxX": 2048,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_3_2.bin",
+      "roadsFile": "roads/c_3_2.json",
+      "buildingsFile": "buildings/c_3_2.bin",
+      "buildingsMetaFile": "buildings/c_3_2.json",
+      "poisFile": "pois/c_3_2.json",
+      "buildingCount": 1164,
+      "roadCount": 13,
+      "hash": "5c2971a10c7b953cd3a4fc458bed421866cd46975d7b67626d72da8493d578be"
+    },
+    {
+      "id": "c_0_3",
+      "ix": 0,
+      "iz": 3,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -2048,
+        "maxZ": -1536
+      },
+      "terrainFile": "terrain/c_0_3.bin",
+      "roadsFile": "roads/c_0_3.json",
+      "buildingsFile": "buildings/c_0_3.bin",
+      "buildingsMetaFile": "buildings/c_0_3.json",
+      "poisFile": "pois/c_0_3.json",
+      "buildingCount": 321,
+      "roadCount": 29,
+      "hash": "adf1c86b1e854d2d775c7127ef076e560d915f4b2b0aba5de45c6e7c0384e854"
+    },
+    {
+      "id": "c_1_3",
+      "ix": 1,
+      "iz": 3,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -2048,
+        "maxZ": -1536
+      },
+      "terrainFile": "terrain/c_1_3.bin",
+      "roadsFile": "roads/c_1_3.json",
+      "buildingsFile": "buildings/c_1_3.bin",
+      "buildingsMetaFile": "buildings/c_1_3.json",
+      "poisFile": "pois/c_1_3.json",
+      "buildingCount": 517,
+      "roadCount": 32,
+      "hash": "0fbea17cde4b16ef141a47cbfa4a90565e320b2fc33623687aae79d04d5c0bcf"
+    },
+    {
+      "id": "c_2_3",
+      "ix": 2,
+      "iz": 3,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -2048,
+        "maxZ": -1536
+      },
+      "terrainFile": "terrain/c_2_3.bin",
+      "roadsFile": "roads/c_2_3.json",
+      "buildingsFile": "buildings/c_2_3.bin",
+      "buildingsMetaFile": "buildings/c_2_3.json",
+      "poisFile": "pois/c_2_3.json",
+      "buildingCount": 581,
+      "roadCount": 36,
+      "hash": "79761075dd0dab91f3231b1373da0c7166e64e824b84b445bd9d6acba77ab446"
+    },
+    {
+      "id": "c_3_3",
+      "ix": 3,
+      "iz": 3,
+      "bounds": {
+        "minX": 1536,
+        "maxX": 2048,
+        "minZ": -2048,
+        "maxZ": -1536
+      },
+      "terrainFile": "terrain/c_3_3.bin",
+      "roadsFile": "roads/c_3_3.json",
+      "buildingsFile": "buildings/c_3_3.bin",
+      "buildingsMetaFile": "buildings/c_3_3.json",
+      "poisFile": "pois/c_3_3.json",
+      "buildingCount": 1020,
+      "roadCount": 15,
+      "hash": "a7a8a843c47b7ab53fb1e4b4d7bbc83a5c5b4191259b0ef53e3dfb659120569f"
+    }
+  ],
+  "contentHash": "88f8d7efe5a00e8b31ba0c192cc92ca076ee6cf35e55fdf4afbd5724ae0dd6f0",
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+}

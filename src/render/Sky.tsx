@@ -20,6 +20,7 @@ export function SkyAndWeather({ quality }: SkyProps) {
   const hemiRef = useRef<THREE.HemisphereLight>(null);
   const rainRef = useRef<THREE.Points>(null);
   const cameraPos = useRef(new THREE.Vector3());
+  const sunTarget = useMemo(() => new THREE.Object3D(), []);
   const { scene } = useThree();
 
   useFrame(({ camera }) => {
@@ -76,6 +77,8 @@ export function SkyAndWeather({ quality }: SkyProps) {
     if (weather === 'rain') fog.far *= 0.7;
 
     if (sunRef.current) {
+      sunRef.current.target = sunTarget;
+      sunTarget.position.set(cameraPos.current.x, 0, cameraPos.current.z);
       const angle = (minute / 1440) * Math.PI * 2 - Math.PI / 2;
       const px = Math.cos(angle) * 220;
       const py = Math.max(Math.sin(angle) * 220, -40);
@@ -111,6 +114,7 @@ export function SkyAndWeather({ quality }: SkyProps) {
   return (
     <>
       <hemisphereLight ref={hemiRef} intensity={0.6} />
+      <primitive object={sunTarget} />
       <directionalLight
         ref={sunRef}
         position={[120, 180, 80]}

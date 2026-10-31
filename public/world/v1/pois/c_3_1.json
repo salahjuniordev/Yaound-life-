@@ -1,0 +1,103 @@
+[
+  {
+    "id": "osm-n7072482819",
+    "sourceId": "n7072482819",
+    "name": "Chrono Assurances",
+    "nameFr": "Chrono Assurances",
+    "kind": "insurance",
+    "pos": [
+      1957.430268795113,
+      -979.1226764686871
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7072482819",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n10223105918",
+    "sourceId": "n10223105918",
+    "name": "ELig Edzoa",
+    "kind": "viewpoint",
+    "pos": [
+      1991.1526012594113,
+      -984.6894959615893
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n10223105918",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465402",
+    "sourceId": "a1167465402",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1844.5629007294774,
+      -987.8795697316527
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465402",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465404",
+    "sourceId": "a1167465404",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1919.3448465421097,
+      -990.6704496981693
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465404",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465414",
+    "sourceId": "a1167465414",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1611.72664661007,
+      -1020.4753069489961
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465414",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

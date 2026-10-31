@@ -14,7 +14,11 @@
     "export:character": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/export-character.mjs",
     "review:packet": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/cultural-review-packet.mjs",
     "db:verify": "node scripts/verify-supabase.mjs",
-    "deploy:cf": "npm run build && npx --yes wrangler pages deploy dist --project-name yaounde-life"
+    "deploy:cf": "npm run build && npx --yes wrangler pages deploy dist --project-name yaounde-life",
+    "world:inspect": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-inspect.mjs",
+    "world:build": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-build.mjs",
+    "world:validate": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-validate.mjs",
+    "world:acquire": "bash scripts/world-acquire.sh"
   },
   "dependencies": {
     "@react-three/fiber": "^9.0.0",

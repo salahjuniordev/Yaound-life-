@@ -1,0 +1,582 @@
+[
+  {
+    "id": "osm-n2284221635",
+    "sourceId": "n2284221635",
+    "name": "Nylon",
+    "kind": "locality",
+    "pos": [
+      226.1019711213885,
+      -759.9259999951464
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284221635",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4431141163",
+    "sourceId": "n4431141163",
+    "name": "car_repair",
+    "kind": "car_repair",
+    "pos": [
+      48.04147159552667,
+      -927.7606857915525
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4431141163",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5210001542",
+    "sourceId": "n5210001542",
+    "name": "Lebanese hairdresser",
+    "kind": "hairdresser",
+    "pos": [
+      414.3519023177214,
+      -913.6709121729364
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5210001542",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5650210745",
+    "sourceId": "n5650210745",
+    "name": "Yao'Ba",
+    "kind": "restaurant",
+    "pos": [
+      448.8047972393688,
+      -972.3477130616666
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5650210745",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310781569",
+    "sourceId": "n6310781569",
+    "name": "EMIDA International",
+    "kind": "ngo",
+    "pos": [
+      223.35621460631955,
+      -719.1350449632737
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310781569",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310781570",
+    "sourceId": "n6310781570",
+    "name": "Imprimerie Adventiste",
+    "kind": "copyshop",
+    "pos": [
+      446.4107437937055,
+      -884.4239967216272
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310781570",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310781578",
+    "sourceId": "n6310781578",
+    "name": "World Ressources Institute",
+    "kind": "ngo",
+    "pos": [
+      63.97388035454787,
+      -588.833362356876
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310781578",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310781583",
+    "sourceId": "n6310781583",
+    "name": "Fonds des Nations Unies pour l'Enfance",
+    "kind": "ngo",
+    "pos": [
+      56.32288674893789,
+      -556.9788421966368
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310781583",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310781584",
+    "sourceId": "n6310781584",
+    "name": "UEEC",
+    "kind": "place_of_worship",
+    "pos": [
+      188.6606741064461,
+      -558.8548809388885
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310781584",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311082088",
+    "sourceId": "n6311082088",
+    "name": "ENEO",
+    "kind": "company",
+    "pos": [
+      490.02804640389513,
+      -851.0956056115683
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311082088",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311082103",
+    "sourceId": "n6311082103",
+    "name": "Ecomarché",
+    "kind": "supermarket",
+    "pos": [
+      471.5184232336469,
+      -663.0255299607525
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311082103",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311082104",
+    "sourceId": "n6311082104",
+    "name": "AER",
+    "kind": "company",
+    "pos": [
+      508.4693493503146,
+      -715.0933231379022
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311082104",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311082105",
+    "sourceId": "n6311082105",
+    "name": "Association Nationale des Etablissement de Microfinances du Cameroun",
+    "kind": "ngo",
+    "pos": [
+      473.5897329817526,
+      -766.0731340664788
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311082105",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311082106",
+    "sourceId": "n6311082106",
+    "name": "Forest Governance Facility",
+    "kind": "ngo",
+    "pos": [
+      366.85135242308024,
+      -728.4466639888706
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311082106",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337678488",
+    "sourceId": "n6337678488",
+    "name": "Fondation pour l'environnement et le le développement au Cameroun",
+    "kind": "ngo",
+    "pos": [
+      33.5153653298039,
+      -662.9727086824132
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337678488",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337778044",
+    "sourceId": "n6337778044",
+    "name": "Cabinet Médical du Centre",
+    "kind": "clinic",
+    "pos": [
+      373.5689889417263,
+      -517.5045999792055
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337778044",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337796757",
+    "sourceId": "n6337796757",
+    "name": "Hotel le bon séjour",
+    "kind": "hotel",
+    "pos": [
+      62.50634234910831,
+      -581.5708676014328
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337796757",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337800124",
+    "sourceId": "n6337800124",
+    "name": "Hôtel La Couronne",
+    "kind": "hotel",
+    "pos": [
+      159.67422385688405,
+      -709.6848405182245
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337800124",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6346895197",
+    "sourceId": "n6346895197",
+    "name": "PCFC",
+    "kind": "company",
+    "pos": [
+      23.00196488504298,
+      -984.5673807336134
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6346895197",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6395699969",
+    "sourceId": "n6395699969",
+    "name": "Sci swendy & brothers",
+    "kind": "apartment",
+    "pos": [
+      84.87581683974713,
+      -578.0857454928919
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6395699969",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6720137792",
+    "sourceId": "n6720137792",
+    "name": "Chez Long",
+    "kind": "restaurant",
+    "pos": [
+      308.4764130010735,
+      -765.4377173943212
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6720137792",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11607806771",
+    "sourceId": "n11607806771",
+    "name": "school",
+    "kind": "school",
+    "pos": [
+      434.1240832984913,
+      -726.2902538263588
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11607806771",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438406544",
+    "sourceId": "a438406544",
+    "name": "Centre de la Mère et de l'Enfant",
+    "kind": "hospital",
+    "pos": [
+      462.0362114573363,
+      -544.5433621488046
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438406544",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264258",
+    "sourceId": "a440264258",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      380.1434966097586,
+      -746.7311820159666
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264258",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264466",
+    "sourceId": "a440264466",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      390.82838702527806,
+      -614.2464477109606
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264466",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264508",
+    "sourceId": "a440264508",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      119.93024187453557,
+      -636.4099399116822
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264508",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264744",
+    "sourceId": "a440264744",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      288.13335599796847,
+      -793.7569576882524
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264744",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a493243630",
+    "sourceId": "a493243630",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      458.6964431870729,
+      -942.1053744927631
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a493243630",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1672701426",
+    "sourceId": "a1672701426",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      131.9777685549343,
+      -699.5450778194354
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1672701426",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

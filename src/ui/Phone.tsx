@@ -27,6 +27,7 @@ import { CityHallApp } from './apps/CityHallApp';
 import { HomeApp } from './apps/HomeApp';
 import { SocialFeedApp } from './apps/SocialFeedApp';
 import { installHelpText, useInstallPrompt } from './InstallPrompt';
+import { isGeographicWorldEnabled, setGeographicWorldEnabled } from '../render/worldMode';
 
 const APPS: { id: string; name: string; nameFr: string; icon: IconName }[] = [
   { id: 'journal', name: 'Journal', nameFr: 'Journal', icon: 'journal' },
@@ -1340,6 +1341,7 @@ function SettingsApp() {
     typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
   );
   const [fullscreen, setFullscreen] = useState(() => typeof document !== 'undefined' && Boolean(document.fullscreenElement));
+  const [geoWorld, setGeoWorld] = useState(() => isGeographicWorldEnabled());
   const install = useInstallPrompt();
   const [installHelp, setInstallHelp] = useState(false);
   const set = <K extends keyof typeof s.settings>(k: K, v: (typeof s.settings)[K]) => store().setSetting(k, v);
@@ -1428,6 +1430,24 @@ function SettingsApp() {
           <option value="mid">{fr ? 'Équilibrée' : 'Balanced'}</option>
           <option value="high">{fr ? 'Haute' : 'High'}</option>
         </select>
+      </div>
+      <Toggle
+        label={fr ? 'Nlongkak géographique (aperçu)' : 'Geographic Nlongkak (preview)'}
+        value={geoWorld}
+        onChange={(v) => {
+          setGeoWorld(v);
+          setGeographicWorldEnabled(v);
+          engine.toast(
+            v ? 'Geographic Nlongkak enabled' : 'Legacy Nlongkak enabled',
+            'info',
+            v ? 'Nlongkak géographique activé' : 'Nlongkak classique activé',
+          );
+        }}
+      />
+      <div className="muted small">
+        {fr
+          ? 'Données cartographiques (c) contributeurs OpenStreetMap, ODbL 1.0 · Élévation (c) ESA, Copernicus DEM GLO-30'
+          : 'Map data (c) OpenStreetMap contributors, ODbL 1.0 · Elevation (c) ESA, Copernicus DEM GLO-30'}
       </div>
       <Toggle
         label={fr ? 'Qualité auto (recommandé)' : 'Auto quality (recommended)'}

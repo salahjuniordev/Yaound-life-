@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { buildWorldGeometry, type Obstacle } from './worldGeometry';
 import type { QualityTier } from './controls';
@@ -7,10 +7,8 @@ export function useWorld(quality: QualityTier) {
   return useMemo(() => buildWorldGeometry(quality), [quality]);
 }
 
-export function WorldMeshes({ quality, onTerrainReady }: { quality: QualityTier; onTerrainReady?: (mesh: THREE.Mesh) => void }) {
-  const world = useWorld(quality);
+export function WorldMeshes({ quality, world, onTerrainReady }: { quality: QualityTier; world: ReturnType<typeof useWorld>; onTerrainReady?: (mesh: THREE.Mesh) => void }) {
   const terrainRef = useRef<THREE.Mesh>(null);
-  const [obstacles] = useState<Obstacle[]>(() => world.obstacles);
 
   return (
     <group>

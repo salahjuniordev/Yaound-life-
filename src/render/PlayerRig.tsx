@@ -3,14 +3,12 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGame, type NearbyInfo } from '../state/store';
 import { buildCharacter, animateCharacter, type CharacterClip, type CharacterParts } from './characters';
-import { terrainHeight } from '../sim/world';
-import { districtAt, DISTRICT_MAP } from '../data/districts';
-import { PLACES, type PlaceDef } from '../data/places';
+import type { PlaceDef } from '../data/places';
 import { npcActivityText } from '../sim/npcsim';
 import { iconSprite, npcRuntime } from './runtime';
 import { worldGlyphFor } from './worldIcons';
 import { cameraState, moveInput, tapState, type QualityTier } from './controls';
-import { buildWorldGeometry, type Obstacle } from './worldGeometry';
+import type { WorldAdapter } from './geo/types';
 
 const KIND_RING: Record<string, string> = {
   home: '#2fa05a', vendor: '#f2b134', activity: '#2f6fe0', taxi: '#e8b02c',
@@ -35,24 +33,26 @@ function placeLabel(p: PlaceDef, fr: boolean): string {
 interface PlayerRigProps {
   quality: QualityTier;
   onInteract: (nearby: NearbyInfo) => void;
-  terrain: THREE.Mesh | null;
+  terrain: THREE.Object3D | null;
+  world: WorldAdapter;
+  spawn: [number, number];
 }
 
-export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
+export function PlayerRig({ quality, onInteract, terrain, world, spawn }: PlayerRigProps) {
   const engine = useGame((s) => s.engine);
   const { camera, gl } = useThree();
   const partsRef = useRef<CharacterParts | null>(null);
   const groupRef = useRef<THREE.Group>(null);
   const tapMarkerRef = useRef<THREE.Mesh>(null);
   const markerGroupRef = useRef<THREE.Group>(null);
-  const posRef = useRef({ x: useGame.getState().player.x, z: useGame.getState().player.z });
+  const posRef = useRef({ x: spawn[0], z: spawn[1] });
   const yawRef = useRef(Math.PI);
   const keysRef = useRef<Set<string>>(new Set());
   const lastDistrictRef = useRef<string>('');
   const publishTimer = useRef(0);
   const proximityTimer = useRef(0);
   const arrivedTarget = useRef(true);
-  const obstaclesRef = useRef<Obstacle[]>([]);
+  const cameraSnapRef = useRef(true);
   const pointerDownRef = useRef<{ x: number; y: number; t: number } | null>(null);
 
   const appearance = engine?.state.player.appearance;
@@ -69,13 +69,10 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
   }, [appearanceKey, sex]);
 
   useEffect(() => {
-    obstaclesRef.current = buildWorldGeometry(quality).obstacles;
-    lastDistrictRef.current = engine?.state.player.district ?? 'mvog_mbi';
-    const zone = DISTRICT_MAP[lastDistrictRef.current as keyof typeof DISTRICT_MAP];
-    if (zone) {
-      posRef.current = { x: zone.center[0] + 5, z: zone.center[1] + 5 };
-    }
-  }, [quality, engine]);
+    lastDistrictRef.current = engine?.state.player.district ?? 'nlongkak';
+    posRef.current = { x: spawn[0], z: spawn[1] };
+    cameraSnapRef.current = true;
+  }, [engine, spawn, world]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -126,7 +123,7 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
         );
         const raycaster = new THREE.Raycaster();
         raycaster.setFromCamera(ndc, camera);
-        const hits = raycaster.intersectObject(terrain, false);
+        const hits = raycaster.intersectObject(terrain, true);
         if (hits.length > 0) {
           tapState.target = { x: hits[0].point.x, z: hits[0].point.z };
           arrivedTarget.current = false;
@@ -145,11 +142,11 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
 
   const markers = useMemo(
     () =>
-      PLACES.map((place) => {
+      world.places.map((place) => {
         const sprite = iconSprite(worldGlyphFor(place.icon), KIND_RING[place.kind] ?? '#ffffff');
         return { place, sprite };
       }),
-    [],
+    [world],
   );
 
   useEffect(() => {
@@ -218,20 +215,14 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
       posRef.current.z += dirZ * speed * dtc;
     }
 
-    for (const ob of obstaclesRef.current) {
-      const dx = posRef.current.x - ob.x;
-      const dz = posRef.current.z - ob.z;
-      const min = ob.r + 0.4;
-      const d = Math.hypot(dx, dz);
-      if (d < min && d > 0.001) {
-        posRef.current.x = ob.x + (dx / d) * min;
-        posRef.current.z = ob.z + (dz / d) * min;
-      }
-    }
-    posRef.current.x = THREE.MathUtils.clamp(posRef.current.x, -245, 255);
-    posRef.current.z = THREE.MathUtils.clamp(posRef.current.z, -235, 185);
+    const [collidedX, collidedZ] = world.collide(posRef.current.x, posRef.current.z, 0.42);
+    posRef.current.x = collidedX;
+    posRef.current.z = collidedZ;
+    const [clampedX, clampedZ] = world.clamp(posRef.current.x, posRef.current.z);
+    posRef.current.x = clampedX;
+    posRef.current.z = clampedZ;
 
-    const groundY = terrainHeight(posRef.current.x, posRef.current.z);
+    const groundY = world.terrainHeight(posRef.current.x, posRef.current.z);
     group.position.set(posRef.current.x, groundY, posRef.current.z);
     group.rotation.y = yawRef.current;
     const phoneOpen = useGame.getState().panel === 'phone';
@@ -241,17 +232,15 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
     const engineDistrict = engine.state.player.district;
     if (lastDistrictRef.current !== engineDistrict) {
       lastDistrictRef.current = engineDistrict;
-      const zone = DISTRICT_MAP[engineDistrict];
-      if (zone) {
-        const distToCenter = Math.hypot(posRef.current.x - zone.center[0], posRef.current.z - zone.center[1]);
-        if (distToCenter > zone.radius * 1.15) {
-          posRef.current = { x: zone.center[0] + 5, z: zone.center[1] + 5 };
-          tapState.target = null;
-          arrivedTarget.current = true;
-        }
+      const districtSpawn = world.spawnForDistrict(engineDistrict);
+      const distToCenter = Math.hypot(posRef.current.x - districtSpawn[0], posRef.current.z - districtSpawn[1]);
+      if (distToCenter > world.zoneRadius(engineDistrict) * 1.15) {
+        posRef.current = { x: districtSpawn[0], z: districtSpawn[1] };
+        tapState.target = null;
+        arrivedTarget.current = true;
       }
     } else {
-      const here = districtAt(posRef.current.x, posRef.current.z);
+      const here = world.districtAt(posRef.current.x, posRef.current.z);
       if (here !== engineDistrict) {
         useGame.getState().dispatch({ type: 'walk_enter', to: here });
         lastDistrictRef.current = here;
@@ -264,9 +253,15 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
     const offZ = Math.cos(cameraState.yaw) * Math.cos(cameraState.pitch) * camDist;
     const camTargetX = posRef.current.x + offX;
     const camTargetZ = posRef.current.z + offZ;
-    const camFloor = terrainHeight(camTargetX, camTargetZ) + 1.1;
+    const camFloor = world.terrainHeight(camTargetX, camTargetZ) + 1.1;
     const camTargetY = Math.max(groundY + offY, camFloor);
-    camera.position.lerp(new THREE.Vector3(camTargetX, camTargetY, camTargetZ), Math.min(1, dtc * 7));
+    const camTarget = new THREE.Vector3(camTargetX, camTargetY, camTargetZ);
+    if (cameraSnapRef.current) {
+      camera.position.copy(camTarget);
+      cameraSnapRef.current = false;
+    } else {
+      camera.position.lerp(camTarget, Math.min(1, dtc * 7));
+    }
     const lookY = groundY + 1.35 + (cameraState.pitch < 0.3 ? -0.4 : 0);
     camera.lookAt(posRef.current.x, lookY, posRef.current.z);
 
@@ -283,8 +278,8 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
       let bestD = 6.5;
       const px = posRef.current.x;
       const pz = posRef.current.z;
-      for (const p of PLACES) {
-        const d = Math.hypot(px - p.pos[0], pz - p.pos[1]);
+      for (const p of world.places) {
+        const d = Math.hypot(px - p.worldPos[0], pz - p.worldPos[1]);
         if (d < bestD) {
           bestD = d;
           best = { kind: 'place', id: p.id, label: placeLabel(p, false), labelFr: placeLabel(p, true), icon: p.icon, placeId: p.id };
@@ -313,11 +308,11 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
 
     const t = clock.elapsedTime;
     for (const m of markers) {
-      const d = Math.hypot(posRef.current.x - m.place.pos[0], posRef.current.z - m.place.pos[1]);
+      const d = Math.hypot(posRef.current.x - m.place.worldPos[0], posRef.current.z - m.place.worldPos[1]);
       m.sprite.visible = d < 42;
       if (m.sprite.visible) {
-        const y = terrainHeight(m.place.pos[0], m.place.pos[1]) + 2.3 + Math.sin(t * 2 + m.place.pos[0]) * 0.12;
-        m.sprite.position.set(m.place.pos[0], y, m.place.pos[1]);
+        const y = world.terrainHeight(m.place.worldPos[0], m.place.worldPos[1]) + 2.3 + Math.sin(t * 2 + m.place.worldPos[0]) * 0.12;
+        m.sprite.position.set(m.place.worldPos[0], y, m.place.worldPos[1]);
         const scale = THREE.MathUtils.clamp(d / 12, 0.9, 2.1);
         m.sprite.scale.set(1.4 * scale, 1.4 * scale, 1);
       }
@@ -327,7 +322,7 @@ export function PlayerRig({ quality, onInteract, terrain }: PlayerRigProps) {
       const target = tapState.target;
       tapMarkerRef.current.visible = Boolean(target);
       if (target) {
-        const ty = terrainHeight(target.x, target.z) + 0.15;
+        const ty = world.terrainHeight(target.x, target.z) + 0.15;
         tapMarkerRef.current.position.set(target.x, ty, target.z);
         const pulse = 1 + Math.sin(t * 6) * 0.12;
         tapMarkerRef.current.scale.set(pulse, 1, pulse);

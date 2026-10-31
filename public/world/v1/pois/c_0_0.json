@@ -1,0 +1,983 @@
+[
+  {
+    "id": "osm-n2518638955",
+    "sourceId": "n2518638955",
+    "name": "Place du Rotary Club",
+    "kind": "locality",
+    "pos": [
+      381.91203238023445,
+      -25.137103862303775
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2518638955",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4370678949",
+    "sourceId": "n4370678949",
+    "name": "OID5 S1",
+    "kind": "artwork",
+    "pos": [
+      196.5194152786862,
+      -105.78672362829093
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4370678949",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4377493299",
+    "sourceId": "n4377493299",
+    "name": "Pharmacie Provinciale",
+    "kind": "pharmacy",
+    "pos": [
+      376.99752555182204,
+      -168.07259795762366
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4377493299",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4990494828",
+    "sourceId": "n4990494828",
+    "name": "Délégation régionale de la santé publique",
+    "kind": "government",
+    "pos": [
+      436.5442925700918,
+      -211.72109959373483
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4990494828",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4990494829",
+    "sourceId": "n4990494829",
+    "name": "Commissariat emi-immigration Yaoundé",
+    "kind": "police",
+    "pos": [
+      427.12515083537437,
+      -169.05145649495535
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4990494829",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4990494830",
+    "sourceId": "n4990494830",
+    "name": "Commissariat central numéro 1 de Yaoundé",
+    "kind": "police",
+    "pos": [
+      422.9216264181305,
+      -132.6265012723743
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4990494830",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4995382923",
+    "sourceId": "n4995382923",
+    "name": "Émi-Immigration",
+    "nameFr": "Émi-Immigration",
+    "kind": "government",
+    "pos": [
+      450.8643899927847,
+      -261.8073133294238
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4995382923",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310782594",
+    "sourceId": "n6310782594",
+    "name": "Sous-Préfecture Yaoundé 1",
+    "kind": "townhall",
+    "pos": [
+      380.1699194216635,
+      -308.343524368247
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310782594",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310782595",
+    "sourceId": "n6310782595",
+    "name": "Ministère des Affaires Etrangères",
+    "kind": "government",
+    "pos": [
+      289.9132270539412,
+      -86.88987198669929
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310782595",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6310782596",
+    "sourceId": "n6310782596",
+    "name": "CTSP",
+    "kind": "school",
+    "pos": [
+      175.18170323851518,
+      -177.1540341488435
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6310782596",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311081031",
+    "sourceId": "n6311081031",
+    "name": "Division spéciale de contrôle des services",
+    "kind": "police",
+    "pos": [
+      423.54558725305833,
+      -154.50238443148555
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311081031",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311081032",
+    "sourceId": "n6311081032",
+    "name": "CETIC Communale",
+    "kind": "school",
+    "pos": [
+      449.2225670274347,
+      -141.25737131142523
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311081032",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6311081057",
+    "sourceId": "n6311081057",
+    "name": "Organisation Africaine de la Propriété Intellectuelle",
+    "kind": "ngo",
+    "pos": [
+      511.04423439200036,
+      -249.51690886571305
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6311081057",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935665",
+    "sourceId": "n6315935665",
+    "name": "OHADA (Organisation pour l'Harmonisation en Afrique du Droit des Affaires)",
+    "kind": "government",
+    "pos": [
+      415.38523442018777,
+      -80.90084405970993
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935665",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935666",
+    "sourceId": "n6315935666",
+    "name": "UBC",
+    "kind": "bank",
+    "pos": [
+      434.0361328079598,
+      -34.91793132171733
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935666",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081613",
+    "sourceId": "n6316081613",
+    "name": "CSI la Gaité",
+    "kind": "school",
+    "pos": [
+      127.09367763798218,
+      -312.6143917736481
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081613",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337778043",
+    "sourceId": "n6337778043",
+    "name": "Émeraude Optique",
+    "kind": "clinic",
+    "pos": [
+      385.3621199254412,
+      -453.2231988492422
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337778043",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6339598133",
+    "sourceId": "n6339598133",
+    "name": "Estrellas travel agency",
+    "kind": "travel_agent",
+    "pos": [
+      388.8207617906155,
+      -456.11019366257824
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6339598133",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6339664617",
+    "sourceId": "n6339664617",
+    "name": "Ecole maternelle et primaire bilingue du CCE",
+    "kind": "school",
+    "pos": [
+      186.16175639186986,
+      -195.6971197145176
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6339664617",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6339722186",
+    "sourceId": "n6339722186",
+    "name": "Complexe scolaire international Enko la Gaieté",
+    "kind": "kindergarten",
+    "pos": [
+      140.21320011059288,
+      -269.3590365317068
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6339722186",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6339722187",
+    "sourceId": "n6339722187",
+    "name": "Enieg la Gaieté",
+    "kind": "college",
+    "pos": [
+      127.31456746580079,
+      -271.93187240330735
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6339722187",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6346902851",
+    "sourceId": "n6346902851",
+    "name": "Minfof projet de condervation et utilisation eurable des ressources forestieres et fauniques du massif de Ngoyla-mintom",
+    "kind": "government",
+    "pos": [
+      231.85702093236614,
+      -214.77487202070188
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6346902851",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6346902852",
+    "sourceId": "n6346902852",
+    "name": "Acefa cellule techbique departmental",
+    "kind": "government",
+    "pos": [
+      225.30481996654999,
+      -213.28385732753668
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6346902852",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6346902853",
+    "sourceId": "n6346902853",
+    "name": "PSFE 2 amenagement et suivi des forets du Cameroun coordination nat",
+    "kind": "government",
+    "pos": [
+      231.66017596889287,
+      -232.3996187869343
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6346902853",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6346904092",
+    "sourceId": "n6346904092",
+    "name": "Projet national dappui au developpeme t des cultures cerealieres (PNADCC)",
+    "kind": "government",
+    "pos": [
+      199.42117555905133,
+      -97.87335091916611
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6346904092",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6352225046",
+    "sourceId": "n6352225046",
+    "name": "Maison du combattant",
+    "kind": "government",
+    "pos": [
+      230.32065425848123,
+      -182.05335400486365
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6352225046",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6352225047",
+    "sourceId": "n6352225047",
+    "name": "Secrétariat d'État aux anciens combattant et victimes de guerre",
+    "kind": "government",
+    "pos": [
+      223.90513941971585,
+      -130.81793481193017
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6352225047",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6352237649",
+    "sourceId": "n6352237649",
+    "name": "Délégation Régionale du Centre Elecam",
+    "kind": "government",
+    "pos": [
+      471.08369273645803,
+      -495.4781812776346
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6352237649",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6352237650",
+    "sourceId": "n6352237650",
+    "name": "Prefecture de Yaoundé",
+    "kind": "government",
+    "pos": [
+      349.3852397047449,
+      -436.0108469525585
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6352237650",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6425613897",
+    "sourceId": "n6425613897",
+    "name": "Nigeria union secretariat center",
+    "kind": "association",
+    "pos": [
+      320.57580515020527,
+      -400.2429652119172
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6425613897",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11925880439",
+    "sourceId": "n11925880439",
+    "name": "bench",
+    "kind": "bench",
+    "pos": [
+      366.4803666828666,
+      -330.23215490044095
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11925880439",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13006257796",
+    "sourceId": "n13006257796",
+    "name": "JFN Center",
+    "kind": "training",
+    "pos": [
+      441.27502114360686,
+      -481.8246923048864
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13006257796",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13301244631",
+    "sourceId": "n13301244631",
+    "name": "Spar",
+    "kind": "supermarket",
+    "pos": [
+      94.3455153699033,
+      -450.4548269104562
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13301244631",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13544020201",
+    "sourceId": "n13544020201",
+    "name": "Saint Louis - restaurant Sénégalais",
+    "kind": "restaurant",
+    "pos": [
+      472.3065627089236,
+      -43.28563766850857
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13544020201",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a382303090",
+    "sourceId": "a382303090",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      478.5655632002745,
+      -393.68714777362766
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a382303090",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a382303092",
+    "sourceId": "a382303092",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      315.34979910741094,
+      -330.223944276222
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a382303092",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a398196078",
+    "sourceId": "a398196078",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      321.7332427469082,
+      -119.32521691417787
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a398196078",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264468",
+    "sourceId": "a440264468",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      449.2460394038353,
+      -6.273533658008091
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264468",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a465104846",
+    "sourceId": "a465104846",
+    "name": "Délégation Générale à la Sûreté Nationale",
+    "kind": "police",
+    "pos": [
+      480.12743331631646,
+      -316.95010306918994
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a465104846",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167402876",
+    "sourceId": "a1167402876",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      310.3909894900862,
+      -342.2581623495207
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167402876",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167402878",
+    "sourceId": "a1167402878",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      477.5911594426725,
+      -399.96874674852006
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167402878",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167402880",
+    "sourceId": "a1167402880",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      303.5843116613105,
+      -362.8174176487373
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167402880",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167402882",
+    "sourceId": "a1167402882",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      439.69274480850436,
+      -363.73119145742385
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167402882",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167402884",
+    "sourceId": "a1167402884",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      430.0260775173083,
+      -325.84055703820195
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167402884",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167402886",
+    "sourceId": "a1167402886",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      406.545902871876,
+      -358.9745365930139
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167402886",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167402888",
+    "sourceId": "a1167402888",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      408.83005549921654,
+      -368.1646604576963
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167402888",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2900406872",
+    "sourceId": "a2900406872",
+    "name": "Complexe Scolaire Internatinale la Gaieté",
+    "kind": "school",
+    "pos": [
+      60.00778557686135,
+      -412.67909657547716
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2900406872",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2900406874",
+    "sourceId": "a2900406874",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      31.05367283395026,
+      -462.9906088989228
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2900406874",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2900406882",
+    "sourceId": "a2900406882",
+    "name": "Star Mall",
+    "kind": "mall",
+    "pos": [
+      31.05367283395026,
+      -462.9906088989228
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2900406882",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

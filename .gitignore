@@ -13,3 +13,7 @@ npm-debug.log*
 
 .DS_Store
 Thumbs.db
+
+# Large geographical source data and build intermediates
+data/geodata/raw/
+data/geodata/processed/

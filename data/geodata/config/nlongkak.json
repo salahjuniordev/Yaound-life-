@@ -1,0 +1,52 @@
+{
+  "areaId": "nlongkak",
+  "name": "Nlongkak",
+  "nameFr": "Nlongkak",
+  "description": "First playable geographical slice centred on the Nlongkak neighbourhood of Yaoundé.",
+  "worldVersion": "nlongkak-2026-10-30-v1",
+  "bbox": {
+    "minLon": 11.5126,
+    "minLat": 3.878,
+    "maxLon": 11.5305,
+    "maxLat": 3.896
+  },
+  "chunkSize": 512,
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "simplifyTolerance": 0.45,
+  "minBuildingArea": 2,
+  "outputDir": "public/world/v1",
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons, POIs and neighbourhood boundaries.",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "extractFile": "data/geodata/processed/nlongkak.osm.pbf",
+      "exportFile": "data/geodata/processed/nlongkak.geojson",
+      "oplFile": "data/geodata/processed/nlongkak.opl"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the Nlongkak slice.",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "decodedFile": "data/geodata/processed/nlongkak-dem.f32",
+      "decodedMetaFile": "data/geodata/processed/nlongkak-dem.json"
+    }
+  ],
+  "notUsed": [
+    {
+      "id": "google_open_buildings_v3",
+      "reason": "OSM building coverage in the Nlongkak slice is dense and sufficient for the first vertical slice. The ingestion contract remains ready for a future area where OSM footprints are missing."
+    }
+  ]
+}

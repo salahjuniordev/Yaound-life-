@@ -4,15 +4,16 @@ import * as THREE from 'three';
 import { useGame } from '../state/store';
 import { crowdForDistrict } from '../sim/npcsim';
 import { npcPositionFor } from '../sim/npcsim';
-import { DISTRICT_MAP } from '../data/districts';
+
 import { PANTS_COLORS, SHIRT_COLORS, SKIN_TONES } from '../data/backgrounds';
 import { CAST_LOOKS } from '../data/castLooks';
-import { terrainHeight } from '../sim/world';
+
 import { npcRuntime, labelSprite } from './runtime';
 import { qualityTiers, type QualityTier } from './controls';
 import { crowdLodFor } from './lod';
 import { crowdBuildFor, type CrowdBuild } from './crowdLooks';
 import type { DistrictId } from '../sim/types';
+import type { WorldAdapter } from './geo/types';
 
 interface BodyMetrics {
   legLen: number;
@@ -135,7 +136,7 @@ function silhouetteTexture(kind: 'body' | 'legs' | 'hair'): THREE.CanvasTexture 
   return tex;
 }
 
-export function Crowd({ quality }: { quality: QualityTier }) {
+export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAdapter }) {
   const tier = qualityTiers[quality] ?? qualityTiers.mid;
   const capacity = tier.crowd + 14;
   const { camera } = useThree();
@@ -255,19 +256,22 @@ export function Crowd({ quality }: { quality: QualityTier }) {
     const playerDistrict = state.player.district;
     const regenKey = `${playerDistrict}_${day}_${Math.floor(minute / 180)}_${capacity}`;
 
-    const zone = DISTRICT_MAP[playerDistrict];
     if (regenKey !== regenKeyRef.current) {
       regenKeyRef.current = regenKey;
-      const crowd = crowdForDistrict(playerDistrict, day, minute, tier.crowd, zone.center, zone.radius);
+      const center = world.crowdCenter(playerDistrict);
+      const crowd = crowdForDistrict(playerDistrict, day, minute, tier.crowd, center, world.crowdRadius(playerDistrict));
       const persons: Person[] = [];
       for (const npc of Object.values(state.npcs)) {
         const np = npcPositionFor(npc, minute);
+        if (world.mode === 'geographic' && np.district !== playerDistrict) continue;
+        const mapped = world.toWorldPosition(np.district, np.pos);
+        const placed = world.placePedestrian(mapped[0], mapped[1]);
         const look = CAST_LOOKS[npc.id];
         const build = crowdBuildFor(npc.id);
         persons.push({
           id: npc.id,
-          baseX: np.pos[0],
-          baseZ: np.pos[1],
+          baseX: placed[0],
+          baseZ: placed[1],
           shirt: look ? new THREE.Color(look.shirt) : hashPick(SHIRT_COLORS, npc.id),
           pants: look ? new THREE.Color(look.pants) : hashPick(PANTS_COLORS, npc.id),
           skin: look ? new THREE.Color(look.skin) : hashPick(SKIN_TONES as unknown as string[], npc.id + 's'),
@@ -283,10 +287,11 @@ export function Crowd({ quality }: { quality: QualityTier }) {
       }
       for (const m of crowd) {
         const build = crowdBuildFor(m.id);
+        const placed = world.placePedestrian(m.pos[0], m.pos[1]);
         persons.push({
           id: m.id,
-          baseX: m.pos[0],
-          baseZ: m.pos[1],
+          baseX: placed[0],
+          baseZ: placed[1],
           shirt: new THREE.Color(m.shirt),
           pants: new THREE.Color(m.pants),
           skin: new THREE.Color(SKIN_TONES[m.skin % SKIN_TONES.length]),
@@ -372,13 +377,16 @@ export function Crowd({ quality }: { quality: QualityTier }) {
       const p = people[i];
       let x = p.baseX;
       let z = p.baseZ;
+      let hidden = false;
       if (p.named) {
         const npc = state.npcs[p.id];
         if (npc) {
           const target = npcPositionFor(npc, minute);
-          const smooth = smoothPosRef.current.get(p.id) ?? { x: target.pos[0], z: target.pos[1] };
-          const dx = target.pos[0] - smooth.x;
-          const dz = target.pos[1] - smooth.z;
+          if (world.mode === 'geographic' && target.district !== playerDistrict) hidden = true;
+          const mapped = world.toWorldPosition(target.district, target.pos);
+          const smooth = smoothPosRef.current.get(p.id) ?? { x: mapped[0], z: mapped[1] };
+          const dx = mapped[0] - smooth.x;
+          const dz = mapped[1] - smooth.z;
           const d = Math.hypot(dx, dz);
           if (d > 0.4) {
             const step = Math.min(d, 4.5 * Math.min(dt, 0.05));
@@ -388,7 +396,8 @@ export function Crowd({ quality }: { quality: QualityTier }) {
           smoothPosRef.current.set(p.id, smooth);
           x = smooth.x;
           z = smooth.z;
-          npcRuntime[p.id] = { x, z };
+          if (hidden) delete npcRuntime[p.id];
+          else npcRuntime[p.id] = { x, z };
         }
       } else if (p.moving) {
         const a = p.phase + t * p.speed * 0.25;
@@ -396,7 +405,7 @@ export function Crowd({ quality }: { quality: QualityTier }) {
         z = p.baseZ + Math.sin(a) * 2.6;
       }
       const distToPlayer = Math.hypot(x - playerX, z - playerZ);
-      const visible = distToPlayer < tier.viewDistance * 0.55;
+      const visible = !hidden && distToPlayer < tier.viewDistance * 0.55;
 
       if (!visible) {
         for (const mesh of [body, pelvis, head, hair, armL, armR, legL, legR, shoeL, shoeR, impostorTorso, impostorLegs, impostorHead, impostorHair]) {
@@ -405,7 +414,7 @@ export function Crowd({ quality }: { quality: QualityTier }) {
         continue;
       }
 
-      const groundY = terrainHeight(x, z);
+      const groundY = world.terrainHeight(x, z);
       const lod = crowdLodFor(Math.hypot(x - camX, z - camZ), quality);
       const m = p.metrics;
 
@@ -497,7 +506,7 @@ export function Crowd({ quality }: { quality: QualityTier }) {
           labelGroupRef.current?.add(sprite);
         }
         sprite.position.set(x, groundY + m.top + 0.25, z);
-        sprite.visible = distToPlayer < 34;
+        sprite.visible = !hidden && distToPlayer < 34;
         const scale = THREE.MathUtils.clamp(distToPlayer / 14, 1, 2.4);
         sprite.scale.set(3.2 * scale, 0.4 * scale, 1);
       }

@@ -1,0 +1,56 @@
+{
+  "worldVersion": "nlongkak-2026-10-30-v1",
+  "area": {
+    "id": "nlongkak",
+    "name": "Nlongkak",
+    "description": "First playable geographical slice centred on the Nlongkak neighbourhood of Yaoundé."
+  },
+  "bbox": {
+    "minLon": 11.5126,
+    "minLat": 3.878,
+    "maxLon": 11.5305,
+    "maxLat": 3.896
+  },
+  "origin": {
+    "lon": 11.512546690536405,
+    "lat": 3.878000158820163,
+    "east": 779036.8796419629,
+    "north": 429056.09154497687
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1995.1371908708243,
+    "minZ": -1997.4945094923023,
+    "maxZ": 0,
+    "minEast": 779036.8796419629,
+    "maxEast": 781032.0168328338,
+    "minNorth": 429056.09154497687,
+    "maxNorth": 431053.58605446917
+  },
+  "chunkSize": 512,
+  "chunks": 16,
+  "roads": 426,
+  "buildings": 8085,
+  "pois": 409,
+  "waterPolygons": 2,
+  "skippedBuildings": 36,
+  "elevation": {
+    "absoluteMin": 713.3388671875,
+    "absoluteMax": 778.1815795898438,
+    "verticalOffset": 713.3,
+    "relativeMin": 0,
+    "relativeMax": 64.8815795898438
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

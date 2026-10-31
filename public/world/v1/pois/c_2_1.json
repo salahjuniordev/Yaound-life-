@@ -1,0 +1,42 @@
+[
+  {
+    "id": "osm-n2276771598",
+    "sourceId": "n2276771598",
+    "name": "Tou'Ngou Hotel",
+    "kind": "hotel",
+    "pos": [
+      1181.8301983658457,
+      -534.1748197149718
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2276771598",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2284221628",
+    "sourceId": "n2284221628",
+    "name": "Ntaba",
+    "kind": "locality",
+    "pos": [
+      1194.0665665874258,
+      -984.2080417989055
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284221628",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

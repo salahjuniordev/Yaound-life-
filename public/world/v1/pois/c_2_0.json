@@ -1,0 +1,786 @@
+[
+  {
+    "id": "osm-n2092403078",
+    "sourceId": "n2092403078",
+    "name": "Sélecte",
+    "kind": "bakery",
+    "pos": [
+      1254.2597289658152,
+      -446.42965390038444
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2092403078",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2092403080",
+    "sourceId": "n2092403080",
+    "name": "Place Etoa-Meki",
+    "kind": "locality",
+    "pos": [
+      1236.7827627656516,
+      -478.68530455062864
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2092403080",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2093006464",
+    "sourceId": "n2093006464",
+    "name": "Entree foyer Bandjoun",
+    "kind": "locality",
+    "pos": [
+      1278.4660332440399,
+      -240.83832715475
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2093006464",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3584352161",
+    "sourceId": "n3584352161",
+    "name": "Cameroun Entreprise Développement",
+    "kind": "ngo",
+    "pos": [
+      1487.6471816196572,
+      -281.53757395758294
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3584352161",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3584401531",
+    "sourceId": "n3584401531",
+    "name": "Iles du Wouri",
+    "kind": "restaurant",
+    "pos": [
+      1260.9018285139464,
+      -179.39003631199012
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3584401531",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3584401532",
+    "sourceId": "n3584401532",
+    "name": "Feuilles Vertes",
+    "kind": "restaurant",
+    "pos": [
+      1239.635876827524,
+      -278.5292719050194
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3584401532",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4778356623",
+    "sourceId": "n4778356623",
+    "name": "Foyer International E.P.C.",
+    "nameFr": "Foyer International E.P.C.",
+    "kind": "guest_house",
+    "pos": [
+      1106.504277236294,
+      -225.62105672986945
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4778356623",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4926176025",
+    "sourceId": "n4926176025",
+    "name": "I LOVE GEOMATICS",
+    "nameFr": "I LOVE GEOMATICS",
+    "kind": "artwork",
+    "pos": [
+      1394.640100233024,
+      -204.0751929685939
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4926176025",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4926199822",
+    "sourceId": "n4926199822",
+    "name": "AGESFO",
+    "nameFr": "AGESFO",
+    "kind": "artwork",
+    "pos": [
+      1363.0016452260315,
+      -189.06607853370951
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4926199822",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935385",
+    "sourceId": "n6315935385",
+    "name": "Mahima Restaurant",
+    "nameFr": "Mahima",
+    "kind": "restaurant",
+    "pos": [
+      1421.2482947185636,
+      -12.907657521252986
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935385",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935386",
+    "sourceId": "n6315935386",
+    "name": "Siège de L'UNDP",
+    "kind": "political_party",
+    "pos": [
+      1360.2135296904016,
+      -13.544373754586559
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935386",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935427",
+    "sourceId": "n6315935427",
+    "name": "Librairie Protestante",
+    "kind": "books",
+    "pos": [
+      1065.6500184077304,
+      -88.61172663629986
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935427",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316023390",
+    "sourceId": "n6316023390",
+    "name": "Foundation Bandjoun",
+    "kind": "association",
+    "pos": [
+      1357.205628646072,
+      -224.64271937962621
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316023390",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316023391",
+    "sourceId": "n6316023391",
+    "name": "Cabinet Dentaire",
+    "kind": "dentist",
+    "pos": [
+      1322.5986770656891,
+      -135.5712523763068
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316023391",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316023392",
+    "sourceId": "n6316023392",
+    "name": "Institut de Recherche pour le Développement",
+    "kind": "ngo",
+    "pos": [
+      1342.022783834138,
+      -68.99983549094759
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316023392",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316023394",
+    "sourceId": "n6316023394",
+    "name": "Ministère des Affaires Sociales Délégation Regionale",
+    "kind": "government",
+    "pos": [
+      1262.2086781875696,
+      -43.004093351075426
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316023394",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11403245810",
+    "sourceId": "n11403245810",
+    "name": "atm",
+    "kind": "atm",
+    "pos": [
+      1249.3785573027562,
+      -439.84288319398183
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11403245810",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11403245811",
+    "sourceId": "n11403245811",
+    "name": "Istanbul Mobilier",
+    "kind": "furniture",
+    "pos": [
+      1249.2326448194217,
+      -429.1543173296377
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11403245811",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11403245812",
+    "sourceId": "n11403245812",
+    "name": "Professional Express Pressing",
+    "kind": "dry_cleaning",
+    "pos": [
+      1218.8051669113338,
+      -436.6425816632109
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11403245812",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11403245813",
+    "sourceId": "n11403245813",
+    "name": "lighting",
+    "kind": "lighting",
+    "pos": [
+      1216.5991576849483,
+      -442.2566713882261
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11403245813",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n12442271282",
+    "sourceId": "n12442271282",
+    "name": "O Palétuvier",
+    "kind": "restaurant",
+    "pos": [
+      1111.353427655995,
+      -90.09776546986541
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n12442271282",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13424641949",
+    "sourceId": "n13424641949",
+    "name": "The Rooftop",
+    "kind": "hookah_lounge",
+    "pos": [
+      1216.0756099973805,
+      -438.946879152325
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13424641949",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13440705725",
+    "sourceId": "n13440705725",
+    "name": "Floo",
+    "kind": "yes",
+    "pos": [
+      1254.5330418408848,
+      -444.21760598616675
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13440705725",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13834765345",
+    "sourceId": "n13834765345",
+    "name": "Université Protestante D'Afrique Centrale (UPAC)",
+    "kind": "university",
+    "pos": [
+      1110.5295331121888,
+      -38.40287442877889
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13834765345",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13834867286",
+    "sourceId": "n13834867286",
+    "name": "Direction Générale Touristique Voyage",
+    "kind": "travel_agency",
+    "pos": [
+      1290.7138879192062,
+      -285.09895055071684
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13834867286",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13835122844",
+    "sourceId": "n13835122844",
+    "name": "AMAE-EPC (siège national)",
+    "kind": "religion",
+    "pos": [
+      1043.775225007441,
+      -436.8175499694189
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13835122844",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13835122845",
+    "sourceId": "n13835122845",
+    "name": "car_repair",
+    "kind": "car_repair",
+    "pos": [
+      1047.5528976323549,
+      -444.5185043417732
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13835122845",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13835122847",
+    "sourceId": "n13835122847",
+    "name": "Secrétariat A L'éducation",
+    "kind": "religion",
+    "pos": [
+      1044.8521671367344,
+      -280.60389145906083
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13835122847",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13835122849",
+    "sourceId": "n13835122849",
+    "name": "BNG SARL",
+    "kind": "company",
+    "pos": [
+      1225.3349888015073,
+      -173.674360711826
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13835122849",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667564",
+    "sourceId": "a439667564",
+    "name": "École Maternelle Bilingue EPC",
+    "kind": "school",
+    "pos": [
+      1073.8327668660786,
+      -296.2134993283544
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667564",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264554",
+    "sourceId": "a440264554",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1314.5757208965952,
+      -194.96272904035868
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264554",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264558",
+    "sourceId": "a440264558",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1422.107265476836,
+      -179.42838159180246
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264558",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264666",
+    "sourceId": "a440264666",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1349.8451049565338,
+      -162.56096236902522
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264666",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264678",
+    "sourceId": "a440264678",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1486.812816673424,
+      -155.2578276208369
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264678",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264814",
+    "sourceId": "a440264814",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1240.4595172150293,
+      -69.41615857358556
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264814",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a443579382",
+    "sourceId": "a443579382",
+    "name": "Place Etoa Meki",
+    "kind": "garden",
+    "pos": [
+      1231.4468619455583,
+      -479.24472554709064
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a443579382",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a915689126",
+    "sourceId": "a915689126",
+    "name": "car",
+    "kind": "car",
+    "pos": [
+      1191.0944597152993,
+      -408.8659291465301
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a915689126",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1438786186",
+    "sourceId": "a1438786186",
+    "name": "playground",
+    "kind": "playground",
+    "pos": [
+      1420.9469671996776,
+      -9.609588522347622
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1438786186",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1438786188",
+    "sourceId": "a1438786188",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1431.4666531807743,
+      -7.350652179331519
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1438786188",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

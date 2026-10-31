@@ -1,0 +1,142 @@
+[
+  {
+    "id": "osm-n2283552279",
+    "sourceId": "n2283552279",
+    "name": "Residence Des Cheminots",
+    "kind": "locality",
+    "pos": [
+      1835.6428859019652,
+      -91.21903169009602
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2283552279",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2308115377",
+    "sourceId": "n2308115377",
+    "name": "Green Cartridge Cameroun",
+    "kind": "yes",
+    "pos": [
+      1634.7799776074244,
+      -212.09454592736438
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2308115377",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3584401530",
+    "sourceId": "n3584401530",
+    "name": "Crèche",
+    "kind": "educational_institution",
+    "pos": [
+      1603.5591563247144,
+      -235.85603248380357
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3584401530",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6315935395",
+    "sourceId": "n6315935395",
+    "name": "Clinique Sainte-Maithe",
+    "kind": "clinic",
+    "pos": [
+      1539.7246370185167,
+      -239.99157271208242
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6315935395",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439912910",
+    "sourceId": "a439912910",
+    "name": "Écoles Publiques et Etoa-Maki Groupe I et II",
+    "kind": "school",
+    "pos": [
+      1866.3326758970506,
+      -241.46522077557165
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439912910",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264322",
+    "sourceId": "a440264322",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1605.338274742011,
+      -120.13937142112991
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264322",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264538",
+    "sourceId": "a440264538",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1768.3827533284202,
+      -282.18804357695626
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264538",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "id": "osm-n2284221601",
+    "sourceId": "n2284221601",
+    "name": "Camp Sic Nlongkak",
+    "kind": "locality",
+    "pos": [
+      1323.8733816989698,
+      -1512.9727493626997
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284221601",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8213673419",
+    "sourceId": "n8213673419",
+    "name": "Carrefour Bata Nlongkak",
+    "kind": "locality",
+    "pos": [
+      1092.4083873508498,
+      -1232.5415176018723
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8213673419",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n12529760076",
+    "sourceId": "n12529760076",
+    "name": "Groupe Scolaire International Les Fleurettes",
+    "kind": "prep_school",
+    "pos": [
+      1169.3466980383964,
+      -1532.3377261243295
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n12529760076",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n14135896820",
+    "sourceId": "n14135896820",
+    "name": "Nous Deux Bar",
+    "kind": "bar",
+    "pos": [
+      1119.5247323394287,
+      -1198.7657574913464
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n14135896820",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438447102",
+    "sourceId": "a438447102",
+    "name": "Stade Camp Nlongkak",
+    "kind": "pitch",
+    "pos": [
+      1331.1842108968413,
+      -1264.5673139904393
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438447102",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438694988",
+    "sourceId": "a438694988",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1178.6866557884496,
+      -1099.3969223591266
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438694988",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438695000",
+    "sourceId": "a438695000",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1270.9930684114806,
+      -1232.3561092314194
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438695000",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465394",
+    "sourceId": "a1167465394",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1070.8572752347682,
+      -1181.5481282365508
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465394",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465406",
+    "sourceId": "a1167465406",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1471.5859702205053,
+      -1100.6708624782623
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465406",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465408",
+    "sourceId": "a1167465408",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1350.9894413863076,
+      -1156.118692124728
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465408",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465410",
+    "sourceId": "a1167465410",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1265.8068817388266,
+      -1190.2851211156812
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465410",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167465412",
+    "sourceId": "a1167465412",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1107.9319453696953,
+      -1225.4846165237832
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167465412",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]
