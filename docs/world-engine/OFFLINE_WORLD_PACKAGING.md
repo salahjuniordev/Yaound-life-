@@ -53,9 +53,15 @@ failure is shown as a distinct error; it is not silently ignored.
 - App-shell requests are cache-first for same-origin assets; navigation and
   hashed assets are cached on successful fetch.
 - Activation deletes only non-app, non-world caches. It does **not** delete a
-  working world pack.
-- The active world cache name comes from the manifest; offline it falls back to
-  the newest existing `yaounde-world-*` cache.
+  working world pack, and it resets the memoized active world version.
+- The active world cache name comes from the manifest. The lookup is memoized
+  for 60 seconds to avoid a manifest request per asset. After a download or
+  removal, the Settings UI posts `{ type: 'world-cache-updated' }` to the
+  service worker so the next request resolves the new version immediately.
+- Offline, the active version falls back to the lexicographically newest
+  `yaounde-world-*` cache. World versions are date-tagged, so this is the newest
+  downloaded pack; `matchWorldRequest` still tries older caches if the newest
+  pack is incomplete.
 
 ## Failure handling
 
@@ -69,9 +75,18 @@ failure is shown as a distinct error; it is not silently ignored.
 
 ## Testing
 
-Pure catalog/status logic is covered by `test/offline.test.ts`. Browser Cache
-Storage and quota behavior require a real browser; they are not simulated in
-Node tests. A manual offline check is still required before release:
+Pure catalog/status logic is covered by `test/offline.test.ts`. The actual
+`public/sw.js` lifecycle and the Cache Storage download path are covered by
+`test/serviceWorker.test.ts` and `test/offlineCache.test.ts` using an in-memory
+Cache Storage implementation. Those tests cover app-shell precache, initial
+world precache, offline cache fallback, missing-asset 503, runtime caching,
+version invalidation, corrupt manifests, legacy cache cleanup, resume, quota
+rejection, HTTP failure and abort behavior.
+
+This is not a substitute for a real browser pass: service-worker installation
+timing, persistent-storage prompts, quota accounting and real network
+interruptions still need to be exercised on a device. A manual offline check is
+still required before release:
 
 1. Load the app online once.
 2. Open Settings and download the world pack.

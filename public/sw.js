@@ -11,11 +11,23 @@ function scopeUrl(path) {
   return new URL(path, self.registration.scope);
 }
 
+const WORLD_MANIFEST_TTL_MS = 60_000;
 let activeWorldCachePromise = null;
+let activeWorldCacheResolvedAt = 0;
+
+function invalidateActiveWorldCache() {
+  activeWorldCachePromise = null;
+  activeWorldCacheResolvedAt = 0;
+}
 
 async function activeWorldCacheName() {
-  if (activeWorldCachePromise) return activeWorldCachePromise;
-  activeWorldCachePromise = (async () => {
+  if (
+    activeWorldCachePromise &&
+    (activeWorldCacheResolvedAt === 0 || Date.now() - activeWorldCacheResolvedAt < WORLD_MANIFEST_TTL_MS)
+  ) {
+    return activeWorldCachePromise;
+  }
+  const pending = (async () => {
     try {
       const response = await fetch(scopeUrl(`${WORLD_ROOT}manifest.json`), { cache: 'no-store' });
       if (response.ok) {
@@ -27,10 +39,20 @@ async function activeWorldCacheName() {
     } catch {
       // Offline: fall back to the newest complete world cache below.
     }
+    // World versions are date-tagged, so the lexicographically greatest name is the newest offline fallback.
     const keys = (await caches.keys()).filter(isWorldCacheName).sort();
     return keys[keys.length - 1] ?? `${WORLD_CACHE_PREFIX}unavailable`;
   })();
-  return activeWorldCachePromise;
+  activeWorldCachePromise = pending;
+  activeWorldCacheResolvedAt = 0;
+  try {
+    const name = await pending;
+    if (activeWorldCachePromise === pending) activeWorldCacheResolvedAt = Date.now();
+    return name;
+  } catch (error) {
+    if (activeWorldCachePromise === pending) invalidateActiveWorldCache();
+    throw error;
+  }
 }
 
 async function matchWorldRequest(request) {
@@ -90,6 +112,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  invalidateActiveWorldCache();
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
@@ -100,6 +123,12 @@ self.addEventListener('activate', (event) => {
     ),
   );
   self.clients.claim();
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'world-cache-updated') {
+    invalidateActiveWorldCache();
+  }
 });
 
 self.addEventListener('fetch', (event) => {

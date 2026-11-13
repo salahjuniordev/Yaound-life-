@@ -7,10 +7,10 @@ are instrumented, but real-device measurements are still pending.
 
 | Check | Budget | Current |
 | --- | --- | --- |
-| JS total (gzip) | 620 KB | 568,466 B |
+| JS total (gzip) | 620 KB | 570,748 B |
 | CSS total (gzip) | 24 KB | 8,622 B |
-| HTML total (gzip) | 5 KB | 1,815 B |
-| First load JS+CSS+HTML (gzip) | 1 MB | 578,903 B |
+| HTML total (gzip) | 5 KB | 1,814 B |
+| First load JS+CSS+HTML (gzip) | 1 MB | 581,184 B |
 | World assets raw | 12 MB | 5,402,073 B |
 | World assets gzip | 6 MB | 853,458 B |
 

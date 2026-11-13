@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Last updated: 2026-11-12
+Last updated: 2026-11-13
 
 ## Milestones
 
@@ -12,7 +12,7 @@ Last updated: 2026-11-12
 | M3 — Real road network | Done | 426 clipped roads, classes/widths/roundabouts, graph, spatial index |
 | M4 — Buildings and terrain | Done | 8,085 buildings, 16 heightfield chunks, 2 water polygons, 35 waterway lines, collision metadata |
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
-| M6 — Offline packaging | Done | `files.json`, `precache.json`, versioned world caches, Settings download UI, progress/quota/cancel |
+| M6 — Offline packaging | Done | `files.json`, `precache.json`, versioned world caches, Settings download UI, progress/quota/cancel, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | District adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
 | M8 — Visual/cultural/legal/perf | Partial | Waterway lines, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, architecture, vegetation, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
 
@@ -40,13 +40,35 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 184 pass, 0 fail.
+- `npm test`: 205 pass, 0 fail.
 - `build`: pass.
-- `size`: all budgets pass — JS 570,442 B gzip, CSS 8,622 B, HTML 1,813 B,
-  first load 580,877 B, world raw 5,402,073 B, world gzip 853,458 B.
+- `size`: all budgets pass — JS 570,748 B gzip, CSS 8,622 B, HTML 1,814 B,
+  first load 581,184 B, world raw 5,402,073 B, world gzip 853,458 B.
 - `world:validate`: pass.
 
-## Latest round: M8 street and market detailing
+## Latest round: offline cache hardening and automated tests
+
+Completed after the M8 round:
+
+- Added `test/serviceWorker.test.ts`, which runs the real `public/sw.js` in a
+  VM with a fake Cache Storage. It covers app-shell precache, initial world
+  precache, cached world serving, newest-cache fallback, missing-asset 503,
+  runtime caching, non-GET/cross-origin bypass, activation cleanup, unsafe or
+  malformed manifest versions and malformed precache lists.
+- Added `test/offlineCache.test.ts` covering full and resumed `downloadWorldPack`
+  runs, byte progress, quota rejection before fetch, HTTP failure wrapping,
+  abort handling, catalog errors, cache version listing/deletion and path
+  filtering.
+- Added the shared `test/helpers/fakeCaches.ts` in-memory Cache Storage.
+- Fixed stale world-version selection in the service worker: the manifest
+  lookup is now memoized for 60 seconds instead of forever, activation resets
+  it, and the Settings UI posts `{ type: 'world-cache-updated' }` after a
+  download or removal so the next world request resolves the new pack
+  immediately.
+- Typecheck clean, 205/205 tests pass, build and all size budgets pass,
+  `world:validate` passes.
+
+## Previous round: M8 street and market detailing
 
 Completed after the waterway round:
 
@@ -80,25 +102,23 @@ Completed after the offline/streaming round:
 - Added tests for waterway validation, waterway geometry and over-cap streaming
   stability.
 
-## Files added/changed in the current working tree
+## Commit state
 
-Offline/streaming and waterway work is uncommitted:
+Commit `555ad39` (2026-11-13) contains the offline/streaming, waterway, M8
+street-detailing, v2 pack and documentation work, and is pushed to `origin/main`.
 
-- `src/world/offline.ts`, `test/offline.test.ts`
-- `src/pwa/worldCache.ts`
-- `src/ui/WorldOffline.tsx`, `src/ui/Phone.tsx`
-- `src/world/chunkManager.ts`, `test/chunkManager.test.ts`
-- `src/world/types.ts`, `src/world/loader.ts`, `src/world/validation.ts`
-- `src/world/manifest.ts` (generator version)
-- `src/render/geo/geometry.ts`, `src/render/geo/metrics.ts`, `src/render/geo/GeoScene.tsx` (waterways, market clusters, signage, vehicles, drainage)
-- `src/render/GameCanvas.tsx`
-- `public/sw.js`, `src/main.tsx`
-- `scripts/world-build.mjs`, `scripts/world-validate.mjs`, `scripts/world-inspect.mjs`, `scripts/size-check.mjs`
-- `data/geodata/config/nlongkak.json` (world version, waterway usage)
-- `public/world/v1/files.json`, `precache.json`, `manifest.json`, `water/waterways.json` and regenerated pack
-- `test/geo.test.ts`, `test/world.test.ts`
-- `src/styles.css`
-- `docs/world-engine/` (this suite), `docs/WORLD.md`, `IMPLEMENTATION_CHECKLIST.md`, `README.md`
+Uncommitted since that commit:
+
+- `public/sw.js` — 60-second world-manifest memoization, activation reset and
+  `world-cache-updated` message invalidation.
+- `src/ui/WorldOffline.tsx` — posts the cache-updated message after download and
+  removal.
+- `test/serviceWorker.test.ts`, `test/offlineCache.test.ts`,
+  `test/helpers/fakeCaches.ts` — 21 new offline/cache tests.
+- `docs/world-engine/OFFLINE_WORLD_PACKAGING.md`,
+  `docs/world-engine/PERFORMANCE_BUDGETS.md`, `docs/WORLD.md`,
+  `docs/world-engine/IMPLEMENTATION_PROGRESS.md` and
+  `IMPLEMENTATION_CHECKLIST.md` — this round's documentation and measurements.
 
 ## Known defects and gaps
 
@@ -113,7 +133,9 @@ Offline/streaming and waterway work is uncommitted:
 5. **M8 visual variety still needs human review.** Market stalls, signage,
    vehicles and street drainage are now present, but their placement and
    cultural fit have not been reviewed in a browser or by local reviewers.
-6. **Offline browser behavior is not automated.** Cache Storage/quota paths need
+6. **Offline browser behavior is only unit-tested.** The service worker and
+   Cache Storage paths now have automated tests, but real installation timing,
+   persistent-storage prompts, quota accounting and an offline reload still need
    a manual browser pass.
 7. **No automated visual regression test.** Geometry is tested numerically, not
    screenshot-tested.
@@ -137,5 +159,5 @@ deleted. Procedural fallback remains available through Settings,
    especially where streams cross roads or steep slopes.
 5. Run a local cultural review of signage colours and market dressing before
    treating M8 as complete.
-6. Commit the offline/streaming/waterway/M8/docs work once the browser and
-   device checks are recorded.
+6. Review and commit the offline-cache hardening and test round once the
+   browser and device checks are recorded or explicitly deferred.

@@ -27,6 +27,11 @@ interface WorldOfflineProps {
   fr: boolean;
 }
 
+function notifyWorldCacheUpdated(): void {
+  if (typeof navigator === 'undefined') return;
+  navigator.serviceWorker?.controller?.postMessage({ type: 'world-cache-updated' });
+}
+
 function statusText(fr: boolean, summary: OfflineWorldSnapshot, catalog: WorldFileCatalog | null): string {
   switch (summary.status) {
     case 'checking':
@@ -138,6 +143,7 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
         },
       });
       await cleanupOldWorldCaches(catalog.worldVersion);
+      notifyWorldCacheUpdated();
       if (mounted.current) {
         useGame.getState().engine?.toast(
           'Nlongkak is available offline',
@@ -169,6 +175,7 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
     try {
       const versions = await worldCacheVersions();
       await Promise.all(versions.map((version) => deleteWorldCache(version)));
+      notifyWorldCacheUpdated();
       await refresh();
     } finally {
       if (mounted.current) setBusy(false);
