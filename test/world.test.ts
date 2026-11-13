@@ -26,7 +26,8 @@ import {
   hashString,
 } from '../src/world/buildings';
 import { validateManifest, WORLD_FORMAT, WORLD_FORMAT_VERSION } from '../src/world/manifest';
-import type { BuildingGeometry, WorldManifest, WorldRoad } from '../src/world/types';
+import { validateWaterway } from '../src/world/validation';
+import type { BuildingGeometry, WaterwayFeature, WorldManifest, WorldRoad } from '../src/world/types';
 
 const YAOUNDE = { lon: 11.518966, lat: 3.8870052 };
 
@@ -219,6 +220,34 @@ test('building binary round trip preserves footprint and height', () => {
   const colors = deterministicColors('b1');
   assert.deepEqual(colors.wall, decoded[0].wall);
   assert.equal(hashString('b1'), hashString('b1'));
+});
+
+test('waterway validation accepts real lines and rejects broken level data', () => {
+  const waterway: WaterwayFeature = {
+    id: 'osm-w1',
+    name: 'Mfoundi',
+    kind: 'stream',
+    points: [[0, 0], [10, -2], [20, -4]],
+    levels: [0.2, 0.3, 0.4],
+    width: 2.4,
+    widthStatus: 'inferred',
+    provenance: {
+      source: 'openstreetmap',
+      sourceVersion: 'test',
+      license: 'ODbL-1.0',
+      geometryStatus: 'real',
+      heightStatus: 'inferred',
+    },
+  };
+  assert.deepEqual(validateWaterway(waterway), []);
+  assert.ok(validateWaterway({ ...waterway, points: [[0, 0]] }).some((issue) => issue.severity === 'error'));
+  assert.ok(validateWaterway({ ...waterway, levels: [0.2] }).some((issue) => issue.severity === 'error'));
+  assert.ok(validateWaterway({ ...waterway, width: 0 }).some((issue) => issue.severity === 'error'));
+  assert.ok(
+    validateWaterway({ ...waterway, kind: 'aqueduct' as WaterwayFeature['kind'] }).some((issue) => issue.severity === 'error'),
+  );
+  assert.ok(validateWaterway({ ...waterway, levels: [0.2, Number.NaN, 0.4] }).some((issue) => issue.severity === 'error'));
+  assert.ok(validateWaterway({ ...waterway, points: [[0, 0], [0, 0]] }).some((issue) => issue.severity === 'warning'));
 });
 
 test('manifest validation rejects incompatible or incomplete manifests', () => {

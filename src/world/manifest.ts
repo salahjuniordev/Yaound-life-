@@ -2,7 +2,7 @@ import type { ChunkRef, WorldBounds, WorldManifest } from './types';
 
 export const WORLD_FORMAT = 'yaounde-life-world';
 export const WORLD_FORMAT_VERSION = 1;
-export const WORLD_GENERATOR_VERSION = '1.0.0';
+export const WORLD_GENERATOR_VERSION = '1.1.0';
 
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

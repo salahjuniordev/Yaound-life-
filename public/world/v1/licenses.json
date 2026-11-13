@@ -1,6 +1,6 @@
 {
-  "worldVersion": "nlongkak-2026-10-30-v1",
-  "generatedAt": "2026-10-31T10:20:22.132Z",
+  "worldVersion": "nlongkak-2026-10-30-v2",
+  "generatedAt": "2026-11-12T20:28:33.684Z",
   "sources": [
     {
       "id": "openstreetmap",
@@ -9,7 +9,7 @@
       "license": "ODbL-1.0",
       "attribution": "(c) OpenStreetMap contributors",
       "snapshotDate": "2026-10-30",
-      "usage": "Roads, building footprints, water polygons, POIs and neighbourhood boundaries."
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries."
     },
     {
       "id": "copernicus_dem_glo30",

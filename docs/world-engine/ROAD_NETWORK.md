@@ -1,0 +1,67 @@
+# Road Network
+
+Roads come from OSM ways tagged `highway`. They are clipped to the world bbox,
+validated, assigned a gameplay class and width, and split across chunks. The
+current pack has 426 clipped road pieces.
+
+## Classes and widths
+
+| Class | Default width (m) | Walkable |
+| --- | --- | --- |
+| motorway | 14 | no |
+| trunk | 12 | no |
+| primary | 11 | yes |
+| secondary | 9 | yes |
+| tertiary | 8 | yes |
+| unclassified | 7 | yes |
+| residential | 6.5 | yes |
+| service | 4.5 | yes |
+| living_street | 6 | yes |
+| pedestrian | 4 | yes |
+| footway | 2.2 | yes |
+| path | 1.8 | yes |
+| cycleway | 2.4 | yes |
+| steps | 2 | yes |
+| track | 3 | yes |
+| roundabout | 7 | yes |
+
+Explicit `width` tags override the default and mark `widthStatus: real`;
+otherwise the width is `inferred`. `access=private` and `foot=no` make a road
+non-walkable.
+
+## Processing
+
+1. Collect `highway` ways and their node IDs.
+2. Convert each line to game coordinates.
+3. Clip polylines to the bbox.
+4. Classify (`roundabout` wins when `junction=roundabout|circular`).
+5. Validate: at least 2 points, finite coordinates, positive length.
+6. Assign the midpoint to a chunk and store the clipped piece.
+7. Keep OSM node IDs when the clipped piece preserves every original node.
+
+## Graph and connectivity
+
+`buildRoadGraph` creates nodes keyed by OSM ID (or a 0.25 m coordinate bucket)
+and edges for each segment. Edges record length, class, oneway and walkability.
+The graph supports nearest-node queries and shortest-path routing for gameplay
+and NPC placement. Shared OSM nodes connect ways across the network.
+
+## Rendering
+
+- Road ribbons are built per chunk from polylines and terrain height.
+- Vehicle roads add a shoulder, an open drainage gutter and a curb; trunk,
+  primary, secondary and tertiary roads also get a pavement strip with periodic
+  gutter crossings. Gutter/pavement geometry is visual detail inferred from the
+  road class, not mapped infrastructure.
+- Widths are in metres; sidewalks/kerbs are visual additions, not separate data.
+- Bridges and tunnels are tagged but rendered with the same ribbon; tunnels are
+  not cut into terrain.
+- Roundabouts follow the real circular geometry; no invented junction meshes are
+  placed where OSM has none.
+- Road collision/query uses the road index, not the rendered ribbon.
+
+## Known limits
+
+- No lane-level data, turn restrictions, live closures or traffic.
+- Footpaths are walkable but not rendered as a separate pedestrian network.
+- Some OSM ways may be split at chunk boundaries; IDs include a piece suffix.

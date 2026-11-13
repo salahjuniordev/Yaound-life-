@@ -3,7 +3,7 @@
   "name": "Nlongkak",
   "nameFr": "Nlongkak",
   "description": "First playable geographical slice centred on the Nlongkak neighbourhood of Yaoundé.",
-  "worldVersion": "nlongkak-2026-10-30-v1",
+  "worldVersion": "nlongkak-2026-10-30-v2",
   "bbox": {
     "minLon": 11.5126,
     "minLat": 3.878,
@@ -24,7 +24,7 @@
       "license": "ODbL-1.0",
       "attribution": "(c) OpenStreetMap contributors",
       "snapshotDate": "2026-10-30",
-      "usage": "Roads, building footprints, water polygons, POIs and neighbourhood boundaries.",
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries.",
       "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
       "extractFile": "data/geodata/processed/nlongkak.osm.pbf",
       "exportFile": "data/geodata/processed/nlongkak.geojson",

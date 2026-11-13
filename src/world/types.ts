@@ -92,6 +92,8 @@ export interface WorldManifest {
     buildings: number;
     pois: number;
     waterPolygons: number;
+    /** Optional for packs built before waterway-line support. */
+    waterways?: number;
     terrainSamples: number;
   };
   chunks: ChunkRef[];
@@ -184,6 +186,23 @@ export interface WaterFeature {
   provenance: Provenance;
 }
 
+export type WaterwayKind = 'river' | 'stream' | 'canal' | 'drain' | 'ditch';
+
+/**
+ * A real OSM waterway centreline. `levels` stores one inferred surface height
+ * per point so the rendered ribbon follows the terrain along its course.
+ */
+export interface WaterwayFeature {
+  id: string;
+  name?: string;
+  kind: WaterwayKind;
+  points: [number, number][];
+  levels: number[];
+  width: number;
+  widthStatus: DataStatus;
+  provenance: Provenance;
+}
+
 export interface Poi {
   id: string;
   sourceId?: string;
@@ -228,6 +247,7 @@ export interface WorldData {
   roads: WorldRoad[];
   pois: Poi[];
   water: WaterFeature[];
+  waterways: WaterwayFeature[];
   districts: WorldDistrictAnchor[];
   coarseTerrain: Heightfield;
 }

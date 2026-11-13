@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGame, type NearbyInfo } from '../../state/store';
 import { loadChunk, loadManifest, loadWorldData, joinWorldUrl, type LoadedChunk } from '../../world/loader';
+import { ChunkLru } from '../../world/chunkManager';
 import { heightAt } from '../../world/terrain';
 import type { Heightfield, WorldData, WorldManifest } from '../../world/types';
 import type { QualityTier } from '../controls';
@@ -12,7 +13,15 @@ import { GeoCollisionWorld } from './collision';
 import { RoadIndex } from './roadIndex';
 import { createGeoAdapter } from './adapter';
 import type { WorldAdapter } from './types';
-import { buildBuildingGeometry, buildPropsGeometry, buildRoadGeometry, buildTerrainGeometry, buildWaterGeometry } from './geometry';
+import {
+  buildBuildingGeometry,
+  buildPropsGeometry,
+  buildRoadGeometry,
+  buildTerrainGeometry,
+  buildWaterGeometry,
+  buildWaterwaysGeometry,
+} from './geometry';
+import { publishWorldMetrics } from './metrics';
 
 export interface GeoStatus {
   phase: 'loading' | 'ready' | 'error';
@@ -62,7 +71,13 @@ function chunkCenter(chunk: WorldManifest['chunks'][number]): [number, number] {
   return [(chunk.bounds.minX + chunk.bounds.maxX) / 2, (chunk.bounds.minZ + chunk.bounds.maxZ) / 2];
 }
 
+function triangleCount(geometry: THREE.BufferGeometry | undefined): number {
+  if (!geometry) return 0;
+  return geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3;
+}
+
 export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSceneProps) {
+  const { gl } = useThree();
   const collision = useMemo(() => new GeoCollisionWorld(), []);
   const visualGroup = useMemo(() => new THREE.Group(), []);
   const terrainGroup = useMemo(() => new THREE.Group(), []);
@@ -73,6 +88,9 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
   const chunkVisuals = useRef(new Map<string, ChunkVisual>());
   const chunkTerrains = useRef(new Map<string, Heightfield>());
   const loading = useRef(new Set<string>());
+  const chunkLru = useRef(new ChunkLru(16));
+  const metricFrames = useRef(0);
+  const metricElapsed = useRef(0);
   const worldRef = useRef<{ baseUrl: string; manifest: WorldManifest; data: WorldData; roads: RoadIndex } | null>(null);
   const qualityRef = useRef(quality);
   const statusRef = useRef(onStatus);
@@ -110,6 +128,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
       disposeObject(visual.group);
       chunkVisuals.current.delete(id);
       chunkTerrains.current.delete(id);
+      chunkLru.current.unload(id);
       collision.removeChunk(id);
     };
 
@@ -153,7 +172,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         group.add(buildingsFar);
       }
 
-      const props = buildPropsGeometry(chunk.ref.id, chunk.roads, chunk.buildings, chunk.terrain, qualityRef.current);
+      const props = buildPropsGeometry(chunk.ref.id, chunk.roads, chunk.buildings, chunk.terrain, qualityRef.current, chunk.pois);
       const propsMesh = props.geometry
         ? new THREE.Mesh(props.geometry, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true }))
         : null;
@@ -188,6 +207,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         if (controller.signal.aborted || !worldRef.current) return;
         const visual = buildChunk(chunk);
         chunkVisuals.current.set(ref.id, visual);
+        chunkLru.current.markLoaded(ref.id);
         visualGroup.add(visual.group);
         statusRef.current?.({ phase: 'ready', message: 'Nlongkak' });
       } catch (error) {
@@ -204,21 +224,33 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
       if (!world) return;
       const radius = qualityRef.current === 'low' ? 0 : qualityRef.current === 'mid' ? 1 : 2;
       const keepRadius = radius + 1;
+      chunkLru.current.maxLoaded = qualityRef.current === 'low' ? 5 : qualityRef.current === 'mid' ? 10 : 16;
       const current = chunkAt(world.manifest, x, z);
       if (!current) return;
       const desired = new Set<string>();
-      for (const chunk of world.manifest.chunks) {
-        const dx = Math.abs(chunk.ix - current.ix);
-        const dz = Math.abs(chunk.iz - current.iz);
-        if (dx <= radius && dz <= radius) desired.add(chunk.id);
+      const keep = new Set<string>();
+      const nearby = world.manifest.chunks
+        .map((chunk) => {
+          const [cx, cz] = chunkCenter(chunk);
+          return {
+            chunk,
+            dx: Math.abs(chunk.ix - current.ix),
+            dz: Math.abs(chunk.iz - current.iz),
+            distance: Math.hypot(cx - x, cz - z),
+          };
+        })
+        .filter((entry) => entry.dx <= keepRadius && entry.dz <= keepRadius)
+        .sort((a, b) => a.distance - b.distance);
+      for (const entry of nearby) {
+        if (entry.dx <= radius && entry.dz <= radius) desired.add(entry.chunk.id);
+        keep.add(entry.chunk.id);
       }
-      for (const chunk of world.manifest.chunks) {
-        const dx = Math.abs(chunk.ix - current.ix);
-        const dz = Math.abs(chunk.iz - current.iz);
-        if (dx > keepRadius || dz > keepRadius) removeChunk(chunk.id);
-      }
+      const plan = chunkLru.current.plan(desired, keep, loading.current);
+      for (const id of plan.evict) removeChunk(id);
       for (const id of desired) {
-        if (chunkVisuals.current.has(id) || loading.current.has(id)) continue;
+        if (chunkVisuals.current.has(id)) chunkLru.current.touch(id);
+      }
+      for (const id of plan.load) {
         const ref = world.manifest.chunks.find((chunk) => chunk.id === id);
         if (ref) void loadOne(ref);
       }
@@ -247,6 +279,15 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         if (water) {
           const mesh = new THREE.Mesh(water, new THREE.MeshLambertMaterial({ color: '#3f6f8a', transparent: true, opacity: 0.86 }));
           mesh.name = 'water';
+          waterGroup.add(mesh);
+        }
+        const waterways = buildWaterwaysGeometry(data.waterways);
+        if (waterways) {
+          const mesh = new THREE.Mesh(
+            waterways,
+            new THREE.MeshLambertMaterial({ vertexColors: true, transparent: true, opacity: 0.9 }),
+          );
+          mesh.name = 'waterways';
           waterGroup.add(mesh);
         }
         ensure(spawnPoint[0], spawnPoint[1]);
@@ -298,6 +339,33 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         if (visual.buildingsFar && visual.buildingsFar !== visual.buildingsNear) visual.buildingsFar.visible = !near;
         if (visual.props) visual.props.visible = distance < 760;
       }
+    }
+    metricFrames.current += 1;
+    metricElapsed.current += Math.min(dt, 0.25);
+    if (metricElapsed.current >= 1) {
+      let activeBuildings = 0;
+      let triangles = 0;
+      for (const visual of chunkVisuals.current.values()) {
+        activeBuildings += visual.ref.buildingCount;
+        triangles += triangleCount(visual.terrain.geometry);
+        triangles += triangleCount(visual.roads?.geometry);
+        const buildings = visual.buildingsNear?.visible ? visual.buildingsNear : visual.buildingsFar;
+        triangles += triangleCount(buildings?.geometry);
+        if (visual.props?.visible) triangles += triangleCount(visual.props.geometry);
+      }
+      publishWorldMetrics({
+        fps: metricFrames.current / Math.max(0.001, metricElapsed.current),
+        frameMs: (metricElapsed.current * 1000) / Math.max(1, metricFrames.current),
+        loadedChunks: chunkVisuals.current.size,
+        activeBuildings,
+        triangles,
+        drawCalls: gl.info.render.calls,
+        geometries: gl.info.memory.geometries,
+        textures: gl.info.memory.textures,
+        updatedAt: Date.now(),
+      });
+      metricFrames.current = 0;
+      metricElapsed.current = 0;
     }
   });
 

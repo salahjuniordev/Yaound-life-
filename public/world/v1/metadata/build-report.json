@@ -1,5 +1,5 @@
 {
-  "worldVersion": "nlongkak-2026-10-30-v1",
+  "worldVersion": "nlongkak-2026-10-30-v2",
   "area": {
     "id": "nlongkak",
     "name": "Nlongkak",
@@ -33,6 +33,7 @@
   "buildings": 8085,
   "pois": 409,
   "waterPolygons": 2,
+  "waterways": 35,
   "skippedBuildings": 36,
   "elevation": {
     "absoluteMin": 713.3388671875,

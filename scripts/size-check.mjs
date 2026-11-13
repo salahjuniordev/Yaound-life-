@@ -9,6 +9,8 @@ const BUDGETS = {
   cssGzip: 24 * 1024,
   htmlGzip: 5 * 1024,
   firstLoadGzip: 1024 * 1024,
+  worldRaw: 12 * 1024 * 1024,
+  worldGzip: 6 * 1024 * 1024,
 };
 
 function gzBytes(path) {
@@ -46,19 +48,31 @@ const rows = assets.map((f) => ({
 }));
 
 const sum = (list) => list.reduce((a, r) => a + r.gz, 0);
+const rawSum = (list) => list.reduce((a, r) => a + r.raw, 0);
 const js = rows.filter((r) => r.file.endsWith('.js'));
 const css = rows.filter((r) => r.file.endsWith('.css'));
 const html = rows.filter((r) => r.file.endsWith('.html'));
 
+const worldRows = files
+  .filter((f) => f.slice(DIST.length).replaceAll('\\', '/').startsWith('world/'))
+  .map((f) => ({
+    file: f.slice(DIST.length),
+    raw: statSync(f).size,
+    gz: gzBytes(f),
+  }));
+
 rows.sort((a, b) => b.gz - a.gz);
 console.log('gzip sizes (bytes):');
 for (const r of rows) console.log(`  ${String(r.gz).padStart(8)}  ${r.file}`);
+console.log(`\nworld assets: ${worldRows.length} files, ${rawSum(worldRows)} raw bytes, ${sum(worldRows)} gzip bytes`);
 
 const checks = [
   ['JS total', sum(js), BUDGETS.jsGzip],
   ['CSS total', sum(css), BUDGETS.cssGzip],
   ['HTML total', sum(html), BUDGETS.htmlGzip],
   ['First load (js+css+html)', sum(rows), BUDGETS.firstLoadGzip],
+  ['World assets raw', rawSum(worldRows), BUDGETS.worldRaw],
+  ['World assets gzip', sum(worldRows), BUDGETS.worldGzip],
 ];
 
 let failed = false;

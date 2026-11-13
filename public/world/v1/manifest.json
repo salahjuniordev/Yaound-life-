@@ -1,9 +1,9 @@
 {
   "format": "yaounde-life-world",
   "formatVersion": 1,
-  "worldVersion": "nlongkak-2026-10-30-v1",
-  "generatorVersion": "1.0.0",
-  "generatedAt": "2026-10-31T10:20:22.132Z",
+  "worldVersion": "nlongkak-2026-10-30-v2",
+  "generatorVersion": "1.1.0",
+  "generatedAt": "2026-11-12T20:28:33.684Z",
   "area": {
     "id": "nlongkak",
     "name": "Nlongkak",
@@ -49,7 +49,7 @@
       "license": "ODbL-1.0",
       "attribution": "(c) OpenStreetMap contributors",
       "snapshotDate": "2026-10-30",
-      "usage": "Roads, building footprints, water polygons, POIs and neighbourhood boundaries."
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries."
     },
     {
       "id": "copernicus_dem_glo30",
@@ -67,6 +67,7 @@
     "buildings": 8085,
     "pois": 409,
     "waterPolygons": 2,
+    "waterways": 35,
     "terrainSamples": 62750
   },
   "chunks": [
@@ -375,7 +376,7 @@
       "hash": "a7a8a843c47b7ab53fb1e4b4d7bbc83a5c5b4191259b0ef53e3dfb659120569f"
     }
   ],
-  "contentHash": "88f8d7efe5a00e8b31ba0c192cc92ca076ee6cf35e55fdf4afbd5724ae0dd6f0",
+  "contentHash": "c47d05b9c73466ba55b5646f4f966e6dba28293fc071797fb589e3388f363a2d",
   "validation": {
     "ok": true,
     "errors": [],

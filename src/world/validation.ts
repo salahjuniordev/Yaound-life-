@@ -1,4 +1,4 @@
-import type { Heightfield, Poi, WaterFeature, WorldData, WorldManifest, WorldRoad } from './types';
+import type { Heightfield, Poi, WaterFeature, WaterwayFeature, WorldData, WorldManifest, WorldRoad } from './types';
 import { validateManifest } from './manifest';
 import { validateRoad } from './roads';
 import { polygonArea, validateBuilding } from './buildings';
@@ -43,6 +43,45 @@ export function validateWater(feature: WaterFeature): ValidationIssue[] {
   return issues;
 }
 
+const WATERWAY_KINDS = new Set(['river', 'stream', 'canal', 'drain', 'ditch']);
+
+export function validateWaterway(feature: WaterwayFeature): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  if (!WATERWAY_KINDS.has(feature.kind)) {
+    issues.push({ severity: 'error', scope: 'waterway', message: `waterway ${feature.id} has unknown kind ${String(feature.kind)}` });
+  }
+  if (feature.points.length < 2) {
+    issues.push({ severity: 'error', scope: 'waterway', message: `waterway ${feature.id} has fewer than 2 points` });
+  }
+  if (feature.levels.length !== feature.points.length) {
+    issues.push({ severity: 'error', scope: 'waterway', message: `waterway ${feature.id} level count does not match point count` });
+  }
+  if (!Number.isFinite(feature.width) || feature.width <= 0) {
+    issues.push({ severity: 'error', scope: 'waterway', message: `waterway ${feature.id} has invalid width` });
+  }
+  for (let i = 0; i < feature.points.length; i++) {
+    const [x, z] = feature.points[i];
+    if (!Number.isFinite(x) || !Number.isFinite(z)) {
+      issues.push({ severity: 'error', scope: 'waterway', message: `waterway ${feature.id} has a non-finite point` });
+      break;
+    }
+    if (i > 0) {
+      const [px, pz] = feature.points[i - 1];
+      if (Math.hypot(x - px, z - pz) < 0.05) {
+        issues.push({ severity: 'warning', scope: 'waterway', message: `waterway ${feature.id} has a zero-length segment` });
+        break;
+      }
+    }
+  }
+  for (const level of feature.levels) {
+    if (!Number.isFinite(level)) {
+      issues.push({ severity: 'error', scope: 'waterway', message: `waterway ${feature.id} has a non-finite level` });
+      break;
+    }
+  }
+  return issues;
+}
+
 export function validateWorldData(world: WorldData): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   for (const error of validateManifest(world.manifest)) {
@@ -56,6 +95,7 @@ export function validateWorldData(world: WorldData): ValidationIssue[] {
   }
   for (const poi of world.pois) issues.push(...validatePoi(poi));
   for (const water of world.water) issues.push(...validateWater(water));
+  for (const waterway of world.waterways) issues.push(...validateWaterway(waterway));
   return issues;
 }
 

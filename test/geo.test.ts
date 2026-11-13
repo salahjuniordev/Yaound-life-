@@ -2,11 +2,19 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as THREE from 'three';
 import { createHeightfield } from '../src/world/terrain.ts';
-import type { BuildingGeometry, Heightfield, WorldData, WorldManifest, WorldRoad } from '../src/world/types.ts';
+import type { BuildingGeometry, Heightfield, Poi, WorldData, WorldManifest, WorldRoad } from '../src/world/types.ts';
 import type { DecodedBuilding } from '../src/world/buildings.ts';
 import { GeoCollisionWorld } from '../src/render/geo/collision.ts';
 import { RoadIndex } from '../src/render/geo/roadIndex.ts';
-import { buildBuildingGeometry, buildRoadGeometry, buildTerrainGeometry, buildWaterGeometry } from '../src/render/geo/geometry.ts';
+import {
+  buildBuildingGeometry,
+  buildPropsGeometry,
+  buildRoadGeometry,
+  buildTerrainGeometry,
+  buildWaterGeometry,
+  buildWaterwaysGeometry,
+  chooseVehicle,
+} from '../src/render/geo/geometry.ts';
 import { createGeoAdapter } from '../src/render/geo/adapter.ts';
 
 function flatField(): Heightfield {
@@ -41,13 +49,13 @@ function road(overrides: Partial<WorldRoad> = {}): WorldRoad {
   };
 }
 
-function building(): BuildingGeometry {
+function building(classification: BuildingGeometry['meta']['classification'] = 'small_house'): BuildingGeometry {
   return {
     meta: {
       id: 'b1',
       source: 'openstreetmap',
       sourceId: 'w1',
-      classification: 'small_house',
+      classification,
       height: 5,
       floors: 1,
       area: 100,
@@ -118,6 +126,54 @@ test('geo water geometry triangulates a polygon', () => {
   geo!.dispose();
 });
 
+test('geo waterway geometry follows per-point levels and uses a continuous ribbon', () => {
+  const geo = buildWaterwaysGeometry([
+    {
+      id: 'stream1',
+      name: 'Mfoundi',
+      kind: 'stream',
+      points: [[0, -5], [10, -5], [20, -8]],
+      levels: [0.2, 0.35, 0.5],
+      width: 2.4,
+      widthStatus: 'inferred',
+      provenance: {
+        source: 'openstreetmap',
+        sourceVersion: 'test',
+        license: 'ODbL-1.0',
+        geometryStatus: 'real',
+        heightStatus: 'inferred',
+      },
+    },
+  ]);
+  assert.ok(geo);
+  const pos = geo!.attributes.position as THREE.BufferAttribute;
+  assert.equal(pos.count, 12);
+  const ys = new Set<number>();
+  for (let i = 0; i < pos.count; i++) ys.add(Number(pos.getY(i).toFixed(2)));
+  assert.deepEqual([...ys].sort((a, b) => a - b), [0.32, 0.47, 0.62]);
+  geo!.dispose();
+});
+
+test('geo waterway geometry skips malformed level arrays', () => {
+  const geo = buildWaterwaysGeometry([
+    {
+      id: 'broken',
+      kind: 'drain',
+      points: [[0, 0], [5, 0]],
+      levels: [0.1],
+      width: 1,
+      widthStatus: 'inferred',
+      provenance: {
+        source: 'openstreetmap',
+        sourceVersion: 'test',
+        license: 'ODbL-1.0',
+        geometryStatus: 'real',
+      },
+    },
+  ]);
+  assert.equal(geo, null);
+});
+
 test('geo collision pushes a player out of a building footprint', () => {
   const collision = new GeoCollisionWorld();
   collision.addChunk('c', [building()]);
@@ -153,7 +209,7 @@ test('geo adapter maps Nlongkak gameplay positions into the real slice', () => {
     bounds: { minX: 0, maxX: 512, minZ: -512, maxZ: 0, minEast: 0, maxEast: 512, minNorth: 0, maxNorth: 512 },
     waterLevel: null,
     sources: [],
-    featureCounts: { chunks: 1, roads: 1, buildings: 1, pois: 0, waterPolygons: 0, terrainSamples: 9 },
+    featureCounts: { chunks: 1, roads: 1, buildings: 1, pois: 0, waterPolygons: 0, waterways: 0, terrainSamples: 9 },
     chunks: [],
     contentHash: '',
     validation: { ok: true, errors: [], warnings: [] },
@@ -163,6 +219,7 @@ test('geo adapter maps Nlongkak gameplay positions into the real slice', () => {
     roads: [road({ points: [[0, -100], [200, -100]] })],
     pois: [],
     water: [],
+    waterways: [],
     districts: [{
       id: 'nlongkak',
       name: 'Nlongkak',
@@ -193,4 +250,56 @@ test('geo adapter maps Nlongkak gameplay positions into the real slice', () => {
   assert.ok(Number.isFinite(spawn[0]) && Number.isFinite(spawn[1]));
   const mapped = adapter.toWorldPosition('nlongkak', [-95, -25]);
   assert.ok(Number.isFinite(mapped[0]) && Number.isFinite(mapped[1]));
+});
+
+test('geo props cluster market stalls around real marketplace POIs', () => {
+  const hf = flatField();
+  const roadOnly = road({ points: [[0, -100], [200, -100]] });
+  const bare = buildPropsGeometry('c1', [roadOnly], [], hf, 'high', []);
+  const marketplace: Poi = {
+    id: 'poi-market',
+    name: 'Marché test',
+    kind: 'marketplace',
+    pos: [10, -10],
+    provenance: {
+      source: 'openstreetmap',
+      sourceVersion: 'test',
+      license: 'ODbL-1.0',
+      geometryStatus: 'real',
+    },
+  };
+  const clustered = buildPropsGeometry('c1', [roadOnly], [], hf, 'high', [marketplace]);
+  assert.ok(bare.geometry);
+  assert.ok(clustered.geometry);
+  assert.ok(clustered.geometry!.attributes.position.count > bare.geometry!.attributes.position.count);
+  assert.ok(clustered.obstacles.some((obstacle) => Math.hypot(obstacle.x - 10, obstacle.z + 10) < 12));
+});
+
+test('geo road geometry adds drainage gutters and pavements on major roads', () => {
+  const hf = flatField();
+  const major = buildRoadGeometry([road({ id: 'major', roadClass: 'primary' })], hf, 'mid');
+  const footway = buildRoadGeometry([road({ id: 'walk', roadClass: 'footway' })], hf, 'mid');
+  assert.ok(major && footway);
+  assert.ok(major!.attributes.position.count > footway!.attributes.position.count * 4);
+  const positions = major!.attributes.position as THREE.BufferAttribute;
+  for (let i = 0; i < positions.count; i++) assert.ok(positions.getY(i) >= 0);
+});
+
+test('geo shop fronts add painted sign boards', () => {
+  const hf = flatField();
+  const house = buildBuildingGeometry([building('small_house')], [decoded()], hf, 'high');
+  const shop = buildBuildingGeometry([building('shop')], [decoded()], hf, 'high');
+  assert.ok(house && shop);
+  assert.ok(shop!.attributes.position.count > house!.attributes.position.count);
+});
+
+test('geo vehicles mix taxis, private cars, buses, trucks and motos by road class', () => {
+  const majorKinds = new Set<string>();
+  const minorKinds = new Set<string>();
+  for (let i = 0; i < 100; i++) {
+    majorKinds.add(chooseVehicle(road({ roadClass: 'primary' }), i / 100));
+    minorKinds.add(chooseVehicle(road({ roadClass: 'residential' }), i / 100));
+  }
+  assert.deepEqual([...majorKinds].sort(), ['bus', 'moto', 'private', 'taxi', 'truck']);
+  assert.deepEqual([...minorKinds].sort(), ['moto', 'private', 'taxi']);
 });

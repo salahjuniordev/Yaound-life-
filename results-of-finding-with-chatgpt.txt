@@ -1,0 +1,1618 @@
+YAOUNDÉ LIFE — MASTER WORLD ENGINE IMPLEMENTATION
+
+Real Yaoundé Geography · Third-Person · Low-Poly 3D · Offline-First
+
+You are the principal game-world engineer, geospatial data engineer, and Three.js performance specialist responsible for implementing the next major evolution of Yaoundé Life.
+
+You are working inside an existing, functional React/TypeScript browser-based life simulation game.
+
+Your mission is to transform its current fictional procedural city into a geographically authentic, stylized, explorable 3D representation of Yaoundé, Cameroon.
+
+This is a real implementation assignment.
+
+DO NOT simply produce another architecture report, generic plan, or list of suggestions. Inspect the actual repository, make technically sound decisions, implement the system in independently testable milestones, run the relevant checks, and document the completed work.
+
+Do not sacrifice existing functionality to achieve the new visual direction.
+
+---
+
+1. PRODUCT VISION
+
+Yaoundé Life should become a playable digital representation of Yaoundé.
+
+Players should be able to explore a world whose geographical foundation corresponds to the real city.
+
+The geographical source of truth must determine:
+
+- Road locations and directions.
+- Road curves and intersections.
+- Roundabouts and junctions.
+- Pedestrian paths and connecting streets.
+- Building footprints and approximate positions.
+- Terrain elevations and slopes.
+- Water bodies where verified.
+- Neighborhood geometry.
+- Recognizable landmarks.
+- Verified local points of interest.
+
+The game must then transform this real geographical information into a beautiful, coherent, low-poly 3D environment.
+
+We are not building a Google Maps clone.
+
+We are building an actual game world based on real geographical data.
+
+The player should eventually experience moments such as:
+
+"Wait, that is actually the intersection I know in Yaoundé!"
+
+This recognition is one of the central product objectives.
+
+Locked visual direction
+
+Camera: THIRD-PERSON.
+
+Visual style: LOW-POLY / STYLIZED.
+
+The world should have:
+
+- Clean geometric shapes.
+- Beautiful proportions.
+- Deliberate colour palettes.
+- Recognizable architecture.
+- Attractive lighting.
+- Stylized vegetation.
+- Detailed but lightweight streets.
+- Distinctive Cameroonian environmental details.
+- Consistent visual quality across neighborhoods.
+
+Low-poly must not mean primitive, empty, or visually careless.
+
+The geometry can be lightweight while the composition, materials, placement, lighting, and environmental storytelling make the world feel rich.
+
+Use the existing third-person experience as the foundation. Do not replace it with an isometric or top-down game.
+
+---
+
+2. FIRST: UNDERSTAND THE EXISTING PROJECT
+
+The repository has already undergone a technical reconnaissance.
+
+The existing architecture was identified as:
+
+- React 19
+- TypeScript 5.7
+- Vite 7
+- Three.js
+- React Three Fiber
+- Zustand
+- IndexedDB
+- Optional Supabase authentication/cloud saves
+- PWA/service worker
+- Existing headless simulation layer
+
+Important existing files include:
+
+Simulation:
+
+- src/sim/types.ts
+- src/sim/state.ts
+- src/sim/engine.ts
+- src/sim/world.ts
+- src/sim/npcsim.ts
+
+Geographical/game content:
+
+- src/data/districts.ts
+- src/data/places.ts
+- src/data/npcs.ts
+- src/data/properties.ts
+- src/data/businesses.ts
+
+Rendering:
+
+- src/render/GameCanvas.tsx
+- src/render/World.tsx
+- src/render/worldGeometry.ts
+- src/render/PlayerRig.tsx
+- src/render/Crowd.tsx
+- src/render/controls.ts
+- src/render/perf.ts
+- src/render/lod.ts
+- src/render/Sky.tsx
+
+Persistence:
+
+- src/persistence/idb.ts
+- src/persistence/supabase.ts
+- src/state/store.ts
+- public/sw.js
+
+These are reconnaissance findings, not permission to blindly assume the repository has not changed.
+
+Before implementation:
+
+1. Reinspect the current repository.
+2. Read AGENTS.md or equivalent instructions if present.
+3. Inspect package.json and the relevant source files.
+4. Check git status and protect uncommitted user changes.
+5. Rerun the current baseline tests.
+6. Compare current code against the reconnaissance report.
+7. Adjust your implementation to the actual current code.
+
+The previous reconnaissance recorded:
+
+- 140 passing tests.
+- Clean typecheck.
+- Passing size check.
+- Approximately 548.7 KB gzipped JavaScript.
+
+Verify those numbers against the current working tree.
+
+Never overwrite uncommitted work, use destructive git commands, or reset user changes.
+
+---
+
+3. NON-NEGOTIABLE ARCHITECTURAL PRINCIPLES
+
+3.1 Preserve the existing simulation
+
+The existing headless simulation is valuable.
+
+Do not rewrite:
+
+- Economy.
+- Existing employment systems.
+- Game clock.
+- Player needs.
+- Existing NPC identities.
+- Existing business systems.
+- Existing interior interactions.
+- Existing phone UI.
+- Existing authentication.
+- Existing cloud saves.
+
+Preserve all nine existing district IDs unless a separately approved migration is required.
+
+New geographical information must initially be integrated through adapters and independent data structures.
+
+Do not put geographical mesh data, raw GIS datasets, or entire world chunks in GameState.
+
+World data and player/gameplay data must remain separate.
+
+3.2 Separate geography from rendering
+
+Introduce a pure geographical world-data architecture.
+
+Recommended structure:
+
+src/world/
+types.ts
+transform.ts
+manifest.ts
+terrain.ts
+roads.ts
+buildings.ts
+chunks.ts
+spatialIndex.ts
+loader.ts
+validation.ts
+
+The world-data layer must not import:
+
+- React.
+- Three.js.
+- React Three Fiber.
+- UI components.
+
+It should contain geographical types, coordinate mathematics, data validation, chunk calculations, spatial utilities and world-data loading contracts.
+
+The rendering layer should consume this data and convert it into Three.js geometry.
+
+The simulation should only consume geographical functionality when necessary through stable interfaces.
+
+3.3 Geography is the source of truth
+
+Do not manually position production buildings or roads using invented coordinates.
+
+Do not create a fictional road network and describe it as real Yaoundé.
+
+Preserve the actual source geometry wherever available.
+
+Every geographical feature must carry provenance information.
+
+Distinguish:
+
+REAL:
+Directly obtained from a geographical dataset.
+
+INFERRED:
+Estimated using available geographical evidence.
+
+DESIGNED:
+Intentionally added for gameplay, visual storytelling or decoration.
+
+Example:
+
+{
+"id": "building-example",
+"source": "google_open_buildings_v3",
+"geometryStatus": "real",
+"heightStatus": "inferred",
+"architectureStatus": "procedural",
+"gameplayStatus": "designed"
+}
+
+Never present estimated information as verified real-world information.
+
+---
+
+4. GEOGRAPHICAL DATA ACQUISITION
+
+Build a reproducible preprocessing pipeline.
+
+All geographical processing must happen during development/build-time, not on every game frame.
+
+Recommended source hierarchy:
+
+4.1 OpenStreetMap — roads and geographical structure
+
+Use OpenStreetMap as the primary source for:
+
+- Road geometry.
+- Street names.
+- Road classifications.
+- Intersections.
+- Roundabouts.
+- Footpaths.
+- Pedestrian routes.
+- Some building footprints.
+- Water features.
+- Land use.
+- POIs.
+- Administrative and neighborhood boundaries where available.
+
+Official sources:
+
+https://www.openstreetmap.org/copyright
+
+https://download.geofabrik.de/africa/cameroon.html
+
+Download a pinned Cameroon extract or an appropriate regional subset and clip it to the required Yaoundé area.
+
+Do not depend on live Overpass queries during gameplay.
+
+Do not use the public OSM tile servers for bulk downloading or offline map-pack creation.
+
+Preserve:
+
+- OSM feature IDs.
+- Original tags needed for classification.
+- Source snapshot date.
+- Licence information.
+- Original geometry lineage.
+
+Preserve actual road curves. Do not aggressively smooth real roads or distort intersections.
+
+Where widths are missing, assign conservative class-based defaults and mark them as inferred.
+
+4.2 Google Open Buildings V3 — building footprints
+
+Official sources:
+
+https://sites.research.google/gr/open-buildings/
+
+https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_Research_open-buildings_v3_polygons
+
+Use the actual building footprint polygons and confidence scores.
+
+IMPORTANT:
+
+Do not download the entire global dataset.
+
+Identify only the tiles intersecting the selected Yaoundé area.
+
+Use OSM building information first when useful tags exist. Use Open Buildings as a complementary footprint source where OSM coverage is missing.
+
+Implement:
+
+- Footprint validation.
+- Confidence filtering.
+- Polygon simplification.
+- Geometry repair.
+- Duplicate detection.
+- OSM/Open Buildings source precedence.
+- Source provenance.
+- Deterministic feature IDs.
+
+Do not blindly merge duplicate buildings.
+
+Preserve the source identity and licence of each footprint.
+
+The dataset has licensing options. Select and document the applicable licence, attribution and distribution obligations before packaging its derived data. Do not assume that combining datasets removes their original obligations.
+
+4.3 Terrain and elevation
+
+Investigate Copernicus DEM:
+
+https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM
+
+Use GLO-30 where legally and technically accessible.
+
+GLO-90 or another appropriately licensed elevation source may be used when GLO-30 access is unavailable.
+
+Do not assume that GLO-30 viewing access is unrestricted. Verify current access requirements.
+
+The terrain should reproduce the geographical character of Yaoundé:
+
+- Hills.
+- Valleys.
+- Slopes.
+- Elevation variation.
+- Terrain continuity.
+
+DEM data can contain buildings and vegetation in its elevation surface. Investigate this issue and apply reasonable processing.
+
+Store elevation data independently of visual mesh generation.
+
+Do not invent terrain heights to fill missing areas without marking the data as inferred.
+
+4.4 Curated local information
+
+Use verified sources for:
+
+- Markets.
+- Major landmarks.
+- Known intersections.
+- Recognizable public places.
+- Neighborhood names.
+- Important public buildings.
+- Transport hubs.
+- Local POIs.
+
+Maintain source and verification status for every manually curated item.
+
+Some existing game businesses and places are fictional.
+
+Do not assign a fictional business the real identity or address of an unrelated existing business.
+
+Keep fictional gameplay content clearly distinguished from verified real places.
+
+Respect existing product requirements concerning sensitive locations. Do not expose sensitive facilities through unnecessarily detailed reconstruction.
+
+4.5 Dataset management
+
+Create a dedicated raw-data directory, such as:
+
+data/geodata/raw/
+data/geodata/processed/
+data/geodata/config/
+
+Keep large source downloads out of the JavaScript bundle.
+
+Do not commit enormous raw global datasets.
+
+Add appropriate paths to .gitignore.
+
+Pin snapshots and document their dates.
+
+Create a reproducible process that another developer can run.
+
+If a dataset is unavailable, explain the exact blocker. Do not silently replace real geographical information with fabricated geometry.
+
+If external tooling is required, inspect the development environment first. Prefer lightweight, reproducible tooling over introducing unnecessary runtime dependencies.
+
+---
+
+5. COORDINATE SYSTEM AND WORLD SCALE
+
+Use a geographically appropriate projection.
+
+Yaoundé is approximately 3.85° N and 11.5° E.
+
+Evaluate UTM Zone 32N (EPSG:32632) as the local projected coordinate system.
+
+Verify the selected projection and actual dataset bounds.
+
+Recommended game coordinate convention:
+
+X = East
+Y = Vertical elevation
+Z = South
+
+North should correspond to negative Z to remain compatible with the current game convention.
+
+Use:
+
+gameX = (projectedEast - originEast) * unitsPerMeter
+
+gameZ = -(projectedNorth - originNorth) * unitsPerMeter
+
+Locked initial scale:
+
+1 geographical metre ≈ 1 game-world unit.
+
+Use Float64 during geographical processing and coordinate conversion.
+
+Use Float32 or quantized coordinates for compact runtime geometry where safe.
+
+Store in the world manifest:
+
+- Coordinate reference system.
+- Geographical origin.
+- World origin in projected coordinates.
+- Units per metre.
+- Rotation, if applicable.
+- World bounds.
+- Chunk size.
+- Terrain parameters.
+- Source versions.
+
+The transform must support converting between geographical coordinates and game coordinates for:
+
+- Map authoring.
+- Landmark placement.
+- Debugging.
+- Player location inspection.
+- Future GPS-related features.
+
+Add automated tests for projection round trips, axis orientation, bounds and numerical stability.
+
+Do not compress the real road layout to preserve the old miniature diorama.
+
+The current simulation travel system is a separate abstraction. Preserve it initially.
+
+Long journeys between neighborhoods can continue using the existing travel system rather than forcing the avatar to physically walk every kilometre.
+
+---
+
+6. WORLD MANIFEST AND DATA FORMAT
+
+Create one world manifest as the source of truth.
+
+Suggested location:
+
+public/world/<world-version>/manifest.json
+
+The manifest should contain:
+
+- Format identifier.
+- World version.
+- Geographic projection.
+- Origin.
+- Units per metre.
+- Chunk size.
+- Overall geographical bounds.
+- Source snapshot dates.
+- Dataset attribution and licences.
+- Feature counts.
+- Chunk references.
+- Content hashes.
+- World-generation version.
+- Validation metadata.
+
+Suggested logical structure:
+
+public/world/<version>/
+manifest.json
+licenses.json
+terrain/
+roads/
+buildings/
+pois/
+districts/
+metadata/
+
+Use compact binary formats for large runtime data.
+
+Avoid sending tens of thousands of building objects as ordinary JavaScript objects.
+
+Prefer:
+
+- Typed arrays.
+- Quantized coordinate data.
+- Compact polygon buffers.
+- Separate metadata.
+- Small JSON files for POIs and human-readable information.
+
+The world data must be loaded as external static assets, not bundled into JavaScript imports.
+
+Document the binary format.
+
+Implement explicit version validation.
+
+Never silently interpret an incompatible world-data version.
+
+---
+
+7. ROADS AND THE STREET NETWORK
+
+This is one of the highest-priority parts of the project.
+
+Implement a real road-network representation.
+
+The engine must understand:
+
+- Motorways where present.
+- Primary roads.
+- Secondary roads.
+- Tertiary roads.
+- Residential streets.
+- Service roads.
+- Pedestrian streets.
+- Footways.
+- Paths.
+- Roundabouts.
+- One-way restrictions.
+- Road widths where available.
+- Surface information where available.
+- Bridges and tunnels where present.
+
+Build road geometry from the actual polylines.
+
+Do not replace real road curves with invented straight lines.
+
+Do not use aggressive Catmull-Rom smoothing that changes road geometry or cuts corners.
+
+Build a road renderer that supports:
+
+- Correct widths.
+- Road surface geometry.
+- Road shoulders where appropriate.
+- Junction connections.
+- Roundabout geometry.
+- Pavements where evidence exists or where deliberately designed.
+- Suitable low-poly edge details.
+- Terrain alignment.
+
+Avoid z-fighting at intersections.
+
+Road surfaces must not float above or sink into terrain.
+
+Construct a road graph with:
+
+- Intersection nodes.
+- Segment edges.
+- Connectivity.
+- Edge distance.
+- Road class.
+- One-way information.
+- Walkability.
+- Spatial lookup.
+
+The graph should be independent of Three.js.
+
+Create automated tests for road connectivity, duplicate segments, malformed polylines, zero-length segments and intersection geometry.
+
+Do not attempt to implement advanced vehicle AI unless necessary for the current gameplay. Build the correct data foundation first.
+
+---
+
+8. BUILDING RECONSTRUCTION ENGINE
+
+Replace the existing random production building placement with real building footprints.
+
+Each footprint should pass through:
+
+1. Source identification.
+2. Geometry validation.
+3. Duplicate detection.
+4. Polygon repair.
+5. Footprint simplification.
+6. Area calculation.
+7. Classification.
+8. Height assignment.
+9. Low-poly model generation.
+10. Collision metadata generation.
+11. Chunk assignment.
+
+Do not assume every footprint is a residential house.
+
+Implement classifications such as:
+
+- Small house.
+- Large house.
+- Apartment block.
+- Shop.
+- Restaurant.
+- Office.
+- School.
+- Hospital.
+- Church.
+- Mosque.
+- Warehouse.
+- Market building.
+- Government/public building.
+- Unknown building.
+
+Only assign specific uses where source tags or reliable verification support them.
+
+For unknown buildings, generate plausible neutral architecture.
+
+8.1 Height inference
+
+Priority:
+
+1. Verified building height.
+2. OSM building:levels.
+3. Well-supported source attributes.
+4. Controlled area/density-based estimate.
+
+Mark estimated heights as inferred.
+
+Use reasonable minimum and maximum limits.
+
+Do not create skyscrapers from arbitrary random values.
+
+8.2 Procedural low-poly architecture
+
+Build a deterministic procedural building generator.
+
+Use footprint geometry to generate:
+
+- Walls.
+- Roofs.
+- Windows.
+- Doors.
+- Balconies.
+- Awnings.
+- Roof extensions.
+- Fences where appropriate.
+- Small visual variations.
+
+Preserve the approximate actual footprint and building position.
+
+The architecture can be stylized, but the spatial footprint should not become fictional.
+
+Create different architectural archetypes rather than repeating the same rectangular box.
+
+Use controlled deterministic variation based on feature IDs.
+
+Use the existing seeded RNG and vertex-colour rendering approach where appropriate.
+
+Do not introduce heavy texture systems for the initial implementation.
+
+The art style must be consistent with the low-poly identity of Yaoundé Life.
+
+8.3 Building collision
+
+The player must not walk through solid buildings.
+
+Start with a reliable spatially indexed collision representation.
+
+Circular collision can be used as an initial conservative approximation, but arbitrary real building footprints must ultimately support adequate footprint-aware collision.
+
+Avoid iterating over all city buildings on every player movement frame.
+
+Add tests for:
+
+- Collision validity.
+- Footprint alignment.
+- Nearby building queries.
+- Walkable street clearance.
+- Doorway/entrance access.
+
+Not every building needs to be interactable.
+
+The existing PLACES system remains the gameplay interaction layer.
+
+---
+
+9. REAL YAOUNDÉ TERRAIN
+
+Replace the artificial HILLS system as the source of production terrain.
+
+Introduce heightfield sampling.
+
+Maintain the existing public terrainHeight(x, z) API if possible.
+
+Its implementation should use preprocessed geographical data rather than scanning every road on every call.
+
+The gameplay height query must be O(1) or another demonstrably bounded, efficient operation.
+
+Use two resolutions:
+
+A. Global/coarse gameplay heightfield.
+
+B. Higher-resolution render terrain per world chunk.
+
+Implement:
+
+- Bilinear interpolation.
+- Valid edge handling.
+- Height continuity.
+- Road-terrain alignment.
+- Shared chunk edge sampling.
+- Water levels.
+- Terrain smoothing where justified.
+
+The third-person player, camera, crowd and environmental objects must remain correctly grounded.
+
+Avoid floating characters.
+
+Avoid terrain cracks between adjacent chunks.
+
+Use a configurable vertical scale.
+
+Do not exaggerate hills without documenting and testing the effect.
+
+Replace the artificial single Lac Municipal circle with geographical water geometry where available.
+
+Do not create water bodies based on assumptions.
+
+---
+
+10. CAMEROONIAN ENVIRONMENTAL ART SYSTEM
+
+This is what will make Yaoundé Life feel like Yaoundé Life.
+
+Real geometry establishes the city.
+
+The environmental art gives it life.
+
+Build reusable, low-poly environmental asset generators.
+
+Prioritize:
+
+ROADSIDE ENVIRONMENT
+
+- Pavements.
+- Concrete walls.
+- Compound gates.
+- Roadside drainage.
+- Streetlights.
+- Utility poles.
+- Electrical cables where appropriate.
+- Roadside vegetation.
+- Street signs.
+
+LOCAL ARCHITECTURE
+
+- Painted concrete houses.
+- Corrugated metal roofing.
+- Small urban shops.
+- Compound houses.
+- Balconies.
+- Simple commercial buildings.
+- Market structures.
+- Local restaurant facades.
+
+TRANSPORT
+
+- Yellow taxis.
+- Private cars.
+- Motorcycles.
+- Recognizable local transport elements.
+- Parking areas.
+- Roadside transport activity.
+
+VEGETATION
+
+- Tropical trees.
+- Palms.
+- Bushes.
+- Grass.
+- Roadside plants.
+- Hill vegetation.
+
+MARKETS AND COMMERCE
+
+- Market stalls.
+- Small kiosks.
+- Vendor umbrellas.
+- Display tables.
+- Locally inspired shop signs.
+- Roadside commercial details.
+
+PEOPLE
+
+- Existing NPC character system.
+- Locally appropriate clothing variations.
+- Vendors.
+- Pedestrians.
+- Public-space activity.
+
+Avoid random decoration everywhere.
+
+Placement must respect actual road geometry, building footprints, available space, collision and visual composition.
+
+Do not use cultural stereotypes.
+
+Use verified references and coherent art direction.
+
+Keep recognizable real landmarks distinguishable from generic procedural buildings.
+
+Do not reproduce third-party logos or trademarks without appropriate permission.
+
+---
+
+11. WORLD CHUNKING AND STREAMING
+
+The real geographical city cannot be represented as one enormous mesh.
+
+Implement a proper chunk system.
+
+Initial proposed chunk size:
+
+512 metres x 512 metres.
+
+Keep this configurable through the world manifest.
+
+Use stable chunk IDs based on projected coordinates.
+
+Each chunk should support:
+
+- Terrain.
+- Roads.
+- Buildings.
+- POIs.
+- Collision metadata.
+- Environmental props.
+- LOD representations.
+
+Implement a chunk manager that:
+
+1. Determines the player's current chunk.
+2. Identifies required neighboring chunks.
+3. Loads nearby assets.
+4. Builds or attaches required geometry.
+5. Unloads distant chunks.
+6. Disposes geometries and materials correctly.
+7. Maintains a bounded cache.
+8. Handles missing or incompatible chunks gracefully.
+
+Preserve the existing quality tiers.
+
+Initial policy should be conservative:
+
+LOW:
+Smallest practical visible chunk radius and simplified geometry.
+
+MID:
+Approximately 3x3 chunks initially.
+
+HIGH:
+A larger configurable radius based on measured performance.
+
+These are initial settings, not fixed truths. Benchmark actual devices before increasing the workload.
+
+Implement:
+
+- Near LOD.
+- Medium/far LOD.
+- Merged static geometry.
+- Instancing for repeated objects.
+- Frustum-aware visibility.
+- Spatial indexing.
+- Bounded memory.
+- Proper disposal.
+
+Never generate the entire city geometry synchronously during React rendering.
+
+Use asynchronous loading and, where profiling justifies it, Web Workers for expensive parsing or preparation.
+
+Do not create unnecessary workers for tiny tasks.
+
+Avoid loading distant building details the player cannot see.
+
+---
+
+12. THIRD-PERSON PLAYER INTEGRATION
+
+Preserve the existing third-person controller.
+
+The following must continue working:
+
+- WASD movement.
+- Keyboard movement.
+- Touch joystick.
+- Tap-to-move where currently supported.
+- Running.
+- Camera orbit.
+- Camera follow.
+- Collision.
+- Grounding.
+- Nearby interactions.
+- Named NPC proximity.
+- Place markers.
+
+Adapt:
+
+- World bounds.
+- Safe spawn positions.
+- Ground sampling.
+- Collision queries.
+- District detection.
+- Place proximity queries.
+
+Remove assumptions that the world has fixed bounds of [-245, 255] or the original miniature terrain dimensions.
+
+Use geographical world bounds and chunk availability.
+
+Player spawns must be verified walkable locations.
+
+Never spawn the character inside buildings, water or inaccessible locations.
+
+Do not introduce camera stuttering when crossing chunks.
+
+Preserve the current third-person viewing experience and mobile controls.
+
+---
+
+13. DISTRICTS AND EXISTING GAMEPLAY
+
+The existing district system is important to the game.
+
+Initially preserve all existing district IDs and save compatibility.
+
+Separate:
+
+GEOGRAPHICAL DISTRICT DATA:
+Actual boundaries, geographic anchors, names, source and verification information.
+
+GAMEPLAY DISTRICT DATA:
+Economy, safety, prices, employment, travel relationships and existing simulation state.
+
+Do not automatically assume these are identical data structures.
+
+Gradually align the current districts with geographical boundaries.
+
+Where reliable neighborhood polygons exist, use them.
+
+Where they do not, use clearly marked approximate anchors or manually verified boundaries.
+
+Do not present inferred neighborhood boundaries as official.
+
+The eventual districtAt implementation should use geographical polygons or another validated spatial method rather than normalized distance from invented circle centres.
+
+Preserve the existing gameplay travel modal initially.
+
+Do not equate physical player walking speed with simulation travel duration.
+
+A real city can have several kilometres between locations. The existing travel system should remain useful for longer journeys.
+
+Move NPC/crowd placement towards real POIs, road anchors and appropriate public areas.
+
+Keep existing NPC identities, schedules and place IDs resolvable.
+
+Do not corrupt existing saves.
+
+Only introduce save migrations when demonstrably necessary and provide migration tests.
+
+---
+
+14. OFFLINE-FIRST WORLD ARCHITECTURE
+
+This is a mandatory product requirement.
+
+Once the necessary world data is downloaded and cached, normal gameplay must not require internet.
+
+Do not use:
+
+- Google Maps runtime tiles.
+- External satellite tile services.
+- Live geographical API requests.
+- Runtime Overpass requests.
+- Mandatory remote world geometry.
+- Remote map SDK dependencies.
+
+The user should be able to:
+
+- Start the game offline.
+- Explore downloaded neighborhoods.
+- Walk through the city.
+- Interact with NPCs.
+- Use local businesses and gameplay systems.
+- Earn and spend FCFA.
+- Access existing interiors.
+- Save progress locally.
+- Continue a previously downloaded world without internet.
+
+Internet should only be needed for optional account features, profile registration/login, cloud synchronization and game updates, plus acquiring world content that has not yet been downloaded.
+
+14.1 World package storage
+
+Use:
+
+public/world/<world-version>/
+
+Include:
+
+- Manifest.
+- Terrain chunks.
+- Road data.
+- Building data.
+- POIs.
+- Attribution.
+- Version metadata.
+- Hashes.
+
+Keep world geometry outside GameState.
+
+Keep large world data outside the JS bundle.
+
+14.2 Service worker
+
+Extend public/sw.js carefully.
+
+Current PWA caching must remain functional.
+
+Implement a separate versioned world cache.
+
+Requirements:
+
+- Precache manifest.
+- Precache initial playable area.
+- Cache requested neighboring chunks.
+- Support full-world or district-pack download.
+- Show download progress.
+- Show estimated storage requirements.
+- Handle quota errors.
+- Support cache cleanup without deleting game saves.
+- Support world-version updates.
+- Keep the previous complete world cache until the replacement has downloaded successfully.
+- Handle missing chunks without crashing the game.
+
+Check Vite base-path handling and service worker URLs. Avoid hard-coded paths that break under the deployed application path.
+
+Use navigator.storage.estimate() and navigator.storage.persist() where supported.
+
+Do not assume browser cache can never be evicted.
+
+14.3 User experience
+
+Provide a clear world-download state.
+
+The game should distinguish:
+
+- World available offline.
+- World downloading.
+- Download incomplete.
+- Storage unavailable.
+- World update available.
+
+Allow users to download additional world areas when connected.
+
+Never force a player to download an enormous metropolitan world pack when a smaller usable regional pack is sufficient.
+
+However, the initial playable area must be locally available for offline gameplay.
+
+---
+
+15. PERFORMANCE REQUIREMENTS
+
+This is a mobile-first browser game.
+
+Do not sacrifice performance for geographical data density.
+
+Reuse existing optimization systems:
+
+- Quality tiers.
+- Device detection.
+- Data-saver detection.
+- Battery detection.
+- Crowd instancing.
+- Crowd LOD.
+- Merged static meshes.
+- Vertex colours.
+- Fog.
+- Existing rendering optimizations.
+
+New optimization systems must integrate with the existing ones.
+
+Avoid:
+
+- Per-frame iteration through every road.
+- Per-frame iteration through every building.
+- Thousands of independent Three.js meshes.
+- Unbounded geometry caches.
+- Unnecessary textures.
+- Synchronous generation of large city geometry.
+- Memory leaks after chunk unloading.
+
+Implement spatial indexes for roads, footprints, collisions and POIs.
+
+Measure:
+
+- Frame time.
+- FPS.
+- Loaded chunks.
+- Active buildings.
+- Triangle count.
+- Draw calls.
+- Geometry memory.
+- JavaScript bundle size.
+- World asset size.
+
+Acceptance targets from the existing project roadmap:
+
+LOW:
+Target 30 FPS on the agreed mid-range Android test device.
+
+MID:
+Target 45–60 FPS on suitable devices.
+
+Do not claim these targets have passed without actual measurements.
+
+Maintain the existing JavaScript and first-load budgets unless the project owner explicitly approves a change.
+
+World assets must not inflate the JS bundle.
+
+Create a separate world-asset size budget.
+
+---
+
+16. IMPLEMENTATION MILESTONES
+
+Implement this project sequentially.
+
+Each milestone must leave the game in a working state.
+
+Do not attempt to generate all of Yaoundé in one uncontrolled operation.
+
+M0 — Baseline and architectural contract
+
+- Inspect the actual code.
+- Re-run typecheck, tests, build and size checks.
+- Protect uncommitted changes.
+- Document the existing architecture.
+- Create a world-engine implementation progress document.
+- Define the geographical data contract.
+- Document major architecture decisions.
+
+Deliver:
+Verified baseline and stable implementation foundation.
+
+M1 — Coordinate system and world-data foundation
+
+Implement:
+
+- WorldManifest.
+- WorldTransform.
+- Coordinate conversion.
+- Geographic feature types.
+- Chunk ID calculation.
+- Bounding boxes.
+- World-data validation.
+- Unit tests.
+
+Coordinate transforms must be deterministic and accurate.
+
+Deliver:
+A tested pure world-data layer.
+
+M2 — Actual Yaoundé geographical data
+
+Inspect coverage for the existing districts and select one coherent first playable geographical area.
+
+Prefer Nlongkak if real data quality supports it. If another existing area offers clearly better coverage and safer validation, document the reason for choosing it.
+
+Acquire appropriately licensed data for that area.
+
+Implement:
+
+- OSM extraction.
+- Building-footprint ingestion.
+- DEM extraction.
+- POI ingestion.
+- Data clipping.
+- Polygon validation.
+- Source deduplication.
+- Coordinate conversion.
+- Chunk preprocessing.
+- Dataset manifest.
+
+Do not use a hand-authored fictional production map as a substitute for this step.
+
+Small synthetic fixtures may be used exclusively for automated unit tests.
+
+Deliver:
+A real, geographically sourced first-area world dataset.
+
+M3 — First real road network
+
+Implement:
+
+- Actual road geometry.
+- Road classification.
+- Road widths.
+- Roundabouts.
+- Junction rendering.
+- Surface geometry.
+- Road connectivity graph.
+- Spatial lookup.
+
+Render the actual road network in the new geographical world.
+
+Deliver:
+A visually recognizable real street layout.
+
+M4 — Real buildings and terrain
+
+Implement:
+
+- Building-footprint cleaning.
+- Footprint deduplication.
+- Low-poly building extrusion.
+- Height inference.
+- Terrain heightfields.
+- Water geometry where verified.
+- Road-terrain integration.
+- Building collision metadata.
+
+Deliver:
+A recognizable low-poly 3D representation of the selected actual geographical area.
+
+M5 — Chunking and world rendering
+
+Implement:
+
+- Chunk manager.
+- Chunk loader.
+- Geometry generation.
+- Near/far LOD.
+- Resource disposal.
+- Spatial indexing.
+- Third-person grounding.
+- Safe spawn points.
+- Quality-tier integration.
+
+Deliver:
+A playable first geographical area with bounded memory usage.
+
+M6 — Offline world packaging
+
+Implement:
+
+- Versioned world manifests.
+- Chunk package loading.
+- Service worker changes.
+- Offline caching.
+- Download progress.
+- Full-area download.
+- Cache lifecycle.
+- Storage-error handling.
+
+Deliver:
+The first geographical world area playable without internet after download.
+
+M7 — Gameplay and district alignment
+
+Integrate geographical information with existing gameplay.
+
+Implement:
+
+- District-to-geography mappings.
+- Geographical district boundaries.
+- Safe district spawns.
+- NPC distribution.
+- POI proximity.
+- Real place anchors.
+- Travel-system alignment where appropriate.
+- Save compatibility.
+
+Do not delete or rename existing gameplay IDs casually.
+
+Deliver:
+Existing simulation and gameplay functioning naturally inside the geographical world.
+
+M8 — Visual, cultural, legal and performance hardening
+
+Improve:
+
+- Environmental assets.
+- Local architecture.
+- Vegetation.
+- Vehicles.
+- Signs.
+- Market details.
+- Pedestrians.
+- Lighting.
+- Visual variety.
+- Mobile optimization.
+- Data attribution.
+- Licensing documentation.
+- Feature flags.
+- Rollback.
+
+Deliver:
+A polished, testable geographical world-engine release.
+
+---
+
+17. FEATURE FLAGS AND ROLLBACK
+
+Keep the current procedural world as a temporary fallback while the geographical implementation is validated.
+
+Introduce a clear feature flag or equivalent world-selection mechanism.
+
+Requirements:
+
+- Existing world remains recoverable.
+- New geographical world can be previewed independently.
+- Missing data does not crash the application.
+- Failed world loads have a graceful fallback.
+- World version incompatibility is handled explicitly.
+- The production world is switched only when acceptance tests pass.
+
+Do not remove old world-generation code until the geographical world has been verified.
+
+Avoid permanent unnecessary duplicate implementations. Once the new system is proven, consolidate cleanly.
+
+---
+
+18. TESTING AND VALIDATION
+
+Correctness is more important than implementation speed.
+
+The existing 140-test baseline is important.
+
+Do not delete or weaken existing tests simply to make a new implementation pass.
+
+Add targeted test coverage.
+
+GEOGRAPHY:
+
+- Projection round trips.
+- Coordinate orientation.
+- Bounding boxes.
+- Chunk keys.
+- Chunk boundaries.
+- Source identity.
+- Feature validation.
+
+ROADS:
+
+- Valid polylines.
+- Road widths.
+- Connectivity.
+- Roundabout rendering.
+- Intersection geometry.
+- No zero-length segments.
+- No malformed coordinates.
+
+BUILDINGS:
+
+- Polygon repair.
+- Duplicate detection.
+- Confidence filtering.
+- Building-height inference.
+- Triangulation.
+- Collision generation.
+- Deterministic procedural variation.
+
+TERRAIN:
+
+- Finite height queries.
+- Bilinear interpolation.
+- Continuity.
+- Chunk-edge consistency.
+- Road alignment.
+- Player grounding.
+
+CHUNKING:
+
+- Correct loading.
+- Correct unloading.
+- LRU eviction.
+- Resource disposal.
+- No unbounded memory growth.
+- No unnecessary chunk rebuilding.
+
+OFFLINE:
+
+- Offline boot.
+- Cached-world loading.
+- Missing-chunk errors.
+- Version upgrades.
+- Cache cleanup.
+- Storage quota errors.
+- No external map-service dependencies.
+
+GAMEPLAY:
+
+- Existing NPC schedules.
+- Existing business interactions.
+- Existing interiors.
+- District transitions.
+- Existing save load.
+- Existing cloud-save compatibility.
+- No GameState corruption.
+
+VISUAL:
+
+- Third-person player visible.
+- Correct camera follow.
+- No floating character.
+- No excessive clipping.
+- No obvious terrain cracks.
+- No road/building misalignment.
+- No player trapped in buildings.
+- No malformed roof triangulation.
+
+Run:
+
+npm run typecheck
+npm test
+npm run build
+npm run size
+
+Use actual available project commands if their names or behaviour have changed.
+
+Perform visual smoke tests in the browser whenever the environment supports them.
+
+Do not report visual testing as completed if only automated tests were run.
+
+---
+
+19. DOCUMENTATION AND PROJECT ORGANIZATION
+
+Create suitable documentation under:
+
+docs/world-engine/
+
+Suggested documents:
+
+- WORLD_ENGINE_ARCHITECTURE.md
+- GEOGRAPHIC_DATA_SOURCES.md
+- COORDINATE_SYSTEM.md
+- WORLD_MANIFEST_SPEC.md
+- CHUNK_FORMAT.md
+- BUILDING_GENERATION.md
+- ROAD_NETWORK.md
+- TERRAIN_SYSTEM.md
+- OFFLINE_WORLD_PACKAGING.md
+- LICENSING_AND_ATTRIBUTION.md
+- PERFORMANCE_BUDGETS.md
+- IMPLEMENTATION_PROGRESS.md
+
+Create a reproducible data-processing workflow.
+
+Suggested developer commands, adapted to the actual project:
+
+npm run world:inspect
+npm run world:build
+npm run world:validate
+
+Do not add scripts that pretend to work but are not connected to actual functionality.
+
+Keep documentation consistent with the implemented code.
+
+Update IMPLEMENTATION_CHECKLIST.md where appropriate.
+
+Maintain a persistent progress file documenting:
+
+- Completed milestones.
+- Current implementation state.
+- Files changed.
+- Tests run.
+- Known defects.
+- Downloaded dataset versions.
+- Remaining work.
+- Exact next action.
+
+---
+
+20. ENGINEERING BEHAVIOUR
+
+Follow these rules throughout the assignment.
+
+1. Read before editing.
+2. Prioritize correctness.
+3. Reuse existing systems when reasonable.
+4. Do not rewrite working systems without a demonstrable need.
+5. Keep types strict.
+6. Avoid any and unsafe casts unless unavoidable and documented.
+7. Handle malformed geographical data.
+8. Use deterministic procedural generation.
+9. Keep rendering and simulation separate.
+10. Never perform expensive city-wide operations every frame.
+11. Do not introduce unnecessary packages.
+12. Do not introduce runtime map API dependencies.
+13. Do not fabricate real-world data.
+14. Do not misrepresent inferred building attributes as verified.
+15. Preserve existing gameplay.
+16. Test each milestone.
+17. Protect uncommitted work.
+18. Document important compromises.
+19. Keep the world playable at every completed milestone.
+20. Do not claim success without evidence.
+
+When a technical detail remains unresolved, make the safest reasonable decision consistent with this brief, document the decision and continue.
+
+Do not stop to ask questions for every implementation detail.
+
+If a required dataset cannot be acquired, implement the processing interface and clearly document the missing input. Never hide the limitation by generating fictional production data.
+
+Do not spend the entire assignment designing architecture. The code must be implemented.
+
+---
+
+21. FINAL DEFINITION OF SUCCESS
+
+The first major release of this world-engine work is successful when:
+
+1. The game displays a real geographical area of Yaoundé.
+2. Major roads follow actual geographical geometry.
+3. Intersections and roundabouts resemble their real counterparts.
+4. Building locations and footprints derive from actual geographical sources.
+5. Buildings are represented using attractive low-poly 3D models.
+6. Terrain reflects Yaoundé's real geographical character.
+7. The third-person player can explore the area.
+8. Buildings and solid objects have reliable collision.
+9. Nearby NPCs and interactable places continue working.
+10. The world is chunked and optimized for mobile devices.
+11. The selected world data can be stored locally.
+12. Normal gameplay works offline after the world has been downloaded.
+13. Existing save data remains compatible.
+14. Existing tests continue passing.
+15. Attribution and geographical data licensing are documented.
+16. The architecture supports expanding to additional Yaoundé neighborhoods without rewriting the engine.
+
+The long-term goal is to expand the geographical world neighborhood by neighborhood while preserving the same engine and coordinate system.
+
+---
+
+22. EXECUTION DIRECTIVE
+
+START NOW.
+
+First inspect the current working tree and verify the baseline.
+
+Then begin M0 and proceed through the implementation milestones in order.
+
+Do not return only an implementation plan.
+
+Implement real code, tests, data-processing scripts, world data contracts, renderer integration and documentation.
+
+Complete the first real geographical vertical slice before attempting a full-city data build.
+
+After each milestone:
+
+- Run its tests.
+- Run the project checks.
+- Inspect the result.
+- Update the progress document.
+- Fix regressions before advancing.
+
+If execution limits or context limits interrupt the work, leave the repository in a stable state and update IMPLEMENTATION_PROGRESS.md with the exact completed work and next action so development can resume without repeating completed work.
+
+Do not commit unless explicitly instructed.
+
+At completion, provide:
+
+1. What was implemented.
+2. Exact files created and modified.
+3. Actual geographical data sources and snapshot dates.
+4. Initial playable geographical area.
+5. World package size.
+6. Building and road counts.
+7. Chunking and LOD configuration.
+8. Offline functionality implemented.
+9. Tests and actual results.
+10. Performance measurements, identifying devices used.
+11. Known limitations.
+12. Remaining milestones.
+
+The ultimate standard:
+
+REAL GEOGRAPHY.
+THIRD-PERSON EXPLORATION.
+LOW-POLY CAMEROONIAN ENVIRONMENT.
+MOBILE-FRIENDLY PERFORMANCE.
+OFFLINE-FIRST GAMEPLAY.
+
+Build a real geographical foundation and make it feel like Yaoundé.
+
+
+
+Implementation control
+Phase 1 — Data foundation
+Coordinate system, real geographical extraction and first actual roads.
+Phase 2 — 3D reconstruction
+Buildings, terrain, environmental generation and collision.
+Phase 3 — Playable world
+Chunk loading, third-person movement, NPCs and interaction.
+Phase 4 — Offline and optimization
+World packs, local storage, performance and validation.
+Phase 5 — City expansion
+Additional neighborhoods using the same pipeline.

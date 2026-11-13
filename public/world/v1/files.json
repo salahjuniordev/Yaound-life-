@@ -1,0 +1,424 @@
+{
+  "format": "yaounde-life-world-catalog",
+  "formatVersion": 1,
+  "worldVersion": "nlongkak-2026-10-30-v2",
+  "generatedAt": "2026-11-12T20:28:33.684Z",
+  "totalBytes": 5391242,
+  "files": [
+    {
+      "path": "world/v1/manifest.json",
+      "bytes": 10772
+    },
+    {
+      "path": "world/v1/licenses.json",
+      "bytes": 1357
+    },
+    {
+      "path": "world/v1/terrain/heightfield.bin",
+      "bytes": 63540
+    },
+    {
+      "path": "world/v1/roads/network.json",
+      "bytes": 524954
+    },
+    {
+      "path": "world/v1/pois/pois.json",
+      "bytes": 204204
+    },
+    {
+      "path": "world/v1/water/water.json",
+      "bytes": 1574
+    },
+    {
+      "path": "world/v1/water/waterways.json",
+      "bytes": 55573
+    },
+    {
+      "path": "world/v1/districts/districts.json",
+      "bytes": 32019
+    },
+    {
+      "path": "world/v1/terrain/c_0_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_0_0.json",
+      "bytes": 70924
+    },
+    {
+      "path": "world/v1/buildings/c_0_0.bin",
+      "bytes": 5576
+    },
+    {
+      "path": "world/v1/buildings/c_0_0.json",
+      "bytes": 50635
+    },
+    {
+      "path": "world/v1/pois/c_0_0.json",
+      "bytes": 24804
+    },
+    {
+      "path": "world/v1/terrain/c_1_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_1_0.json",
+      "bytes": 31515
+    },
+    {
+      "path": "world/v1/buildings/c_1_0.bin",
+      "bytes": 8592
+    },
+    {
+      "path": "world/v1/buildings/c_1_0.json",
+      "bytes": 79655
+    },
+    {
+      "path": "world/v1/pois/c_1_0.json",
+      "bytes": 12550
+    },
+    {
+      "path": "world/v1/terrain/c_2_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_2_0.json",
+      "bytes": 38315
+    },
+    {
+      "path": "world/v1/buildings/c_2_0.bin",
+      "bytes": 15104
+    },
+    {
+      "path": "world/v1/buildings/c_2_0.json",
+      "bytes": 132751
+    },
+    {
+      "path": "world/v1/pois/c_2_0.json",
+      "bytes": 19588
+    },
+    {
+      "path": "world/v1/terrain/c_3_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_3_0.json",
+      "bytes": 39471
+    },
+    {
+      "path": "world/v1/buildings/c_3_0.bin",
+      "bytes": 9084
+    },
+    {
+      "path": "world/v1/buildings/c_3_0.json",
+      "bytes": 88248
+    },
+    {
+      "path": "world/v1/pois/c_3_0.json",
+      "bytes": 3515
+    },
+    {
+      "path": "world/v1/terrain/c_0_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_0_1.json",
+      "bytes": 26285
+    },
+    {
+      "path": "world/v1/buildings/c_0_1.bin",
+      "bytes": 17360
+    },
+    {
+      "path": "world/v1/buildings/c_0_1.json",
+      "bytes": 154830
+    },
+    {
+      "path": "world/v1/pois/c_0_1.json",
+      "bytes": 14392
+    },
+    {
+      "path": "world/v1/terrain/c_1_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_1_1.json",
+      "bytes": 41086
+    },
+    {
+      "path": "world/v1/buildings/c_1_1.bin",
+      "bytes": 17608
+    },
+    {
+      "path": "world/v1/buildings/c_1_1.json",
+      "bytes": 165043
+    },
+    {
+      "path": "world/v1/pois/c_1_1.json",
+      "bytes": 27561
+    },
+    {
+      "path": "world/v1/terrain/c_2_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_2_1.json",
+      "bytes": 11947
+    },
+    {
+      "path": "world/v1/buildings/c_2_1.bin",
+      "bytes": 19228
+    },
+    {
+      "path": "world/v1/buildings/c_2_1.json",
+      "bytes": 176555
+    },
+    {
+      "path": "world/v1/pois/c_2_1.json",
+      "bytes": 977
+    },
+    {
+      "path": "world/v1/terrain/c_3_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_3_1.json",
+      "bytes": 26543
+    },
+    {
+      "path": "world/v1/buildings/c_3_1.bin",
+      "bytes": 15988
+    },
+    {
+      "path": "world/v1/buildings/c_3_1.json",
+      "bytes": 146657
+    },
+    {
+      "path": "world/v1/pois/c_3_1.json",
+      "bytes": 2475
+    },
+    {
+      "path": "world/v1/terrain/c_0_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_0_2.json",
+      "bytes": 21785
+    },
+    {
+      "path": "world/v1/buildings/c_0_2.bin",
+      "bytes": 16884
+    },
+    {
+      "path": "world/v1/buildings/c_0_2.json",
+      "bytes": 161345
+    },
+    {
+      "path": "world/v1/pois/c_0_2.json",
+      "bytes": 18639
+    },
+    {
+      "path": "world/v1/terrain/c_1_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_1_2.json",
+      "bytes": 29597
+    },
+    {
+      "path": "world/v1/buildings/c_1_2.bin",
+      "bytes": 25680
+    },
+    {
+      "path": "world/v1/buildings/c_1_2.json",
+      "bytes": 307340
+    },
+    {
+      "path": "world/v1/pois/c_1_2.json",
+      "bytes": 10332
+    },
+    {
+      "path": "world/v1/terrain/c_2_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_2_2.json",
+      "bytes": 37024
+    },
+    {
+      "path": "world/v1/buildings/c_2_2.bin",
+      "bytes": 24596
+    },
+    {
+      "path": "world/v1/buildings/c_2_2.json",
+      "bytes": 311839
+    },
+    {
+      "path": "world/v1/pois/c_2_2.json",
+      "bytes": 5894
+    },
+    {
+      "path": "world/v1/terrain/c_3_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_3_2.json",
+      "bytes": 17164
+    },
+    {
+      "path": "world/v1/buildings/c_3_2.bin",
+      "bytes": 35904
+    },
+    {
+      "path": "world/v1/buildings/c_3_2.json",
+      "bytes": 457857
+    },
+    {
+      "path": "world/v1/pois/c_3_2.json",
+      "bytes": 494
+    },
+    {
+      "path": "world/v1/terrain/c_0_3.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_0_3.json",
+      "bytes": 29705
+    },
+    {
+      "path": "world/v1/buildings/c_0_3.bin",
+      "bytes": 13692
+    },
+    {
+      "path": "world/v1/buildings/c_0_3.json",
+      "bytes": 128569
+    },
+    {
+      "path": "world/v1/pois/c_0_3.json",
+      "bytes": 30498
+    },
+    {
+      "path": "world/v1/terrain/c_1_3.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_1_3.json",
+      "bytes": 35949
+    },
+    {
+      "path": "world/v1/buildings/c_1_3.bin",
+      "bytes": 19892
+    },
+    {
+      "path": "world/v1/buildings/c_1_3.json",
+      "bytes": 205479
+    },
+    {
+      "path": "world/v1/pois/c_1_3.json",
+      "bytes": 27058
+    },
+    {
+      "path": "world/v1/terrain/c_2_3.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_2_3.json",
+      "bytes": 45178
+    },
+    {
+      "path": "world/v1/buildings/c_2_3.bin",
+      "bytes": 19852
+    },
+    {
+      "path": "world/v1/buildings/c_2_3.json",
+      "bytes": 229267
+    },
+    {
+      "path": "world/v1/pois/c_2_3.json",
+      "bytes": 5469
+    },
+    {
+      "path": "world/v1/terrain/c_3_3.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/v1/roads/c_3_3.json",
+      "bytes": 22511
+    },
+    {
+      "path": "world/v1/buildings/c_3_3.bin",
+      "bytes": 33076
+    },
+    {
+      "path": "world/v1/buildings/c_3_3.json",
+      "bytes": 401365
+    },
+    {
+      "path": "world/v1/pois/c_3_3.json",
+      "bytes": 3
+    },
+    {
+      "path": "world/v1/metadata/validation.json",
+      "bytes": 94
+    },
+    {
+      "path": "world/v1/metadata/build-report.json",
+      "bytes": 1380
+    }
+  ],
+  "initial": [
+    "world/v1/manifest.json",
+    "world/v1/licenses.json",
+    "world/v1/terrain/heightfield.bin",
+    "world/v1/roads/network.json",
+    "world/v1/pois/pois.json",
+    "world/v1/water/water.json",
+    "world/v1/water/waterways.json",
+    "world/v1/districts/districts.json",
+    "world/v1/terrain/c_0_0.bin",
+    "world/v1/roads/c_0_0.json",
+    "world/v1/buildings/c_0_0.bin",
+    "world/v1/buildings/c_0_0.json",
+    "world/v1/pois/c_0_0.json",
+    "world/v1/terrain/c_1_0.bin",
+    "world/v1/roads/c_1_0.json",
+    "world/v1/buildings/c_1_0.bin",
+    "world/v1/buildings/c_1_0.json",
+    "world/v1/pois/c_1_0.json",
+    "world/v1/terrain/c_2_0.bin",
+    "world/v1/roads/c_2_0.json",
+    "world/v1/buildings/c_2_0.bin",
+    "world/v1/buildings/c_2_0.json",
+    "world/v1/pois/c_2_0.json",
+    "world/v1/terrain/c_0_1.bin",
+    "world/v1/roads/c_0_1.json",
+    "world/v1/buildings/c_0_1.bin",
+    "world/v1/buildings/c_0_1.json",
+    "world/v1/pois/c_0_1.json",
+    "world/v1/terrain/c_1_1.bin",
+    "world/v1/roads/c_1_1.json",
+    "world/v1/buildings/c_1_1.bin",
+    "world/v1/buildings/c_1_1.json",
+    "world/v1/pois/c_1_1.json",
+    "world/v1/terrain/c_2_1.bin",
+    "world/v1/roads/c_2_1.json",
+    "world/v1/buildings/c_2_1.bin",
+    "world/v1/buildings/c_2_1.json",
+    "world/v1/pois/c_2_1.json",
+    "world/v1/terrain/c_0_2.bin",
+    "world/v1/roads/c_0_2.json",
+    "world/v1/buildings/c_0_2.bin",
+    "world/v1/buildings/c_0_2.json",
+    "world/v1/pois/c_0_2.json",
+    "world/v1/terrain/c_1_2.bin",
+    "world/v1/roads/c_1_2.json",
+    "world/v1/buildings/c_1_2.bin",
+    "world/v1/buildings/c_1_2.json",
+    "world/v1/pois/c_1_2.json",
+    "world/v1/terrain/c_2_2.bin",
+    "world/v1/roads/c_2_2.json",
+    "world/v1/buildings/c_2_2.bin",
+    "world/v1/buildings/c_2_2.json",
+    "world/v1/pois/c_2_2.json"
+  ]
+}

@@ -6,6 +6,7 @@ import { SkyAndWeather } from './Sky';
 import { InteriorScene } from './Interior';
 import { LegacyScene } from './LegacyScene';
 import { GeoScene, type GeoStatus } from './geo/GeoScene';
+import { isWorldDebugEnabled, readWorldMetrics, type WorldRenderMetrics } from './geo/metrics';
 import { isGeographicWorldEnabled, WORLD_MODE_EVENT } from './worldMode';
 
 export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void }) {
@@ -15,6 +16,8 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
   const [geoEnabled, setGeoEnabled] = useState(() => isGeographicWorldEnabled());
   const [geoFailed, setGeoFailed] = useState(false);
   const [geoStatus, setGeoStatus] = useState<GeoStatus | null>(null);
+  const [worldDebug] = useState(() => isWorldDebugEnabled());
+  const [worldMetrics, setWorldMetrics] = useState<WorldRenderMetrics | null>(null);
   const dataSaver = engine?.state.settings.dataSaver ?? false;
   const declared = (engine?.state.settings.quality ?? 'mid') as QualityTier;
   const quality: QualityTier = dataSaver ? (declared === 'high' ? 'mid' : 'low') : declared;
@@ -33,6 +36,14 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
   useEffect(() => {
     if (district !== 'nlongkak') setGeoFailed(false);
   }, [district]);
+
+  useEffect(() => {
+    if (!worldDebug) return;
+    const update = () => setWorldMetrics(readWorldMetrics());
+    update();
+    const timer = window.setInterval(update, 1000);
+    return () => window.clearInterval(timer);
+  }, [worldDebug]);
 
   const onUnavailable = useCallback((reason: string) => {
     setGeoFailed(true);
@@ -64,7 +75,7 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
           <>
             <SkyAndWeather quality={quality} />
             {useGeo ? (
-              <GeoScene quality={quality} onInteract={onInteract} onStatus={setGeoStatus} onUnavailable={onUnavailable} />
+              <GeoScene key={`geo-${quality}`} quality={quality} onInteract={onInteract} onStatus={setGeoStatus} onUnavailable={onUnavailable} />
             ) : (
               <LegacyScene quality={quality} onInteract={onInteract} />
             )}
@@ -75,6 +86,23 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
         <div className="world-loading" role="status">
           <span>{geoStatus.message}</span>
           <small>{geoStatus.phase === 'error' ? 'Falling back to the legacy neighbourhood…' : 'Real OSM + Copernicus data'}</small>
+        </div>
+      )}
+      {worldDebug && worldMetrics && (
+        <div className="world-metrics" role="status">
+          <strong>world debug</strong>
+          <span>
+            {Math.round(worldMetrics.fps)} FPS · {worldMetrics.frameMs.toFixed(1)} ms
+          </span>
+          <span>
+            chunks {worldMetrics.loadedChunks} · buildings {worldMetrics.activeBuildings.toLocaleString()}
+          </span>
+          <span>
+            tris {Math.round(worldMetrics.triangles).toLocaleString()} · calls {worldMetrics.drawCalls}
+          </span>
+          <span>
+            geo {worldMetrics.geometries} · tex {worldMetrics.textures}
+          </span>
         </div>
       )}
     </div>

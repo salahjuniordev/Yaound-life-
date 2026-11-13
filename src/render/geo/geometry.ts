@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import type { DecodedBuilding } from '../../world/buildings';
 import { hashString, polygonArea, polygonCentroid, seededUnit } from '../../world/buildings';
-import type { BuildingGeometry, Heightfield, WaterFeature, WorldRoad } from '../../world/types';
+import type { BuildingGeometry, Heightfield, Poi, WaterFeature, WaterwayFeature, WorldRoad } from '../../world/types';
 import { heightAt } from '../../world/terrain';
 import type { QualityTier } from '../controls';
 import type { CircleObstacle } from './collision';
@@ -221,6 +221,17 @@ const ROAD_COLORS: Record<string, string> = {
   roundabout: '#505054',
 };
 
+// Hand-painted shop-board palettes: bright backgrounds with contrasting
+// lettering blocks, matching the plywood signage common along Nlongkak.
+const SIGN_STYLES: [string, string][] = [
+  ['#f1e4c8', '#4a2f1d'],
+  ['#1f4f5c', '#f4ecd8'],
+  ['#8a2f2c', '#f7e9cf'],
+  ['#d9a12f', '#2c2418'],
+  ['#2d3c2c', '#f0e4c4'],
+  ['#e8e3d6', '#8a2f2c'],
+];
+
 function isVehicleRoad(road: WorldRoad): boolean {
   return !['footway', 'path', 'cycleway', 'steps', 'pedestrian', 'track'].includes(road.roadClass);
 }
@@ -248,10 +259,48 @@ function addRoadQuad(
   builder.quad(aL, bL, bR, aR, color);
 }
 
+/**
+ * Adds a narrow ribbon offset from a road centreline. Signed offsets keep the
+ * quad facing up on both sides of the road (gutter, pavement, curb strips).
+ */
+function addRoadStrip(
+  builder: MeshBuilder,
+  hf: Heightfield,
+  ax: number,
+  az: number,
+  bx: number,
+  bz: number,
+  offA: number,
+  offB: number,
+  yOffset: number,
+  color: RGB,
+): void {
+  const dx = bx - ax;
+  const dz = bz - az;
+  const len = Math.hypot(dx, dz) || 1;
+  const nx = -dz / len;
+  const nz = dx / len;
+  const point = (x: number, z: number, off: number): [number, number, number] => [
+    x + nx * off,
+    heightAt(hf, x + nx * off, z + nz * off) + yOffset,
+    z + nz * off,
+  ];
+  const pa = point(ax, az, offA);
+  const pb = point(bx, bz, offA);
+  const pc = point(bx, bz, offB);
+  const pd = point(ax, az, offB);
+  if (offB > offA) builder.quad(pd, pc, pb, pa, color);
+  else builder.quad(pa, pb, pc, pd, color);
+}
+
 export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: QualityTier): THREE.BufferGeometry | null {
   const builder = new MeshBuilder();
   const asphalt = rgb('#4d4c50');
   const shoulder = rgb('#8d8677');
+  const pavement = rgb('#a59c8c');
+  const pavementAlt = rgb('#9b9282');
+  const gutter = rgb('#3f403d');
+  const curb = rgb('#b6ad9d');
   const path = rgb('#a99a80');
   const marking = rgb('#e8c34a');
   const white = rgb('#e9e5d9');
@@ -259,6 +308,7 @@ export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: 
     if (road.tunnel) continue;
     const baseColor = rgb(ROAD_COLORS[road.roadClass] ?? '#55545a');
     const walk = !isVehicleRoad(road);
+    const major = ['trunk', 'primary', 'secondary', 'tertiary'].includes(road.roadClass);
     const half = road.width / 2;
     for (let i = 0; i < road.points.length - 1; i++) {
       const [ax, az] = road.points[i];
@@ -271,9 +321,27 @@ export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: 
         addRoadQuad(builder, hf, ax, az, bx, bz, half, 0.075, path);
         continue;
       }
-      addRoadQuad(builder, hf, ax, az, bx, bz, half + 1.4, 0.045, shoulder);
+      addRoadQuad(builder, hf, ax, az, bx, bz, half + 2.05, 0.045, shoulder);
       addRoadQuad(builder, hf, ax, az, bx, bz, half, 0.095, baseColor);
-      if (['trunk', 'primary', 'secondary', 'tertiary'].includes(road.roadClass) && len > 5) {
+      const surface = hashString(road.id) % 2 === 0 ? pavement : pavementAlt;
+      for (const side of [1, -1]) {
+        // Open concrete drainage channel along the carriageway.
+        addRoadStrip(builder, hf, ax, az, bx, bz, side * (half + 0.26), side * (half + 0.64), 0.072, gutter);
+        if (major) {
+          addRoadStrip(builder, hf, ax, az, bx, bz, side * (half + 0.66), side * (half + 0.8), 0.085, curb);
+          addRoadStrip(builder, hf, ax, az, bx, bz, side * (half + 0.82), side * (half + 1.98), 0.058, surface);
+        }
+      }
+      if (major && len > 16) {
+        const mx = ax + dx * 0.5;
+        const mz = az + dz * 0.5;
+        const ux = dx / len;
+        const uz = dz / len;
+        for (const side of [1, -1]) {
+          addRoadStrip(builder, hf, mx - ux * 0.32, mz - uz * 0.32, mx + ux * 0.32, mz + uz * 0.32, side * (half + 0.24), side * (half + 0.68), 0.078, curb);
+        }
+      }
+      if (major && len > 5) {
         const nx = -dz / len;
         const nz = dx / len;
         const dash = 3.2;
@@ -377,6 +445,18 @@ export function buildBuildingGeometry(
       Math.max(0, visual.wall[1] - 24),
       Math.max(0, visual.wall[2] - 24),
     );
+    // Shop boards and awnings belong on one frontage, not every wall.
+    let shopEdge = 0;
+    let shopEdgeLength = 0;
+    for (let i = 0; i < ring.length; i++) {
+      const a = ring[i];
+      const b = ring[(i + 1) % ring.length];
+      const edgeLength = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      if (edgeLength > shopEdgeLength) {
+        shopEdgeLength = edgeLength;
+        shopEdge = i;
+      }
+    }
     for (let i = 0; i < ring.length; i++) {
       const a = ring[i];
       const b = ring[(i + 1) % ring.length];
@@ -426,13 +506,41 @@ export function buildBuildingGeometry(
           rgb('#3b3029'),
         );
       }
-      if (building.meta.classification === 'shop' || building.meta.classification === 'restaurant' || building.meta.classification === 'market') {
-        if (seededUnit(building.meta.id, 31) > 0.45) {
+      if (i === shopEdge && (building.meta.classification === 'shop' || building.meta.classification === 'restaurant' || building.meta.classification === 'market')) {
+        const style = SIGN_STYLES[hashString(building.meta.id) % SIGN_STYLES.length];
+        const signBg = rgb(style[0]);
+        const signInk = rgb(style[1]);
+        const signStart = edgeLength * 0.2;
+        const rotY = Math.atan2(-dz, dx);
+        const signBottom = Math.max(baseY + 1.9, Math.min(baseY + 2.72, topY - 0.72));
+        const sx = a[0] + dx * (signStart + 1.15) + nx * 0.12;
+        const sz = a[1] + dz * (signStart + 1.15) + nz * 0.12;
+        builder.box(sx, signBottom, sz, 2.35, 0.6, 0.1, signBg, rotY);
+        const letters = 2 + (hashString(building.meta.id) % 3);
+        for (let l = 0; l < letters; l++) {
+          const offset = (l - (letters - 1) / 2) * 0.62;
+          builder.box(
+            sx + dx * offset + nx * 0.055,
+            signBottom + 0.18,
+            sz + dz * offset + nz * 0.055,
+            0.4,
+            0.25,
+            0.03,
+            signInk,
+            rotY,
+          );
+        }
+        if (height > 3.6 && seededUnit(building.meta.id, 91) > 0.58 && edgeLength > 6) {
+          const bx = a[0] + dx * signStart + nx * 0.6;
+          const bz = a[1] + dz * signStart + nz * 0.6;
+          builder.box(bx, topY - 0.85, bz, 0.1, 0.72, 1.05, signBg, rotY);
+        }
+        if (height >= 3.2 && seededUnit(building.meta.id, 31) > 0.45) {
           const start = edgeLength * 0.2;
           const awningColor = rgb(['#c94f4f', '#2f7f5f', '#d99a32', '#3d6fa8'][hashString(building.meta.id) % 4]);
           const awx = a[0] + dx * start + nx * 0.85;
           const awz = a[1] + dz * start + nz * 0.85;
-          builder.box(awx, baseY + 2.35, awz, 2.4, 0.12, 1.4, awningColor, Math.atan2(-dz, dx));
+          builder.box(awx, signBottom - 0.4, awz, 2.4, 0.12, 1.4, awningColor, rotY);
         }
       }
     }
@@ -550,12 +658,29 @@ export interface PropBuild {
   obstacles: CircleObstacle[];
 }
 
+export type VehicleKind = 'taxi' | 'private' | 'moto' | 'bus' | 'truck';
+
+export function chooseVehicle(road: WorldRoad, roll: number): VehicleKind {
+  const major = ['trunk', 'primary', 'secondary', 'tertiary'].includes(road.roadClass);
+  if (major) {
+    if (roll < 0.34) return 'taxi';
+    if (roll < 0.62) return 'private';
+    if (roll < 0.84) return 'bus';
+    if (roll < 0.94) return 'truck';
+    return 'moto';
+  }
+  if (roll < 0.34) return 'moto';
+  if (roll < 0.68) return 'taxi';
+  return 'private';
+}
+
 export function buildPropsGeometry(
   chunkId: string,
   roads: WorldRoad[],
   buildings: BuildingGeometry[],
   hf: Heightfield,
   quality: QualityTier,
+  pois: Poi[] = [],
 ): PropBuild {
   const builder = new MeshBuilder();
   const obstacles: CircleObstacle[] = [];
@@ -568,9 +693,26 @@ export function buildPropsGeometry(
   const leaves = ['#4f6b38', '#5f7b42', '#6b8548', '#456034'];
   const pole = rgb('#5d5d59');
   const lamp = rgb('#f2d18a');
-  const taxi = rgb('#e8b02c');
   const glass = rgb('#3c4a55');
+  const tyre = rgb('#262522');
   const fabric = ['#c94f4f', '#2f7f5f', '#d99a32', '#3d6fa8', '#8f4f9c'];
+  const paints = ['#d8d2c4', '#345f8a', '#8a3a34', '#e8e3d6', '#4c5c4a', '#b0b4b8'];
+  const nearRoad = (x: number, z: number, clearance: number): boolean => {
+    for (const road of roads) {
+      if (road.tunnel || road.points.length < 2) continue;
+      const limit = road.width / 2 + clearance;
+      for (let i = 0; i < road.points.length - 1; i++) {
+        const [ax, az] = road.points[i];
+        const [bx, bz] = road.points[i + 1];
+        const dx = bx - ax;
+        const dz = bz - az;
+        const len2 = dx * dx + dz * dz;
+        const t = len2 > 1e-9 ? Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / len2)) : 0;
+        if (Math.hypot(x - (ax + dx * t), z - (az + dz * t)) < limit) return true;
+      }
+    }
+    return false;
+  };
   const addTree = (x: number, z: number, palm: boolean) => {
     if (count >= limit) return;
     if (isBlocked(x, z, rings, 1.3)) return;
@@ -598,31 +740,127 @@ export function buildPropsGeometry(
     obstacles.push({ x, z, r: 0.25 });
     count++;
   };
-  const addStall = (x: number, z: number) => {
-    if (count >= limit) return;
-    if (isBlocked(x, z, rings, 1.4)) return;
+  const addStall = (x: number, z: number, rotY = 0, clothColor?: RGB): boolean => {
+    if (count >= limit) return false;
+    if (isBlocked(x, z, rings, 1.15) || nearRoad(x, z, 0.8)) return false;
     const y = heightAt(hf, x, z);
-    const cloth = rgb(fabric[Math.floor(rng() * fabric.length)]);
-    builder.box(x, y + 0.75, z, 2.1, 0.12, 1.2, rgb('#8a6b48'));
-    builder.box(x, y + 2.25, z, 2.5, 0.1, 1.7, cloth);
+    const cloth = clothColor ?? rgb(fabric[Math.floor(rng() * fabric.length)]);
+    const cos = Math.cos(rotY);
+    const sin = Math.sin(rotY);
+    const at = (lx: number, lz: number): Point2 => [x + lx * cos + lz * sin, z - lx * sin + lz * cos];
+    builder.box(x, y + 0.75, z, 2.1, 0.12, 1.2, rgb('#8a6b48'), rotY);
+    builder.box(x, y + 2.25, z, 2.5, 0.1, 1.7, cloth, rotY);
     for (const [ox, oz] of [[-1.05, -0.65], [1.05, -0.65], [-1.05, 0.65], [1.05, 0.65]] as Point2[]) {
-      builder.box(x + ox, y, z + oz, 0.09, 2.25, 0.09, pole);
+      const [px, pz] = at(ox, oz);
+      builder.box(px, y, pz, 0.09, 2.25, 0.09, pole);
     }
-    builder.box(x - 0.5, y + 0.92, z, 0.5, 0.28, 0.5, rgb('#b88a45'));
-    builder.box(x + 0.45, y + 0.92, z + 0.1, 0.45, 0.24, 0.4, rgb('#7d9a55'));
+    const [crateX, crateZ] = at(-0.5, 0);
+    builder.box(crateX, y + 0.92, crateZ, 0.5, 0.28, 0.5, rgb('#b88a45'), rotY);
+    const [basketX, basketZ] = at(0.45, 0.1);
+    builder.box(basketX, y + 0.92, basketZ, 0.45, 0.24, 0.4, rgb('#7d9a55'), rotY);
     obstacles.push({ x, z, r: 1.0 });
     count++;
+    return true;
   };
-  const addTaxi = (x: number, z: number, rotY: number) => {
+  const addVehicle = (x: number, z: number, rotY: number, kind: VehicleKind) => {
     if (count >= limit) return;
-    if (isBlocked(x, z, rings, 1.0)) return;
+    const clearance = kind === 'bus' || kind === 'truck' ? 1.6 : kind === 'moto' ? 0.55 : 1.1;
+    if (isBlocked(x, z, rings, clearance)) return;
     const y = heightAt(hf, x, z);
-    builder.box(x, y + 0.32, z, 1.85, 0.68, 4.1, taxi, rotY);
-    builder.box(x, y + 1.0, z, 1.6, 0.58, 2.1, taxi, rotY);
-    builder.box(x, y + 1.02, z, 1.62, 0.36, 1.85, glass, rotY);
-    builder.box(x, y + 1.58, z, 0.7, 0.12, 0.3, rgb('#e9e2c9'), rotY);
-    obstacles.push({ x, z, r: 1.25 });
+    const cos = Math.cos(rotY);
+    const sin = Math.sin(rotY);
+    const ax = cos;
+    const az = -sin;
+    const bx = sin;
+    const bz = cos;
+    const at = (along: number, across: number): Point2 => [x + ax * along + bx * across, z + az * along + bz * across];
+    const wheel = (along: number, across: number) => {
+      const [wx, wz] = at(along, across);
+      builder.box(wx, y + 0.06, wz, 0.5, 0.5, 0.16, tyre, rotY);
+    };
+    const paint = kind === 'taxi' ? rgb('#e8b02c') : rgb(paints[Math.floor(rng() * paints.length)]);
+    if (kind === 'moto') {
+      wheel(-0.62, 0);
+      wheel(0.62, 0);
+      builder.box(x, y + 0.36, z, 1.45, 0.34, 0.38, paint, rotY);
+      const [seatX, seatZ] = at(-0.08, 0);
+      builder.box(seatX, y + 0.68, seatZ, 0.62, 0.1, 0.32, rgb('#2c2c2a'), rotY);
+      const [barX, barZ] = at(0.62, 0);
+      builder.box(barX, y + 0.86, barZ, 0.08, 0.08, 0.62, pole, rotY);
+      const [riderX, riderZ] = at(-0.08, 0);
+      builder.box(riderX, y + 0.7, riderZ, 0.36, 0.62, 0.42, rgb(fabric[Math.floor(rng() * fabric.length)]), rotY);
+      builder.cylinder(riderX, y + 1.32, riderZ, 0.17, 0.28, rgb('#c99a6a'), 6);
+      builder.box(riderX, y + 1.44, riderZ, 0.38, 0.12, 0.4, rgb(['#d94f3d', '#2f6fb0', '#e8d9b0'][Math.floor(rng() * 3)]), rotY);
+      obstacles.push({ x, z, r: 0.7 });
+    } else if (kind === 'bus') {
+      wheel(-1.75, -0.92);
+      wheel(-1.75, 0.92);
+      wheel(1.75, -0.92);
+      wheel(1.75, 0.92);
+      builder.box(x, y + 0.36, z, 5.5, 1.78, 2.02, rgb('#e9e3d3'), rotY);
+      builder.box(x, y + 0.72, z, 5.3, 0.22, 2.05, rgb('#2f6fb0'), rotY);
+      builder.box(x, y + 1.02, z, 4.7, 0.5, 2.06, glass, rotY);
+      builder.box(x, y + 2.14, z, 5.5, 0.08, 2.02, rgb('#d9d2c0'), rotY);
+      obstacles.push({ x, z, r: 2.1 });
+    } else if (kind === 'truck') {
+      wheel(-1.55, -0.86);
+      wheel(-1.55, 0.86);
+      wheel(1.35, -0.86);
+      wheel(1.35, 0.86);
+      builder.box(x + ax * -1.35, y + 0.4, z + az * -1.35, 1.7, 1.35, 1.9, paint, rotY);
+      builder.box(x + ax * -1.35, y + 1.18, z + az * -1.35, 1.5, 0.42, 1.92, glass, rotY);
+      builder.box(x + ax * 1.05, y + 0.4, z + az * 1.05, 2.9, 0.9, 1.95, rgb('#6d5a44'), rotY);
+      builder.box(x + ax * 1.05, y + 1.3, z + az * 1.05, 2.9, 0.5, 1.95, rgb('#3d6b55'), rotY);
+      obstacles.push({ x, z, r: 2.2 });
+    } else {
+      wheel(-1.24, -0.82);
+      wheel(-1.24, 0.82);
+      wheel(1.24, -0.82);
+      wheel(1.24, 0.82);
+      builder.box(x, y + 0.34, z, 3.95, 0.52, 1.76, paint, rotY);
+      builder.box(x, y + 0.86, z, 2.05, 0.56, 1.52, paint, rotY);
+      builder.box(x, y + 0.92, z, 1.9, 0.34, 1.58, glass, rotY);
+      if (kind === 'taxi') {
+        builder.box(x, y + 1.42, z, 0.66, 0.12, 0.28, rgb('#efe7cc'), rotY);
+      } else {
+        builder.box(x - ax * 0.2, y + 1.42, z - az * 0.2, 1.65, 0.07, 0.08, rgb('#5a5a56'), rotY);
+      }
+      obstacles.push({ x, z, r: 1.3 });
+    }
     count++;
+  };
+  const addMarketCluster = (poi: Poi, stalls: number) => {
+    const seed = rngFrom(hashString(poi.id));
+    const [px, pz] = poi.pos;
+    const cloths = fabric.map((color) => rgb(color));
+    for (let i = 0; i < stalls; i++) {
+      const baseAngle = (i / stalls) * Math.PI * 2;
+      for (let attempt = 0; attempt < 6; attempt++) {
+        const angle = baseAngle + (seed() - 0.5) * (0.7 + attempt * 0.55);
+        const radius = 5.6 + seed() * (3 + attempt * 1.5);
+        const x = px + Math.cos(angle) * radius;
+        const z = pz + Math.sin(angle) * radius;
+        if (addStall(x, z, angle + Math.PI / 2, cloths[Math.floor(seed() * cloths.length)])) break;
+      }
+    }
+    // A central produce mat and a market board anchor the cluster.
+    const y = heightAt(hf, px, pz);
+    if (!isBlocked(px, pz, rings, 0.9)) {
+      builder.box(px, y + 0.02, pz, 3.4, 0.06, 2.4, rgb('#9a865c'));
+      builder.box(px - 0.8, y + 0.1, pz - 0.4, 0.55, 0.3, 0.45, rgb('#c9a24a'));
+      builder.box(px + 0.2, y + 0.1, pz + 0.35, 0.5, 0.26, 0.4, rgb('#8aa25c'));
+      builder.box(px + 1.1, y + 0.1, pz - 0.15, 0.45, 0.24, 0.4, rgb('#b2543f'));
+    }
+    const sx = px + Math.cos(seed() * Math.PI * 2) * 2.6;
+    const sz = pz + Math.sin(seed() * Math.PI * 2) * 2.6;
+    const sy = heightAt(hf, sx, sz);
+    if (!isBlocked(sx, sz, rings, 0.7)) {
+      builder.box(sx, sy, sz, 0.12, 3.2, 0.12, pole);
+      builder.box(sx, sy + 3.05, sz, 1.9, 0.66, 0.1, rgb('#2f4f45'), 0.4);
+      for (let i = 0; i < 3; i++) {
+        builder.box(sx + (i - 1) * 0.48, sy + 3.24, sz + 0.08, 0.3, 0.24, 0.03, rgb('#f1e4c8'), 0.4);
+      }
+    }
   };
   const addBench = (x: number, z: number) => {
     if (count >= limit) return;
@@ -635,6 +873,14 @@ export function buildPropsGeometry(
     obstacles.push({ x, z, r: 0.6 });
     count++;
   };
+
+  // Real market POIs get their stall clusters before roadside decoration, so
+  // the market fabric of the district is never starved by the prop budget.
+  for (const poi of pois) {
+    if (count >= limit) break;
+    if (poi.kind === 'marketplace') addMarketCluster(poi, 6);
+    else if (poi.kind === 'mall') addMarketCluster(poi, 3);
+  }
 
   for (const road of roads) {
     if (road.tunnel || road.points.length < 2) continue;
@@ -655,15 +901,20 @@ export function buildPropsGeometry(
         const z = az + dz * t;
         const side = rng() > 0.5 ? 1 : -1;
         const roll = rng();
-        if (roll < 0.36) {
+        if (roll < 0.33) {
           addTree(x + nx * side * (half + 2.5 + rng() * 2.5), z + nz * side * (half + 2.5 + rng() * 2.5), rng() > 0.75);
-        } else if (roll < 0.5) {
+        } else if (roll < 0.47) {
           addLamp(x + nx * side * (half + 0.9), z + nz * side * (half + 0.9));
-        } else if (roll < 0.57 && road.roadClass !== 'footway' && road.roadClass !== 'path') {
+        } else if (roll < 0.54 && isVehicleRoad(road)) {
           addStall(x + nx * side * (half + 2.2), z + nz * side * (half + 2.2));
-        } else if (roll < 0.62 && road.roadClass !== 'footway' && road.roadClass !== 'path') {
-          addTaxi(x + nx * side * (half * 0.35), z + nz * side * (half * 0.35), Math.atan2(-dz, dx));
-        } else if (roll < 0.66) {
+        } else if (roll < 0.63 && isVehicleRoad(road)) {
+          addVehicle(
+            x + nx * side * (half * 0.35),
+            z + nz * side * (half * 0.35),
+            Math.atan2(-dz, dx),
+            chooseVehicle(road, rng()),
+          );
+        } else if (roll < 0.67) {
           addBench(x + nx * side * (half + 1.2), z + nz * side * (half + 1.2));
         }
         if (count >= limit) break;
@@ -698,6 +949,77 @@ export function buildWaterGeometry(features: WaterFeature[], level: number): THR
         [tris[i + 1][0], level, tris[i + 1][1]],
         i % 6 === 0 ? shallow : water,
       );
+    }
+  }
+  return builder.build();
+}
+
+/**
+ * Builds narrow ribbons for real OSM waterway centrelines. Each point carries
+ * its own inferred surface height, so streams follow valleys instead of
+ * floating on a single global water plane.
+ */
+export function buildWaterwaysGeometry(features: WaterwayFeature[]): THREE.BufferGeometry | null {
+  const builder = new MeshBuilder();
+  const water = rgb('#467d91');
+  const ripple = rgb('#578ea0');
+  for (const feature of features) {
+    const { points, levels } = feature;
+    if (points.length < 2 || levels.length !== points.length) continue;
+    const half = Math.max(0.4, feature.width / 2);
+    const left: [number, number][] = [];
+    const right: [number, number][] = [];
+    for (let i = 0; i < points.length; i++) {
+      const [x, z] = points[i];
+      let nx0 = 0;
+      let nz0 = 0;
+      let nx1 = 0;
+      let nz1 = 0;
+      if (i > 0) {
+        const [ax, az] = points[i - 1];
+        const dx = x - ax;
+        const dz = z - az;
+        const len = Math.hypot(dx, dz) || 1;
+        nx0 = -dz / len;
+        nz0 = dx / len;
+      }
+      if (i < points.length - 1) {
+        const [bx, bz] = points[i + 1];
+        const dx = bx - x;
+        const dz = bz - z;
+        const len = Math.hypot(dx, dz) || 1;
+        nx1 = -dz / len;
+        nz1 = dx / len;
+      }
+      if (nx0 === 0 && nz0 === 0) {
+        nx0 = nx1;
+        nz0 = nz1;
+      }
+      if (nx1 === 0 && nz1 === 0) {
+        nx1 = nx0;
+        nz1 = nz0;
+      }
+      let mx = nx0 + nx1;
+      let mz = nz0 + nz1;
+      const mlen = Math.hypot(mx, mz);
+      if (mlen < 1e-6) {
+        mx = nx1;
+        mz = nz1;
+      } else {
+        mx /= mlen;
+        mz /= mlen;
+      }
+      const cosHalf = Math.max(0.45, Math.abs(mx * nx1 + mz * nz1));
+      const miter = Math.min(half / cosHalf, half * 2.2);
+      left.push([x + mx * miter, z + mz * miter]);
+      right.push([x - mx * miter, z - mz * miter]);
+    }
+    for (let i = 0; i < points.length - 1; i++) {
+      const aL: [number, number, number] = [left[i][0], levels[i] + 0.12, left[i][1]];
+      const bL: [number, number, number] = [left[i + 1][0], levels[i + 1] + 0.12, left[i + 1][1]];
+      const bR: [number, number, number] = [right[i + 1][0], levels[i + 1] + 0.12, right[i + 1][1]];
+      const aR: [number, number, number] = [right[i][0], levels[i] + 0.12, right[i][1]];
+      builder.quad(aL, bL, bR, aR, i % 2 === 0 ? water : ripple);
     }
   }
   return builder.build();

@@ -10,7 +10,7 @@ const config = JSON.parse(readFileSync(join(ROOT, 'data/geodata/config/nlongkak.
 
 function countFeatures(path) {
   const data = JSON.parse(readFileSync(path, 'utf8'));
-  const counts = { features: 0, roads: 0, buildings: 0, water: 0, pois: 0, lines: 0, polygons: 0, points: 0 };
+  const counts = { features: 0, roads: 0, buildings: 0, water: 0, waterways: 0, pois: 0, lines: 0, polygons: 0, points: 0 };
   for (const feature of data.features ?? []) {
     counts.features++;
     const tags = feature.properties ?? {};
@@ -21,6 +21,7 @@ function countFeatures(path) {
     if (tags.highway && type !== 'Point') counts.roads++;
     if (tags.building) counts.buildings++;
     if (tags.natural === 'water' || tags.waterway === 'riverbank' || tags.landuse === 'reservoir') counts.water++;
+    if (['river', 'stream', 'canal', 'drain', 'ditch'].includes(tags.waterway) && (type === 'LineString' || type === 'MultiLineString')) counts.waterways++;
     if (tags.amenity || tags.shop || tags.tourism || tags.leisure || tags.historic || tags.place) counts.pois++;
   }
   return counts;

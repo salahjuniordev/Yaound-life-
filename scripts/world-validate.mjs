@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assertValidManifest, validateManifest } from '../src/world/manifest.ts';
 import { decodeHeightfield } from '../src/world/terrain.ts';
 import { decodeBuildings } from '../src/world/buildings.ts';
 import { validateChunkPayload, validateWorldData } from '../src/world/validation.ts';
+import { validateWorldFileCatalog } from '../src/world/offline.ts';
 
 const ROOT = resolve(dirname(dirname(fileURLToPath(import.meta.url))));
 const WORLD_DIR = join(ROOT, 'public/world/v1');
@@ -37,14 +38,63 @@ const manifest = assertValidManifest(rawManifest);
 const roads = readJson(join(WORLD_DIR, 'roads/network.json'));
 const pois = readJson(join(WORLD_DIR, 'pois/pois.json'));
 const water = readJson(join(WORLD_DIR, 'water/water.json'));
+const waterways = readJson(join(WORLD_DIR, 'water/waterways.json'));
 const districts = readJson(join(WORLD_DIR, 'districts/districts.json'));
 const coarseBuffer = readBuffer(join(WORLD_DIR, 'terrain/heightfield.bin'));
 const coarseTerrain = decodeHeightfield(coarseBuffer.buffer.slice(coarseBuffer.byteOffset, coarseBuffer.byteOffset + coarseBuffer.byteLength));
 
-const worldIssues = validateWorldData({ manifest, roads, pois, water, districts, coarseTerrain });
+const worldIssues = validateWorldData({ manifest, roads, pois, water, waterways, districts, coarseTerrain });
 for (const issue of worldIssues) {
   if (issue.severity === 'error') errors.push(`${issue.scope}: ${issue.message}`);
   else warnings.push(`${issue.scope}: ${issue.message}`);
+}
+
+const catalogPath = join(WORLD_DIR, 'files.json');
+let catalog = null;
+if (!existsSync(catalogPath)) {
+  errors.push('catalog: missing files.json');
+} else {
+  try {
+    catalog = validateWorldFileCatalog(readJson(catalogPath));
+  } catch (error) {
+    errors.push(`catalog: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+if (catalog) {
+  if (catalog.worldVersion !== manifest.worldVersion) errors.push('catalog: worldVersion does not match manifest');
+  const prefix = 'world/v1/';
+  const listed = new Set(catalog.files.map((file) => file.path));
+  for (const file of catalog.files) {
+    const relative = file.path.startsWith(prefix) ? file.path.slice(prefix.length) : file.path;
+    const full = join(WORLD_DIR, relative);
+    if (!existsSync(full)) {
+      errors.push(`catalog: missing ${file.path}`);
+      continue;
+    }
+    const actual = statSync(full).size;
+    if (actual !== file.bytes) errors.push(`catalog: byte size mismatch for ${file.path} (${actual} != ${file.bytes})`);
+  }
+  const precachePath = join(WORLD_DIR, 'precache.json');
+  if (!existsSync(precachePath)) {
+    errors.push('catalog: missing precache.json');
+  } else {
+    const precache = readJson(precachePath);
+    if (JSON.stringify(precache) !== JSON.stringify(catalog.initial)) errors.push('catalog: precache.json does not match catalog initial files');
+  }
+  const walk = (dir) => {
+    const out = [];
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) out.push(...walk(full));
+      else out.push(full);
+    }
+    return out;
+  };
+  for (const full of walk(WORLD_DIR)) {
+    const relative = full.slice(WORLD_DIR.length + 1).replaceAll('\\', '/');
+    if (relative === 'files.json' || relative === 'precache.json') continue;
+    if (!listed.has(`${prefix}${relative}`)) errors.push(`catalog: ${relative} is not listed`);
+  }
 }
 
 for (const ref of manifest.chunks) {
@@ -82,7 +132,7 @@ for (const ref of manifest.chunks) {
 }
 
 console.log(`world: ${manifest.area.name} (${manifest.worldVersion})`);
-console.log(`chunks: ${manifest.chunks.length}, roads: ${manifest.featureCounts.roads}, buildings: ${manifest.featureCounts.buildings}, pois: ${manifest.featureCounts.pois}, water: ${manifest.featureCounts.waterPolygons}`);
+console.log(`chunks: ${manifest.chunks.length}, roads: ${manifest.featureCounts.roads}, buildings: ${manifest.featureCounts.buildings}, pois: ${manifest.featureCounts.pois}, water: ${manifest.featureCounts.waterPolygons}, waterways: ${manifest.featureCounts.waterways ?? 0}`);
 console.log(`elevation offset: ${manifest.verticalOffset.toFixed(1)} m, water level: ${manifest.waterLevel ?? 'none'}`);
 if (warnings.length > 0) {
   console.log(`warnings: ${warnings.length}`);

@@ -5,6 +5,7 @@ import type {
   Heightfield,
   Poi,
   WaterFeature,
+  WaterwayFeature,
   WorldData,
   WorldDistrictAnchor,
   WorldManifest,
@@ -88,10 +89,15 @@ export async function loadWorldData(
   manifest: WorldManifest,
   options: WorldLoadOptions = {},
 ): Promise<WorldData> {
-  const [roads, pois, water, districts, terrainBuffer] = await Promise.all([
+  // Older packs predate waterway lines and have neither the count nor the file.
+  const waterwaysFile = (manifest.featureCounts.waterways ?? 0) > 0
+    ? fetchJson<WaterwayFeature[]>(joinWorldUrl(baseUrl, 'water/waterways.json'), options)
+    : Promise.resolve([] as WaterwayFeature[]);
+  const [roads, pois, water, waterways, districts, terrainBuffer] = await Promise.all([
     fetchJson<WorldRoad[]>(joinWorldUrl(baseUrl, 'roads/network.json'), options),
     fetchJson<Poi[]>(joinWorldUrl(baseUrl, 'pois/pois.json'), options),
     fetchJson<WaterFeature[]>(joinWorldUrl(baseUrl, 'water/water.json'), options),
+    waterwaysFile,
     fetchJson<WorldDistrictAnchor[]>(joinWorldUrl(baseUrl, 'districts/districts.json'), options),
     fetchBuffer(joinWorldUrl(baseUrl, 'terrain/heightfield.bin'), options),
   ]);
@@ -101,7 +107,7 @@ export async function loadWorldData(
   } catch (error) {
     throw new WorldLoadError('parse', `Invalid coarse terrain: ${error instanceof Error ? error.message : String(error)}`);
   }
-  return { manifest, roads, pois, water, districts, coarseTerrain };
+  return { manifest, roads, pois, water, waterways, districts, coarseTerrain };
 }
 
 export async function loadChunk(

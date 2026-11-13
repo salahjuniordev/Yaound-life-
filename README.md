@@ -4,7 +4,8 @@ A playable 3D browser life simulator set in Yaoundé, Cameroon. Built from the
 requirements in `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 
 - Day/night cycle (1 in-game day ≈ 12 real minutes), needs, FCFA economy (cash / MoMo / bank / debt)
-- 9 districts; Nlongkak is the first real-geography slice (OSM + Copernicus), other districts use the procedural world
+- 9 districts; Nlongkak is the first real-geography slice (OSM roads, buildings, water and waterway lines + Copernicus terrain), other districts use the procedural world
+- Offline world pack: download the full Nlongkak area from Settings; versioned caches survive app updates
 - Walk / shared taxi / moto with real cost, time and risk
 - 8 starting backgrounds, 10 jobs, 30+ events, 13 goals, 11 achievements
 - Njangi/tontine system (reliable group + fraudulent "Fast Pot" to learn from)
@@ -24,7 +25,7 @@ React 19 · TypeScript · Vite 7 · three.js + @react-three/fiber · zustand · 
 npm install            # on Termux see SETUP.md for flags
 npm run dev            # dev server at http://localhost:5173
 npm run typecheck      # tsc --noEmit (includes tests)
-npm test               # 160 tests (node --test)
+npm test               # 180 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)
@@ -64,7 +65,10 @@ scripts/vite.mjs       dev/build launcher with Android/Termux workarounds
 
 Status board: `IMPLEMENTATION_CHECKLIST.md` (maps every PRD backlog item and
 acceptance criterion to its state). Geographic world notes and attribution:
-`docs/WORLD.md`. PRD: `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
+`docs/WORLD.md`; implementation suite: `docs/world-engine/`
+(architecture, data sources, coordinates, manifest, chunks, roads, terrain,
+buildings, offline packaging, licensing, budgets and progress).
+PRD: `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 
 ## Notes
 

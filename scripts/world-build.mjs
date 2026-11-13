@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WorldTransform, utmForward, utmInverse } from '../src/world/transform.ts';
@@ -23,7 +23,7 @@ import {
   polylineLength,
   validateRoad,
 } from '../src/world/roads.ts';
-import { validateChunkPayload, validateWorldData } from '../src/world/validation.ts';
+import { validateChunkPayload, validateWaterway, validateWorldData } from '../src/world/validation.ts';
 import { validateManifest, WORLD_FORMAT, WORLD_FORMAT_VERSION, WORLD_GENERATOR_VERSION } from '../src/world/manifest.ts';
 
 const ROOT = resolve(dirname(dirname(fileURLToPath(import.meta.url))));
@@ -265,6 +265,21 @@ function isWaterPolygon(tags) {
   );
 }
 
+const WATERWAY_KINDS = new Set(['river', 'stream', 'canal', 'drain', 'ditch']);
+const WATERWAY_DEFAULT_WIDTH = { river: 6, stream: 2.4, canal: 4, drain: 1.2, ditch: 1 };
+
+function isWaterwayLine(tags) {
+  return WATERWAY_KINDS.has(tags.waterway);
+}
+
+function waterwayWidth(tags, kind) {
+  const parsed = Number.parseFloat(String(tags.width ?? '').replace(',', '.'));
+  if (Number.isFinite(parsed) && parsed > 0.3 && parsed < 40) {
+    return { width: parsed, status: 'real' };
+  }
+  return { width: WATERWAY_DEFAULT_WIDTH[kind] ?? 2.4, status: 'inferred' };
+}
+
 function isPoi(tags) {
   return Boolean(tags.amenity || tags.shop || tags.tourism || tags.leisure || tags.historic || tags.place || tags.office || tags.healthcare);
 }
@@ -383,6 +398,7 @@ function main() {
   const poisByChunk = new Map(chunkRefs.map((ref) => [ref.id, []]));
   const pois = [];
   const water = [];
+  const waterways = [];
   const buildingKeys = new Set();
   const seenPois = new Set();
   let skippedBuildings = 0;
@@ -547,6 +563,46 @@ function main() {
       continue;
     }
 
+    if (isWaterwayLine(tags)) {
+      const kind = String(tags.waterway);
+      const widthInfo = waterwayWidth(tags, kind);
+      const lines = geometryLines(geometry);
+      let pieceIndex = 0;
+      for (const line of lines) {
+        const gameLine = gamePoints(line, transform);
+        const clipped = clipPolylineToBounds(gameLine, bounds);
+        for (const piece of clipped) {
+          const simplified = simplifyRing(piece, 0.45);
+          if (simplified.length < 2) continue;
+          const levels = simplified.map(([x, z]) => Math.max(0, heightAt(fineTerrain, x, z)));
+          const feature = {
+            id: `osm-${id}${pieceIndex > 0 ? `-${pieceIndex}` : ''}`,
+            name: tags.name,
+            kind,
+            points: simplified,
+            levels,
+            width: widthInfo.width,
+            widthStatus: widthInfo.status,
+            provenance: {
+              source: 'openstreetmap',
+              sourceId: id,
+              sourceVersion: osmSource.snapshotDate,
+              license: osmSource.license,
+              geometryStatus: 'real',
+              heightStatus: 'inferred',
+              architectureStatus: 'designed',
+              gameplayStatus: 'designed',
+            },
+          };
+          if (validateWaterway(feature).every((issue) => issue.severity !== 'error')) {
+            waterways.push(feature);
+            pieceIndex++;
+          }
+        }
+      }
+      continue;
+    }
+
     if (isPoi(tags) && !tags.highway && !tags.building) {
       const point = pointGeometry(geometry);
       if (!point) continue;
@@ -613,6 +669,7 @@ function main() {
   writeJson(join(outputDir, 'roads/network.json'), roads);
   writeJson(join(outputDir, 'pois/pois.json'), pois);
   writeJson(join(outputDir, 'water/water.json'), water);
+  writeJson(join(outputDir, 'water/waterways.json'), waterways);
   writeJson(join(outputDir, 'districts/districts.json'), districts);
 
   const validationIssues = [];
@@ -689,6 +746,7 @@ function main() {
       buildings: chunkRefs.reduce((sum, ref) => sum + ref.buildingCount, 0),
       pois: pois.length,
       waterPolygons: water.length,
+      waterways: waterways.length,
       terrainSamples: fineTerrain.heights.length,
     },
     chunks: chunkRefs,
@@ -702,6 +760,7 @@ function main() {
     roads,
     pois,
     water,
+    waterways,
     districts,
     coarseTerrain,
   };
@@ -719,23 +778,11 @@ function main() {
         buildings: manifest.featureCounts.buildings,
         pois: pois.length,
         water: water.length,
+        waterways: waterways.length,
       }),
     ),
   );
   writeJson(join(outputDir, 'manifest.json'), manifest);
-  const precache = [
-    'manifest.json',
-    'licenses.json',
-    'terrain/heightfield.bin',
-    'roads/network.json',
-    'pois/pois.json',
-    'water/water.json',
-    'districts/districts.json',
-    ...chunkRefs.flatMap((ref) => [ref.terrainFile, ref.roadsFile, ref.buildingsFile, ref.buildingsMetaFile, ref.poisFile]),
-  ];
-  const outputPrefix = config.outputDir.replace(/^public\//, '').replace(/\/$/, '');
-  writeJson(join(outputDir, 'precache.json'), [...new Set(precache)].map((path) => `${outputPrefix}/${path}`));
-
   writeJson(join(outputDir, 'licenses.json'), {
     worldVersion: manifest.worldVersion,
     generatedAt: manifest.generatedAt,
@@ -764,6 +811,7 @@ function main() {
     buildings: manifest.featureCounts.buildings,
     pois: pois.length,
     waterPolygons: water.length,
+    waterways: waterways.length,
     skippedBuildings,
     elevation: {
       absoluteMin,
@@ -775,12 +823,50 @@ function main() {
     sourceFiles: sources.map((source) => ({ id: source.id, rawFile: source.rawFile, snapshotDate: source.snapshotDate })),
   });
 
+  const outputPrefix = config.outputDir.replace(/^public\//, '').replace(/\/$/, '');
+  const sitePath = (path) => `${outputPrefix}/${path}`;
+  const globalFiles = [
+    'manifest.json',
+    'licenses.json',
+    'terrain/heightfield.bin',
+    'roads/network.json',
+    'pois/pois.json',
+    'water/water.json',
+    'water/waterways.json',
+    'districts/districts.json',
+  ];
+  const chunkFiles = (ref) => [ref.terrainFile, ref.roadsFile, ref.buildingsFile, ref.buildingsMetaFile, ref.poisFile];
+  const anchorDistrict = districts.find((district) => district.id === config.areaId);
+  const anchorChunk = anchorDistrict
+    ? chunkIndexFromGame(anchorDistrict.gameX, anchorDistrict.gameZ, origin, chunkSize)
+    : { ix: Math.floor(nx / 2), iz: Math.floor(nz / 2) };
+  const initialChunks = chunkRefs.filter(
+    (ref) => Math.abs(ref.ix - anchorChunk.ix) <= 1 && Math.abs(ref.iz - anchorChunk.iz) <= 1,
+  );
+  const initialFiles = [...globalFiles, ...initialChunks.flatMap(chunkFiles)];
+  const allFiles = [...globalFiles, ...chunkRefs.flatMap(chunkFiles), 'metadata/validation.json', 'metadata/build-report.json'];
+  const uniqueFiles = [...new Set(allFiles)];
+  const catalogFiles = uniqueFiles.map((path) => ({ path: sitePath(path), bytes: statSync(join(outputDir, path)).size }));
+  const catalog = {
+    format: 'yaounde-life-world-catalog',
+    formatVersion: 1,
+    worldVersion: manifest.worldVersion,
+    generatedAt: manifest.generatedAt,
+    totalBytes: catalogFiles.reduce((sum, file) => sum + file.bytes, 0),
+    files: catalogFiles,
+    initial: [...new Set(initialFiles)].map(sitePath),
+  };
+  writeJson(join(outputDir, 'precache.json'), catalog.initial);
+  writeJson(join(outputDir, 'files.json'), catalog);
+  console.log(`  offline catalog: ${catalog.files.length} files, ${(catalog.totalBytes / (1024 * 1024)).toFixed(1)} MB, ${catalog.initial.length} initial files`);
+
   console.log(`world built: ${config.outputDir}`);
   console.log(`  chunks: ${chunkRefs.length}`);
   console.log(`  roads: ${roads.length}`);
   console.log(`  buildings: ${manifest.featureCounts.buildings} (${skippedBuildings} skipped)`);
   console.log(`  pois: ${pois.length}`);
   console.log(`  water polygons: ${water.length}`);
+  console.log(`  waterway lines: ${waterways.length}`);
   console.log(`  elevation: ${absoluteMin.toFixed(1)}..${absoluteMax.toFixed(1)} m (offset ${verticalOffset.toFixed(1)} m)`);
   console.log(`  validation: ${errors.length === 0 ? 'PASS' : 'FAIL'}`);
   if (errors.length > 0) {

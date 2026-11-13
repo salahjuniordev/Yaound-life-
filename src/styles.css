@@ -1174,6 +1174,85 @@ textarea::placeholder {
   letter-spacing: 0.06em;
 }
 
+.world-metrics {
+  position: absolute;
+  top: calc(8px + var(--safe-top));
+  left: 8px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(10, 12, 10, 0.78);
+  color: #d8e7c9;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.world-offline {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.12));
+  border-radius: 12px;
+  background: var(--card, rgba(255, 255, 255, 0.04));
+}
+
+.world-offline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.world-offline-status {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.world-offline-ready {
+  color: #7fc49a;
+}
+
+.world-offline-partial,
+.world-offline-update-available,
+.world-offline-downloading {
+  color: #e5c069;
+}
+
+.world-offline-quota-error,
+.world-offline-unavailable,
+.world-offline-unsupported {
+  color: #e58c84;
+}
+
+.world-progress {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.world-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #e5c069;
+  transition: width 0.2s ease;
+}
+
+.world-offline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .hud {
   position: absolute;
   inset: 0;

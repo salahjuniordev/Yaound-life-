@@ -27,6 +27,7 @@ import { CityHallApp } from './apps/CityHallApp';
 import { HomeApp } from './apps/HomeApp';
 import { SocialFeedApp } from './apps/SocialFeedApp';
 import { installHelpText, useInstallPrompt } from './InstallPrompt';
+import { WorldOffline } from './WorldOffline';
 import { isGeographicWorldEnabled, setGeographicWorldEnabled } from '../render/worldMode';
 
 const APPS: { id: string; name: string; nameFr: string; icon: IconName }[] = [
@@ -1444,6 +1445,7 @@ function SettingsApp() {
           );
         }}
       />
+      <WorldOffline fr={fr} />
       <div className="muted small">
         {fr
           ? 'Données cartographiques (c) contributeurs OpenStreetMap, ODbL 1.0 · Élévation (c) ESA, Copernicus DEM GLO-30'
