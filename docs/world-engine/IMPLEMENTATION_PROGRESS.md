@@ -48,9 +48,10 @@ Latest results:
 
 ## Latest round: OSM bridge decks and walkable bridge heights
 
-The Nlongkak pack contains six OSM ways tagged `bridge` (four over the Mfoundi
-and two secondary/tertiary crossings). The renderer previously ignored the
-flag and drew them as ordinary terrain-following road ribbons.
+The Nlongkak pack contains six OSM ways tagged `bridge` (five crossings near
+the Mfoundi and one secondary crossing over a separate stream). The renderer
+previously ignored the flag and drew them as ordinary terrain-following road
+ribbons.
 
 - Added `src/render/geo/bridges.ts` with a shared bridge-corridor sampler. It
   raises the deck 0.3 m above the endpoint terrain grade, blends through 2.4 m
