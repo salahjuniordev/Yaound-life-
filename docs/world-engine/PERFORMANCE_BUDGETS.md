@@ -7,10 +7,10 @@ are instrumented, but real-device measurements are still pending.
 
 | Check | Budget | Current |
 | --- | --- | --- |
-| JS total (gzip) | 620 KB | 570,748 B |
-| CSS total (gzip) | 24 KB | 8,622 B |
-| HTML total (gzip) | 5 KB | 1,814 B |
-| First load JS+CSS+HTML (gzip) | 1 MB | 581,184 B |
+| JS total (gzip) | 620 KB | 572,013 B |
+| CSS total (gzip) | 24 KB | 8,625 B |
+| HTML total (gzip) | 5 KB | 1,817 B |
+| First load JS+CSS+HTML (gzip) | 1 MB | 582,455 B |
 | World assets raw | 12 MB | 5,402,073 B |
 | World assets gzip | 6 MB | 853,458 B |
 
@@ -32,8 +32,10 @@ the keep radius are evicted first; the LRU never evicts an in-flight load.
 
 - Building near detail (windows, doors, awnings, shop boards, roof details,
   props) is used within roughly 560 m; far massing beyond that.
-- Street props (trees, lamps, stalls, vehicles, benches) are culled beyond
-  roughly 760 m. Market clusters are capped by the same per-chunk prop budget.
+- Street props (trees, lamps, stalls, vehicles, benches, utility poles, wires,
+  street signs, shrubs) are culled beyond roughly 760 m. Market clusters and
+  utility pairs are capped by the same per-chunk prop budget (1/2/3 pole pairs
+  for low/mid/high).
 - Road drainage gutters, curbs and pavements are part of the road mesh, so they
   scale with road length rather than prop budget; quality only changes disk
   segment counts.

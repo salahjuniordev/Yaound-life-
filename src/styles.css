@@ -1140,6 +1140,11 @@ textarea::placeholder {
   inset: 0;
 }
 
+.game-canvas {
+  position: absolute;
+  inset: 0;
+}
+
 .game-root canvas {
   position: absolute !important;
   inset: 0;

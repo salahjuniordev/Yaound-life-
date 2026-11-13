@@ -275,6 +275,17 @@ test('geo props cluster market stalls around real marketplace POIs', () => {
   assert.ok(clustered.obstacles.some((obstacle) => Math.hypot(obstacle.x - 10, obstacle.z + 10) < 12));
 });
 
+test('geo roadside props add utility poles, cable spans and street signs', () => {
+  const hf = flatField();
+  const utilityRoad = road({ id: 'utility-road', points: [[0, -30], [200, -30]], width: 7 });
+  const props = buildPropsGeometry('utility-test', [utilityRoad], [], hf, 'high', []);
+  assert.ok(props.geometry);
+  assert.equal(props.counts.utilityPoles, 2);
+  assert.equal(props.counts.streetSigns, 1);
+  assert.equal(props.counts.utilityWires, 6);
+  assert.ok(props.obstacles.length >= 2);
+});
+
 test('geo road geometry adds drainage gutters and pavements on major roads', () => {
   const hf = flatField();
   const major = buildRoadGeometry([road({ id: 'major', roadClass: 'primary' })], hf, 'mid');

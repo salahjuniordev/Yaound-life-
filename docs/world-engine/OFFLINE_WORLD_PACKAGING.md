@@ -7,18 +7,25 @@ The full world pack can be downloaded explicitly from Settings.
 
 | Cache | Name | Contents |
 | --- | --- | --- |
-| App shell | `yaounde-life-v7` | HTML, hashed JS/CSS, fonts, icons |
+| App shell | `yaounde-life-v8-<buildId>` | `index.html`, hashed JS/CSS, manifest, fonts, icons |
 | World | `yaounde-world-<worldVersion>` | World manifest, catalog, initial chunks, downloaded chunks |
 
 The service worker precaches:
 
-- app shell files listed in `install`;
+- app shell files listed in the build-generated `dist/app-shell.json`;
+- the generated shell manifest itself, with a safe fallback to the document,
+  web manifest, fonts and icons if the list is missing;
 - `manifest.json` and `files.json`;
 - every path in `world/v1/precache.json` (53 files: 8 global files + 3 × 3
   chunks around the spawn chunk).
 
 The initial pack is about 5.1 MB uncompressed. The full catalog is 90 files and
 5.39 MB. The service worker also caches world responses fetched at runtime.
+
+The production build stamps `dist/sw.js` and `app-shell.json` with a
+content-derived build ID. Any change to the shell changes the worker bytes and
+the app cache name, so the next visit installs the new shell instead of serving
+a stale cached `index.html` indefinitely.
 
 ## Settings UI
 
@@ -50,8 +57,9 @@ failure is shown as a distinct error; it is not silently ignored.
 
 - World requests are cache-first, then network, then an explicit 503.
 - New network responses are written to the active world cache.
-- App-shell requests are cache-first for same-origin assets; navigation and
-  hashed assets are cached on successful fetch.
+- App-shell requests are cache-first. Installation precaches the generated
+  `app-shell.json` list and refuses to activate without a cached HTML document;
+  successful same-origin assets are also cached at runtime.
 - Activation deletes only non-app, non-world caches. It does **not** delete a
   working world pack, and it resets the memoized active world version.
 - The active world cache name comes from the manifest. The lookup is memoized
@@ -78,8 +86,9 @@ failure is shown as a distinct error; it is not silently ignored.
 Pure catalog/status logic is covered by `test/offline.test.ts`. The actual
 `public/sw.js` lifecycle and the Cache Storage download path are covered by
 `test/serviceWorker.test.ts` and `test/offlineCache.test.ts` using an in-memory
-Cache Storage implementation. Those tests cover app-shell precache, initial
-world precache, offline cache fallback, missing-asset 503, runtime caching,
+Cache Storage implementation. Those tests cover generated app-shell precache,
+unsafe manifest paths, install rejection without a document, initial world
+precache, offline cache fallback, missing-asset 503, runtime caching,
 version invalidation, corrupt manifests, legacy cache cleanup, resume, quota
 rejection, HTTP failure and abort behavior.
 

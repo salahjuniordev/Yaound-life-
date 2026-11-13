@@ -1,4 +1,18 @@
-const APP_CACHE = 'yaounde-life-v7';
+const APP_CACHE = 'yaounde-life-v8';
+const APP_SHELL_MANIFEST = 'app-shell.json';
+const APP_SHELL_FALLBACK = [
+  '',
+  'index.html',
+  APP_SHELL_MANIFEST,
+  'manifest.webmanifest',
+  'new-app-icon.png',
+  'icons/icon-192.png',
+  'icons/icon-512.png',
+  'icons/maskable-512.png',
+  'icons/apple-touch-icon.png',
+  'fonts/fredoka-latin.woff2',
+  'fonts/plus-jakarta-sans-latin.woff2',
+];
 const WORLD_CACHE_PREFIX = 'yaounde-world-';
 const WORLD_ROOT = 'world/v1/';
 const WORLD_VERSION_PATTERN = /^[A-Za-z0-9._-]+$/;
@@ -68,6 +82,35 @@ async function matchWorldRequest(request) {
   return null;
 }
 
+function isSafeAppShellPath(path) {
+  if (typeof path !== 'string' || path.length > 1024) return false;
+  if (path === '') return true;
+  if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(path)) return false;
+  return !path.split('/').includes('..');
+}
+
+async function precacheAppShell(cache) {
+  const files = new Set(APP_SHELL_FALLBACK);
+  try {
+    const response = await fetch(scopeUrl(APP_SHELL_MANIFEST), { cache: 'no-store' });
+    if (response.ok) {
+      const manifest = await response.json();
+      if (manifest && Array.isArray(manifest.files)) {
+        for (const path of manifest.files) {
+          if (isSafeAppShellPath(path)) files.add(path);
+        }
+      }
+    }
+  } catch {
+    // The fallback list still gets a chance to cache the document.
+  }
+
+  await Promise.allSettled([...files].map((path) => cache.add(scopeUrl(path))));
+
+  const shell = (await cache.match(scopeUrl(''))) ?? (await cache.match(scopeUrl('index.html')));
+  if (!shell) throw new Error('app shell could not be cached');
+}
+
 async function precacheWorld() {
   const manifestResponse = await fetch(scopeUrl(`${WORLD_ROOT}manifest.json`), { cache: 'no-store' }).catch(() => null);
   if (!manifestResponse || !manifestResponse.ok) return;
@@ -92,21 +135,11 @@ async function precacheWorld() {
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches
-      .open(APP_CACHE)
-      .then((cache) =>
-        Promise.allSettled([
-          cache.add(scopeUrl('fonts/fredoka-latin.woff2')),
-          cache.add(scopeUrl('fonts/plus-jakarta-sans-latin.woff2')),
-          cache.add(scopeUrl('new-app-icon.png')),
-          cache.add(scopeUrl('icons/icon-192.png')),
-          cache.add(scopeUrl('icons/icon-512.png')),
-          cache.add(scopeUrl('icons/maskable-512.png')),
-          cache.add(scopeUrl('icons/apple-touch-icon.png')),
-        ]),
-      )
-      .then(() => precacheWorld())
-      .catch(() => undefined),
+    (async () => {
+      const cache = await caches.open(APP_CACHE);
+      await precacheAppShell(cache);
+      await precacheWorld();
+    })(),
   );
   self.skipWaiting();
 });

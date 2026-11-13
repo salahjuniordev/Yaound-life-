@@ -14,7 +14,7 @@ Last updated: 2026-11-13
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, versioned world caches, Settings download UI, progress/quota/cancel, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | District adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
-| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, architecture, vegetation, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
+| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, architecture, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
 
 ## Current pack
 
@@ -40,13 +40,54 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 205 pass, 0 fail.
-- `build`: pass.
-- `size`: all budgets pass — JS 570,748 B gzip, CSS 8,622 B, HTML 1,814 B,
-  first load 581,184 B, world raw 5,402,073 B, world gzip 853,458 B.
+- `npm test`: 211 pass, 0 fail.
+- `build`: pass; generated `dist/app-shell.json` with 16 entries.
+- `size`: all budgets pass — JS 572,013 B gzip, CSS 8,625 B, HTML 1,817 B,
+  first load 582,455 B, world raw 5,402,073 B, world gzip 853,458 B.
 - `world:validate`: pass.
 
-## Latest round: offline cache hardening and automated tests
+## Latest round: app shell, canvas sizing and roadside infrastructure
+
+A real Chrome 158 / Android 10 probe reached the Nlongkak HUD, requested
+geographic chunks and advanced the game clock. It also exposed two issues that
+the VM tests could not see:
+
+- The only game canvas stayed at its default 300 × 150 size and never published
+  `window.__yaoundeWorldMetrics`. DOM inspection showed that `.game-root` and
+  `.game-root canvas` had layout rules, but `.game-canvas` had no sizing rule.
+  `.game-canvas` now owns the full viewport with `position: absolute; inset: 0`,
+  and `test/layout.test.ts` guards that rule. The CSS fix has **not** yet been
+  confirmed by a second real-browser render.
+- The app cache contained only fonts and icons after install, despite the
+  documented promise to cache the HTML and hashed JS/CSS. The build now writes
+  `dist/app-shell.json`; the worker reads it during install, rejects unsafe
+  paths, requires a cached HTML document before installation can succeed, and
+  caches the shell files. A content-derived build ID is stamped into
+  `dist/sw.js` and the app cache name so changed hashed assets trigger a worker
+  update instead of leaving a stale shell cached forever.
+
+Roadside detailing also landed in this round:
+
+- Roadside utility infrastructure now follows the longest vehicle roads in
+  low/mid/high chunks: deterministic pole pairs, three sagging cable spans,
+  street-name boards and a small shrub pass. Poles use the existing prop budget
+  and collision metadata, and `PropBuild.counts` exposes pole, wire, sign and
+  bush counts for tests.
+- Added `test/geo.test.ts` coverage for utility poles, cable spans and street
+  signs.
+
+Added `test/serviceWorker.test.ts` coverage for generated shell manifests,
+unsafe paths, install rejection without a document, and a first-load
+navigation/assets boot with the network offline. Typecheck is clean and
+211/211 tests pass. The build, size budgets and `world:validate` pass.
+
+The browser probe could not be completed: Android subsequently blocked
+Termux from bringing Chrome back to the foreground, and screen wake/input
+injection is unavailable. Real-browser offline reload, settings download/
+cancel/remove behavior, device metrics, screenshots and visual/cultural review
+therefore remain **unperformed**, not merely unrecorded.
+
+## Previous round: offline cache hardening and automated tests
 
 Completed after the M8 round:
 
@@ -104,19 +145,23 @@ Completed after the offline/streaming round:
 
 ## Commit state
 
-Commit `555ad39` (2026-11-13) contains the offline/streaming, waterway, M8
-street-detailing, v2 pack and documentation work, and is pushed to `origin/main`.
+Commit `125d704` (2026-11-13) contains the offline-cache hardening, the
+service-worker/world-cache tests, the world pack and the M8 street-detailing
+work, and is pushed to `origin/main`.
 
 Uncommitted since that commit:
 
-- `public/sw.js` — 60-second world-manifest memoization, activation reset and
-  `world-cache-updated` message invalidation.
-- `src/ui/WorldOffline.tsx` — posts the cache-updated message after download and
-  removal.
+- `src/styles.css` — fullscreen `.game-canvas` layout and `test/layout.test.ts`
+  guard.
+- `src/render/geo/geometry.ts`, `test/geo.test.ts` — bounded utility-pole pairs,
+  cable spans, street-name boards, roadside shrubs and geometry tests.
+- `public/sw.js`, `vite.config.ts` — build-generated `app-shell.json`,
+  first-load shell precache, unsafe-path filtering, install rejection without a
+  document, build-ID stamping and first-load offline test coverage.
 - `test/serviceWorker.test.ts`, `test/offlineCache.test.ts`,
-  `test/helpers/fakeCaches.ts` — 21 new offline/cache tests.
+  `test/offline.test.ts` — app-shell version/test updates.
 - `docs/world-engine/OFFLINE_WORLD_PACKAGING.md`,
-  `docs/world-engine/PERFORMANCE_BUDGETS.md`, `docs/WORLD.md`,
+  `docs/world-engine/PERFORMANCE_BUDGETS.md`,
   `docs/world-engine/IMPLEMENTATION_PROGRESS.md` and
   `IMPLEMENTATION_CHECKLIST.md` — this round's documentation and measurements.
 
@@ -128,17 +173,22 @@ Uncommitted since that commit:
    DEM; there is no flow simulation, flooding, bridges over streams, or channel
    carving beyond the rendered ribbon.
 3. **Real-device performance is unmeasured.** The overlay and budgets exist, but
-   no low-end Android numbers are recorded.
+   no low-end Android numbers are recorded. The first probe never received
+   renderer metrics because the canvas was collapsed; the CSS fix still needs a
+   real render to confirm it.
 4. **Only Nlongkak is geographic.** The other eight districts remain procedural.
 5. **M8 visual variety still needs human review.** Market stalls, signage,
    vehicles and street drainage are now present, but their placement and
    cultural fit have not been reviewed in a browser or by local reviewers.
-6. **Offline browser behavior is only unit-tested.** The service worker and
-   Cache Storage paths now have automated tests, but real installation timing,
-   persistent-storage prompts, quota accounting and an offline reload still need
-   a manual browser pass.
+6. **Offline browser behavior is only unit-tested.** The first-load shell gap
+   was found in a real cache audit and fixed, but a real install-then-offline
+   reload, Settings download/cancel/remove flow, persistent-storage prompt and
+   quota accounting still need a device pass.
 7. **No automated visual regression test.** Geometry is tested numerically, not
    screenshot-tested.
+8. **The real-browser canvas fix is unconfirmed.** The probe observed the
+   300 × 150 canvas and missing metrics, but Chrome could not be foregrounded
+   again after the CSS change. No rendered frame or screenshot exists yet.
 
 ## Save compatibility
 
@@ -149,15 +199,15 @@ deleted. Procedural fallback remains available through Settings,
 
 ## Next action
 
-1. Run the manual offline browser pass described in
-   `OFFLINE_WORLD_PACKAGING.md` (download, reload offline, walk the slice,
-   update the pack, verify old-cache cleanup).
+1. Re-run the real-browser probe when Chrome can be foregrounded on the
+   device. Confirm the canvas fills the viewport and publishes metrics, then
+   complete the online screenshot, first-load offline reload and Settings
+   download/cancel/remove checks.
 2. Record real-device low/mid/high metrics and tune the quality thresholds.
-3. Review the new market clusters, shop boards, vehicles, gutters and pavements
-   in the browser, and adjust density/placement after the visual pass.
-4. Review the new waterway ribbons in the browser for terrain alignment,
-   especially where streams cross roads or steep slopes.
-5. Run a local cultural review of signage colours and market dressing before
+3. Review the new market clusters, shop boards, vehicles, gutters, pavements and
+   waterway ribbons in the browser, and adjust density/placement after the
+   visual pass.
+4. Run a local cultural review of signage colours and market dressing before
    treating M8 as complete.
-6. Review and commit the offline-cache hardening and test round once the
-   browser and device checks are recorded or explicitly deferred.
+5. Commit the app-shell/canvas round once the browser checks are recorded or
+   the device limitation is explicitly accepted.

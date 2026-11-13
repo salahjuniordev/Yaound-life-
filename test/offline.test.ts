@@ -40,14 +40,14 @@ function catalog(overrides: Partial<WorldFileCatalog> = {}): WorldFileCatalog {
 test('world cache names are versioned and validated', () => {
   assert.equal(worldCacheName('nlongkak-2026-10-30-v1'), `${WORLD_CACHE_PREFIX}nlongkak-2026-10-30-v1`);
   assert.equal(worldVersionFromCacheName(`${WORLD_CACHE_PREFIX}nlongkak-2026-10-30-v1`), 'nlongkak-2026-10-30-v1');
-  assert.equal(worldVersionFromCacheName('yaounde-life-v7'), null);
-  assert.equal(isWorldCacheName('yaounde-life-v7'), false);
+  assert.equal(worldVersionFromCacheName('yaounde-life-v8'), null);
+  assert.equal(isWorldCacheName('yaounde-life-v8'), false);
   assert.throws(() => assertWorldVersion('../escape'));
   assert.throws(() => assertWorldVersion(''));
 });
 
 test('obsolete world caches preserve the active version and app caches', () => {
-  const names = ['yaounde-life-v7', `${WORLD_CACHE_PREFIX}old-v1`, `${WORLD_CACHE_PREFIX}current-v2`];
+  const names = ['yaounde-life-v8', `${WORLD_CACHE_PREFIX}old-v1`, `${WORLD_CACHE_PREFIX}current-v2`];
   assert.deepEqual(obsoleteWorldCaches(names, 'current-v2'), [`${WORLD_CACHE_PREFIX}old-v1`]);
 });
 

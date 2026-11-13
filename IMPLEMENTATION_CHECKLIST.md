@@ -10,8 +10,8 @@ Last updated: 2026-11-13
 - [x] Termux/Android workarounds: esbuild binary relocation (`scripts/vite.mjs`), rollup wasm alias, npm `bin-links=false` install
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
-- [x] PWA: manifest, icon, `public/sw.js` runtime cache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 205/205 (`npm test`)
+- [x] PWA: manifest, icon, `public/sw.js` runtime cache, build-generated app-shell precache, PROD-only registration
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 211/211 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -24,13 +24,15 @@ Last updated: 2026-11-13
 - [x] Geographic Nlongkak wired as the default for that district with legacy fallback and Settings/URL/localStorage rollback; other districts remain procedural
 - [x] Offline world delivery: `files.json` catalog, initial `precache.json`, versioned `yaounde-world-*` caches, Settings download/progress/cancel/remove, quota handling
 - [x] Automated offline/cache tests: real `public/sw.js` lifecycle in a VM, app/world precache, offline fallback, 503 misses, runtime caching, download/resume/quota/HTTP/abort and cache cleanup (`test/serviceWorker.test.ts`, `test/offlineCache.test.ts`)
+- [x] First-load app shell: build-generated `app-shell.json` lists HTML, hashed JS/CSS, manifest, fonts and icons; the worker rejects unsafe paths, requires a cached document, and is stamped with a build ID so shell changes trigger an update
+- [x] Renderer canvas owns a fullscreen `.game-canvas` box; static layout regression test added after a real-browser probe found the canvas stuck at 300 × 150
 - [x] Documentation and attribution: `docs/WORLD.md`, `docs/world-engine/` suite, `licenses.json`, in-pack provenance
 - [x] Size budgets include world assets: 12 MB raw / 6 MB gzip; JS 620 KB gzip; first load 1 MB
 - [~] Whole-city geographic expansion: only Nlongkak is real geography; eight districts still need packs and acceptance
 - [~] Geographic gameplay parity: Nlongkak places/NPCs are mapped onto real roads as designed content; taxi/travel uses legacy district worlds for other areas
 - [ ] Real-device performance and local cultural/geographic review for the Nlongkak slice
 - [x] Water-line streams: 35 real OSM waterway centrelines (5 rivers, 29 streams, 1 drain; ~5.9 km) rendered as DEM-following ribbons with provenance, validation and offline-catalog entries
-- [x] M8 street dressing: real `marketplace`/`mall` POIs seed market-stall clusters and produce mats, commercial frontages get painted shop boards/blade signs, vehicles mix taxis/cars/minibuses/trucks/motos, and vehicle roads gain gutters, curbs and major-road pavements
+- [x] M8 street dressing: real `marketplace`/`mall` POIs seed market-stall clusters and produce mats, commercial frontages get painted shop boards/blade signs, vehicles mix taxis/cars/minibuses/trucks/motos, vehicle roads gain gutters, curbs and major-road pavements, and the longest vehicle roads get bounded utility-pole pairs, cable spans, street-name boards and roadside shrubs
 - [ ] Richer landmarks, and district boundary packs beyond Nlongkak
 
 ## Architecture (PRD §8.5)
@@ -41,7 +43,7 @@ Last updated: 2026-11-13
 - [~] Sim runs on main thread inside rAF (PRD suggests Web Worker) — acceptable for v1, worker split pending
 - [x] Quality tiers low/mid/high with settings override (`src/render/controls.ts`)
 - [x] GPU benchmark auto-detect (1.2s FPS probe + memory/cores/saveData/battery signals, `src/render/perf.ts`), first-run apply, "Detect now", battery/data-saver auto mode
-- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently ~570.7 KB JS)
+- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently ~572.0 KB JS)
 
 ## Characters & assets status (concept references)
 - [x] Real 3D, playable: Amina, Brice, Marie presets via the modular part builder (`src/render/characters.ts`) — editable in the creator, never shown as billboards
@@ -149,7 +151,7 @@ Last updated: 2026-11-13
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 205 tests
+npm test                 # node --test, 211 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -162,6 +164,8 @@ npm run world:validate   # validate manifest, hashes, chunk payloads
 ```
 
 ## Changelog
+- 2026-11-13: M8 roadside utility infrastructure — the longest vehicle roads in each chunk now receive bounded utility-pole pairs (1/2/3 pairs for low/mid/high), three sagging cable spans, street-name boards and a low-shrub pass. Placement is deterministic, respects building clearance and the existing prop budget, and adds pole obstacles for collision; `PropBuild.counts` exposes utility/sign/bush counts and `test/geo.test.ts` covers the geometry. Typecheck clean, 211/211 tests pass, build and size budgets pass (JS 572,013 B gzip, first load 582,455 B), `world:validate` passes.
+- 2026-11-13: First-load app shell and canvas layout — a real Chrome/Android probe reached the Nlongkak HUD but exposed a 300 × 150 renderer canvas and an install cache containing only fonts/icons. Added a fullscreen `.game-canvas` rule and layout guard; added a build-generated `app-shell.json` (16 entries) so the worker precaches HTML, hashed JS/CSS, manifest, fonts and icons; unsafe paths are ignored, install fails without a cached HTML document, and a content build ID is stamped into `dist/sw.js` so shell changes invalidate the app cache. Added first-load offline boot, generated-shell and install-rejection tests. Typecheck clean, 210/210 tests pass, build and size budgets pass (JS 571,084 B gzip, first load 581,524 B), `world:validate` passes. Android blocked a second browser foreground pass, so the canvas fix, real offline reload, device metrics and visual review remain unconfirmed.
 - 2026-11-13: Offline cache hardening and tests — added `test/serviceWorker.test.ts` exercising the real `public/sw.js` lifecycle with an in-memory Cache Storage, and `test/offlineCache.test.ts` covering download/resume, byte progress, quota rejection, HTTP failures, abort, catalog errors and cache cleanup. Fixed stale active-world-version selection with a 60-second manifest TTL, activation reset and a `world-cache-updated` message posted by Settings after download/removal. Typecheck clean, 205/205 tests pass, build and all size budgets pass (JS 570,748 B gzip, first load 581,184 B), `world:validate` passes. Real-browser offline pass still pending.
 - 2026-11-12: M8 street/market detailing — real `marketplace` and `mall` POIs now seed cluster stalls, produce mats and market boards ahead of the roadside prop budget; shop/restaurant/market frontages get deterministic painted sign boards and occasional blade signs; traffic dressing mixes yellow taxis, private cars, minibuses, trucks and motos by road class; vehicle roads gain open drainage gutters, curbs, wider shoulders and major-road pavement strips with gutter crossings. Added geometry tests for market clustering, signage, drainage/pavements and vehicle selection. Typecheck clean, 184/184 tests pass, build and all size budgets pass (JS 570,442 B gzip, first load 580,877 B).
 - 2026-11-12: Waterway and streaming-hardening round — extracted 35 real OSM waterway centrelines (5 rivers, 29 streams, 1 drain; 5,868 m) into `public/world/v1/water/waterways.json` with per-point DEM heights, provenance and validation; rendered them as terrain-following ribbons in the geo scene; regenerated the Nlongkak pack as `nlongkak-2026-10-30-v2` (90 catalog files, 5.39 MB, 53 initial files) and updated the offline catalog/docs. Fixed an over-cap `ChunkLru` bug that swapped and reloaded chunk sets when the desired radius exceeded the memory cap; the plan now keeps a stable nearest-first subset. Typecheck clean, 180/180 tests pass, build and all size budgets pass, `world:validate` passes.

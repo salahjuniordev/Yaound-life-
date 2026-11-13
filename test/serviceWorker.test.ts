@@ -5,7 +5,7 @@ import { runInNewContext } from 'node:vm';
 import { FakeCacheStorage, type FetchLike } from './helpers/fakeCaches';
 
 const SCOPE = 'https://game.test/app/';
-const APP_CACHE = 'yaounde-life-v7';
+const APP_CACHE = 'yaounde-life-v8';
 const SW_SOURCE = readFileSync(new URL('../public/sw.js', import.meta.url), 'utf8');
 
 type FetchHandler = (url: string) => Response | Promise<Response>;
@@ -149,6 +149,80 @@ test('install precaches the app shell and the initial world files', async () => 
   assert.ok(world?.has(`${SCOPE}world/v1/precache.json`));
   assert.ok(world?.has(`${SCOPE}world/v1/files.json`));
   assert.ok(world?.has(`${SCOPE}world/v1/terrain/c_0_0.bin`));
+});
+
+test('install precaches the generated app-shell manifest, including hashed assets', async () => {
+  const sw = new ServiceWorkerHarness();
+  const files = ['', 'index.html', 'assets/index-BUILT.js', 'assets/index-BUILT.css', 'manifest.webmanifest', 'app-shell.json'];
+  sw.setFetch((url) => {
+    const path = pathOf(url);
+    if (path.endsWith('/app-shell.json')) return json({ files });
+    if (path.endsWith('/world/v1/manifest.json')) throw new Error('offline');
+    return text(`built:${path}`);
+  });
+
+  await sw.install();
+
+  const app = sw.caches.get(APP_CACHE);
+  for (const file of files) {
+    assert.ok(app?.has(`${SCOPE}${file}`), `expected ${file} in the app cache`);
+  }
+});
+
+test('install ignores unsafe app-shell manifest paths', async () => {
+  const sw = new ServiceWorkerHarness();
+  sw.setFetch((url) => {
+    const path = pathOf(url);
+    if (path.endsWith('/app-shell.json')) {
+      return json({ files: ['', 'index.html', '../escape.js', 'https://evil.test/payload.js', 'assets/ok.js'] });
+    }
+    if (path.endsWith('/world/v1/manifest.json')) throw new Error('offline');
+    return text('asset');
+  });
+
+  await sw.install();
+
+  const app = sw.caches.get(APP_CACHE);
+  assert.ok(app?.has(`${SCOPE}assets/ok.js`));
+  assert.equal(app?.has(`${SCOPE}escape.js`), false);
+  assert.equal(app?.has('https://evil.test/payload.js'), false);
+});
+
+test('after install, a first-load navigation and hashed assets boot with the network offline', async () => {
+  const sw = new ServiceWorkerHarness();
+  const files = ['', 'index.html', 'assets/index-BOOT.js', 'assets/index-BOOT.css', 'manifest.webmanifest'];
+  sw.setFetch((url) => {
+    const path = pathOf(url);
+    if (path.endsWith('/app-shell.json')) return json({ files });
+    if (path.endsWith('/world/v1/manifest.json')) throw new Error('offline');
+    return text(`cached:${path}`);
+  });
+
+  await sw.install();
+  sw.setFetch(() => {
+    throw new Error('offline');
+  });
+
+  const shell = await sw.dispatchFetch(new Request(SCOPE));
+  assert.equal(shell?.status, 200);
+  assert.match(await shell?.text() ?? '', /^cached:/);
+  const index = await sw.dispatchFetch(new Request(`${SCOPE}index.html`));
+  assert.equal(index?.status, 200);
+  assert.match(await index?.text() ?? '', /index\.html/);
+  const js = await sw.dispatchFetch(new Request(`${SCOPE}assets/index-BOOT.js`));
+  assert.equal(js?.status, 200);
+  assert.match(await js?.text() ?? '', /cached:.*index-BOOT\.js/);
+  const css = await sw.dispatchFetch(new Request(`${SCOPE}assets/index-BOOT.css`));
+  assert.equal(css?.status, 200);
+});
+
+test('install rejects when no app-shell document can be cached', async () => {
+  const sw = new ServiceWorkerHarness();
+  sw.setFetch(() => {
+    throw new Error('offline');
+  });
+
+  await assert.rejects(sw.install(), /app shell could not be cached/);
 });
 
 test('install survives an offline manifest and failed shell assets', async () => {

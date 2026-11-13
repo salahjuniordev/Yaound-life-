@@ -193,7 +193,7 @@ test('downloadWorldPack honors an already-aborted signal', async () => {
 test('cleanupOldWorldCaches removes only obsolete world caches', async () => {
   const fetchImpl = fetchMock(() => new Response('ok', { status: 200 }));
   await withOfflineEnv(fetchImpl, async (caches) => {
-    caches.create('yaounde-life-v7');
+    caches.create('yaounde-life-v8');
     caches.create('yaounde-world-old-v1');
     caches.create('yaounde-world-current-v2');
     caches.create('unrelated-cache');
@@ -203,7 +203,7 @@ test('cleanupOldWorldCaches removes only obsolete world caches', async () => {
     assert.deepEqual(removed, ['yaounde-world-old-v1']);
     assert.equal(await caches.has('yaounde-world-old-v1'), false);
     assert.equal(await caches.has('yaounde-world-current-v2'), true);
-    assert.equal(await caches.has('yaounde-life-v7'), true);
+    assert.equal(await caches.has('yaounde-life-v8'), true);
     assert.equal(await caches.has('unrelated-cache'), true);
   });
 });
@@ -213,7 +213,7 @@ test('world cache versions can be listed and deleted', async () => {
   await withOfflineEnv(fetchImpl, async (caches) => {
     caches.create('yaounde-world-old-v1');
     caches.create('yaounde-world-current-v2');
-    caches.create('yaounde-life-v7');
+    caches.create('yaounde-life-v8');
 
     assert.deepEqual((await worldCacheVersions()).sort(), ['current-v2', 'old-v1']);
     await deleteWorldCache('old-v1');

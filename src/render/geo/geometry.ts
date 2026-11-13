@@ -656,6 +656,12 @@ function rngFrom(seed: number): () => number {
 export interface PropBuild {
   geometry: THREE.BufferGeometry | null;
   obstacles: CircleObstacle[];
+  counts: {
+    utilityPoles: number;
+    utilityWires: number;
+    streetSigns: number;
+    bushes: number;
+  };
 }
 
 export type VehicleKind = 'taxi' | 'private' | 'moto' | 'bus' | 'truck';
@@ -684,6 +690,7 @@ export function buildPropsGeometry(
 ): PropBuild {
   const builder = new MeshBuilder();
   const obstacles: CircleObstacle[] = [];
+  const counts = { utilityPoles: 0, utilityWires: 0, streetSigns: 0, bushes: 0 };
   const rings = buildings.map((b) => b.ring);
   const rng = rngFrom(hashString(chunkId));
   const limit = quality === 'low' ? 24 : quality === 'mid' ? 46 : 76;
@@ -697,6 +704,9 @@ export function buildPropsGeometry(
   const tyre = rgb('#262522');
   const fabric = ['#c94f4f', '#2f7f5f', '#d99a32', '#3d6fa8', '#8f4f9c'];
   const paints = ['#d8d2c4', '#345f8a', '#8a3a34', '#e8e3d6', '#4c5c4a', '#b0b4b8'];
+  const wire = rgb('#252623');
+  const signGreen = rgb('#245a45');
+  const signWhite = rgb('#f1e4c8');
   const nearRoad = (x: number, z: number, clearance: number): boolean => {
     for (const road of roads) {
       if (road.tunnel || road.points.length < 2) continue;
@@ -873,6 +883,103 @@ export function buildPropsGeometry(
     obstacles.push({ x, z, r: 0.6 });
     count++;
   };
+  const addBush = (x: number, z: number) => {
+    if (count >= limit) return;
+    if (isBlocked(x, z, rings, 0.45)) return;
+    const y = heightAt(hf, x, z);
+    const leaf = rgb(leaves[Math.floor(rng() * leaves.length)]);
+    builder.cone(x, y, z, 0.85, 1.25, leaf, 6);
+    builder.cone(x + 0.55, y, z + 0.2, 0.55, 0.82, leaf, 5);
+    builder.cone(x - 0.45, y, z - 0.18, 0.48, 0.68, leaf, 5);
+    obstacles.push({ x, z, r: 0.45 });
+    count++;
+    counts.bushes++;
+  };
+  const sampleRoadPoint = (r: WorldRoad, t: number): { x: number; z: number; nx: number; nz: number; rotY: number } | null => {
+    let total = 0;
+    for (let i = 0; i < r.points.length - 1; i++) {
+      total += Math.hypot(r.points[i + 1][0] - r.points[i][0], r.points[i + 1][1] - r.points[i][1]);
+    }
+    if (total < 1) return null;
+    let target = Math.max(0, Math.min(1, t)) * total;
+    for (let i = 0; i < r.points.length - 1; i++) {
+      const [ax, az] = r.points[i];
+      const [bx, bz] = r.points[i + 1];
+      const dx = bx - ax;
+      const dz = bz - az;
+      const len = Math.hypot(dx, dz);
+      if (len < 1e-6) continue;
+      if (target <= len || i === r.points.length - 2) {
+        const f = Math.max(0, Math.min(1, target / len));
+        return {
+          x: ax + dx * f,
+          z: az + dz * f,
+          nx: -dz / len,
+          nz: dx / len,
+          rotY: Math.atan2(-dz, dx),
+        };
+      }
+      target -= len;
+    }
+    return null;
+  };
+  const addUtilityPole = (x: number, z: number, rotY: number, sign: boolean): boolean => {
+    if (count >= limit) return false;
+    if (isBlocked(x, z, rings, 0.55)) return false;
+    const y = heightAt(hf, x, z);
+    const nx = -Math.sin(rotY);
+    const nz = Math.cos(rotY);
+    builder.box(x, y, z, 0.2, 7.2, 0.2, pole);
+    builder.box(x, y + 6.5, z, 1.55, 0.12, 0.14, pole, rotY + Math.PI / 2);
+    for (const offset of [-0.5, 0, 0.5]) {
+      builder.box(x + nx * offset, y + 6.62, z + nz * offset, 0.1, 0.16, 0.1, glass);
+    }
+    if (sign) {
+      const rx = Math.cos(rotY);
+      const rz = -Math.sin(rotY);
+      builder.box(x, y + 4.15, z, 1.35, 0.5, 0.08, signGreen, rotY + Math.PI / 2);
+      builder.box(x + rx * 0.06, y + 4.4, z + rz * 0.06, 0.95, 0.08, 0.03, signWhite, rotY + Math.PI / 2);
+      builder.box(x + rx * 0.06, y + 4.25, z + rz * 0.06, 0.95, 0.08, 0.03, signWhite, rotY + Math.PI / 2);
+      counts.streetSigns++;
+    }
+    obstacles.push({ x, z, r: 0.3 });
+    count++;
+    counts.utilityPoles++;
+    return true;
+  };
+  const addWireSpan = (
+    ax: number,
+    ay: number,
+    az: number,
+    bx: number,
+    by: number,
+    bz: number,
+  ) => {
+    const midX = (ax + bx) / 2;
+    const midZ = (az + bz) / 2;
+    const midY = (ay + by) / 2 - 0.42;
+    const spans: Array<[number, number, number, number, number, number]> = [
+      [ax, ay, az, midX, midY, midZ],
+      [midX, midY, midZ, bx, by, bz],
+    ];
+    for (const [x1, y1, z1, x2, y2, z2] of spans) {
+      const dx = x2 - x1;
+      const dz = z2 - z1;
+      const len = Math.hypot(dx, dz);
+      if (len < 0.1) continue;
+      builder.box(
+        (x1 + x2) / 2,
+        (y1 + y2) / 2 - 0.03,
+        (z1 + z2) / 2,
+        len,
+        0.06,
+        0.06,
+        wire,
+        Math.atan2(-dz, dx),
+      );
+      counts.utilityWires++;
+    }
+  };
 
   // Real market POIs get their stall clusters before roadside decoration, so
   // the market fabric of the district is never starved by the prop budget.
@@ -880,6 +987,52 @@ export function buildPropsGeometry(
     if (count >= limit) break;
     if (poi.kind === 'marketplace') addMarketCluster(poi, 6);
     else if (poi.kind === 'mall') addMarketCluster(poi, 3);
+  }
+
+  // Utility poles follow the longest vehicle roads in pairs, with a short
+  // cable run and a street-name board. They consume the same prop budget as
+  // trees/stalls, so dense markets still win.
+  const utilityPairs = quality === 'low' ? 1 : quality === 'mid' ? 2 : 3;
+  const utilityRoads = roads
+    .filter((r) => !r.tunnel && r.points.length > 1 && isVehicleRoad(r))
+    .map((road) => {
+      let length = 0;
+      for (let i = 0; i < road.points.length - 1; i++) {
+        length += Math.hypot(road.points[i + 1][0] - road.points[i][0], road.points[i + 1][1] - road.points[i][1]);
+      }
+      return { road, length };
+    })
+    .sort((a, b) => b.length - a.length);
+  let utilityPairsAdded = 0;
+  for (const { road } of utilityRoads) {
+    if (utilityPairsAdded >= utilityPairs || count + 2 > limit) break;
+    const seed = rngFrom(hashString(`${chunkId}:${road.id}:utility`));
+    const side = seed() > 0.5 ? 1 : -1;
+    const a = sampleRoadPoint(road, 0.28 + seed() * 0.12);
+    const b = sampleRoadPoint(road, 0.62 + seed() * 0.16);
+    if (!a || !b) continue;
+    const offset = road.width / 2 + 0.9;
+    const ax = a.x + a.nx * side * offset;
+    const az = a.z + a.nz * side * offset;
+    const bx = b.x + b.nx * side * offset;
+    const bz = b.z + b.nz * side * offset;
+    if (isBlocked(ax, az, rings, 0.55) || isBlocked(bx, bz, rings, 0.55)) continue;
+    const first = addUtilityPole(ax, az, a.rotY, false);
+    const second = addUtilityPole(bx, bz, b.rotY, true);
+    if (!first || !second) continue;
+    const ay = heightAt(hf, ax, az) + 6.55;
+    const by = heightAt(hf, bx, bz) + 6.55;
+    for (const cable of [-0.45, 0, 0.45]) {
+      addWireSpan(
+        ax + a.nx * cable,
+        ay,
+        az + a.nz * cable,
+        bx + b.nx * cable,
+        by,
+        bz + b.nz * cable,
+      );
+    }
+    utilityPairsAdded++;
   }
 
   for (const road of roads) {
@@ -916,6 +1069,11 @@ export function buildPropsGeometry(
           );
         } else if (roll < 0.67) {
           addBench(x + nx * side * (half + 1.2), z + nz * side * (half + 1.2));
+        } else if (roll < 0.74) {
+          addBush(
+            x + nx * side * (half + 2.2 + rng() * 2.2),
+            z + nz * side * (half + 2.2 + rng() * 2.2),
+          );
         }
         if (count >= limit) break;
       }
@@ -932,7 +1090,7 @@ export function buildPropsGeometry(
       addTree(x, z, rng() > 0.8);
     }
   }
-  return { geometry: builder.build(), obstacles };
+  return { geometry: builder.build(), obstacles, counts };
 }
 
 export function buildWaterGeometry(features: WaterFeature[], level: number): THREE.BufferGeometry | null {
