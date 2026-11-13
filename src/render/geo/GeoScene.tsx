@@ -12,6 +12,7 @@ import { PlayerRig } from '../PlayerRig';
 import { GeoCollisionWorld } from './collision';
 import { RoadIndex } from './roadIndex';
 import { createGeoAdapter } from './adapter';
+import { bridgeSurfaceAt } from './bridges';
 import type { WorldAdapter } from './types';
 import {
   buildBuildingGeometry,
@@ -265,11 +266,14 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         if (controller.signal.aborted) return;
         const roads = new RoadIndex(data.roads);
         const coarse = data.coarseTerrain;
-        const terrainHeight = (x: number, z: number): number => {
+        const bridgeRoads = data.roads.filter((road) => road.bridge);
+        const baseTerrainHeight = (x: number, z: number): number => {
           const chunk = chunkAt(manifest, x, z);
           const hf = chunk ? chunkTerrains.current.get(chunk.id) : undefined;
           return heightAt(hf ?? coarse, x, z);
         };
+        const terrainHeight = (x: number, z: number): number =>
+          bridgeSurfaceAt(bridgeRoads, x, z, baseTerrainHeight) ?? baseTerrainHeight(x, z);
         const geoAdapter = createGeoAdapter({ world: data, collision, roads, terrainHeight });
         const spawnPoint = geoAdapter.spawnForDistrict('nlongkak');
         worldRef.current = { baseUrl, manifest, data, roads };

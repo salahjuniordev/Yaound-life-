@@ -54,8 +54,13 @@ and NPC placement. Shared OSM nodes connect ways across the network.
   gutter crossings. Gutter/pavement geometry is visual detail inferred from the
   road class, not mapped infrastructure.
 - Widths are in metres; sidewalks/kerbs are visual additions, not separate data.
-- Bridges and tunnels are tagged but rendered with the same ribbon; tunnels are
-  not cut into terrain.
+- Six OSM bridge ways get a raised deck, side fascia, concrete parapets,
+  abutments, approach ramps and a major-road centre marking. The shared
+  `bridgeSurfaceAt` sampler feeds the player/crowd/camera height so the deck is
+  walkable; the normal road ribbon remains underneath for continuity.
+- Tunnels are tagged but not cut into terrain and do not get a portal mesh.
+- Bridge parapets are visual only: there is no collision volume, fall model or
+  underpass traversal.
 - Roundabouts follow the real circular geometry; no invented junction meshes are
   placed where OSM has none.
 - Road collision/query uses the road index, not the rendered ribbon.

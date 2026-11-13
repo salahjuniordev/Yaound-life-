@@ -14,14 +14,14 @@ Last updated: 2026-11-13
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, versioned world caches, Settings download UI, progress/quota/cancel, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | District adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
-| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, architecture, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
+| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, architecture, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
 
 ## Current pack
 
 - Area: Nlongkak, Yaoundé (`nlongkak`), bbox `11.5126,3.8780,11.5305,3.8960`.
 - World version: `nlongkak-2026-10-30-v2`; generator version `1.1.0`.
 - Chunks: 16 (4 × 4, 512 m).
-- Features: 426 roads, 8,085 buildings, 409 POIs, 2 water polygons, 35 waterway lines (5 rivers, 29 streams, 1 drain; 5,868 m of centrelines), 62,750 terrain samples.
+- Features: 426 roads (including six `bridge`-tagged ways), 8,085 buildings, 409 POIs, 2 water polygons, 35 waterway lines (5 rivers, 29 streams, 1 drain; 5,868 m of centrelines), 62,750 terrain samples.
 - Offline catalog: 90 files, 5,391,242 bytes; initial precache 53 files (8 global files + 3 × 3 chunks, about 5.1 MB).
 - Projection: EPSG:32632; 1 unit = 1 m; vertical offset 713.3 m.
 
@@ -40,13 +40,36 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 211 pass, 0 fail.
+- `npm test`: 213 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 572,013 B gzip, CSS 8,625 B, HTML 1,817 B,
-  first load 582,455 B, world raw 5,402,073 B, world gzip 853,458 B.
+- `size`: all budgets pass — JS 572,922 B gzip, CSS 8,625 B, HTML 1,814 B,
+  first load 583,361 B, world raw 5,402,073 B, world gzip 853,458 B.
 - `world:validate`: pass.
 
-## Latest round: app shell, canvas sizing and roadside infrastructure
+## Latest round: OSM bridge decks and walkable bridge heights
+
+The Nlongkak pack contains six OSM ways tagged `bridge` (four over the Mfoundi
+and two secondary/tertiary crossings). The renderer previously ignored the
+flag and drew them as ordinary terrain-following road ribbons.
+
+- Added `src/render/geo/bridges.ts` with a shared bridge-corridor sampler. It
+  raises the deck 0.3 m above the endpoint terrain grade, blends through 2.4 m
+  approach ramps, and returns the normal terrain height outside the corridor.
+- `GeoScene` now derives player, crowd and camera height from that sampler, so
+  walking across a tagged bridge follows the rendered deck instead of the
+  terrain beneath it.
+- Bridge road meshes now add a raised deck, side fascia, concrete parapets with
+  caps, end abutments, approach ramps and a centre marking on major roads.
+  Geometry is part of the existing road mesh, not the prop budget; all six
+  bridges are bounded to their real OSM ways.
+- Added geometry and sampler tests in `test/geo.test.ts`. No gameplay IDs,
+  world-pack format or save data changed.
+- This remains a visual/gameplay approximation: there is no hydraulic model,
+  underpass traversal, fall model or collision volume for the parapets, and the
+  deck uses a straight grade between bridge endpoints. It has not been checked
+  in a real browser.
+
+## Previous round: app shell, canvas sizing and roadside infrastructure
 
 A real Chrome 158 / Android 10 probe reached the Nlongkak HUD, requested
 geographic chunks and advanced the game clock. It also exposed two issues that
@@ -145,33 +168,21 @@ Completed after the offline/streaming round:
 
 ## Commit state
 
-Commit `125d704` (2026-11-13) contains the offline-cache hardening, the
-service-worker/world-cache tests, the world pack and the M8 street-detailing
-work, and is pushed to `origin/main`.
-
-Uncommitted since that commit:
-
-- `src/styles.css` — fullscreen `.game-canvas` layout and `test/layout.test.ts`
-  guard.
-- `src/render/geo/geometry.ts`, `test/geo.test.ts` — bounded utility-pole pairs,
-  cable spans, street-name boards, roadside shrubs and geometry tests.
-- `public/sw.js`, `vite.config.ts` — build-generated `app-shell.json`,
-  first-load shell precache, unsafe-path filtering, install rejection without a
-  document, build-ID stamping and first-load offline test coverage.
-- `test/serviceWorker.test.ts`, `test/offlineCache.test.ts`,
-  `test/offline.test.ts` — app-shell version/test updates.
-- `docs/world-engine/OFFLINE_WORLD_PACKAGING.md`,
-  `docs/world-engine/PERFORMANCE_BUDGETS.md`,
-  `docs/world-engine/IMPLEMENTATION_PROGRESS.md` and
-  `IMPLEMENTATION_CHECKLIST.md` — this round's documentation and measurements.
+Commit `3b07a69` (2026-11-13) contains the first-load offline shell, fullscreen
+canvas sizing, generated app-shell manifest and the M8 roadside utility
+infrastructure, and is pushed to `origin/main`. The OSM bridge-deck round is
+committed directly after that baseline on `main`; it changes renderer, tests and
+documentation only and leaves the world pack, gameplay IDs and save format
+untouched.
 
 ## Known defects and gaps
 
 1. **Open Buildings not ingested.** The dataset requires a Google export that is
    not in the repository. Exact blocker is in `GEOGRAPHIC_DATA_SOURCES.md`.
 2. **Waterway hydrology is visual only.** Surface heights are inferred from the
-   DEM; there is no flow simulation, flooding, bridges over streams, or channel
-   carving beyond the rendered ribbon.
+   DEM; there is no flow simulation, flooding or channel carving beyond the
+   rendered ribbon. The six OSM bridge ways now get decks and ramps, but bridge
+   hydraulics are not modelled.
 3. **Real-device performance is unmeasured.** The overlay and budgets exist, but
    no low-end Android numbers are recorded. The first probe never received
    renderer metrics because the canvas was collapsed; the CSS fix still needs a
@@ -189,6 +200,10 @@ Uncommitted since that commit:
 8. **The real-browser canvas fix is unconfirmed.** The probe observed the
    300 × 150 canvas and missing metrics, but Chrome could not be foregrounded
    again after the CSS change. No rendered frame or screenshot exists yet.
+9. **Bridge dressing is not fully physical.** The walkable height sampler
+   follows the deck and ramps, but parapets have no collision volumes and there
+   is no fall, underpass or hydraulic model. Bridge decks use a straight grade
+   between endpoints rather than a surveyed bridge profile.
 
 ## Save compatibility
 
@@ -204,10 +219,13 @@ deleted. Procedural fallback remains available through Settings,
    complete the online screenshot, first-load offline reload and Settings
    download/cancel/remove checks.
 2. Record real-device low/mid/high metrics and tune the quality thresholds.
-3. Review the new market clusters, shop boards, vehicles, gutters, pavements and
-   waterway ribbons in the browser, and adjust density/placement after the
-   visual pass.
-4. Run a local cultural review of signage colours and market dressing before
-   treating M8 as complete.
-5. Commit the app-shell/canvas round once the browser checks are recorded or
-   the device limitation is explicitly accepted.
+3. Review the new bridges, market clusters, shop boards, vehicles, gutters,
+   pavements and waterway ribbons in the browser, and adjust density/placement
+   after the visual pass.
+4. Continue unblocked M8 frontage detail: compound walls with gate openings,
+   vendor umbrellas/display tables and balconies, subject to the existing prop
+   budget and collision rules.
+5. Run a local cultural review of signage colours, market dressing and bridge
+   parapets before treating M8 as complete.
+6. The next large product step after M8 is a second geographic district pack;
+   that requires new verified source data and a separate acceptance pass.

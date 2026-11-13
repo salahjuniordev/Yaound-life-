@@ -5,6 +5,7 @@ import type { BuildingGeometry, Heightfield, Poi, WaterFeature, WaterwayFeature,
 import { heightAt } from '../../world/terrain';
 import type { QualityTier } from '../controls';
 import type { CircleObstacle } from './collision';
+import { BRIDGE_DECK_LIFT, BRIDGE_RAMP_LENGTH, bridgeDeckHalfWidth } from './bridges';
 
 type RGB = [number, number, number];
 type Point2 = [number, number];
@@ -293,6 +294,137 @@ function addRoadStrip(
   else builder.quad(pa, pb, pc, pd, color);
 }
 
+function addBridgeRamp(
+  builder: MeshBuilder,
+  hf: Heightfield,
+  ax: number,
+  az: number,
+  bx: number,
+  bz: number,
+  half: number,
+  innerY: number,
+  direction: -1 | 1,
+  color: RGB,
+  concrete: RGB,
+): void {
+  const dx = bx - ax;
+  const dz = bz - az;
+  const length = Math.hypot(dx, dz);
+  if (length < 0.1) return;
+  const ux = dx / length;
+  const uz = dz / length;
+  const innerX = direction < 0 ? ax : bx;
+  const innerZ = direction < 0 ? az : bz;
+  const outerX = innerX + ux * BRIDGE_RAMP_LENGTH * direction;
+  const outerZ = innerZ + uz * BRIDGE_RAMP_LENGTH * direction;
+  const nx = -uz;
+  const nz = ux;
+  const outerY = heightAt(hf, outerX, outerZ) + 0.1;
+
+  const oL: [number, number, number] = [outerX + nx * half, outerY, outerZ + nz * half];
+  const iL: [number, number, number] = [innerX + nx * half, innerY, innerZ + nz * half];
+  const iR: [number, number, number] = [innerX - nx * half, innerY, innerZ - nz * half];
+  const oR: [number, number, number] = [outerX - nx * half, outerY, outerZ - nz * half];
+  if (direction < 0) builder.quad(oL, iL, iR, oR, color);
+  else builder.quad(oR, iR, iL, oL, color);
+
+  const midX = (innerX + outerX) / 2;
+  const midZ = (innerZ + outerZ) / 2;
+  const midY = (innerY + outerY) / 2;
+  const rotY = Math.atan2(-uz, ux);
+  for (const side of [1, -1]) {
+    builder.box(
+      midX + nx * (half - 0.12) * side,
+      midY - 0.26,
+      midZ + nz * (half - 0.12) * side,
+      BRIDGE_RAMP_LENGTH,
+      0.26,
+      0.22,
+      concrete,
+      rotY,
+    );
+  }
+}
+
+function addBridgeDeck(
+  builder: MeshBuilder,
+  hf: Heightfield,
+  road: WorldRoad,
+  ax: number,
+  az: number,
+  bx: number,
+  bz: number,
+  topColor: RGB,
+  major: boolean,
+): void {
+  const dx = bx - ax;
+  const dz = bz - az;
+  const length = Math.hypot(dx, dz);
+  if (length < 0.1) return;
+  const ux = dx / length;
+  const uz = dz / length;
+  const nx = -uz;
+  const nz = ux;
+  const half = bridgeDeckHalfWidth(road);
+  const yA = heightAt(hf, ax, az) + BRIDGE_DECK_LIFT;
+  const yB = heightAt(hf, bx, bz) + BRIDGE_DECK_LIFT;
+
+  const aL: [number, number, number] = [ax + nx * half, yA, az + nz * half];
+  const bL: [number, number, number] = [bx + nx * half, yB, bz + nz * half];
+  const bR: [number, number, number] = [bx - nx * half, yB, bz - nz * half];
+  const aR: [number, number, number] = [ax - nx * half, yA, az - nz * half];
+  builder.quad(aL, bL, bR, aR, topColor);
+
+  const concrete = rgb('#a9a092');
+  const parapet = rgb('#c4bcad');
+  const cap = rgb('#d8d1c3');
+  const marker = rgb('#e8c34a');
+  const midX = (ax + bx) / 2;
+  const midZ = (az + bz) / 2;
+  const midY = (yA + yB) / 2;
+  const rotY = Math.atan2(-uz, ux);
+
+  // Deck fascia and concrete parapets. The cap gives the bridge a readable
+  // silhouette from the sidewalk without adding many triangles.
+  for (const side of [1, -1]) {
+    const ox = nx * (half - 0.14) * side;
+    const oz = nz * (half - 0.14) * side;
+    builder.box(midX + ox, midY - 0.38, midZ + oz, length, 0.38, 0.26, concrete, rotY);
+    builder.box(midX + ox, midY, midZ + oz, length, 0.86, 0.22, parapet, rotY);
+    builder.box(midX + ox, midY + 0.86, midZ + oz, length, 0.08, 0.32, cap, rotY);
+  }
+
+  // Abutments hide the step where the raised deck meets the approach ramp.
+  for (const [ex, ez, ey] of [
+    [ax, az, yA],
+    [bx, bz, yB],
+  ] as Array<[number, number, number]>) {
+    builder.box(ex, ey - 0.95, ez, half * 2, 0.95, 0.62, concrete, rotY);
+  }
+
+  addBridgeRamp(builder, hf, ax, az, bx, bz, half, yA, -1, topColor, concrete);
+  addBridgeRamp(builder, hf, ax, az, bx, bz, half, yB, 1, topColor, concrete);
+
+  if (major && length >= 4) {
+    const t0 = 0.12;
+    const t1 = 0.88;
+    const p0x = ax + dx * t0;
+    const p0z = az + dz * t0;
+    const p1x = ax + dx * t1;
+    const p1z = az + dz * t1;
+    const y0 = yA + (yB - yA) * t0 + 0.012;
+    const y1 = yA + (yB - yA) * t1 + 0.012;
+    const lineHalf = 0.075;
+    builder.quad(
+      [p0x + nx * lineHalf, y0, p0z + nz * lineHalf],
+      [p1x + nx * lineHalf, y1, p1z + nz * lineHalf],
+      [p1x - nx * lineHalf, y1, p1z - nz * lineHalf],
+      [p0x - nx * lineHalf, y0, p0z - nz * lineHalf],
+      marker,
+    );
+  }
+}
+
 export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: QualityTier): THREE.BufferGeometry | null {
   const builder = new MeshBuilder();
   const asphalt = rgb('#4d4c50');
@@ -317,6 +449,7 @@ export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: 
       const dz = bz - az;
       const len = Math.hypot(dx, dz);
       if (len < 0.1) continue;
+      if (road.bridge) addBridgeDeck(builder, hf, road, ax, az, bx, bz, baseColor, major);
       if (walk) {
         addRoadQuad(builder, hf, ax, az, bx, bz, half, 0.075, path);
         continue;

@@ -16,6 +16,7 @@ import {
   chooseVehicle,
 } from '../src/render/geo/geometry.ts';
 import { createGeoAdapter } from '../src/render/geo/adapter.ts';
+import { BRIDGE_DECK_LIFT, bridgeDeckHalfWidth, bridgeSurfaceAt } from '../src/render/geo/bridges.ts';
 
 function flatField(): Heightfield {
   const heights = new Float32Array(9);
@@ -96,6 +97,61 @@ test('geo road geometry creates a surface above terrain', () => {
   assert.ok(pos.count > 0);
   for (let i = 0; i < pos.count; i++) assert.ok(pos.getY(i) >= 0);
   geo!.dispose();
+});
+
+test('geo road geometry raises OSM bridge decks and adds parapets', () => {
+  const hf = flatField();
+  const points: Array<[number, number]> = [
+    [0, -10],
+    [18, -10],
+  ];
+  const normal = buildRoadGeometry([road({ id: 'normal', points, roadClass: 'secondary' })], hf, 'mid');
+  const bridge = buildRoadGeometry([road({ id: 'bridge', points, roadClass: 'secondary', bridge: true })], hf, 'mid');
+  assert.ok(normal && bridge);
+  const normalPositions = normal!.attributes.position as THREE.BufferAttribute;
+  const bridgePositions = bridge!.attributes.position as THREE.BufferAttribute;
+  assert.ok(bridgePositions.count > normalPositions.count);
+
+  let normalMaxY = 0;
+  for (let i = 0; i < normalPositions.count; i++) normalMaxY = Math.max(normalMaxY, normalPositions.getY(i));
+  let bridgeMaxY = 0;
+  let deckTop = false;
+  for (let i = 0; i < bridgePositions.count; i++) {
+    const y = bridgePositions.getY(i);
+    bridgeMaxY = Math.max(bridgeMaxY, y);
+    if (Math.abs(y - (BRIDGE_DECK_LIFT + 0.012)) < 0.02) deckTop = true;
+  }
+  assert.ok(bridgeMaxY > normalMaxY + 0.6);
+  assert.ok(deckTop, 'bridge should have a raised deck surface');
+  normal!.dispose();
+  bridge!.dispose();
+});
+
+test('bridge surface sampler follows the deck and approach ramps', () => {
+  const bridge = road({
+    id: 'bridge-sampler',
+    bridge: true,
+    points: [
+      [0, -10],
+      [18, -10],
+    ],
+  });
+  const base = () => 2;
+  assert.equal(bridgeDeckHalfWidth(bridge), bridge.width / 2 + 2.05);
+  assert.equal(
+    bridgeDeckHalfWidth(road({ roadClass: 'footway', width: 2.2 })),
+    2.2 / 2 + 0.85,
+  );
+  const deck = bridgeSurfaceAt([bridge], 9, -10, base);
+  assert.ok(deck !== null);
+  assert.ok(Math.abs(deck! - (2 + BRIDGE_DECK_LIFT)) < 1e-9);
+  const graded = bridgeSurfaceAt([bridge], 9, -10, (x) => (x <= 0 ? 10 : x >= 18 ? 12 : 11));
+  assert.ok(graded !== null && Math.abs(graded - (11 + BRIDGE_DECK_LIFT)) < 1e-9);
+  assert.equal(bridgeSurfaceAt([bridge], 9, -2, base), null);
+  const ramp = bridgeSurfaceAt([bridge], -1, -10, base);
+  assert.ok(ramp !== null && ramp > 2 && ramp < 2 + BRIDGE_DECK_LIFT);
+  assert.equal(bridgeSurfaceAt([bridge], -4, -10, base), null);
+  assert.equal(bridgeSurfaceAt([road({ bridge: false })], 9, -10, base), null);
 });
 
 test('geo building geometry builds walls and a roof from a footprint', () => {

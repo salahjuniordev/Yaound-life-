@@ -7,10 +7,10 @@ are instrumented, but real-device measurements are still pending.
 
 | Check | Budget | Current |
 | --- | --- | --- |
-| JS total (gzip) | 620 KB | 572,013 B |
+| JS total (gzip) | 620 KB | 572,922 B |
 | CSS total (gzip) | 24 KB | 8,625 B |
-| HTML total (gzip) | 5 KB | 1,817 B |
-| First load JS+CSS+HTML (gzip) | 1 MB | 582,455 B |
+| HTML total (gzip) | 5 KB | 1,814 B |
+| First load JS+CSS+HTML (gzip) | 1 MB | 583,361 B |
 | World assets raw | 12 MB | 5,402,073 B |
 | World assets gzip | 6 MB | 853,458 B |
 
@@ -39,6 +39,9 @@ the keep radius are evicted first; the LRU never evicts an in-flight load.
 - Road drainage gutters, curbs and pavements are part of the road mesh, so they
   scale with road length rather than prop budget; quality only changes disk
   segment counts.
+- Bridge decks, parapets, abutments and ramps are part of the road mesh for the
+  six OSM bridge ways; they do not consume the prop budget. The shared height
+  sampler loops over those six ways per terrain query, not all 426 roads.
 - Terrain meshes always use the fine 8 m heightfield; quality changes props,
   shadows and draw distance.
 - Data saver lowers quality and crowd density where supported.

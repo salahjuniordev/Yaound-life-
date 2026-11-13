@@ -29,7 +29,8 @@ interpolate the four surrounding samples
 
 The player, props and buildings use the fine chunk field when loaded, falling
 back to the coarse global field. Chunk edges share identical samples because all
-fields come from the same global field (tested).
+fields come from the same global field (tested). Tagged bridge corridors override
+the base terrain query with a raised deck/ramp profile (see Rendering).
 
 ## Rendering
 
@@ -40,6 +41,11 @@ fields come from the same global field (tested).
   minimum terrain edge to avoid z-fighting.
 - Waterway ribbons are rendered slightly above their per-point DEM surface so
   streams remain visible without carving the terrain.
+- Six OSM `bridge` ways get a raised deck 0.3 m above the endpoint grade, side
+  fascia, concrete parapets, end abutments, 2.4 m approach ramps and a centre
+  marking on major roads. A shared sampler in `src/render/geo/bridges.ts` gives
+  the player, crowd and camera the deck/ramp height instead of the terrain
+  beneath the bridge.
 - No runtime terrain deformation; the world is static.
 
 ## Vertical scale
@@ -55,12 +61,16 @@ generation; do not hard-code 713.3 in runtime code.
   same offset.
 - 35 OSM waterway lines (5 rivers, 29 streams, 1 drain; 5,868 m) are rendered as
   narrow ribbons. Each point stores a DEM-derived surface height and the
-  renderer lifts the ribbon 0.12 m above it. There is no flow simulation,
-  channel carving or separate bridge geometry.
+  renderer lifts the ribbon 0.12 m above it. There is no flow simulation or
+  channel carving. The six tagged bridges are separate deck structures, not
+  hydraulic crossings.
 
 ## Known limits
 
 - GLO-30 is ~30 m source data; 8 m sampling does not add real detail.
 - Smoothing removes small terrain features and is not hydrologically exact.
 - Buildings are grounded to terrain but not cut into slopes.
+- Bridge decks use a straight grade between endpoint samples; there is no
+  surveyed bridge profile, hydraulic clearance, underpass traversal or fall
+  model, and parapets have no collision volumes.
 - No erosion, vegetation masks or seasonal water changes.

@@ -11,7 +11,7 @@ Last updated: 2026-11-13
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, build-generated app-shell precache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 211/211 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 213/213 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -32,6 +32,7 @@ Last updated: 2026-11-13
 - [~] Geographic gameplay parity: Nlongkak places/NPCs are mapped onto real roads as designed content; taxi/travel uses legacy district worlds for other areas
 - [ ] Real-device performance and local cultural/geographic review for the Nlongkak slice
 - [x] Water-line streams: 35 real OSM waterway centrelines (5 rivers, 29 streams, 1 drain; ~5.9 km) rendered as DEM-following ribbons with provenance, validation and offline-catalog entries
+- [x] OSM bridges: all six `bridge`-tagged ways in Nlongkak get a raised deck, fascia, concrete parapets, abutments, approach ramps and major-road centre markings; a shared sampler makes the deck/ramp height walkable for the player, crowd and camera
 - [x] M8 street dressing: real `marketplace`/`mall` POIs seed market-stall clusters and produce mats, commercial frontages get painted shop boards/blade signs, vehicles mix taxis/cars/minibuses/trucks/motos, vehicle roads gain gutters, curbs and major-road pavements, and the longest vehicle roads get bounded utility-pole pairs, cable spans, street-name boards and roadside shrubs
 - [ ] Richer landmarks, and district boundary packs beyond Nlongkak
 
@@ -43,7 +44,7 @@ Last updated: 2026-11-13
 - [~] Sim runs on main thread inside rAF (PRD suggests Web Worker) — acceptable for v1, worker split pending
 - [x] Quality tiers low/mid/high with settings override (`src/render/controls.ts`)
 - [x] GPU benchmark auto-detect (1.2s FPS probe + memory/cores/saveData/battery signals, `src/render/perf.ts`), first-run apply, "Detect now", battery/data-saver auto mode
-- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently ~572.0 KB JS)
+- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently ~572.9 KB JS)
 
 ## Characters & assets status (concept references)
 - [x] Real 3D, playable: Amina, Brice, Marie presets via the modular part builder (`src/render/characters.ts`) — editable in the creator, never shown as billboards
@@ -151,7 +152,7 @@ Last updated: 2026-11-13
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 211 tests
+npm test                 # node --test, 213 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -164,6 +165,7 @@ npm run world:validate   # validate manifest, hashes, chunk payloads
 ```
 
 ## Changelog
+- 2026-11-13: OSM bridge decks — the six `bridge`-tagged ways in the Nlongkak pack now render a raised deck, side fascia, concrete parapets, abutments, 2.4 m approach ramps and major-road centre markings. A shared `bridgeSurfaceAt` sampler lifts the player/crowd/camera height by 0.3 m across the deck and blends back down through the ramps; geometry stays in the road mesh rather than the prop budget. Added geometry and sampler tests. Typecheck clean, 213/213 tests pass, build and size budgets pass (JS 572,922 B gzip, first load 583,361 B), `world:validate` passes. Bridge parapets remain visual-only and the real-browser pass is still pending.
 - 2026-11-13: M8 roadside utility infrastructure — the longest vehicle roads in each chunk now receive bounded utility-pole pairs (1/2/3 pairs for low/mid/high), three sagging cable spans, street-name boards and a low-shrub pass. Placement is deterministic, respects building clearance and the existing prop budget, and adds pole obstacles for collision; `PropBuild.counts` exposes utility/sign/bush counts and `test/geo.test.ts` covers the geometry. Typecheck clean, 211/211 tests pass, build and size budgets pass (JS 572,013 B gzip, first load 582,455 B), `world:validate` passes.
 - 2026-11-13: First-load app shell and canvas layout — a real Chrome/Android probe reached the Nlongkak HUD but exposed a 300 × 150 renderer canvas and an install cache containing only fonts/icons. Added a fullscreen `.game-canvas` rule and layout guard; added a build-generated `app-shell.json` (16 entries) so the worker precaches HTML, hashed JS/CSS, manifest, fonts and icons; unsafe paths are ignored, install fails without a cached HTML document, and a content build ID is stamped into `dist/sw.js` so shell changes invalidate the app cache. Added first-load offline boot, generated-shell and install-rejection tests. Typecheck clean, 210/210 tests pass, build and size budgets pass (JS 571,084 B gzip, first load 581,524 B), `world:validate` passes. Android blocked a second browser foreground pass, so the canvas fix, real offline reload, device metrics and visual review remain unconfirmed.
 - 2026-11-13: Offline cache hardening and tests — added `test/serviceWorker.test.ts` exercising the real `public/sw.js` lifecycle with an in-memory Cache Storage, and `test/offlineCache.test.ts` covering download/resume, byte progress, quota rejection, HTTP failures, abort, catalog errors and cache cleanup. Fixed stale active-world-version selection with a 60-second manifest TTL, activation reset and a `world-cache-updated` message posted by Settings after download/removal. Typecheck clean, 205/205 tests pass, build and all size budgets pass (JS 570,748 B gzip, first load 581,184 B), `world:validate` passes. Real-browser offline pass still pending.
