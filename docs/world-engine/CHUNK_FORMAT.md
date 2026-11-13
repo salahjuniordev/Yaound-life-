@@ -95,9 +95,14 @@ Each chunk build decodes data once and creates:
 - road ribbons from clipped polylines, including shoulders, drainage gutters,
   curbs and major-road pavements;
 - near building geometry (windows, doors, awnings, shop boards, roof details,
-  props) and a far massing mesh;
-- street props (trees, lamps, stalls, benches, mixed vehicles) seeded by chunk
-  id, with market stalls clustered around real market POIs.
+  capped upper-floor balconies, props) and a far massing mesh;
+- street props (trees, lamps, stalls, benches, mixed vehicles, vendor umbrellas,
+  display tables) seeded by chunk id, with market stalls clustered around real
+  market POIs;
+- a capped compound-wall pass around selected small houses, with a road-facing
+  gate opening, piers and a partly open leaf; candidates are checked against
+  buildings, roads and existing props before geometry is emitted. Compound
+  walls/gates and balconies are visual-only and add no collision volumes.
 
 Global waterway ribbons are built once from `water/waterways.json` and follow
 their per-point DEM-derived levels. Quality changes remount the geo scene; low

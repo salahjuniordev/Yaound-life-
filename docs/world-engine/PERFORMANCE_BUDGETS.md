@@ -7,10 +7,10 @@ are instrumented, but real-device measurements are still pending.
 
 | Check | Budget | Current |
 | --- | --- | --- |
-| JS total (gzip) | 620 KB | 572,922 B |
+| JS total (gzip) | 620 KB | 575,052 B |
 | CSS total (gzip) | 24 KB | 8,625 B |
-| HTML total (gzip) | 5 KB | 1,814 B |
-| First load JS+CSS+HTML (gzip) | 1 MB | 583,361 B |
+| HTML total (gzip) | 5 KB | 1,813 B |
+| First load JS+CSS+HTML (gzip) | 1 MB | 585,490 B |
 | World assets raw | 12 MB | 5,402,073 B |
 | World assets gzip | 6 MB | 853,458 B |
 
@@ -36,12 +36,24 @@ the keep radius are evicted first; the LRU never evicts an in-flight load.
   street signs, shrubs) are culled beyond roughly 760 m. Market clusters and
   utility pairs are capped by the same per-chunk prop budget (1/2/3 pole pairs
   for low/mid/high).
+- Frontage detail is split between the existing near meshes and is capped per
+  chunk: compound wall assemblies are 0/4/8 and upper-floor balconies are
+  0/5/10 for low/mid/high. Compound candidates are limited to small houses with
+  4–8 footprint vertices and 70–420 m² area; a gate opening faces the nearest
+  road. Walls, gate piers and leaves are visual-only and do not add collision
+  volumes. Vendor umbrellas/display tables are 2 per market cluster and one
+  possible roadside stand per sampled road point, all inside the normal prop
+  budget.
 - Road drainage gutters, curbs and pavements are part of the road mesh, so they
   scale with road length rather than prop budget; quality only changes disk
   segment counts.
 - Bridge decks, parapets, abutments and ramps are part of the road mesh for the
   six OSM bridge ways; they do not consume the prop budget. The shared height
   sampler loops over those six ways per terrain query, not all 426 roads.
+- A scripted high-quality pass over the 16-chunk pack measured 619,456 building
+  triangles after this detail (606,016 before, +13,440 or 2.2%) and 96,788 prop
+  triangles, with 128 compounds/gates and 75 vendor stands/tables. These are
+  geometry counts, not rendered frame measurements.
 - Terrain meshes always use the fine 8 m heightfield; quality changes props,
   shadows and draw distance.
 - Data saver lowers quality and crowd density where supported.

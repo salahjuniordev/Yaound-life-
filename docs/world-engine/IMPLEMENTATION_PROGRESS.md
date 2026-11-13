@@ -14,7 +14,7 @@ Last updated: 2026-11-13
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, versioned world caches, Settings download UI, progress/quota/cancel, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | District adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
-| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, architecture, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
+| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, architecture, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
 
 ## Current pack
 
@@ -40,13 +40,45 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 213 pass, 0 fail.
+- `npm test`: 215 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 572,922 B gzip, CSS 8,625 B, HTML 1,814 B,
-  first load 583,361 B, world raw 5,402,073 B, world gzip 853,458 B.
+- `size`: all budgets pass — JS 575,052 B gzip, CSS 8,625 B, HTML 1,813 B,
+  first load 585,490 B, world raw 5,402,073 B, world gzip 853,458 B.
 - `world:validate`: pass.
 
-## Latest round: OSM bridge decks and walkable bridge heights
+## Latest round: M8 compound walls, balconies and vendor umbrellas
+
+This round completes the remaining procedural frontage detail requested by the
+master brief, without regenerating the world pack:
+
+- The near building mesh now adds deterministic upper-floor balconies on a
+  capped set of eligible two-storey-plus houses, shops, offices, public
+  buildings and apartments. Each balcony has a slab, front and side rails,
+  handrail and two support brackets. Caps are 10/5/0 per high/mid/low chunk.
+- The near prop mesh now adds compound walls around selected small houses. Each
+  wall follows the building footprint at a 1.05 m offset, leaves a gate opening
+  on the edge nearest a road, and adds concrete gate piers, a partly open metal
+  gate leaf and a pale wall cap. Candidates are checked against building
+  footprints, roads and existing prop obstacles before any geometry is emitted.
+  Caps are 8/4/0 compounds per high/mid/low chunk.
+- Market POIs now place up to two vendor umbrellas with display tables, produce
+  boxes and a central pole in their cluster. Roadside vendor stands reuse the
+  same builder within the existing prop budget. `PropBuild.counts` exposes
+  `compoundWalls`, `compoundGates`, `vendorUmbrellas` and `displayTables`.
+- A scripted geometry pass over the actual 16-chunk pack using the decode path
+  and a flat test heightfield produced 128 compound walls/gates, 75 vendor
+  stands/tables and 619,456 building triangles at high quality. The same
+  measurement before this round was 606,016 building triangles, so the added
+  building detail is about 13.4 k triangles (2.2%).
+- Added `test/geo.test.ts` coverage for deterministic balcony geometry, the
+  compound-wall cap and gate counts, low-tier exclusion, and market vendor
+  umbrellas/display tables.
+- No world-pack files, gameplay IDs or save data changed. Compound walls and
+  gates are visual-only: there are no collision volumes yet, and balconies are
+  facade geometry rather than enterable floors. No real-browser visual check
+  was performed for this round.
+
+## Previous round: OSM bridge decks and walkable bridge heights
 
 The Nlongkak pack contains six OSM ways tagged `bridge` (five crossings near
 the Mfoundi and one secondary crossing over a separate stream). The renderer
@@ -70,7 +102,7 @@ ribbons.
   deck uses a straight grade between bridge endpoints. It has not been checked
   in a real browser.
 
-## Previous round: app shell, canvas sizing and roadside infrastructure
+## Earlier round: app shell, canvas sizing and roadside infrastructure
 
 A real Chrome 158 / Android 10 probe reached the Nlongkak HUD, requested
 geographic chunks and advanced the game clock. It also exposed two issues that
@@ -111,7 +143,7 @@ injection is unavailable. Real-browser offline reload, settings download/
 cancel/remove behavior, device metrics, screenshots and visual/cultural review
 therefore remain **unperformed**, not merely unrecorded.
 
-## Previous round: offline cache hardening and automated tests
+## Earlier round: offline cache hardening and automated tests
 
 Completed after the M8 round:
 
@@ -133,7 +165,7 @@ Completed after the M8 round:
 - Typecheck clean, 205/205 tests pass, build and all size budgets pass,
   `world:validate` passes.
 
-## Previous round: M8 street and market detailing
+## Earlier round: M8 street and market detailing
 
 Completed after the waterway round:
 
@@ -150,7 +182,7 @@ Completed after the waterway round:
 - Added geometry tests for market clustering, signage, drainage/pavements and
   vehicle selection.
 
-## Previous round: waterway lines and stable streaming
+## Earlier round: waterway lines and stable streaming
 
 Completed after the offline/streaming round:
 
@@ -171,10 +203,10 @@ Completed after the offline/streaming round:
 
 Commit `3b07a69` (2026-11-13) contains the first-load offline shell, fullscreen
 canvas sizing, generated app-shell manifest and the M8 roadside utility
-infrastructure, and is pushed to `origin/main`. The OSM bridge-deck round is
-committed directly after that baseline on `main`; it changes renderer, tests and
-documentation only and leaves the world pack, gameplay IDs and save format
-untouched.
+infrastructure, and is pushed to `origin/main`. The OSM bridge-deck round and
+this M8 frontage round are committed directly after that baseline on `main`;
+they change renderer, tests and documentation only and leave the world pack,
+gameplay IDs and save format untouched.
 
 ## Known defects and gaps
 
@@ -190,8 +222,9 @@ untouched.
    real render to confirm it.
 4. **Only Nlongkak is geographic.** The other eight districts remain procedural.
 5. **M8 visual variety still needs human review.** Market stalls, signage,
-   vehicles and street drainage are now present, but their placement and
-   cultural fit have not been reviewed in a browser or by local reviewers.
+   vehicles, street drainage, compound walls, balconies and vendor umbrellas are
+   now present, but their placement and cultural fit have not been reviewed in a
+   browser or by local reviewers.
 6. **Offline browser behavior is only unit-tested.** The first-load shell gap
    was found in a real cache audit and fixed, but a real install-then-offline
    reload, Settings download/cancel/remove flow, persistent-storage prompt and
@@ -205,6 +238,10 @@ untouched.
    follows the deck and ramps, but parapets have no collision volumes and there
    is no fall, underpass or hydraulic model. Bridge decks use a straight grade
    between endpoints rather than a surveyed bridge profile.
+10. **Compound walls and balconies are visual only.** Compound wall panels and
+    gate leaves have no collision volumes, and balconies are facade geometry
+    rather than enterable floors. Both are capped LOD accents; vendor stands use
+    the existing circle-obstacle approximation.
 
 ## Save compatibility
 
@@ -221,12 +258,9 @@ deleted. Procedural fallback remains available through Settings,
    download/cancel/remove checks.
 2. Record real-device low/mid/high metrics and tune the quality thresholds.
 3. Review the new bridges, market clusters, shop boards, vehicles, gutters,
-   pavements and waterway ribbons in the browser, and adjust density/placement
-   after the visual pass.
-4. Continue unblocked M8 frontage detail: compound walls with gate openings,
-   vendor umbrellas/display tables and balconies, subject to the existing prop
-   budget and collision rules.
-5. Run a local cultural review of signage colours, market dressing and bridge
-   parapets before treating M8 as complete.
-6. The next large product step after M8 is a second geographic district pack;
+   pavements, compound walls, balconies, vendor umbrellas and waterway ribbons
+   in the browser, and adjust density/placement after the visual pass.
+4. Run a local cultural review of signage colours, market dressing, compound
+   gate treatments and bridge parapets before treating M8 as complete.
+5. The next large product step after M8 is a second geographic district pack;
    that requires new verified source data and a separate acceptance pass.

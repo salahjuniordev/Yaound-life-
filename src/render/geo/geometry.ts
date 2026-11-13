@@ -10,6 +10,14 @@ import { BRIDGE_DECK_LIFT, BRIDGE_RAMP_LENGTH, bridgeDeckHalfWidth } from './bri
 type RGB = [number, number, number];
 type Point2 = [number, number];
 
+/**
+ * Per-chunk caps for detail that is added to the near building/prop meshes.
+ * These are deliberately small: they are accents, not a second city layer.
+ */
+export const BALCONY_LIMITS: Record<QualityTier, number> = { low: 0, mid: 5, high: 10 };
+export const COMPOUND_WALL_LIMITS: Record<QualityTier, number> = { low: 0, mid: 4, high: 8 };
+export const VENDOR_STANDS_PER_MARKET = 2;
+
 const colorCache = new Map<string, RGB>();
 
 function rgb(hex: string): RGB {
@@ -549,6 +557,62 @@ function outwardNormal(a: Point2, b: Point2, cx: number, cz: number): Point2 {
   return nx * mx + nz * mz >= 0 ? [nx, nz] : [-nx, -nz];
 }
 
+/**
+ * One upper-floor balcony on a building frontage. The slab sits just outside
+ * the wall and the rail is made from four boxes, so the cost is fixed and the
+ * result reads at street level without adding a separate draw call.
+ */
+function addBalcony(
+  builder: MeshBuilder,
+  a: Point2,
+  b: Point2,
+  nx: number,
+  nz: number,
+  edgeLength: number,
+  baseY: number,
+  topY: number,
+  floors: number,
+  id: string,
+): void {
+  if (floors < 2 || edgeLength < 4) return;
+  const width = Math.max(1.8, Math.min(2.8, edgeLength * 0.34));
+  const maxStart = edgeLength - width - 0.4;
+  if (maxStart < 0.4) return;
+  const t = 0.5 + (seededUnit(id, 311) - 0.5) * 0.24;
+  const start = Math.max(0.4, Math.min(maxStart, t * edgeLength - width / 2));
+  const maxFloor = Math.max(1, Math.min(floors - 1, 3));
+  const floor = maxFloor > 1 && seededUnit(id, 313) > 0.65 ? 2 : 1;
+  const slabBase = baseY + 1.25 + floor * 3.05;
+  if (slabBase + 2.0 > topY - 0.25) return;
+
+  const dx = (b[0] - a[0]) / edgeLength;
+  const dz = (b[1] - a[1]) / edgeLength;
+  const mx = a[0] + dx * (start + width / 2);
+  const mz = a[1] + dz * (start + width / 2);
+  const rotY = Math.atan2(-dz, dx);
+  const slab = rgb('#b7ad9d');
+  const rail = rgb(['#3f4f47', '#4c5a4f', '#5a4a3f'][hashString(id) % 3]);
+  const railBase = slabBase + 0.14;
+
+  builder.box(mx + nx * 0.55, slabBase, mz + nz * 0.55, width, 0.14, 1.1, slab, rotY);
+  builder.box(mx + nx * 1.04, railBase, mz + nz * 1.04, width, 0.78, 0.06, rail, rotY);
+  builder.box(mx + nx * 1.01, railBase + 0.74, mz + nz * 1.01, width, 0.06, 0.1, rail, rotY);
+  for (const edgeT of [start, start + width]) {
+    const sideX = a[0] + dx * edgeT + nx * 0.55;
+    const sideZ = a[1] + dz * edgeT + nz * 0.55;
+    builder.box(sideX, railBase, sideZ, 1.0, 0.78, 0.06, rail, rotY + Math.PI / 2);
+  }
+
+  // A pair of short brackets makes the slab look supported without a full
+  // column or an extra material.
+  const bracket = rgb('#857b6d');
+  for (const edgeT of [start + 0.28, start + width - 0.28]) {
+    const bracketX = a[0] + dx * edgeT + nx * 0.38;
+    const bracketZ = a[1] + dz * edgeT + nz * 0.38;
+    builder.box(bracketX, slabBase - 0.4, bracketZ, 0.12, 0.42, 0.62, bracket, rotY);
+  }
+}
+
 export function buildBuildingGeometry(
   buildings: BuildingGeometry[],
   decoded: DecodedBuilding[],
@@ -557,10 +621,28 @@ export function buildBuildingGeometry(
 ): THREE.BufferGeometry | null {
   const builder = new MeshBuilder();
   const near = quality !== 'low';
+  const balconyLimit = BALCONY_LIMITS[quality];
+  const balconyIndices = new Set<number>();
+  if (near && balconyLimit > 0) {
+    const candidates: Array<{ index: number; score: number }> = [];
+    for (let index = 0; index < buildings.length; index++) {
+      const building = buildings[index];
+      if (building.ring.length < 4) continue;
+      if (!['small_house', 'large_house', 'apartment', 'office', 'shop', 'restaurant', 'public'].includes(building.meta.classification)) continue;
+      const area = polygonArea(building.ring);
+      if (area < 60 || area > 900) continue;
+      const floors = Math.max(1, Math.min(12, Math.round(building.meta.height / 3.1)));
+      if (floors < 2 || building.meta.height < 5.4) continue;
+      candidates.push({ index, score: seededUnit(building.meta.id, 309) });
+    }
+    candidates.sort((a, b) => a.score - b.score || a.index - b.index);
+    for (const candidate of candidates.slice(0, balconyLimit)) balconyIndices.add(candidate.index);
+  }
   for (let index = 0; index < buildings.length; index++) {
     const building = buildings[index];
     const visual = decoded[index];
     if (!visual || building.ring.length < 3) continue;
+    const addBalconyHere = balconyIndices.has(index);
     const ring = building.ring;
     const [cx, cz] = polygonCentroid(ring);
     let minY = Infinity;
@@ -675,6 +757,9 @@ export function buildBuildingGeometry(
           const awz = a[1] + dz * start + nz * 0.85;
           builder.box(awx, signBottom - 0.4, awz, 2.4, 0.12, 1.4, awningColor, rotY);
         }
+      }
+      if (addBalconyHere && i === shopEdge) {
+        addBalcony(builder, a, b, nx, nz, edgeLength, baseY, topY, floors, building.meta.id);
       }
     }
     const isHouse = building.meta.classification === 'small_house' || building.meta.classification === 'large_house';
@@ -794,6 +879,10 @@ export interface PropBuild {
     utilityWires: number;
     streetSigns: number;
     bushes: number;
+    compoundWalls: number;
+    compoundGates: number;
+    vendorUmbrellas: number;
+    displayTables: number;
   };
 }
 
@@ -823,7 +912,16 @@ export function buildPropsGeometry(
 ): PropBuild {
   const builder = new MeshBuilder();
   const obstacles: CircleObstacle[] = [];
-  const counts = { utilityPoles: 0, utilityWires: 0, streetSigns: 0, bushes: 0 };
+  const counts = {
+    utilityPoles: 0,
+    utilityWires: 0,
+    streetSigns: 0,
+    bushes: 0,
+    compoundWalls: 0,
+    compoundGates: 0,
+    vendorUmbrellas: 0,
+    displayTables: 0,
+  };
   const rings = buildings.map((b) => b.ring);
   const rng = rngFrom(hashString(chunkId));
   const limit = quality === 'low' ? 24 : quality === 'mid' ? 46 : 76;
@@ -903,6 +1001,35 @@ export function buildPropsGeometry(
     builder.box(basketX, y + 0.92, basketZ, 0.45, 0.24, 0.4, rgb('#7d9a55'), rotY);
     obstacles.push({ x, z, r: 1.0 });
     count++;
+    return true;
+  };
+  const addVendorStand = (x: number, z: number, rotY = 0, clothColor?: RGB): boolean => {
+    if (count >= limit) return false;
+    if (isBlocked(x, z, rings, 0.9) || nearRoad(x, z, 0.7)) return false;
+    const y = heightAt(hf, x, z);
+    const cloth = clothColor ?? rgb(fabric[Math.floor(rng() * fabric.length)]);
+    const wood = rgb('#8a6b48');
+    const produce = [rgb('#c9a24a'), rgb('#8aa25c'), rgb('#b2543f')];
+    const cos = Math.cos(rotY);
+    const sin = Math.sin(rotY);
+    const at = (lx: number, lz: number): Point2 => [x + lx * cos + lz * sin, z - lx * sin + lz * cos];
+
+    builder.box(x, y + 0.78, z, 1.5, 0.1, 0.85, wood, rotY);
+    for (const [ox, oz] of [[-0.62, -0.3], [0.62, -0.3], [-0.62, 0.3], [0.62, 0.3]] as Point2[]) {
+      const [px, pz] = at(ox, oz);
+      builder.box(px, y, pz, 0.08, 0.78, 0.08, pole);
+    }
+    builder.cylinder(x, y, z, 0.05, 2.05, pole, 5);
+    builder.cone(x, y + 2.0, z, 1.35, 0.5, cloth, 8);
+    builder.ring(x, y + 2.0, z, 1.27, 1.38, cloth, 8);
+    for (const [lx, lz] of [[-0.4, 0.05], [0.15, -0.1], [0.48, 0.18]] as Point2[]) {
+      const [px, pz] = at(lx, lz);
+      builder.box(px, y + 0.88, pz, 0.28, 0.22, 0.3, produce[Math.floor(rng() * produce.length)], rotY);
+    }
+    obstacles.push({ x, z, r: 0.8 });
+    count++;
+    counts.vendorUmbrellas++;
+    counts.displayTables++;
     return true;
   };
   const addVehicle = (x: number, z: number, rotY: number, kind: VehicleKind) => {
@@ -986,6 +1113,15 @@ export function buildPropsGeometry(
         if (addStall(x, z, angle + Math.PI / 2, cloths[Math.floor(seed() * cloths.length)])) break;
       }
     }
+    for (let i = 0; i < VENDOR_STANDS_PER_MARKET; i++) {
+      for (let attempt = 0; attempt < 6; attempt++) {
+        const angle = seed() * Math.PI * 2;
+        const radius = 3.8 + seed() * 2.4;
+        const x = px + Math.cos(angle) * radius;
+        const z = pz + Math.sin(angle) * radius;
+        if (addVendorStand(x, z, angle + Math.PI / 2, cloths[Math.floor(seed() * cloths.length)])) break;
+      }
+    }
     // A central produce mat and a market board anchor the cluster.
     const y = heightAt(hf, px, pz);
     if (!isBlocked(px, pz, rings, 0.9)) {
@@ -1027,6 +1163,137 @@ export function buildPropsGeometry(
     obstacles.push({ x, z, r: 0.45 });
     count++;
     counts.bushes++;
+  };
+  const nearestRoadDistance = (x: number, z: number): number => {
+    let best = Infinity;
+    for (const road of roads) {
+      if (road.tunnel || road.points.length < 2) continue;
+      for (let i = 0; i < road.points.length - 1; i++) {
+        const [ax, az] = road.points[i];
+        const [bx, bz] = road.points[i + 1];
+        const dx = bx - ax;
+        const dz = bz - az;
+        const len2 = dx * dx + dz * dz;
+        const t = len2 > 1e-9 ? Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / len2)) : 0;
+        const d = Math.hypot(x - (ax + dx * t), z - (az + dz * t));
+        if (d < best) best = d;
+      }
+    }
+    return best;
+  };
+  const isCompoundCandidate = (building: BuildingGeometry): boolean => {
+    if (building.meta.classification !== 'small_house' && building.meta.classification !== 'large_house') return false;
+    if (building.ring.length < 4 || building.ring.length > 8) return false;
+    const area = polygonArea(building.ring);
+    return area >= 70 && area <= 420 && building.meta.height >= 2.8;
+  };
+  const addCompoundWalls = (building: BuildingGeometry): boolean => {
+    const ring = building.ring;
+    if (!isCompoundCandidate(building)) return false;
+    const [cx, cz] = polygonCentroid(ring);
+    const offsetPoints = offsetRing(ring, 1.05);
+    if (offsetPoints.length < 4) return false;
+
+    let gateEdge = 0;
+    let gateDistance = Infinity;
+    for (let i = 0; i < offsetPoints.length; i++) {
+      const a = offsetPoints[i];
+      const b = offsetPoints[(i + 1) % offsetPoints.length];
+      const distance = nearestRoadDistance((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+      if (distance < gateDistance) {
+        gateDistance = distance;
+        gateEdge = i;
+      }
+    }
+
+    const gateA = offsetPoints[gateEdge];
+    const gateB = offsetPoints[(gateEdge + 1) % offsetPoints.length];
+    const gateLength = Math.hypot(gateB[0] - gateA[0], gateB[1] - gateA[1]);
+    if (gateLength < 2.8) return false;
+    const gateWidth = Math.max(1.7, Math.min(2.4, gateLength * 0.3));
+    if (gateLength < gateWidth + 0.8) return false;
+    const gapCenter = 0.5 + (seededUnit(building.meta.id, 403) - 0.5) * 0.16;
+    const gapStart = Math.max(
+      0.4,
+      Math.min(gateLength - gateWidth - 0.4, gapCenter * gateLength - gateWidth / 2),
+    );
+    const edgeDx = (gateB[0] - gateA[0]) / gateLength;
+    const edgeDz = (gateB[1] - gateA[1]) / gateLength;
+    const gapA: Point2 = [gateA[0] + edgeDx * gapStart, gateA[1] + edgeDz * gapStart];
+    const gapB: Point2 = [
+      gateA[0] + edgeDx * (gapStart + gateWidth),
+      gateA[1] + edgeDz * (gapStart + gateWidth),
+    ];
+
+    const segments: Array<[Point2, Point2]> = [];
+    for (let i = 0; i < offsetPoints.length; i++) {
+      const a = offsetPoints[i];
+      const b = offsetPoints[(i + 1) % offsetPoints.length];
+      if (i === gateEdge) {
+        if (gapStart > 0.35) segments.push([a, gapA]);
+        if (gateLength - (gapStart + gateWidth) > 0.35) segments.push([gapB, b]);
+      } else {
+        segments.push([a, b]);
+      }
+    }
+    if (segments.length < 3) return false;
+
+    const blockedByProp = (x: number, z: number): boolean =>
+      obstacles.some((obstacle) => Math.hypot(obstacle.x - x, obstacle.z - z) < obstacle.r + 0.3);
+    for (const [a, b] of segments) {
+      for (const t of [0.25, 0.5, 0.75]) {
+        const mx = a[0] + (b[0] - a[0]) * t;
+        const mz = a[1] + (b[1] - a[1]) * t;
+        if (isBlocked(mx, mz, rings, 0.3) || nearRoad(mx, mz, 0.12) || blockedByProp(mx, mz)) return false;
+      }
+    }
+    for (const [px, pz] of [gapA, gapB]) {
+      if (isBlocked(px, pz, rings, 0.35) || nearRoad(px, pz, 0.12) || blockedByProp(px, pz)) return false;
+    }
+
+    const wall = rgb(['#b7ad9d', '#c2b9a8', '#aaa08f'][hashString(building.meta.id) % 3]);
+    const cap = rgb('#d8d0c2');
+    const concrete = rgb('#9e9586');
+    const gateColor = rgb('#3f4c45');
+    const gateTrim = rgb('#c8bfae');
+    const edgeRotY = Math.atan2(-edgeDz, edgeDx);
+
+    for (const [a, b] of segments) {
+      const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      if (len < 0.2) continue;
+      const mx = (a[0] + b[0]) / 2;
+      const mz = (a[1] + b[1]) / 2;
+      const rotY = Math.atan2(-(b[1] - a[1]), b[0] - a[0]);
+      const y = Math.min(heightAt(hf, a[0], a[1]), heightAt(hf, b[0], b[1]), heightAt(hf, mx, mz)) + 0.03;
+      builder.box(mx, y, mz, len + 0.06, 1.35, 0.18, wall, rotY);
+      builder.box(mx, y + 1.35, mz, len + 0.08, 0.08, 0.26, cap, rotY);
+    }
+    for (const [px, pz] of [gapA, gapB]) {
+      const y = heightAt(hf, px, pz) + 0.02;
+      builder.box(px, y, pz, 0.42, 1.7, 0.42, concrete, edgeRotY);
+      builder.box(px, y + 1.7, pz, 0.52, 0.1, 0.52, cap, edgeRotY);
+    }
+
+    const [nx, nz] = outwardNormal(gateA, gateB, cx, cz);
+    const openAngle = 0.55;
+    let gateDx = edgeDx * Math.cos(openAngle) - nx * Math.sin(openAngle);
+    let gateDz = edgeDz * Math.cos(openAngle) - nz * Math.sin(openAngle);
+    const gateDirLength = Math.hypot(gateDx, gateDz) || 1;
+    gateDx /= gateDirLength;
+    gateDz /= gateDirLength;
+    const leafLength = gateWidth * 0.86;
+    const gateY = Math.min(heightAt(hf, gapA[0], gapA[1]), heightAt(hf, gapB[0], gapB[1])) + 0.05;
+    const gateX = gapA[0] + gateDx * leafLength / 2;
+    const gateZ = gapA[1] + gateDz * leafLength / 2;
+    const gateRotY = Math.atan2(-gateDz, gateDx);
+    builder.box(gateX, gateY, gateZ, leafLength, 1.12, 0.06, gateColor, gateRotY);
+    for (const railY of [0.28, 0.82]) {
+      builder.box(gateX, gateY + railY, gateZ, leafLength, 0.05, 0.09, gateTrim, gateRotY);
+    }
+
+    counts.compoundWalls++;
+    counts.compoundGates++;
+    return true;
   };
   const sampleRoadPoint = (r: WorldRoad, t: number): { x: number; z: number; nx: number; nz: number; rotY: number } | null => {
     let total = 0;
@@ -1193,16 +1460,22 @@ export function buildPropsGeometry(
           addLamp(x + nx * side * (half + 0.9), z + nz * side * (half + 0.9));
         } else if (roll < 0.54 && isVehicleRoad(road)) {
           addStall(x + nx * side * (half + 2.2), z + nz * side * (half + 2.2));
-        } else if (roll < 0.63 && isVehicleRoad(road)) {
+        } else if (roll < 0.60 && isVehicleRoad(road)) {
+          addVendorStand(
+            x + nx * side * (half + 1.7),
+            z + nz * side * (half + 1.7),
+            Math.atan2(-dz, dx),
+          );
+        } else if (roll < 0.69 && isVehicleRoad(road)) {
           addVehicle(
             x + nx * side * (half * 0.35),
             z + nz * side * (half * 0.35),
             Math.atan2(-dz, dx),
             chooseVehicle(road, rng()),
           );
-        } else if (roll < 0.67) {
+        } else if (roll < 0.73) {
           addBench(x + nx * side * (half + 1.2), z + nz * side * (half + 1.2));
-        } else if (roll < 0.74) {
+        } else if (roll < 0.80) {
           addBush(
             x + nx * side * (half + 2.2 + rng() * 2.2),
             z + nz * side * (half + 2.2 + rng() * 2.2),
@@ -1221,6 +1494,22 @@ export function buildPropsGeometry(
       const z = hf.originZ + rng() * (hf.height - 1) * hf.cellSize;
       if (isBlocked(x, z, rings, 2.2)) continue;
       addTree(x, z, rng() > 0.8);
+    }
+  }
+
+  // Compound walls are a separate, tightly capped frontage pass. They do not
+  // consume the street-prop budget, but they still respect building, road and
+  // prop clearance so the walls never grow into the carriageway.
+  const compoundLimit = COMPOUND_WALL_LIMITS[quality];
+  if (compoundLimit > 0) {
+    const candidates = buildings
+      .map((building, index) => ({ building, index, score: seededUnit(building.meta.id, 401) }))
+      .filter(({ building }) => isCompoundCandidate(building))
+      .sort((a, b) => a.score - b.score || a.index - b.index);
+    let compounds = 0;
+    for (const { building } of candidates) {
+      if (compounds >= compoundLimit) break;
+      if (addCompoundWalls(building)) compounds++;
     }
   }
   return { geometry: builder.build(), obstacles, counts };

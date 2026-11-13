@@ -7,6 +7,9 @@ import type { DecodedBuilding } from '../src/world/buildings.ts';
 import { GeoCollisionWorld } from '../src/render/geo/collision.ts';
 import { RoadIndex } from '../src/render/geo/roadIndex.ts';
 import {
+  BALCONY_LIMITS,
+  COMPOUND_WALL_LIMITS,
+  VENDOR_STANDS_PER_MARKET,
   buildBuildingGeometry,
   buildPropsGeometry,
   buildRoadGeometry,
@@ -79,6 +82,15 @@ function decoded(): DecodedBuilding {
     wall: [180, 160, 140],
     roof: [120, 70, 50],
   };
+}
+
+function tallBuilding(): BuildingGeometry {
+  const base = building();
+  return { ...base, meta: { ...base.meta, height: 6.6, floors: 2 } };
+}
+
+function tallDecoded(): DecodedBuilding {
+  return { ...decoded(), height: 6.6 };
 }
 
 test('geo terrain geometry samples the heightfield and has upward-facing indices', () => {
@@ -161,6 +173,27 @@ test('geo building geometry builds walls and a roof from a footprint', () => {
   const pos = geo!.attributes.position as THREE.BufferAttribute;
   assert.ok(pos.count > 12);
   geo!.dispose();
+});
+
+test('geo building frontage adds deterministic upper-floor balconies', () => {
+  const hf = flatField();
+  const tall = tallBuilding();
+  const first = buildBuildingGeometry([tall], [tallDecoded()], hf, 'high');
+  const second = buildBuildingGeometry([tall], [tallDecoded()], hf, 'high');
+  const oneFloor = buildBuildingGeometry([building()], [decoded()], hf, 'high');
+  const low = buildBuildingGeometry([tall], [tallDecoded()], hf, 'low');
+  assert.ok(first && second && oneFloor && low);
+  assert.equal(BALCONY_LIMITS.low, 0);
+  assert.ok(first!.attributes.position.count > oneFloor!.attributes.position.count + 60);
+  assert.ok(first!.attributes.position.count > low!.attributes.position.count);
+  assert.deepEqual(
+    Array.from((first!.attributes.position as THREE.BufferAttribute).array),
+    Array.from((second!.attributes.position as THREE.BufferAttribute).array),
+  );
+  first!.dispose();
+  second!.dispose();
+  oneFloor!.dispose();
+  low!.dispose();
 });
 
 test('geo water geometry triangulates a polygon', () => {
@@ -329,6 +362,12 @@ test('geo props cluster market stalls around real marketplace POIs', () => {
   assert.ok(clustered.geometry);
   assert.ok(clustered.geometry!.attributes.position.count > bare.geometry!.attributes.position.count);
   assert.ok(clustered.obstacles.some((obstacle) => Math.hypot(obstacle.x - 10, obstacle.z + 10) < 12));
+  const marketOnly = buildPropsGeometry('market-only', [], [], hf, 'high', [marketplace]);
+  assert.ok(marketOnly.counts.vendorUmbrellas >= 1);
+  assert.ok(marketOnly.counts.vendorUmbrellas <= VENDOR_STANDS_PER_MARKET);
+  assert.equal(marketOnly.counts.displayTables, marketOnly.counts.vendorUmbrellas);
+  assert.ok(clustered.counts.vendorUmbrellas >= 1);
+  assert.equal(clustered.counts.displayTables, clustered.counts.vendorUmbrellas);
 });
 
 test('geo roadside props add utility poles, cable spans and street signs', () => {
@@ -340,6 +379,35 @@ test('geo roadside props add utility poles, cable spans and street signs', () =>
   assert.equal(props.counts.streetSigns, 1);
   assert.equal(props.counts.utilityWires, 6);
   assert.ok(props.obstacles.length >= 2);
+});
+
+test('geo compound walls add deterministic gated frontage detail within the cap', () => {
+  const hf = flatField();
+  const compoundRoad = road({ id: 'compound-road', points: [[-20, -30], [300, -30]], width: 6.5 });
+  const houses = Array.from({ length: 10 }, (_, i) => {
+    const base = building();
+    return {
+      ...base,
+      meta: { ...base.meta, id: `compound-${i}`, area: 100 },
+      ring: base.ring.map(([x, z]) => [x + i * 24, z] as [number, number]),
+    };
+  });
+  const props = buildPropsGeometry('compound-test', [compoundRoad], houses, hf, 'high', []);
+  const low = buildPropsGeometry('compound-test', [compoundRoad], houses, hf, 'low', []);
+  const again = buildPropsGeometry('compound-test', [compoundRoad], houses, hf, 'high', []);
+  assert.ok(props.geometry && low.geometry && again.geometry);
+  assert.ok(props.counts.compoundWalls > 0);
+  assert.ok(props.counts.compoundWalls <= COMPOUND_WALL_LIMITS.high);
+  assert.equal(props.counts.compoundGates, props.counts.compoundWalls);
+  assert.equal(low.counts.compoundWalls, 0);
+  assert.ok(props.geometry!.attributes.position.count > low.geometry!.attributes.position.count);
+  assert.deepEqual(
+    Array.from((props.geometry!.attributes.position as THREE.BufferAttribute).array),
+    Array.from((again.geometry!.attributes.position as THREE.BufferAttribute).array),
+  );
+  props.geometry!.dispose();
+  low.geometry!.dispose();
+  again.geometry!.dispose();
 });
 
 test('geo road geometry adds drainage gutters and pavements on major roads', () => {

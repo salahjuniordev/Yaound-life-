@@ -92,12 +92,13 @@ Every rendered feature carries provenance. Status values mean:
 - `src/world/` is the pure data layer: UTM transforms, chunk math, terrain sampling, road graph utilities, building decoding/collision, manifest validation, and async loading.
 - `src/render/geo/` is the Three.js adapter: collision grid, road index, terrain/road/building/prop/water/waterway geometry, runtime adapter, and the streaming `GeoScene`.
 - Chunk radius: low = current chunk, mid = 3 x 3, high = 5 x 5 (capped by the 4 x 4 pack). `ChunkLru` caps loaded chunks at 5/10/16, keeps a stable nearest-first subset when the desired radius exceeds the cap, retains keep-ring buffers in spare slots, and disposes geometry on unload.
-- Building LOD: near detail includes windows, doors, awnings, painted shop boards/blade signs, roof details, and rooftop props; far detail is a simplified massing mesh. Mid/high use both; low uses the simple mesh.
+- Building LOD: near detail includes windows, doors, awnings, painted shop boards/blade signs, roof details, capped upper-floor balconies, and rooftop props; far detail is a simplified massing mesh. Mid/high use both; low uses the simple mesh.
 - Terrain LOD: chunk meshes are always built from the fine heightfield; quality controls props, building detail, shadows, and draw distance.
 - Street detail: vehicle roads get a shoulder, concrete drainage gutter, curb and (on trunk/primary/secondary/tertiary roads) a pavement strip with periodic gutter crossings. Vehicles mix yellow taxis, private cars, minibuses, trucks and motos by road class.
-- Real `marketplace` and `mall` POIs seed clustered stalls, produce mats and a market board before the rest of the prop budget is spent. Shop signage is generated from building classification and a deterministic palette, not real shop names.
+- Real `marketplace` and `mall` POIs seed clustered stalls, produce mats and a market board before the rest of the prop budget is spent. Market clusters also place bounded vendor umbrellas and display tables; roadside vendor stands use the same prop budget. Shop signage is generated from building classification and a deterministic palette, not real shop names.
+- Selected small houses get a capped compound wall around the footprint, with a gate opening facing the nearest road, concrete piers and a partly open metal leaf. Placement checks building, road and prop clearance.
 - Player grounding uses loaded fine chunk heightfields and falls back to the coarse global field.
-- Building collision uses footprint push-out with a spatial grid. Trees, lamps, stalls, benches and vehicles add circular obstacles.
+- Building collision uses footprint push-out with a spatial grid. Trees, lamps, stalls, vendor stands, benches and vehicles add circular obstacles. Compound walls/gates and balconies are visual-only and add no collision volumes.
 - Places are gameplay content. In geographic mode, Nlongkak places are deterministically mapped near real roads and are explicitly not presented as real business addresses.
 - NPCs whose schedules are outside Nlongkak are hidden in geographic mode. NPCs inside Nlongkak are placed near walkable roads.
 - Travel to another district switches to that district's legacy world. Returning to Nlongkak switches back to the geographic slice.
@@ -107,8 +108,9 @@ Every rendered feature carries provenance. Status values mean:
 
 - Only Nlongkak is geographic. The other eight districts remain procedural until their own packs are built.
 - Building heights are mostly inferred from footprint area and tags; only tagged heights/levels are real.
-- Waterway ribbons use DEM-derived per-point heights; there is no flow, flooding or channel-carving simulation, and bridges over streams are not modelled separately.
-- There is no real-time traffic, routing, live closures, or live geocoding. Parked/waiting vehicles, market stalls, produce and signage are deterministic visual dressing, not vendor registries, real shop names or traffic data.
+- Waterway ribbons use DEM-derived per-point heights; there is no flow, flooding or channel-carving simulation. OSM bridge decks use a straight grade between endpoints and have no hydraulic, underpass or parapet-collision model.
+- There is no real-time traffic, routing, live closures, or live geocoding. Parked/waiting vehicles, market stalls, vendor umbrellas, produce and signage are deterministic visual dressing, not vendor registries, real shop names or traffic data.
+- Compound walls/gates and balcony slabs are bounded visual accents without collision volumes or enterable floors.
 - Drainage gutters, pavements and curbs are inferred from road class for visual detail; they are not mapped infrastructure and do not simulate flow or flooding.
 - Nlongkak has a boundary polygon from OSM; other district anchors are points, not official boundaries.
 - Fictional businesses and NPC schedules are designed gameplay content mapped into the real slice, not statements about real establishments.
