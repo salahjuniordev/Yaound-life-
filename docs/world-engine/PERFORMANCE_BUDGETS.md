@@ -38,10 +38,11 @@ the keep radius are evicted first; the LRU never evicts an in-flight load.
   for low/mid/high).
 - Frontage detail is split between the existing near meshes and is capped per
   chunk: compound wall assemblies are 0/4/8 and upper-floor balconies are
-  0/5/10 for low/mid/high. Compound candidates are limited to small houses with
-  4–8 footprint vertices and 70–420 m² area; a gate opening faces the nearest
-  road. Walls, gate piers and leaves are visual-only and do not add collision
-  volumes. Vendor umbrellas/display tables are 2 per market cluster and one
+  0/5/10 for low/mid/high. Each balcony uses a slab, a framed opening, an open
+  metal rail with seven balusters, two side rails and two brackets. Compound
+  candidates are limited to small houses with 4–8 footprint vertices and
+  70–420 m² area; a gate opening faces the nearest road. Walls, gate piers and
+  leaves are visual-only and do not add collision volumes. Vendor umbrellas/display tables are 2 per market cluster and one
   possible roadside stand per sampled road point, all inside the normal prop
   budget.
 - Road drainage gutters, curbs and pavements are part of the road mesh, so they
@@ -50,10 +51,11 @@ the keep radius are evicted first; the LRU never evicts an in-flight load.
 - Bridge decks, parapets, abutments and ramps are part of the road mesh for the
   six OSM bridge ways; they do not consume the prop budget. The shared height
   sampler loops over those six ways per terrain query, not all 426 roads.
-- A scripted high-quality pass over the 16-chunk pack measured 619,456 building
-  triangles after this detail (606,016 before, +13,440 or 2.2%) and 96,788 prop
-  triangles, with 128 compounds/gates and 75 vendor stands/tables. These are
-  geometry counts, not rendered frame measurements.
+- A production-loader high-quality pass over the 16-chunk pack measured 640,576
+  building triangles after the review-driven open balcony rail (619,456 before
+  that correction, +21,120 or 3.4%) and 96,789 prop triangles, with 128
+  compounds/gates and 75 vendor stands/tables. These are geometry counts, not
+  rendered frame measurements.
 - Terrain meshes always use the fine 8 m heightfield; quality changes props,
   shadows and draw distance.
 - Data saver lowers quality and crowd density where supported.

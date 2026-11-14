@@ -559,7 +559,7 @@ function outwardNormal(a: Point2, b: Point2, cx: number, cz: number): Point2 {
 
 /**
  * One upper-floor balcony on a building frontage. The slab sits just outside
- * the wall and the rail is made from four boxes, so the cost is fixed and the
+ * the wall and the open metal rail is made from a fixed set of boxes, so the
  * result reads at street level without adding a separate draw call.
  */
 function addBalcony(
@@ -592,15 +592,67 @@ function addBalcony(
   const rotY = Math.atan2(-dz, dx);
   const slab = rgb('#b7ad9d');
   const rail = rgb(['#3f4f47', '#4c5a4f', '#5a4a3f'][hashString(id) % 3]);
+  const opening = rgb('#2d3a3c');
+  const frame = rgb('#d8d0c2');
   const railBase = slabBase + 0.14;
 
   builder.box(mx + nx * 0.55, slabBase, mz + nz * 0.55, width, 0.14, 1.1, slab, rotY);
-  builder.box(mx + nx * 1.04, railBase, mz + nz * 1.04, width, 0.78, 0.06, rail, rotY);
-  builder.box(mx + nx * 1.01, railBase + 0.74, mz + nz * 1.01, width, 0.06, 0.1, rail, rotY);
-  for (const edgeT of [start, start + width]) {
+  // A framed opening behind the slab connects the balcony to a room instead
+  // of leaving it on a blank wall. The light surround keeps the dark panel
+  // from reading as a hole at a distance.
+  const doorWidth = Math.min(1.3, Math.max(0.9, width * 0.48));
+  builder.box(
+    mx + nx * 0.02,
+    slabBase + 1.08,
+    mz + nz * 0.02,
+    doorWidth + 0.2,
+    2.16,
+    0.04,
+    frame,
+    rotY,
+  );
+  builder.box(
+    mx + nx * 0.05,
+    slabBase + 1.03,
+    mz + nz * 0.05,
+    doorWidth,
+    1.96,
+    0.04,
+    opening,
+    rotY,
+  );
+
+  // Open metal rail: two horizontal rails and seven vertical bars. A solid
+  // panel reads as an air-conditioner box at street level.
+  builder.box(mx + nx * 1.04, railBase + 0.72, mz + nz * 1.04, width, 0.06, 0.07, rail, rotY);
+  builder.box(mx + nx * 1.04, railBase + 0.06, mz + nz * 1.04, width, 0.05, 0.05, rail, rotY);
+  for (let bar = 0; bar < 7; bar++) {
+    const along = ((bar + 0.5) / 7 - 0.5) * width;
+    builder.box(
+      mx + nx * 1.04 + dx * along,
+      railBase + 0.39,
+      mz + nz * 1.04 + dz * along,
+      0.06,
+      0.72,
+      0.06,
+      rail,
+      rotY,
+    );
+  }
+  for (const edgeT of [start + 0.04, start + width - 0.04]) {
     const sideX = a[0] + dx * edgeT + nx * 0.55;
     const sideZ = a[1] + dz * edgeT + nz * 0.55;
-    builder.box(sideX, railBase, sideZ, 1.0, 0.78, 0.06, rail, rotY + Math.PI / 2);
+    builder.box(sideX, railBase + 0.72, sideZ, 1.0, 0.06, 0.06, rail, rotY + Math.PI / 2);
+    builder.box(
+      sideX + nx * 0.48,
+      railBase + 0.39,
+      sideZ + nz * 0.48,
+      0.06,
+      0.72,
+      0.06,
+      rail,
+      rotY,
+    );
   }
 
   // A pair of short brackets makes the slab look supported without a full

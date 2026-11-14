@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Last updated: 2026-11-13
+Last updated: 2026-11-14
 
 ## Milestones
 
@@ -14,7 +14,7 @@ Last updated: 2026-11-13
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, versioned world caches, Settings download UI, progress/quota/cancel, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | District adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
-| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, architecture, lighting, attribution and budgets exist; real-device performance and local cultural review remain |
+| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, architecture, lighting, attribution and budgets exist; a renderer-only geometry visual review and internal cultural review are complete, but live-app WebGL visual review, real-device performance/offline checks and a named local Cameroonian cultural review remain |
 
 ## Current pack
 
@@ -42,19 +42,24 @@ Latest results:
 - `typecheck`: pass.
 - `npm test`: 215 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 575,052 B gzip, CSS 8,625 B, HTML 1,813 B,
-  first load 585,490 B, world raw 5,402,073 B, world gzip 853,458 B.
+- `size`: all budgets pass — JS 575,196 B gzip, CSS 8,625 B, HTML 1,816 B,
+  first load 585,637 B, world raw 5,402,073 B, world gzip 853,458 B.
 - `world:validate`: pass.
 
-## Latest round: M8 compound walls, balconies and vendor umbrellas
+## Latest round: M8 frontage detail and renderer-only visual review
 
 This round completes the remaining procedural frontage detail requested by the
-master brief, without regenerating the world pack:
+master brief, records a visual review of the production geometry, and applies
+the one review-driven fix. The world pack was not regenerated:
 
 - The near building mesh now adds deterministic upper-floor balconies on a
   capped set of eligible two-storey-plus houses, shops, offices, public
-  buildings and apartments. Each balcony has a slab, front and side rails,
-  handrail and two support brackets. Caps are 10/5/0 per high/mid/low chunk.
+  buildings and apartments. Each balcony has a slab, a framed dark opening,
+  an open metal front rail with seven balusters, two side rails with corner
+  posts and two support brackets. The initial solid 0.78 m front panel was
+  replaced after review because at street distance it read as an
+  air-conditioning box rather than a balcony. Caps are 10/5/0 per high/mid/low
+  chunk.
 - The near prop mesh now adds compound walls around selected small houses. Each
   wall follows the building footprint at a 1.05 m offset, leaves a gate opening
   on the edge nearest a road, and adds concrete gate piers, a partly open metal
@@ -65,18 +70,40 @@ master brief, without regenerating the world pack:
   boxes and a central pole in their cluster. Roadside vendor stands reuse the
   same builder within the existing prop budget. `PropBuild.counts` exposes
   `compoundWalls`, `compoundGates`, `vendorUmbrellas` and `displayTables`.
-- A scripted geometry pass over the actual 16-chunk pack using the decode path
-  and a flat test heightfield produced 128 compound walls/gates, 75 vendor
-  stands/tables and 619,456 building triangles at high quality. The same
-  measurement before this round was 606,016 building triangles, so the added
-  building detail is about 13.4 k triangles (2.2%).
+- A production-loader pass over all 16 chunks measured 128 compound walls/gates,
+  75 vendor stands/tables, 640,576 building triangles and 96,789 prop triangles
+  at high quality. The earlier frontage-only measurement was 619,456 building
+  triangles; the open-rail/door detail adds 21,120 triangles (3.4%).
 - Added `test/geo.test.ts` coverage for deterministic balcony geometry, the
   compound-wall cap and gate counts, low-tier exclusion, and market vendor
   umbrellas/display tables.
+- Headless Chromium with Three.js still loses the WebGL context under
+  SwiftShader, so no live-app screenshot was possible. A temporary Node
+  software rasterizer imported the production terrain, road, building and prop
+  builders and rendered seven review frames at 1100×760 for chunks `c_1_0` to
+  `c_1_3` at high quality: compound gate, Nlongkak roadside vendor, road-facing
+  balcony, Nkol Eton market close/wide, bridge approach and Nlongkak street.
+  These are renderer-geometry artifacts, not live-app, browser or Android
+  screenshots. They are intentionally kept outside the repository; the review
+  record is in `M8_VISUAL_CULTURAL_REVIEW.md`.
+- Review findings: the compound gate, caps, piers and partly open leaf read
+  correctly; the roadside parasol, centre pole, display table and produce boxes
+  read; the market cluster shows stalls, umbrellas, tables, painted signage and
+  utility wires; the street view shows a taxi, moto, utility poles/cables and
+  road markings; the bridge approach shows parapets, deck and markings.
+  Limitations: compound walls hug the building and a gate can open toward a
+  blank facade; some seeded balconies face away from roads or are obscured by
+  neighbours; the market ground remains terrain rather than a verified paved or
+  packed-earth surface; the static review cannot assess people, UI, shadows,
+  frame rate or input.
+- An internal cultural review was completed against the brief. It considers the
+  compound walls, balconies, vendor tables, taxis/motos, painted commerce and
+  utility lines plausible for Nlongkak and avoids folklore caricature. A named
+  local Cameroonian cultural review is still outstanding, so M8 remains partial.
 - No world-pack files, gameplay IDs or save data changed. Compound walls and
   gates are visual-only: there are no collision volumes yet, and balconies are
-  facade geometry rather than enterable floors. No real-browser visual check
-  was performed for this round.
+  facade geometry rather than enterable floors. No live-browser visual check or
+  real-device performance/offline check was performed.
 
 ## Previous round: OSM bridge decks and walkable bridge heights
 
@@ -221,10 +248,13 @@ gameplay IDs and save format untouched.
    renderer metrics because the canvas was collapsed; the CSS fix still needs a
    real render to confirm it.
 4. **Only Nlongkak is geographic.** The other eight districts remain procedural.
-5. **M8 visual variety still needs human review.** Market stalls, signage,
-   vehicles, street drainage, compound walls, balconies and vendor umbrellas are
-   now present, but their placement and cultural fit have not been reviewed in a
-   browser or by local reviewers.
+5. **M8 still needs live-app and local review.** A renderer-only software review
+   of production geometry inspected compound walls/gates, balconies, roadside
+   and market vendors, vehicles/utilities and bridge approaches, and found one
+   concrete defect: the balcony front rail read as a solid box. The rail and
+   facade opening were fixed. The frames are not a browser or device capture,
+   and placement and cultural fit still need a live-app pass and named local
+   reviewers.
 6. **Offline browser behavior is only unit-tested.** The first-load shell gap
    was found in a real cache audit and fixed, but a real install-then-offline
    reload, Settings download/cancel/remove flow, persistent-storage prompt and
@@ -257,10 +287,13 @@ deleted. Procedural fallback remains available through Settings,
    complete the online screenshot, first-load offline reload and Settings
    download/cancel/remove checks.
 2. Record real-device low/mid/high metrics and tune the quality thresholds.
-3. Review the new bridges, market clusters, shop boards, vehicles, gutters,
-   pavements, compound walls, balconies, vendor umbrellas and waterway ribbons
-   in the browser, and adjust density/placement after the visual pass.
-4. Run a local cultural review of signage colours, market dressing, compound
-   gate treatments and bridge parapets before treating M8 as complete.
+3. Use the completed renderer-only review as static evidence, then review the
+   new bridges, market clusters, shop boards, vehicles, gutters, pavements,
+   compound walls, balconies, vendor umbrellas and waterway ribbons in a live
+   browser. Adjust density/placement only after that live pass.
+4. Run a named local cultural review of signage colours, market dressing,
+   compound gate treatments and bridge parapets before treating M8 as complete.
+   The internal review record is in `M8_VISUAL_CULTURAL_REVIEW.md`; it is not a
+   local approval.
 5. The next large product step after M8 is a second geographic district pack;
    that requires new verified source data and a separate acceptance pass.
