@@ -9,6 +9,7 @@ import { RoadIndex } from '../src/render/geo/roadIndex.ts';
 import {
   BALCONY_LIMITS,
   COMPOUND_WALL_LIMITS,
+  PARKING_BAY_LIMITS,
   VENDOR_STANDS_PER_MARKET,
   buildBuildingGeometry,
   buildPropsGeometry,
@@ -368,6 +369,39 @@ test('geo props cluster market stalls around real marketplace POIs', () => {
   assert.equal(marketOnly.counts.displayTables, marketOnly.counts.vendorUmbrellas);
   assert.ok(clustered.counts.vendorUmbrellas >= 1);
   assert.equal(clustered.counts.displayTables, clustered.counts.vendorUmbrellas);
+});
+
+test('geo commercial POIs add bounded parking bays with parked vehicles', () => {
+  const hf = flatField();
+  const parkingRoad = road({ id: 'parking-road', points: [[0, -5], [200, -5]], width: 7 });
+  const shop: Poi = {
+    id: 'poi-shop',
+    name: 'Test shop',
+    kind: 'shop',
+    pos: [10, -12],
+    provenance: {
+      source: 'openstreetmap',
+      sourceVersion: 'test',
+      license: 'ODbL-1.0',
+      geometryStatus: 'real',
+    },
+  };
+  const high = buildPropsGeometry('parking-test', [parkingRoad], [], hf, 'high', [shop]);
+  const low = buildPropsGeometry('parking-test', [parkingRoad], [], hf, 'low', [shop]);
+  const again = buildPropsGeometry('parking-test', [parkingRoad], [], hf, 'high', [shop]);
+  assert.ok(high.geometry && low.geometry && again.geometry);
+  assert.equal(PARKING_BAY_LIMITS.low, 0);
+  assert.ok(high.counts.parkingBays >= 1);
+  assert.ok(high.counts.parkingBays <= PARKING_BAY_LIMITS.high);
+  assert.ok(high.counts.parkedVehicles >= 1);
+  assert.equal(low.counts.parkingBays, 0);
+  assert.deepEqual(
+    Array.from((high.geometry!.attributes.position as THREE.BufferAttribute).array),
+    Array.from((again.geometry!.attributes.position as THREE.BufferAttribute).array),
+  );
+  high.geometry!.dispose();
+  low.geometry!.dispose();
+  again.geometry!.dispose();
 });
 
 test('geo roadside props add utility poles, cable spans and street signs', () => {

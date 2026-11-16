@@ -3,7 +3,7 @@
 Persistent status board for the PRD (`Yaounde_Life_Ultimate_PRD_v1.1.txt`).
 Legend: [x] done · [~] partial · [ ] not started · [!] blocked
 
-Last updated: 2026-11-14
+Last updated: 2026-11-16
 
 ## Toolchain / Infrastructure
 - [x] Vite 7 + React 19 + TypeScript project bootstraps, typechecks, builds (`npm run build` → `dist/`)
@@ -11,7 +11,7 @@ Last updated: 2026-11-14
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, build-generated app-shell precache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 215/215 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 216/216 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -35,7 +35,9 @@ Last updated: 2026-11-14
 - [x] OSM bridges: all six `bridge`-tagged ways in Nlongkak get a raised deck, fascia, concrete parapets, abutments, approach ramps and major-road centre markings; a shared sampler makes the deck/ramp height walkable for the player, crowd and camera
 - [x] M8 street dressing: real `marketplace`/`mall` POIs seed market-stall clusters and produce mats, commercial frontages get painted shop boards/blade signs, vehicles mix taxis/cars/minibuses/trucks/motos, vehicle roads gain gutters, curbs and major-road pavements, and the longest vehicle roads get bounded utility-pole pairs, cable spans, street-name boards and roadside shrubs
 - [x] M8 frontage detail: capped compound walls with road-facing gate openings/leaves, upper-floor balconies, and market/roadside vendor umbrellas with display tables; deterministic geometry, no world-pack change, walls/gates remain visual-only
+- [x] M8 parking/roadside transport: capped parking bays at commercial/civic POIs (2/1/0 per high/mid/low chunk), aligned to the nearest vehicle road, with painted bay lines and up to two parked cars using the existing vehicle collision footprints; separate from the street-prop budget so vendor detail is preserved. Production pass: 17 bays, 34 parked cars, 75 vendor umbrellas/tables and 100,869 prop triangles at high quality; no dedicated parking frame reviewed yet
 - [x] M8 renderer-only visual review: seven production-geometry frames (compound gate, roadside vendor, road-facing balcony, market close/wide, bridge approach, Nlongkak street) reviewed with a temporary software rasterizer after headless Three.js repeatedly lost the WebGL context; the solid balcony panel was replaced with an open rail and framed opening. Internal cultural plausibility review documented in `docs/world-engine/M8_VISUAL_CULTURAL_REVIEW.md`; live-app/browser and named local Cameroonian review remain outstanding
+- [~] M8 live WebGL review: Chromium + Mesa llvmpipe Vulkan rendered the live app at spawn, while walking and after turning, plus a WebGL market-frontage harness frame. The multi-view harness rendered only the market quadrant; single-view compound/balcony/bridge frames, the grassy-spawn framing, the dark compound gate and Android Chrome/device checks remain open. Parking is also visually unreviewed. `docs/world-engine/REMAINING_WORK.md` records the parked checklist
 - [ ] Richer landmarks, and district boundary packs beyond Nlongkak
 
 ## Architecture (PRD §8.5)
@@ -154,7 +156,7 @@ Last updated: 2026-11-14
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 215 tests
+npm test                 # node --test, 216 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -167,6 +169,7 @@ npm run world:validate   # validate manifest, hashes, chunk payloads
 ```
 
 ## Changelog
+- 2026-11-16: M8 parking/roadside transport and remaining-work audit — commercial/civic POIs now get up to two parking bays per high-quality chunk (one at mid, none at low), aligned to the nearest vehicle road, checked against buildings, carriageways and existing props, with painted bay lines and up to two parked cars that reuse the existing vehicle collision circles. Parking has a separate cap and does not consume the street-prop budget, so the 75 vendor umbrellas/display tables are preserved. A production-loader pass over all 16 chunks measured 17 bays, 34 parked vehicles, 640,576 building triangles and 100,869 prop triangles (+4,080, +4.2%) at high quality. Added `PARKING_BAY_LIMITS`, `parkingBays`/`parkedVehicles` counts and a deterministic parking test. No world-pack, gameplay-ID or save changes. Added `docs/world-engine/REMAINING_WORK.md` preserving the parked M8 acceptance checklist (live single-view WebGL frames, spawn/dark-gate investigation, fixes, Android/device/culture gates) and the remaining master-brief build map: Open Buildings ingestion and Phase 5 multi-district expansion. Live Chromium + Mesa WebGL frames now exist at spawn, walking and market views, but the single-view compound/balcony/bridge review, Android Chrome/device performance/offline checks and named local Cameroonian review remain outstanding; parking is visually unreviewed. M8 remains partial. Typecheck clean, 216/216 tests pass, build and all size budgets pass (JS 575,941 B gzip, first load 586,381 B), `world:validate` passes.
 - 2026-11-14: M8 renderer-only visual and internal cultural review — headless Three.js still loses the WebGL context under SwiftShader, so seven production-geometry frames were rendered with a temporary Node software rasterizer for compound gate, roadside vendor, balcony, Nkol Eton market close/wide, bridge approach and Nlongkak street views. The review found the balcony front rail read as a solid utility box; it is now an open metal rail with seven balusters, side rails/corner posts and a light-framed dark opening. Building triangles rise from 619,456 to 640,576 (+21,120, 3.4%); prop geometry stays at 96,789 triangles, 128 compounds/gates and 75 vendor stands/tables. Typecheck clean, 215/215 tests pass, build and size budgets pass (JS 575,196 B gzip, first load 585,637 B), `world:validate` passes. Internal cultural review recorded in `docs/world-engine/M8_VISUAL_CULTURAL_REVIEW.md`; live-app/Android visual review and named local Cameroonian review remain outstanding, so M8 is still partial.
 - 2026-11-13: M8 frontage detail — near building meshes now add capped upper-floor balconies on eligible two-storey-plus buildings, and the near prop mesh adds capped compound walls around selected houses with a gate opening on the road-facing edge, concrete piers, a partly open metal leaf and wall caps. Market POIs add up to two vendor umbrellas/display tables, and roadside vendor stands reuse the existing prop budget; `PropBuild.counts` exposes the new counts. A scripted pass over the 16-chunk pack produced 128 compounds/gates, 75 vendor stands/tables and 619,456 building triangles at high quality (606,016 before, +2.2%); per-chunk caps are 8/4/0 compounds and 10/5/0 balconies for high/mid/low. Added balcony, compound-wall/cap and vendor-umbrella tests. No world-pack or save changes; walls/gates are visual-only. Typecheck clean, 215/215 tests pass, build and size budgets pass (JS 575,052 B gzip, first load 585,490 B), `world:validate` passes. Real-browser visual and cultural review remain pending.
 - 2026-11-13: OSM bridge decks — the six `bridge`-tagged ways in the Nlongkak pack now render a raised deck, side fascia, concrete parapets, abutments, 2.4 m approach ramps and major-road centre markings. A shared `bridgeSurfaceAt` sampler lifts the player/crowd/camera height by 0.3 m across the deck and blends back down through the ramps; geometry stays in the road mesh rather than the prop budget. Added geometry and sampler tests. Typecheck clean, 213/213 tests pass, build and size budgets pass (JS 572,922 B gzip, first load 583,361 B), `world:validate` passes. Bridge parapets remain visual-only and the real-browser pass is still pending.

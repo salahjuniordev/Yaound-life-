@@ -16,6 +16,7 @@ type Point2 = [number, number];
  */
 export const BALCONY_LIMITS: Record<QualityTier, number> = { low: 0, mid: 5, high: 10 };
 export const COMPOUND_WALL_LIMITS: Record<QualityTier, number> = { low: 0, mid: 4, high: 8 };
+export const PARKING_BAY_LIMITS: Record<QualityTier, number> = { low: 0, mid: 1, high: 2 };
 export const VENDOR_STANDS_PER_MARKET = 2;
 
 const colorCache = new Map<string, RGB>();
@@ -935,6 +936,8 @@ export interface PropBuild {
     compoundGates: number;
     vendorUmbrellas: number;
     displayTables: number;
+    parkingBays: number;
+    parkedVehicles: number;
   };
 }
 
@@ -973,6 +976,8 @@ export function buildPropsGeometry(
     compoundGates: 0,
     vendorUmbrellas: 0,
     displayTables: 0,
+    parkingBays: 0,
+    parkedVehicles: 0,
   };
   const rings = buildings.map((b) => b.ring);
   const rng = rngFrom(hashString(chunkId));
@@ -1084,10 +1089,10 @@ export function buildPropsGeometry(
     counts.displayTables++;
     return true;
   };
-  const addVehicle = (x: number, z: number, rotY: number, kind: VehicleKind) => {
-    if (count >= limit) return;
+  const addVehicle = (x: number, z: number, rotY: number, kind: VehicleKind, consumeBudget = true): boolean => {
+    if (consumeBudget && count >= limit) return false;
     const clearance = kind === 'bus' || kind === 'truck' ? 1.6 : kind === 'moto' ? 0.55 : 1.1;
-    if (isBlocked(x, z, rings, clearance)) return;
+    if (isBlocked(x, z, rings, clearance)) return false;
     const y = heightAt(hf, x, z);
     const cos = Math.cos(rotY);
     const sin = Math.sin(rotY);
@@ -1149,7 +1154,8 @@ export function buildPropsGeometry(
       }
       obstacles.push({ x, z, r: 1.3 });
     }
-    count++;
+    if (consumeBudget) count++;
+    return true;
   };
   const addMarketCluster = (poi: Poi, stalls: number) => {
     const seed = rngFrom(hashString(poi.id));
@@ -1216,22 +1222,98 @@ export function buildPropsGeometry(
     count++;
     counts.bushes++;
   };
-  const nearestRoadDistance = (x: number, z: number): number => {
-    let best = Infinity;
+  const nearestRoadInfo = (
+    x: number,
+    z: number,
+    maxDistance = Infinity,
+    vehicleOnly = false,
+  ): { x: number; z: number; dirX: number; dirZ: number; width: number; distance: number } | null => {
+    let best: { x: number; z: number; dirX: number; dirZ: number; width: number; distance: number } | null = null;
     for (const road of roads) {
       if (road.tunnel || road.points.length < 2) continue;
+      if (vehicleOnly && !isVehicleRoad(road)) continue;
       for (let i = 0; i < road.points.length - 1; i++) {
         const [ax, az] = road.points[i];
         const [bx, bz] = road.points[i + 1];
         const dx = bx - ax;
         const dz = bz - az;
         const len2 = dx * dx + dz * dz;
-        const t = len2 > 1e-9 ? Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / len2)) : 0;
-        const d = Math.hypot(x - (ax + dx * t), z - (az + dz * t));
-        if (d < best) best = d;
+        if (len2 < 1e-9) continue;
+        const t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / len2));
+        const px = ax + dx * t;
+        const pz = az + dz * t;
+        const distance = Math.hypot(x - px, z - pz);
+        if (distance > maxDistance) continue;
+        if (best && distance >= best.distance) continue;
+        const len = Math.sqrt(len2);
+        best = { x: px, z: pz, dirX: dx / len, dirZ: dz / len, width: road.width, distance };
       }
     }
     return best;
+  };
+  const nearestRoadDistance = (x: number, z: number): number => nearestRoadInfo(x, z)?.distance ?? Infinity;
+  const parkingPoiKinds = new Set([
+    'marketplace',
+    'mall',
+    'restaurant',
+    'fast_food',
+    'cafe',
+    'shop',
+    'supermarket',
+    'convenience',
+    'fuel',
+    'bus_station',
+    'taxi',
+    'hospital',
+    'clinic',
+    'school',
+    'university',
+    'public',
+    'townhall',
+    'bank',
+  ]);
+  const addParkingBay = (poi: Poi): boolean => {
+    const info = nearestRoadInfo(poi.pos[0], poi.pos[1], 90, true);
+    if (!info) return false;
+    const seed = rngFrom(hashString(`${poi.id}:parking`));
+    const side = hashString(poi.id) % 2 === 0 ? 1 : -1;
+    const alongShift = (seed() - 0.5) * 5;
+    const bayLength = 10.6;
+    const bayDepth = 4.6;
+    const offset = info.width / 2 + 0.9 + bayDepth / 2;
+    const normalX = -info.dirZ;
+    const normalZ = info.dirX;
+    const cx = info.x + normalX * side * offset + info.dirX * alongShift;
+    const cz = info.z + normalZ * side * offset + info.dirZ * alongShift;
+    const rotY = Math.atan2(-info.dirZ, info.dirX);
+    const at = (along: number, across: number): Point2 => [
+      cx + info.dirX * along + normalX * across,
+      cz + info.dirZ * along + normalZ * across,
+    ];
+    const clearOfProps = (x: number, z: number, margin: number): boolean =>
+      obstacles.every((obstacle) => Math.hypot(obstacle.x - x, obstacle.z - z) >= obstacle.r + margin);
+
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        const [x, z] = at((i * bayLength) / 2, (j * bayDepth) / 2);
+        if (isBlocked(x, z, rings, 0.25) || nearRoad(x, z, 0.2) || !clearOfProps(x, z, 0.35)) return false;
+      }
+    }
+
+    const y = heightAt(hf, cx, cz) + 0.03;
+    const asphalt = rgb('#4b4b47');
+    const bayLine = rgb('#d7d0bd');
+    builder.box(cx, y, cz, bayLength, 0.05, bayDepth, asphalt, rotY);
+    for (let i = 0; i < 3; i++) {
+      const [lx, lz] = at(-bayLength / 2 + (i * bayLength) / 2, 0);
+      builder.box(lx, y + 0.04, lz, 0.1, 0.012, bayDepth - 0.5, bayLine, rotY);
+    }
+    counts.parkingBays++;
+    for (let i = 0; i < 2; i++) {
+      const [px, pz] = at(i === 0 ? -2.55 : 2.55, 0);
+      if (addVehicle(px, pz, rotY, i === 0 ? 'taxi' : 'private', false)) counts.parkedVehicles++;
+    }
+    return true;
   };
   const isCompoundCandidate = (building: BuildingGeometry): boolean => {
     if (building.meta.classification !== 'small_house' && building.meta.classification !== 'large_house') return false;
@@ -1546,6 +1628,25 @@ export function buildPropsGeometry(
       const z = hf.originZ + rng() * (hf.height - 1) * hf.cellSize;
       if (isBlocked(x, z, rings, 2.2)) continue;
       addTree(x, z, rng() > 0.8);
+    }
+  }
+
+  // Commercial and civic frontages get a small, separately capped parking bay
+  // after the generic street props. Bays are aligned to the nearest vehicle
+  // road, keep clear of buildings and existing props, and use the existing
+  // vehicle builder so parked cars gain the same collision footprint as
+  // traffic. Parking does not consume the street-prop budget, so it cannot
+  // starve market/vendor detail; the parking cap bounds the extra geometry.
+  const parkingLimit = PARKING_BAY_LIMITS[quality];
+  if (parkingLimit > 0) {
+    const candidates = pois
+      .filter((poi) => parkingPoiKinds.has(poi.kind))
+      .map((poi) => ({ poi, score: seededUnit(poi.id, 509) }))
+      .sort((a, b) => a.score - b.score || a.poi.id.localeCompare(b.poi.id));
+    let parkingBays = 0;
+    for (const { poi } of candidates) {
+      if (parkingBays >= parkingLimit) break;
+      if (addParkingBay(poi)) parkingBays++;
     }
   }
 

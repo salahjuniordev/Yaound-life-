@@ -1,11 +1,13 @@
 # M8 Renderer-Only Visual and Internal Cultural Review
 
 Status: **renderer-geometry visual review and internal cultural review complete;
-live-app visual review and named local Cameroonian review outstanding. M8 is not
-complete.**
+live-app WebGL review partial; named local Cameroonian review outstanding. M8 is
+not complete.**
 
 This document records what was actually reviewed, how it was produced, what
-changed as a result, and what remains unverified. It is not an approval.
+changed as a result, and what remains unverified. It is not an approval. The
+parked acceptance checklist and the remaining master-brief work are consolidated
+in `REMAINING_WORK.md`.
 
 ## Scope and method
 
@@ -34,6 +36,30 @@ lose the WebGL context under SwiftShader (`GPU stall due to ReadPixels`,
 blank screenshots. Raw-WebGL-only test pages still render, isolating the
 failure to Three.js/SwiftShader rather than page setup. The software rasterizer
 was adopted only to inspect the static production geometry.
+
+### Later live WebGL evidence — partial, software-rendered
+
+A later pass found a working headless Chromium path using Mesa llvmpipe Vulkan
+(`--use-angle=vulkan --use-vulkan=native --enable-features=Vulkan` with the
+lavapipe ICD), instead of SwiftShader. This produced real Three.js/WebGL frames
+of the live app, separate from the seven software-rasterized review frames:
+
+- Nlongkak spawn at high quality: 16 chunks, 8,085 active buildings, 870,756
+  triangles, 93 draw calls, about 4.9 FPS under software Mesa.
+- After walking away from the spawn: 16 chunks, 655,441 triangles, 93 draw
+  calls, about 4.9–5.5 FPS.
+- A live compound approach and a WebGL market-frontage harness frame; the
+  market frame showed 8 compound walls/gates and 7 vendor umbrellas/tables in
+  `c_1_1`.
+
+These are **not** Android Chrome, hardware-GPU or real-device performance
+measurements. The live walk showed the player visible, the camera following and
+no obvious clipping while moving, but the spawn composition remains a large
+grass area with no road visible, and the compound wall/gate was very dark at
+morning light. Those two findings are still being investigated. The WebGL
+multi-view harness rendered only the market quadrant; the compound, context and
+balcony quadrants were blank, so that image is not used as compound/balcony
+proof.
 
 ## Frames reviewed
 
@@ -110,6 +136,28 @@ Limitations:
 
 No market surface or layout change was made without verified source data.
 
+### Parking bays and parked vehicles — added after the reviewed frames
+
+The M8 transport brief also lists parking areas and roadside transport activity.
+The reviewed frames did not contain a dedicated parking area, so a bounded
+parking pass was added after this review:
+
+- commercial/civic POIs get up to two bays per chunk at high quality, one at
+  mid and none at low;
+- each bay is aligned to the nearest vehicle road, kept clear of buildings,
+  existing props and the carriageway, and gets painted bay lines;
+- each bay can add two parked cars through the existing vehicle builder, so
+  they receive the same collision circles as traffic;
+- the pass has its own cap and does not consume the street-prop budget, so the
+  75 vendor umbrellas/display tables remain intact.
+
+A production-loader pass over all 16 chunks measured 17 parking bays and 34
+parked vehicles at high quality. Prop geometry is now 100,869 triangles (up
+from 96,789, +4,080, 4.2%); building geometry remains 640,576 triangles. The
+parking bay slab itself has no collision volume, and the parked cars are static
+visual props. **No parking frame has been reviewed yet**, so this section is an
+implementation record, not an acceptance.
+
 ### Street, vehicles and utilities — accepted with limitations
 
 The Nlongkak street frame shows a yellow taxi, a moto with rider, a roadside
@@ -170,23 +218,26 @@ frames, and this document must not be presented as local approval.
 
 ## Verification
 
-The review-driven balcony change was checked with the repository gates:
+The review-driven balcony change and the later parking pass were checked with
+the repository gates:
 
 - `npm run typecheck`: pass;
-- `npm test`: 215 pass, 0 fail;
+- `npm test`: 216 pass, 0 fail;
 - `npm run build`: pass, 16 app-shell entries;
-- `npm run size`: all budgets pass (JS 575,196 B gzip, first load 585,637 B,
+- `npm run size`: all budgets pass (JS 575,941 B gzip, first load 586,381 B,
   world raw 5,402,073 B, world gzip 853,458 B);
 - `npm run world:validate`: pass, world `nlongkak-2026-10-30-v2`;
 - production-loader geometry count: 128 compounds/gates, 75 vendor
-  stands/tables, 640,576 building triangles, 96,789 prop triangles at high
-  quality across 16 chunks.
+  stands/tables, 17 parking bays, 34 parked vehicles, 640,576 building
+  triangles and 100,869 prop triangles at high quality across 16 chunks.
 
 ## Remaining acceptance gates
 
 M8 must stay partial until all of these are done:
 
-- [ ] live-app WebGL visual review at desktop size;
+- [~] live-app WebGL visual review at desktop size — spawn, walking and market
+      frames captured under Chromium + Mesa; single-view compound/balcony/
+      bridge and the spawn/gate findings remain;
 - [ ] actual Android Chrome/device visual and input review;
 - [ ] real-device FPS, draw-call/triangle and offline reload checks;
 - [ ] Settings download/cancel/remove and real offline reload on device;
@@ -199,6 +250,6 @@ M8 must stay partial until all of these are done:
 | --- | --- | --- |
 | Renderer-geometry visual review | Complete, with documented limits | Internal agent |
 | Internal cultural plausibility review | Complete, with documented limits | Internal agent |
-| Live-app/browser visual review | Not performed | — |
+| Live-app/browser visual review | Partial: Chromium + Mesa, software renderer | Internal agent |
 | Android device visual/input review | Not performed | — |
 | Local Cameroonian cultural review | Not performed | — |

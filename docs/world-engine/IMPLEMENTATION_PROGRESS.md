@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Last updated: 2026-11-14
+Last updated: 2026-11-16
 
 ## Milestones
 
@@ -14,7 +14,7 @@ Last updated: 2026-11-14
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, versioned world caches, Settings download UI, progress/quota/cancel, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | District adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
-| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, architecture, lighting, attribution and budgets exist; a renderer-only geometry visual review and internal cultural review are complete, but live-app WebGL visual review, real-device performance/offline checks and a named local Cameroonian cultural review remain |
+| M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, bounded parking bays with parked cars, architecture, lighting, attribution and budgets exist; an internal cultural review and a renderer-only geometry review are complete, and live Chromium + Mesa WebGL frames now exist at spawn, walking and market views, but single-view compound/balcony/bridge review, Android Chrome/device performance/offline checks and a named local Cameroonian cultural review remain |
 
 ## Current pack
 
@@ -40,13 +40,51 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 215 pass, 0 fail.
+- `npm test`: 216 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 575,196 B gzip, CSS 8,625 B, HTML 1,816 B,
-  first load 585,637 B, world raw 5,402,073 B, world gzip 853,458 B.
+- `size`: all budgets pass — JS 575,941 B gzip, CSS 8,625 B, HTML 1,815 B,
+  first load 586,381 B, world raw 5,402,073 B, world gzip 853,458 B.
 - `world:validate`: pass.
 
-## Latest round: M8 frontage detail and renderer-only visual review
+## Latest round: M8 parking/transport detail and remaining-work audit
+
+The master-brief audit against the current implementation found one explicit
+M8 asset category with no dedicated geometry: parking areas and roadside
+transport activity. This round adds bounded parking bays without changing the
+world pack, gameplay IDs or saves:
+
+- Commercial/civic POIs (`marketplace`, `mall`, shops, restaurants, fuel,
+  transport, schools, clinics, civic buildings) get parking aligned to the
+  nearest vehicle road. The bay is checked against building footprints,
+  carriageways and existing prop obstacles before any geometry is emitted.
+- A bay gets an asphalt slab, painted bay lines and up to two parked cars
+  through the existing vehicle builder, so the cars receive the same collision
+  circles as street traffic. Bays are visual/collision-only; the slab itself
+  has no collision volume.
+- Caps are 2/1/0 bays per high/mid/low chunk. Parking has a separate cap and
+  does not consume the street-prop budget, so market/vendor detail is not
+  starved: the production pass still measures 75 vendor umbrellas and 75
+  display tables.
+- `PropBuild.counts` now exposes `parkingBays` and `parkedVehicles`.
+  `test/geo.test.ts` covers the high-quality bay, parked cars, low-tier
+  exclusion and deterministic geometry.
+- A production-loader pass over all 16 chunks measured 17 parking bays and 34
+  parked vehicles at high quality. Prop geometry rises from 96,789 to 100,869
+  triangles (+4,080, 4.2%); building geometry remains 640,576 triangles.
+  Parking has not been visually reviewed yet.
+- Added `docs/world-engine/REMAINING_WORK.md`, which preserves the parked M8
+  acceptance checklist (live single-view WebGL frames, spawn/gate
+  investigation, fixes, Android/device/culture gates) and audits the remaining
+  master-brief work: Open Buildings ingestion and Phase 5 geographic expansion.
+  The brief defines M0–M8 only; there is no M9.
+- M8 remains partial. Live Chromium + Mesa WebGL frames now exist for spawn,
+  walking and market views, but the compound/balcony/bridge single-view review,
+  Android Chrome/device checks and named local cultural review are outstanding.
+- Typecheck clean, 216/216 tests pass, build and all size budgets pass (JS
+  575,941 B gzip, first load 586,381 B), `world:validate` passes. No world-pack
+  files changed.
+
+## Previous round: M8 frontage detail and renderer-only visual review
 
 This round completes the remaining procedural frontage detail requested by the
 master brief, records a visual review of the production geometry, and applies
@@ -244,26 +282,28 @@ gameplay IDs and save format untouched.
    rendered ribbon. The six OSM bridge ways now get decks and ramps, but bridge
    hydraulics are not modelled.
 3. **Real-device performance is unmeasured.** The overlay and budgets exist, but
-   no low-end Android numbers are recorded. The first probe never received
-   renderer metrics because the canvas was collapsed; the CSS fix still needs a
-   real render to confirm it.
-4. **Only Nlongkak is geographic.** The other eight districts remain procedural.
-5. **M8 still needs live-app and local review.** A renderer-only software review
-   of production geometry inspected compound walls/gates, balconies, roadside
-   and market vendors, vehicles/utilities and bridge approaches, and found one
+   no low-end Android numbers are recorded. Chromium + Mesa produced live WebGL
+   frames (about 4.9 FPS at 655k–871k triangles), but this is software
+   rendering, not device evidence.
+4. **Only Nlongkak is geographic.** The other eight districts remain procedural;
+   Phase 5 expansion still needs a multi-pack registry, extraction and review.
+5. **M8 still needs live-app single-view and local review.** The renderer-only
+   software review inspected compound walls/gates, balconies, roadside and
+   market vendors, vehicles/utilities and bridge approaches, and found one
    concrete defect: the balcony front rail read as a solid box. The rail and
-   facade opening were fixed. The frames are not a browser or device capture,
-   and placement and cultural fit still need a live-app pass and named local
-   reviewers.
+   facade opening were fixed. Live Chromium + Mesa WebGL frames now exist for
+   spawn, walking and market views, but the compound/balcony/bridge single-view
+   frames, the dark spawn/gate findings and named local cultural review remain.
 6. **Offline browser behavior is only unit-tested.** The first-load shell gap
    was found in a real cache audit and fixed, but a real install-then-offline
    reload, Settings download/cancel/remove flow, persistent-storage prompt and
    quota accounting still need a device pass.
 7. **No automated visual regression test.** Geometry is tested numerically, not
    screenshot-tested.
-8. **The real-browser canvas fix is unconfirmed.** The probe observed the
-   300 × 150 canvas and missing metrics, but Chrome could not be foregrounded
-   again after the CSS change. No rendered frame or screenshot exists yet.
+8. **The real-browser canvas fix is confirmed only under Chromium + Mesa.**
+   The live app rendered a full frame and metrics in headless Chromium using
+   Mesa/lavapipe Vulkan. Android Chrome still cannot be foregrounded, so the
+   on-device canvas, input and screenshot evidence remain missing.
 9. **Bridge dressing is not fully physical.** The walkable height sampler
    follows the deck and ramps, but parapets have no collision volumes and there
    is no fall, underpass or hydraulic model. Bridge decks use a straight grade
@@ -272,6 +312,10 @@ gameplay IDs and save format untouched.
     gate leaves have no collision volumes, and balconies are facade geometry
     rather than enterable floors. Both are capped LOD accents; vendor stands use
     the existing circle-obstacle approximation.
+11. **Parking bays are new and visually unreviewed.** The slab has no collision
+    volume; parked cars use the existing vehicle circle obstacles and are static.
+    19 bays/37 cars are placed at high quality, but no dedicated parking frame
+    has been inspected and no local reviewer has judged their placement.
 
 ## Save compatibility
 
@@ -282,18 +326,21 @@ deleted. Procedural fallback remains available through Settings,
 
 ## Next action
 
-1. Re-run the real-browser probe when Chrome can be foregrounded on the
+1. Return to the four parked M8 acceptance items in `REMAINING_WORK.md`:
+   capture single-view compound/balcony/bridge frames, investigate the grassy
+   spawn framing and dark gate, fix only confirmed defects, then rerun all gates.
+2. Re-run the real-browser probe when Android Chrome can be foregrounded on the
    device. Confirm the canvas fills the viewport and publishes metrics, then
    complete the online screenshot, first-load offline reload and Settings
    download/cancel/remove checks.
-2. Record real-device low/mid/high metrics and tune the quality thresholds.
-3. Use the completed renderer-only review as static evidence, then review the
-   new bridges, market clusters, shop boards, vehicles, gutters, pavements,
-   compound walls, balconies, vendor umbrellas and waterway ribbons in a live
-   browser. Adjust density/placement only after that live pass.
+3. Record real-device low/mid/high metrics and tune the quality thresholds.
 4. Run a named local cultural review of signage colours, market dressing,
-   compound gate treatments and bridge parapets before treating M8 as complete.
-   The internal review record is in `M8_VISUAL_CULTURAL_REVIEW.md`; it is not a
-   local approval.
-5. The next large product step after M8 is a second geographic district pack;
-   that requires new verified source data and a separate acceptance pass.
+   compound gate treatments, parking placement and bridge parapets before
+   treating M8 as complete. The internal review record is in
+   `M8_VISUAL_CULTURAL_REVIEW.md`; it is not a local approval.
+5. The next large build step is either the optional Open Buildings importer
+   contract (synthetic tests only until a licensed export exists) or a second
+   geographic district pack with a real multi-pack registry. The latter needs a
+   new extraction, loader/cache selection, save-compatibility tests and a
+   separate visual/performance/cultural acceptance pass. Do not generate all of
+   Yaoundé at once.

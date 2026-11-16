@@ -13,7 +13,7 @@ This document describes the first real-geography world pack for Yaoundé Life. I
 - The world package is generated at build time and is loaded from the app origin. There is no runtime Overpass, geocoding, or map-tile dependency.
 - Offline: `public/sw.js` precaches the build-generated `app-shell.json` (HTML, hashed JS/CSS, manifest, fonts and icons), `world/v1/manifest.json`, `world/v1/files.json` and the initial `world/v1/precache.json` set, then serves world assets cache-first from a versioned `yaounde-world-<version>` cache. Settings → Offline world downloads the full 5.4 MB pack (90 catalog files) with progress, cancel and quota handling. A completed download or removal invalidates the service worker's memoized world version so the next request uses the new cache immediately.
 - Water: 2 polygon water features plus 35 real OSM waterway centrelines (rivers, streams, drains; 5.9 km) rendered as terrain-following ribbons.
-- Implementation suite: `docs/world-engine/` (architecture, data sources, coordinates, manifest, chunks, roads, terrain, buildings, offline packaging, licensing, budgets, progress).
+- Implementation suite: `docs/world-engine/` (architecture, data sources, coordinates, manifest, chunks, roads, terrain, buildings, offline packaging, licensing, budgets, progress, M8 review, remaining work).
 
 ## Source data
 
