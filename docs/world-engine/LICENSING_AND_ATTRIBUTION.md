@@ -22,9 +22,26 @@ record is `public/world/v1/licenses.json` and `manifest.sources`.
 
 ## Google Open Buildings V3
 
-Not used. The pack contains no Open Buildings geometry, so its licence and
-attribution terms do not apply. See `GEOGRAPHIC_DATA_SOURCES.md` for the blocker
-and the requirements for adding it later.
+Not used in the current pack. The pack contains no Open Buildings geometry, so
+its licence and attribution terms do not apply to the shipped Nlongkak package.
+See `GEOGRAPHIC_DATA_SOURCES.md` for the blocker and the opt-in import contract.
+
+If an export is added later, the importer accepts either licence Google
+publishes for Open Buildings V3:
+
+- Creative Commons Attribution 4.0 (`CC-BY-4.0`), or
+- Open Data Commons Open Database License 1.0 (`ODbL-1.0`).
+
+The chosen licence, snapshot date and attribution must be written into
+`manifest.json` and `licenses.json`, and retained on every imported building.
+The attribution must name Google Open Buildings. Because the pack already
+contains ODbL-derived OSM data, the chosen Open Buildings licence and the
+resulting database obligations need legal review before redistribution; the
+importer enforces source/licence provenance but is not a legal opinion.
+
+Open Buildings footprints are machine-generated. They must be confidence
+filtered, deduplicated against OSM, and never used to replace OSM geometry
+silently.
 
 ## Gameplay content
 

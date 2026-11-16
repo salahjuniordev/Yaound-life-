@@ -46,7 +46,7 @@
   "notUsed": [
     {
       "id": "google_open_buildings_v3",
-      "reason": "OSM building coverage in the Nlongkak slice is dense and sufficient for the first vertical slice. The ingestion contract remains ready for a future area where OSM footprints are missing."
+      "reason": "OSM building coverage in the Nlongkak slice is dense and sufficient for the first vertical slice. The optional importer contract is implemented and tested with synthetic fixtures, but no licensed local Open Buildings export is present, so production ingestion remains disabled for this pack."
     }
   ]
 }

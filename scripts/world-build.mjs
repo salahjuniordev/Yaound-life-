@@ -25,6 +25,11 @@ import {
 } from '../src/world/roads.ts';
 import { validateChunkPayload, validateWaterway, validateWorldData } from '../src/world/validation.ts';
 import { validateManifest, WORLD_FORMAT, WORLD_FORMAT_VERSION, WORLD_GENERATOR_VERSION } from '../src/world/manifest.ts';
+import {
+  enabledOpenBuildingsSourceConfig,
+  importOpenBuildings,
+  openBuildingToGeometry,
+} from '../src/world/openBuildings.ts';
 
 const ROOT = resolve(dirname(dirname(fileURLToPath(import.meta.url))));
 const CONFIG_PATH = join(ROOT, 'data/geodata/config/nlongkak.json');
@@ -287,10 +292,27 @@ function isPoi(tags) {
 function main() {
   const config = readJson(CONFIG_PATH);
   const bbox = config.bbox;
-  const sources = config.sources;
+  const sources = [...config.sources];
+  const openBuildingsSource = enabledOpenBuildingsSourceConfig(config);
   const osmSource = sources.find((source) => source.id === 'openstreetmap');
   const demSource = sources.find((source) => source.id === 'copernicus_dem_glo30');
   if (!osmSource || !demSource) throw new Error('Missing source configuration');
+
+  if (openBuildingsSource) {
+    if (sources.some((source) => source.id === openBuildingsSource.id)) {
+      throw new Error(`Open Buildings source ${openBuildingsSource.id} is already declared in sources`);
+    }
+    sources.push({
+      id: openBuildingsSource.id,
+      name: openBuildingsSource.name,
+      url: openBuildingsSource.url,
+      license: openBuildingsSource.license,
+      attribution: openBuildingsSource.attribution,
+      snapshotDate: openBuildingsSource.snapshotDate,
+      usage: openBuildingsSource.usage,
+      rawFile: openBuildingsSource.exportFile,
+    });
+  }
 
   const geojsonPath = join(ROOT, osmSource.exportFile);
   const oplPath = join(ROOT, osmSource.oplFile);
@@ -299,6 +321,11 @@ function main() {
   for (const path of [geojsonPath, oplPath, demMetaPath, demDataPath]) {
     if (!existsSync(path)) throw new Error(`Missing input: ${path}`);
   }
+  const openBuildingsPath = openBuildingsSource ? join(ROOT, openBuildingsSource.exportFile) : null;
+  if (openBuildingsPath && !existsSync(openBuildingsPath)) {
+    throw new Error(`Missing Open Buildings export: ${openBuildingsPath}`);
+  }
+  const openBuildingsCsv = openBuildingsPath ? readFileSync(openBuildingsPath, 'utf8') : null;
 
   const corners = [
     [bbox.minLon, bbox.minLat],
@@ -400,6 +427,7 @@ function main() {
   const water = [];
   const waterways = [];
   const buildingKeys = new Set();
+  const osmBuildingRings = [];
   const seenPois = new Set();
   let skippedBuildings = 0;
 
@@ -525,6 +553,7 @@ function main() {
           continue;
         }
         buildingsByChunk.get(ref.id).push({ meta, ring: simplified });
+        osmBuildingRings.push({ id: buildingId, ring: simplified });
       }
       continue;
     }
@@ -636,6 +665,54 @@ function main() {
       const chunk = chunkIndexFromGame(game.x, game.z, origin, chunkSize);
       const ref = chunkById.get(chunkKey(chunk.ix, chunk.iz));
       if (ref) poisByChunk.get(ref.id).push(poi);
+    }
+  }
+
+  let openBuildingsStats = null;
+  let openBuildingsIssues = [];
+  let openBuildingsWritten = 0;
+  if (openBuildingsSource) {
+    const imported = importOpenBuildings({
+      source: openBuildingsSource,
+      csv: openBuildingsCsv,
+      bounds,
+      transform,
+      osmBuildings: osmBuildingRings,
+      minArea: config.minBuildingArea,
+      margin: 40,
+    });
+    openBuildingsStats = imported.stats;
+    openBuildingsIssues = imported.issues;
+    for (const candidate of imported.candidates) {
+      const simplified = simplifyRing(candidate.ring, config.simplifyTolerance);
+      if (simplified.length < 3) {
+        skippedBuildings++;
+        continue;
+      }
+      const area = polygonArea(simplified);
+      if (!Number.isFinite(area) || area < config.minBuildingArea) {
+        skippedBuildings++;
+        continue;
+      }
+      const [cx, cz] = polygonCentroid(simplified);
+      if (!insideBounds(cx, cz, bounds, 40)) {
+        skippedBuildings++;
+        continue;
+      }
+      const dedupeKey = `${Math.round(cx)}:${Math.round(cz)}:${Math.round(area)}`;
+      if (buildingKeys.has(dedupeKey)) {
+        skippedBuildings++;
+        continue;
+      }
+      const chunk = chunkIndexFromGame(cx, cz, origin, chunkSize);
+      const ref = chunkById.get(chunkKey(chunk.ix, chunk.iz));
+      if (!ref) {
+        skippedBuildings++;
+        continue;
+      }
+      buildingKeys.add(dedupeKey);
+      buildingsByChunk.get(ref.id).push(openBuildingToGeometry(candidate, simplified));
+      openBuildingsWritten++;
     }
   }
 
@@ -783,15 +860,22 @@ function main() {
     ),
   );
   writeJson(join(outputDir, 'manifest.json'), manifest);
+  const licenseObligations = [
+    'OpenStreetMap data is (c) OpenStreetMap contributors and licensed under ODbL 1.0. Attribution and share-alike obligations apply to derived data.',
+    'Copernicus DEM GLO-30 is (c) ESA and is used under the Copernicus DEM licence. Attribution is required.',
+  ];
+  if (openBuildingsSource) {
+    licenseObligations.push(
+      `Google Open Buildings V3 is used under the ${openBuildingsSource.license} licence. ${openBuildingsSource.attribution}. Machine-generated footprints were confidence-filtered and deduplicated against OSM; OSM geometry was retained.`,
+    );
+  } else {
+    licenseObligations.push('Google Open Buildings V3 was not used for this slice; its licence obligations do not apply to this package.');
+  }
   writeJson(join(outputDir, 'licenses.json'), {
     worldVersion: manifest.worldVersion,
     generatedAt: manifest.generatedAt,
     sources: manifest.sources,
-    obligations: [
-      'OpenStreetMap data is (c) OpenStreetMap contributors and licensed under ODbL 1.0. Attribution and share-alike obligations apply to derived data.',
-      'Copernicus DEM GLO-30 is (c) ESA and is used under the Copernicus DEM licence. Attribution is required.',
-      'Google Open Buildings V3 was not used for this slice; its licence obligations do not apply to this package.',
-    ],
+    obligations: licenseObligations,
   });
   writeJson(join(outputDir, 'metadata/validation.json'), {
     ok: errors.length === 0,
@@ -813,6 +897,24 @@ function main() {
     waterPolygons: water.length,
     waterways: waterways.length,
     skippedBuildings,
+    openBuildings: openBuildingsSource
+      ? {
+          used: true,
+          sourceId: openBuildingsSource.id,
+          license: openBuildingsSource.license,
+          attribution: openBuildingsSource.attribution,
+          snapshotDate: openBuildingsSource.snapshotDate,
+          exportFile: openBuildingsSource.exportFile,
+          minConfidence: openBuildingsSource.minConfidence,
+          stats: openBuildingsStats,
+          written: openBuildingsWritten,
+          issues: openBuildingsIssues.length,
+          issueExamples: openBuildingsIssues.slice(0, 10),
+        }
+      : {
+          used: false,
+          reason: 'No explicitly enabled Open Buildings export is configured.',
+        },
     elevation: {
       absoluteMin,
       absoluteMax,
@@ -820,7 +922,11 @@ function main() {
       relativeMin: 0,
       relativeMax: absoluteMax - verticalOffset,
     },
-    sourceFiles: sources.map((source) => ({ id: source.id, rawFile: source.rawFile, snapshotDate: source.snapshotDate })),
+    sourceFiles: sources.map((source) => ({
+      id: source.id,
+      rawFile: source.rawFile ?? source.exportFile,
+      snapshotDate: source.snapshotDate,
+    })),
   });
 
   const outputPrefix = config.outputDir.replace(/^public\//, '').replace(/\/$/, '');
@@ -864,6 +970,13 @@ function main() {
   console.log(`  chunks: ${chunkRefs.length}`);
   console.log(`  roads: ${roads.length}`);
   console.log(`  buildings: ${manifest.featureCounts.buildings} (${skippedBuildings} skipped)`);
+  if (openBuildingsSource) {
+    console.log(
+      `  open buildings: ${openBuildingsStats.accepted} accepted, ${openBuildingsWritten} written, ${openBuildingsIssues.length} filtered/rejected issues (${openBuildingsSource.license})`,
+    );
+  } else {
+    console.log('  open buildings: not used (no enabled export)');
+  }
   console.log(`  pois: ${pois.length}`);
   console.log(`  water polygons: ${water.length}`);
   console.log(`  waterway lines: ${waterways.length}`);

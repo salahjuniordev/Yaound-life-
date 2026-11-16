@@ -3,9 +3,9 @@
 Last updated: 2026-11-16
 
 Status: **M0–M7 complete; M8 partial. The master brief defines no M9.** The
-remaining items are M8 acceptance gates, two build items that were explicitly
-outside the current slice, and Phase 5 expansion. Nothing in this document is a
-claim that an unperformed check has passed.
+remaining items are M8 acceptance gates, the blocked Open Buildings production
+import, and Phase 5 expansion. Nothing in this document is a claim that an
+unperformed check has passed.
 
 ## M8 acceptance work — status
 
@@ -79,14 +79,29 @@ saves are unchanged.
 
 Google Open Buildings V3 is still **not ingested**. No licensed local export is
 present, and the brief forbids fabricating production footprints to hide that
-gap. The current pipeline documents the exclusion but does not yet implement a
-real optional importer interface. If an export is supplied later, the build
-must validate it, filter confidence, preserve provenance, deduplicate against
-OSM and never silently replace OSM geometry.
+gap. The current pack contains no Open Buildings geometry and remains built from
+OSM plus Copernicus DEM only.
 
-This is a bounded build task that can proceed without the dataset by adding an
-importer contract and synthetic fixtures. It cannot produce production
-footprints until the export exists.
+The optional importer contract is now implemented:
+
+- `src/world/openBuildings.ts` validates the explicit source/licence/attribution
+  config, parses Open Buildings V3 CSV/WKT, filters confidence/area/bounds,
+  deduplicates against OSM and other detections, and emits provenance-bearing
+  candidates.
+- `scripts/world-build.mjs` runs the importer only when the area config contains
+  `openBuildings.enabled: true`; otherwise it is a no-op. OSM buildings are
+  collected first and Open Buildings candidates are only appended for gaps.
+  OSM geometry is never replaced.
+- `test/openBuildings.test.ts` covers the contract with synthetic fixtures in
+  `test/fixtures/`; no synthetic footprint is production data.
+- `metadata/build-report.json` records enabled-import statistics and rejection
+  examples. `licenses.json` and manifest sources switch to the selected
+  dual-licence attribution when an import is enabled.
+
+This cannot produce production footprints until a licensed export exists.
+A future real import still needs a rebuilt pack, `world:validate`, visual review
+and licence review. The current `worldVersion` and save format must not change
+solely because the importer contract exists.
 
 ### Phase 5 — Geographic city expansion
 
@@ -139,9 +154,9 @@ code alone:
 1. Return to the open external M8 acceptance gates above: Android Chrome,
    real-device FPS and offline/Settings checks, and the named local cultural
    review; do not mark M8 complete until they have actual evidence.
-2. If continuing build work first, implement the optional Open Buildings
-   importer contract with synthetic tests, then start a single-district Phase 5
-   pack and its pack registry.
+2. If continuing build work first, use the implemented Open Buildings importer
+   only when a licensed export and licence review exist; otherwise start a
+   single-district Phase 5 pack and its pack registry.
 3. Update `IMPLEMENTATION_PROGRESS.md` and `IMPLEMENTATION_CHECKLIST.md` after
    each step; keep every change within the existing size and world-pack
    budgets.

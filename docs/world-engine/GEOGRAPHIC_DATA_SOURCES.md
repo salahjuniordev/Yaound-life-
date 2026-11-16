@@ -50,7 +50,7 @@ Only the derived, versioned pack is committed. `world:build` writes
 
 ## Google Open Buildings V3
 
-Open Buildings V3 is **not used** in this pack. The exact blocker:
+Open Buildings V3 is **not used** in the current pack. The exact blocker:
 
 - The dataset is distributed as country/region tiles through Google's download
   flow and requires accepting Google's terms and exporting tiles for the area.
@@ -60,10 +60,65 @@ Open Buildings V3 is **not used** in this pack. The exact blocker:
   footprint source without a verified local export would create unverifiable
   geometry and licensing claims.
 
+The optional importer contract is implemented in
+`src/world/openBuildings.ts` and covered by `test/openBuildings.test.ts` using
+only synthetic fixtures in `test/fixtures/`. It is build-time code, not runtime
+renderer code. Production ingestion stays disabled until a licensed export is
+committed or supplied locally.
+
+### Enabling a licensed export
+
+Add an explicit `openBuildings` block to the area config. Ingestion only runs
+when `enabled` is exactly `true`:
+
+```json
+"openBuildings": {
+  "enabled": true,
+  "id": "google_open_buildings_v3",
+  "name": "Google Open Buildings V3",
+  "url": "https://sites.research.google/open-buildings/",
+  "license": "CC-BY-4.0",
+  "attribution": "Google Open Buildings (CC BY 4.0)",
+  "snapshotDate": "2023-05-01",
+  "exportFile": "data/geodata/external/open-buildings-nlongkak.csv",
+  "minConfidence": 0.75,
+  "usage": "Optional building footprints, confidence-filtered and deduplicated against OpenStreetMap."
+}
+```
+
+Contract rules enforced by the build:
+
+- The source ID must be `google_open_buildings_v3`.
+- The licence must be one of the two licences Google publishes for the dataset:
+  `CC-BY-4.0` or `ODbL-1.0`. The selected licence and attribution are copied
+  into provenance, `manifest.json`, and `licenses.json`.
+- `snapshotDate` must be a real date; `exportFile` must be a relative `.csv`
+  path with no parent traversal.
+- The CSV must contain `latitude`, `longitude`, `area_in_meters`, `confidence`,
+  and `geometry` columns. `geometry` must be closed `POLYGON` or
+  `MULTIPOLYGON` WKT; holes, 3D WKT and non-polygon WKT are rejected.
+- Detections below `minConfidence` (default `0.75`, minimum `0.65`) are dropped.
+  This is deliberately conservative; per-tile precision thresholds are not
+  substituted for a verified export.
+- Projected footprints below the area's `minBuildingArea`, outside the world
+  bounds, or overlapping an accepted OSM footprint are dropped. OSM geometry is
+  never removed or replaced; Open Buildings are only appended for gaps.
+- Identical/overlapping Open Buildings detections are deduplicated.
+- Accepted features retain source, deterministic source ID, snapshot date,
+  licence, attribution, confidence, and `geometryStatus: inferred`. Their
+  heights remain inferred and their architecture remains procedural.
+
+`metadata/build-report.json` records the import statistics and rejection
+examples. A production pack must still be built, validated and reviewed with
+the real export; the synthetic fixtures are never production data.
+
+### Current decision
+
 This exclusion is recorded in `data/geodata/config/nlongkak.json` and
 `docs/WORLD.md`. If a local Open Buildings export is later supplied, it must be
-added as an explicitly licensed source, processed before OSM footprints, and
-deduplicated against OSM footprints. It must not silently replace OSM geometry.
+added as an explicitly licensed source, used only to fill gaps after OSM
+footprints are accepted, and deduplicated against OSM footprints. It must not
+silently replace OSM geometry.
 
 ## Reproducibility and pinning
 

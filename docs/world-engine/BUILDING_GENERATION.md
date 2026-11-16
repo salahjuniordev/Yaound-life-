@@ -20,6 +20,35 @@ designed.
 
 The current pack contains 8,085 buildings.
 
+## Optional Google Open Buildings source
+
+The build supports an opt-in Open Buildings V3 importer contract in
+`src/world/openBuildings.ts`. It is disabled in the current Nlongkak pack and
+there is no production Open Buildings data in `public/world/v1/`.
+
+When explicitly enabled with a licensed local CSV export, the pipeline:
+
+1. Validates the source ID, licence, attribution, snapshot date and relative
+   export path.
+2. Parses closed `POLYGON`/`MULTIPOLYGON` WKT from the Open Buildings CSV.
+3. Drops detections below the configured confidence threshold.
+4. Projects footprints into game coordinates and applies the same centroid and
+   minimum-area filters as OSM.
+5. Deduplicates against every accepted OSM footprint and against other accepted
+   Open Buildings detections. OSM geometry always wins; the importer only
+   appends non-overlapping gaps.
+6. Simplifies accepted rings and writes them with inferred height/floors and
+   explicit Open Buildings provenance.
+
+Open Buildings heights are always inferred because the dataset contains no
+height, levels or use tags. Classification is `unknown`. The original
+`area_in_meters` is not trusted as final game area; the importer recomputes area
+from the projected ring. `geometryStatus` is `inferred` to reflect
+machine-generated satellite detections, and the source confidence is retained.
+
+Synthetic CSV fixtures in `test/fixtures/` exercise this contract. They are not
+production footprints.
+
 ## Classification
 
 `classifyBuilding` maps tags in priority order:
@@ -80,13 +109,13 @@ heights. No runtime randomness is used for persistent appearance.
 
 Each building records:
 
-- `source`: `openstreetmap`
+- `source`: `openstreetmap` or, for an opted-in import, `google_open_buildings_v3`
 - `sourceId`, `sourceVersion`, `license`
-- `geometryStatus: real`
+- `geometryStatus: real` for OSM, `inferred` for machine-generated Open Buildings
 - `heightStatus: real | inferred`
 - `architectureStatus: procedural`
 - `gameplayStatus: designed`
-- confidence (currently 1 for OSM geometry)
+- confidence (`1` for OSM geometry, the retained dataset score for Open Buildings)
 
 Fictional businesses and place names are not building metadata; they are
 gameplay content mapped separately.

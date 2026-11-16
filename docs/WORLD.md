@@ -23,7 +23,7 @@ This document describes the first real-geography world pack for Yaoundé Life. I
 | Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 | Terrain elevation | (c) ESA, Copernicus DEM GLO-30 |
 | Nominatim / OSM relation 3095854 | 2026-10-30 | Nlongkak boundary for district anchoring | ODbL 1.0, (c) OpenStreetMap contributors |
 
-Google Open Buildings V3 is intentionally not used. Its licence and attribution obligations therefore do not apply to this pack. This exclusion is recorded in `data/geodata/config/nlongkak.json`.
+Google Open Buildings V3 is intentionally not used. Its licence and attribution obligations therefore do not apply to this pack. An opt-in importer contract exists for a future licensed export but is disabled for Nlongkak. This exclusion is recorded in `data/geodata/config/nlongkak.json`.
 
 ## Area and coordinates
 

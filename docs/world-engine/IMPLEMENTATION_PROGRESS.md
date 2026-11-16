@@ -40,7 +40,7 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 217 pass, 0 fail.
+- `npm test`: 227 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
 - `size`: all budgets pass — JS 576,491 B gzip, CSS 8,625 B, HTML 1,814 B,
   first load 586,930 B, world raw 5,402,073 B, world gzip 853,458 B.
@@ -48,7 +48,39 @@ Latest results:
 - Production geometry after the road correction: 640,576 building, 102,550
   prop and 157,182 road triangles at high quality across 16 chunks.
 
-## Latest round: M8 cross-chunk road ownership and live spawn fix
+## Latest round: optional Open Buildings importer contract
+
+The optional production blocker was turned into a tested, opt-in contract
+without adding any production footprints or changing the pack:
+
+- `src/world/openBuildings.ts` validates source ID, selected licence, attribution,
+  snapshot date and relative CSV export path. It accepts only the two licences
+  Google publishes for Open Buildings V3 (`CC-BY-4.0` or `ODbL-1.0`).
+- The importer parses Open Buildings CSV plus closed `POLYGON`/`MULTIPOLYGON`
+  WKT, rejects holes/3D/non-polygon geometry, filters confidence, area and
+  bounds, and deduplicates accepted detections against OSM and against each
+  other. OSM geometry is collected first and is never replaced.
+- Accepted candidates carry source, deterministic source ID, snapshot date,
+  selected licence, attribution, confidence and `geometryStatus: inferred`.
+  Heights/floors remain inferred and classification is `unknown`.
+- `scripts/world-build.mjs` runs the importer only when an area config has
+  `openBuildings.enabled: true`; there is no such block in `nlongkak.json`.
+  When enabled, `manifest.json`, `licenses.json` and
+  `metadata/build-report.json` include the source, obligations and import
+  statistics. The current pack was not regenerated.
+- `test/openBuildings.test.ts` adds 10 synthetic-fixture tests for config
+  validation, opt-in gating, checked-in-config safety, WKT/CSV parsing,
+  confidence/bounds/area filtering, OSM deduplication, duplicate rejection and
+  simplified-ring provenance.
+- `test/fixtures/open-buildings-synthetic.csv` and
+  `test/fixtures/open-buildings-malformed.csv` are test-only synthetic data.
+
+`npm run typecheck`, 227/227 tests, build, size budgets and `world:validate`
+pass. No world-pack, gameplay-ID, collision or save-format change was made.
+Production ingestion remains blocked on a licensed local export and a legal
+review of the chosen dual licence.
+
+## Previous round: M8 cross-chunk road ownership and live spawn fix
 
 The M8 acceptance investigation confirmed that the live spawn grass was a real
 renderer defect, not camera framing. The pack stores each whole OSM way in the
@@ -325,8 +357,10 @@ gameplay IDs and save format untouched.
 
 ## Known defects and gaps
 
-1. **Open Buildings not ingested.** The dataset requires a Google export that is
-   not in the repository. Exact blocker is in `GEOGRAPHIC_DATA_SOURCES.md`.
+1. **Open Buildings not ingested in production.** The optional importer contract
+   and synthetic tests now exist, but the dataset still requires a licensed
+   Google export that is not in the repository. The current pack contains no
+   Open Buildings geometry. Exact blocker is in `GEOGRAPHIC_DATA_SOURCES.md`.
 2. **Waterway hydrology is visual only.** Surface heights are inferred from the
    DEM; there is no flow simulation, flooding or channel carving beyond the
    rendered ribbon. The six OSM bridge ways now get decks and ramps, but bridge
@@ -391,9 +425,9 @@ deleted. Procedural fallback remains available through Settings,
    compound gate treatments, parking placement and bridge parapets before
    treating M8 as complete. The internal review record is in
    `M8_VISUAL_CULTURAL_REVIEW.md`; it is not a local approval.
-5. The next large build step is either the optional Open Buildings importer
-   contract (synthetic tests only until a licensed export exists) or a second
-   geographic district pack with a real multi-pack registry. The latter needs a
-   new extraction, loader/cache selection, save-compatibility tests and a
-   separate visual/performance/cultural acceptance pass. Do not generate all of
-   Yaoundé at once.
+5. The next large build step is either a real Open Buildings import (only with
+   a licensed export and licence review; the contract and synthetic tests are
+   complete) or a second geographic district pack with a real multi-pack
+   registry. The latter needs a new extraction, loader/cache selection,
+   save-compatibility tests and a separate visual/performance/cultural
+   acceptance pass. Do not generate all of Yaoundé at once.
