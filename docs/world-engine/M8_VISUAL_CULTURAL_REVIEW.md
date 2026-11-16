@@ -61,8 +61,10 @@ of the live app, separate from the seven software-rasterized review frames:
   market frame showed 8 compound walls/gates and 7 vendor umbrellas/tables in
   `c_1_1`.
 
-These are **not** Android Chrome, hardware-GPU or real-device performance
-measurements. The live walk showed the player visible and the camera following
+The live app captures use the mobile-emulated 411×760 CSS viewport; the
+single-view harness uses 1400×1000. These are **not** Android Chrome,
+hardware-GPU or real-device performance measurements, and the live app has not
+yet been captured at a desktop viewport. The live walk showed the player visible and the camera following
 while moving. The two pass findings were investigated and are resolved:
 
 - the spawn grass area was a real cross-chunk road-ownership defect, not camera
@@ -328,11 +330,11 @@ with the repository gates:
 
 M8 must stay partial until all of these are done:
 
-- [~] live-app WebGL visual review at desktop size — spawn, walking, market and
-      actual-gate frames captured under Chromium + Mesa; single-view compound,
-      balcony, market, bridge and parking frames now exist, and the spawn road
-      and dark gate findings are resolved; Android Chrome/device evidence is
-      still absent;
+- [~] live-app WebGL visual review — live spawn, walking, market and actual-gate
+      frames captured under Chromium + Mesa at a mobile-emulated viewport;
+      1400×1000 single-view compound, balcony, market, bridge and parking
+      frames exist, and the spawn road and dark gate findings are resolved.
+      Desktop live-app and Android Chrome/device evidence are still absent;
 - [ ] actual Android Chrome/device visual and input review;
 - [ ] real-device FPS, draw-call/triangle and offline reload checks;
 - [ ] Settings download/cancel/remove and real offline reload on device;
