@@ -36,7 +36,9 @@ non-walkable.
 3. Clip polylines to the bbox.
 4. Classify (`roundabout` wins when `junction=roundabout|circular`).
 5. Validate: at least 2 points, finite coordinates, positive length.
-6. Assign the midpoint to a chunk and store the clipped piece.
+6. Assign the midpoint to a chunk and store the clipped piece. This is pack
+   ownership for data loading, not a guarantee that the rendered way stops at
+   the chunk boundary; long ways can extend into a neighbour.
 7. Keep OSM node IDs when the clipped piece preserves every original node.
 
 ## Graph and connectivity
@@ -48,7 +50,15 @@ and NPC placement. Shared OSM nodes connect ways across the network.
 
 ## Rendering
 
-- Road ribbons are built per chunk from polylines and terrain height.
+- The renderer loads the global `roads/network.json` and clips it to each
+  loaded chunk before building a ribbon. It uses the local chunk heightfield,
+  not the midpoint-owning chunk's terrain. This is required because a way stored
+  in one chunk can cross into a neighbour; without clipping it can disappear or
+  sit below the neighbouring terrain. Bridges stay whole and belong to the
+  chunk containing the midpoint so decks and parapets are not cut.
+- Road ribbons are built per chunk from the clipped polylines and terrain
+  height. Long segments are subdivided along their length and wide surfaces
+  across their width so the ribbon follows terrain undulations.
 - Vehicle roads add a shoulder, an open drainage gutter and a curb; trunk,
   primary, secondary and tertiary roads also get a pavement strip with periodic
   gutter crossings. Gutter/pavement geometry is visual detail inferred from the
@@ -69,4 +79,6 @@ and NPC placement. Shared OSM nodes connect ways across the network.
 
 - No lane-level data, turn restrictions, live closures or traffic.
 - Footpaths are walkable but not rendered as a separate pedestrian network.
-- Some OSM ways may be split at chunk boundaries; IDs include a piece suffix.
+- Some OSM ways may be split at chunk boundaries; renderer-clipped pieces after
+  the first piece include a `#<n>` suffix. The first clipped piece keeps the
+  original ID so normal way lookups and saves are unaffected.

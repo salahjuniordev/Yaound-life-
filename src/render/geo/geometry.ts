@@ -256,17 +256,39 @@ function addRoadQuad(
   halfWidth: number,
   yOffset: number,
   color: RGB,
+  lateralSegments = 1,
 ): void {
   const dx = bx - ax;
   const dz = bz - az;
   const len = Math.hypot(dx, dz) || 1;
   const nx = -dz / len;
   const nz = dx / len;
-  const aL: [number, number, number] = [ax + nx * halfWidth, heightAt(hf, ax + nx * halfWidth, az + nz * halfWidth) + yOffset, az + nz * halfWidth];
-  const bL: [number, number, number] = [bx + nx * halfWidth, heightAt(hf, bx + nx * halfWidth, bz + nz * halfWidth) + yOffset, bz + nz * halfWidth];
-  const bR: [number, number, number] = [bx - nx * halfWidth, heightAt(hf, bx - nx * halfWidth, bz - nz * halfWidth) + yOffset, bz - nz * halfWidth];
-  const aR: [number, number, number] = [ax - nx * halfWidth, heightAt(hf, ax - nx * halfWidth, az - nz * halfWidth) + yOffset, az - nz * halfWidth];
-  builder.quad(aL, bL, bR, aR, color);
+  const segments = Math.max(1, Math.floor(lateralSegments));
+  for (let i = 0; i < segments; i++) {
+    const offsetA = halfWidth - (i * 2 * halfWidth) / segments;
+    const offsetB = halfWidth - ((i + 1) * 2 * halfWidth) / segments;
+    const a0: [number, number, number] = [
+      ax + nx * offsetA,
+      heightAt(hf, ax + nx * offsetA, az + nz * offsetA) + yOffset,
+      az + nz * offsetA,
+    ];
+    const b0: [number, number, number] = [
+      bx + nx * offsetA,
+      heightAt(hf, bx + nx * offsetA, bz + nz * offsetA) + yOffset,
+      bz + nz * offsetA,
+    ];
+    const b1: [number, number, number] = [
+      bx + nx * offsetB,
+      heightAt(hf, bx + nx * offsetB, bz + nz * offsetB) + yOffset,
+      bz + nz * offsetB,
+    ];
+    const a1: [number, number, number] = [
+      ax + nx * offsetB,
+      heightAt(hf, ax + nx * offsetB, az + nz * offsetB) + yOffset,
+      az + nz * offsetB,
+    ];
+    builder.quad(a0, b0, b1, a1, color);
+  }
 }
 
 /**
@@ -451,6 +473,7 @@ export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: 
     const walk = !isVehicleRoad(road);
     const major = ['trunk', 'primary', 'secondary', 'tertiary'].includes(road.roadClass);
     const half = road.width / 2;
+    const surfaceSegments = quality === 'low' ? 1 : Math.max(1, Math.ceil(road.width / 4));
     for (let i = 0; i < road.points.length - 1; i++) {
       const [ax, az] = road.points[i];
       const [bx, bz] = road.points[i + 1];
@@ -459,21 +482,32 @@ export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: 
       const len = Math.hypot(dx, dz);
       if (len < 0.1) continue;
       if (road.bridge) addBridgeDeck(builder, hf, road, ax, az, bx, bz, baseColor, major);
-      if (walk) {
-        addRoadQuad(builder, hf, ax, az, bx, bz, half, 0.075, path);
-        continue;
-      }
-      addRoadQuad(builder, hf, ax, az, bx, bz, half + 2.05, 0.045, shoulder);
-      addRoadQuad(builder, hf, ax, az, bx, bz, half, 0.095, baseColor);
+      const step = quality === 'low' ? 24 : quality === 'mid' ? 16 : 10;
+      const pieces = road.bridge ? 1 : len > step * 1.5 ? Math.ceil(len / step) : 1;
       const surface = hashString(road.id) % 2 === 0 ? pavement : pavementAlt;
-      for (const side of [1, -1]) {
-        // Open concrete drainage channel along the carriageway.
-        addRoadStrip(builder, hf, ax, az, bx, bz, side * (half + 0.26), side * (half + 0.64), 0.072, gutter);
-        if (major) {
-          addRoadStrip(builder, hf, ax, az, bx, bz, side * (half + 0.66), side * (half + 0.8), 0.085, curb);
-          addRoadStrip(builder, hf, ax, az, bx, bz, side * (half + 0.82), side * (half + 1.98), 0.058, surface);
+      for (let piece = 0; piece < pieces; piece++) {
+        const t0 = piece / pieces;
+        const t1 = (piece + 1) / pieces;
+        const sax = ax + dx * t0;
+        const saz = az + dz * t0;
+        const sbx = ax + dx * t1;
+        const sbz = az + dz * t1;
+        if (walk) {
+          addRoadQuad(builder, hf, sax, saz, sbx, sbz, half, 0.075, path);
+          continue;
+        }
+        addRoadQuad(builder, hf, sax, saz, sbx, sbz, half + 2.05, 0.045, shoulder, surfaceSegments);
+        addRoadQuad(builder, hf, sax, saz, sbx, sbz, half, 0.095, baseColor, surfaceSegments);
+        for (const side of [1, -1]) {
+          // Open concrete drainage channel along the carriageway.
+          addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.26), side * (half + 0.64), 0.072, gutter);
+          if (major) {
+            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.66), side * (half + 0.8), 0.085, curb);
+            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.82), side * (half + 1.98), 0.058, surface);
+          }
         }
       }
+      if (walk) continue;
       if (major && len > 16) {
         const mx = ax + dx * 0.5;
         const mz = az + dz * 0.5;

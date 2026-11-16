@@ -11,7 +11,7 @@ import {
   worldBoundsFromProjected,
 } from '../src/world/chunks';
 import { createHeightfield, heightAt, sampleChunkHeightfield, heightfieldEdgeMatches, encodeHeightfield, decodeHeightfield } from '../src/world/terrain';
-import { buildRoadGraph, validateRoad, pointToPolylineDistance, clipPolylineToBounds } from '../src/world/roads';
+import { buildRoadGraph, validateRoad, pointToPolylineDistance, clipPolylineToBounds, roadsForChunk } from '../src/world/roads';
 import {
   polygonArea,
   polygonCentroid,
@@ -161,6 +161,31 @@ test('road geometry utilities preserve curves and clip to chunks', () => {
   assert.ok(clipped[0].length >= 2);
   assert.ok(clipped[0][0][0] >= 0);
   assert.ok(clipped[0][clipped[0].length - 1][0] <= 20);
+});
+
+test('roadsForChunk clips global ways to the local render chunk', () => {
+  const bounds = { minX: 0, maxX: 100, minZ: -20, maxZ: 20 };
+  const crossing = road({
+    id: 'crossing',
+    points: [[-50, 0], [150, 0]],
+  });
+  const outside = road({
+    id: 'outside',
+    points: [[0, 100], [100, 100]],
+  });
+  const bridge = road({
+    id: 'bridge',
+    bridge: true,
+    points: [[-10, 5], [110, 5]],
+  });
+  const pieces = roadsForChunk([crossing, outside, bridge], bounds);
+  assert.equal(pieces.filter((piece) => piece.id.startsWith('crossing')).length, 1);
+  const clipped = pieces.find((piece) => piece.id.startsWith('crossing'));
+  assert.ok(clipped);
+  assert.ok(clipped!.points[0][0] >= bounds.minX);
+  assert.ok(clipped!.points[clipped!.points.length - 1][0] <= bounds.maxX);
+  assert.equal(pieces.some((piece) => piece.id === 'outside'), false);
+  assert.equal(pieces.some((piece) => piece.id === 'bridge'), true);
 });
 
 test('building polygon area, centroid, point tests and collision', () => {

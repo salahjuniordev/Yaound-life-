@@ -7,29 +7,37 @@ remaining items are M8 acceptance gates, two build items that were explicitly
 outside the current slice, and Phase 5 expansion. Nothing in this document is a
 claim that an unperformed check has passed.
 
-## Parked M8 acceptance work — return here later
+## M8 acceptance work — status
 
-These are the live-review/device/culture items deliberately parked while the
-remaining master-brief build audit proceeds.
+These were the live-review/device/culture items parked while the remaining
+master-brief build audit proceeded.
 
-1. Capture single-view WebGL frames for the compound gate, balcony, market and
-   bridge. The multi-view harness only rendered the market quadrant correctly;
-   it needs a single-view mode. The live app has already rendered at Nlongkak
-   and the market under Chromium + Mesa llvmpipe Vulkan, but that is software
-   rendering, not Android Chrome or real-device evidence.
-2. Investigate two findings from the live pass:
-   - the spawn view is a large grass area with no road visible;
-   - the compound wall/gate is nearly black in morning light and the gate is
-     hard to read.
-   Determine whether these are framing/spawn issues or real material/LOD
-   defects before changing production code.
-3. Fix anything confirmed, rerun `typecheck`, tests, build, size and
-   `world:validate`, then update `M8_VISUAL_CULTURAL_REVIEW.md` and commit.
-4. Finish the external gates:
-   - Actual Android Chrome on the SM-A716U: screenshots, input, real-device
-     low/mid/high FPS, Settings download/cancel/remove, offline reload.
-   - Named local Cameroonian cultural review of gates, balconies, market
-     dressing, vendor tables, signage, vehicles and bridge parapets.
+1. **Done 2026-11-16 — single-view WebGL frames.** A committed harness at
+   `review/m8-single-view.html` / `review/m8-single-view.ts` renders the
+   production loader and geometry in real Three.js/WebGL under Chromium + Mesa
+   llvmpipe Vulkan. Frames cover the compound gate and top, balcony, market,
+   bridge top, parking and spawn ground/top. The multi-view harness is
+   superseded; it is not used as compound/balcony proof.
+2. **Resolved 2026-11-16 — live findings.**
+   - The grassy spawn was a real renderer/data-ownership defect: cross-chunk
+     roads were missing or sampled against the wrong heightfield. The renderer
+     now clips the global road network per chunk, rebuilds it against the local
+     terrain, and subdivides long/wide road surfaces. The live spawn now shows
+     asphalt, markings and pavements.
+   - The near-black compound approach was camera framing under a neighbouring
+     roof, not a gate material/LOD defect. A controlled production-geometry
+     frame and a live-app frame at the actual placed gate show the dark-green
+     leaf and pale rails; no gate material change was made.
+3. **Done 2026-11-16 — verification and documentation.** `npm run typecheck`,
+   217/217 tests, build, size budgets and `world:validate` pass. Production
+   geometry is 640,576 building + 102,550 prop + 157,182 road triangles at high
+   quality. `M8_VISUAL_CULTURAL_REVIEW.md` records the frames, root causes and
+   limits. The world pack, gameplay IDs and saves were not changed.
+4. **Open — external gates.** Actual Android Chrome on the SM-A716U:
+   screenshots, input, real-device low/mid/high FPS, Settings
+   download/cancel/remove and offline reload. Named local Cameroonian cultural
+   review of gates, balconies, market dressing, vendor tables, signage,
+   vehicles and bridge parapets.
 
 The Mesa run is real WebGL evidence, but it is **not** Android Chrome or
 real-device performance evidence.
@@ -56,10 +64,16 @@ explicit missing asset category:
 | Data attribution | Built | In-app attribution, `licenses.json`, in-pack provenance |
 | Licensing documentation | Built | `LICENSING_AND_ATTRIBUTION.md`, source-specific obligations |
 | Feature flags and rollback | Built | Geographic Nlongkak flag, legacy fallback and Settings control |
-| Parking areas / roadside transport | Built 2026-11-16 | 17 bays and 34 parked vehicles across 16 chunks at high quality; static visual review outstanding |
+| Parking areas / roadside transport | Built 2026-11-16 | 18 bays and 36 parked vehicles after the road correction; single-view WebGL parking frame reviewed; device appearance untested |
 
 M8 is still **partial** because the live/device/offline/cultural acceptance
 gates are not complete. See `M8_VISUAL_CULTURAL_REVIEW.md`.
+
+The renderer now clips the global road network per chunk instead of trusting
+the pack's midpoint ownership. This fixed the missing/buried spawn road and
+also gave props and compound gates the same local road set the player can see.
+It is a renderer-only correction: the pack, road IDs, gameplay collision and
+saves are unchanged.
 
 ### Open Buildings ingestion
 
@@ -122,8 +136,9 @@ code alone:
 
 ## Exact next action
 
-1. Return to the four parked M8 acceptance items above; do not mark M8 complete
-   until they have actual evidence.
+1. Return to the open external M8 acceptance gates above: Android Chrome,
+   real-device FPS and offline/Settings checks, and the named local cultural
+   review; do not mark M8 complete until they have actual evidence.
 2. If continuing build work first, implement the optional Open Buildings
    importer contract with synthetic tests, then start a single-district Phase 5
    pack and its pack registry.

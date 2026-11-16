@@ -159,6 +159,116 @@ export function pointToPolylineDistance(
   return best;
 }
 
+export interface ChunkClipBounds {
+  minX: number;
+  maxX: number;
+  minZ: number;
+  maxZ: number;
+}
+
+/**
+ * Clips a single segment to the inclusive chunk box with Liang-Barsky. Unlike
+ * clipPolylineToBounds this also intersects a segment whose two endpoints are
+ * outside the box, which is required when a long OSM way crosses a chunk.
+ */
+function clipRoadSegment(
+  a: [number, number],
+  b: [number, number],
+  bounds: ChunkClipBounds,
+): [[number, number], [number, number]] | null {
+  const dx = b[0] - a[0];
+  const dz = b[1] - a[1];
+  let t0 = 0;
+  let t1 = 1;
+  const p = [-dx, dx, -dz, dz];
+  const q = [a[0] - bounds.minX, bounds.maxX - a[0], a[1] - bounds.minZ, bounds.maxZ - a[1]];
+  for (let i = 0; i < 4; i++) {
+    if (Math.abs(p[i]) < 1e-12) {
+      if (q[i] < 0) return null;
+      continue;
+    }
+    const r = q[i] / p[i];
+    if (p[i] < 0) t0 = Math.max(t0, r);
+    else t1 = Math.min(t1, r);
+    if (t0 > t1) return null;
+  }
+  if (t1 - t0 < 1e-6) return null;
+  return [
+    [a[0] + dx * t0, a[1] + dz * t0],
+    [a[0] + dx * t1, a[1] + dz * t1],
+  ];
+}
+
+/**
+ * Returns the pieces of a road that belong in one chunk. The world pack stores
+ * each OSM way once, in the chunk containing its midpoint, but the renderer
+ * draws that way in full against the owning chunk's heightfield. That makes
+ * long ways disappear or sink when they cross into a neighbouring chunk.
+ *
+ * Clipping the global network per chunk and sampling the local heightfield
+ * keeps every visible road inside the right terrain. Bridges are kept whole
+ * and assigned to the chunk containing their midpoint so their deck, ramps
+ * and parapets are not split at an arbitrary boundary.
+ */
+export function roadsForChunk(roads: WorldRoad[], bounds: ChunkClipBounds): WorldRoad[] {
+  const out: WorldRoad[] = [];
+  for (const road of roads) {
+    if (road.points.length < 2) continue;
+    if (road.bridge) {
+      let cx = 0;
+      let cz = 0;
+      for (const [x, z] of road.points) {
+        cx += x;
+        cz += z;
+      }
+      cx /= road.points.length;
+      cz /= road.points.length;
+      if (cx >= bounds.minX && cx <= bounds.maxX && cz >= bounds.minZ && cz <= bounds.maxZ) out.push(road);
+      continue;
+    }
+
+    let current: [number, number][] = [];
+    let pieceIndex = 0;
+    const flush = () => {
+      if (current.length > 1) {
+        out.push({
+          ...road,
+          id: pieceIndex === 0 ? road.id : `${road.id}#${pieceIndex}`,
+          points: current,
+        });
+        pieceIndex++;
+      }
+      current = [];
+    };
+
+    for (let i = 0; i < road.points.length - 1; i++) {
+      const a = road.points[i];
+      const b = road.points[i + 1];
+      const clipped = clipRoadSegment(a, b, bounds);
+      if (!clipped) {
+        flush();
+        continue;
+      }
+      const [start, end] = clipped;
+      if (current.length === 0) {
+        current = [start, end];
+      } else {
+        const last = current[current.length - 1];
+        if (Math.hypot(last[0] - start[0], last[1] - start[1]) < 1e-4) current.push(end);
+        else {
+          flush();
+          current = [start, end];
+        }
+      }
+      // A segment that leaves the box ends the current piece even if a later
+      // segment re-enters the box.
+      if (Math.hypot(end[0] - b[0], end[1] - b[1]) > 1e-4) flush();
+    }
+    flush();
+  }
+  return out;
+}
+
 export function clipPolylineToBounds(
   points: [number, number][],
   bounds: { minX: number; maxX: number; minZ: number; maxZ: number },

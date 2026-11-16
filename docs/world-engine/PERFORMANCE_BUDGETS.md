@@ -7,10 +7,10 @@ are instrumented, but real-device measurements are still pending.
 
 | Check | Budget | Current |
 | --- | --- | --- |
-| JS total (gzip) | 620 KB | 575,052 B |
+| JS total (gzip) | 620 KB | 576,491 B |
 | CSS total (gzip) | 24 KB | 8,625 B |
-| HTML total (gzip) | 5 KB | 1,813 B |
-| First load JS+CSS+HTML (gzip) | 1 MB | 585,490 B |
+| HTML total (gzip) | 5 KB | 1,814 B |
+| First load JS+CSS+HTML (gzip) | 1 MB | 586,930 B |
 | World assets raw | 12 MB | 5,402,073 B |
 | World assets gzip | 6 MB | 853,458 B |
 
@@ -45,17 +45,26 @@ the keep radius are evicted first; the LRU never evicts an in-flight load.
   leaves are visual-only and do not add collision volumes. Vendor umbrellas/display tables are 2 per market cluster and one
   possible roadside stand per sampled road point, all inside the normal prop
   budget.
+- The renderer clips the global road network to each loaded chunk and rebuilds
+  it against that chunk's heightfield. Long segments are subdivided at 10/16/24
+  m for high/mid/low and wide carriageway/shoulder surfaces are split laterally
+  at roughly 4 m, so a long flat quad cannot be buried under a hill. This raises
+  the static high-tier road count, but it fixes missing/buried cross-chunk
+  roads without regenerating the pack.
 - Road drainage gutters, curbs and pavements are part of the road mesh, so they
-  scale with road length rather than prop budget; quality only changes disk
-  segment counts.
+  scale with road length rather than prop budget; quality changes subdivision
+  and disk segment counts.
 - Bridge decks, parapets, abutments and ramps are part of the road mesh for the
   six OSM bridge ways; they do not consume the prop budget. The shared height
   sampler loops over those six ways per terrain query, not all 426 roads.
 - A production-loader high-quality pass over the 16-chunk pack measured 640,576
   building triangles after the review-driven open balcony rail (619,456 before
-  that correction, +21,120 or 3.4%) and 96,789 prop triangles, with 128
-  compounds/gates and 75 vendor stands/tables. These are geometry counts, not
-  rendered frame measurements.
+  that correction, +21,120 or 3.4%), 102,550 prop triangles and 157,182 road
+  triangles, with 128 compounds/gates, 86 vendor umbrellas/display tables, 18
+  parking bays and 36 parked vehicles. These are geometry counts, not rendered
+  frame measurements. The live software-Mesa frame at the spawn reported
+  736,857 rendered triangles and 92 draw calls; the live frame at the actual
+  compound gate reported 944,258 triangles and 94 draw calls.
 - Terrain meshes always use the fine 8 m heightfield; quality changes props,
   shadows and draw distance.
 - Data saver lowers quality and crowd density where supported.
@@ -85,6 +94,12 @@ second and is hidden by default.
 ## Known gaps
 
 - No real low-end Android measurement has been recorded in this repository.
+  The only current runtime frame is Chromium + Mesa llvmpipe Vulkan at about 4
+  FPS, which is software rendering and not a device target.
 - No automated frame-time regression test; only bundle/asset budgets are CI-safe.
+- No explicit triangle/draw-call cap is enforced in CI. The high-tier static
+  geometry is about 900k triangles across all 16 chunks before terrain, crowd,
+  water and shadow passes; device measurements should decide whether the road
+  subdivision or building detail needs a lower tier.
 - Shadows and near building detail are the first things to disable if a device
   misses the frame target.

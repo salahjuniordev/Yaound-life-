@@ -5,6 +5,7 @@ import { useGame, type NearbyInfo } from '../../state/store';
 import { loadChunk, loadManifest, loadWorldData, joinWorldUrl, type LoadedChunk } from '../../world/loader';
 import { ChunkLru } from '../../world/chunkManager';
 import { heightAt } from '../../world/terrain';
+import { roadsForChunk } from '../../world/roads';
 import type { Heightfield, WorldData, WorldManifest } from '../../world/types';
 import type { QualityTier } from '../controls';
 import { Crowd } from '../Crowd';
@@ -146,7 +147,12 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
       terrain.receiveShadow = qualityRef.current === 'high';
       terrainGroup.add(terrain);
 
-      const roadGeometry = buildRoadGeometry(chunk.roads, chunk.terrain, qualityRef.current);
+      // The pack stores each OSM way in the chunk containing its midpoint.
+      // Clip the global network to this chunk so long ways do not disappear or
+      // sink under a neighbouring heightfield, and so props use the same local
+      // road set the player can actually see.
+      const localRoads = roadsForChunk(worldRef.current?.data.roads ?? chunk.roads, chunk.ref.bounds);
+      const roadGeometry = buildRoadGeometry(localRoads, chunk.terrain, qualityRef.current);
       const roads = roadGeometry
         ? new THREE.Mesh(roadGeometry, new THREE.MeshLambertMaterial({ vertexColors: true, polygonOffset: true, polygonOffsetFactor: -1 }))
         : null;
@@ -173,7 +179,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         group.add(buildingsFar);
       }
 
-      const props = buildPropsGeometry(chunk.ref.id, chunk.roads, chunk.buildings, chunk.terrain, qualityRef.current, chunk.pois);
+      const props = buildPropsGeometry(chunk.ref.id, localRoads, chunk.buildings, chunk.terrain, qualityRef.current, chunk.pois);
       const propsMesh = props.geometry
         ? new THREE.Mesh(props.geometry, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true }))
         : null;
