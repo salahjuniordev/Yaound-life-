@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useGame } from '../state/store';
-import { loadManifest } from '../world/loader';
+import { loadManifest, loadWorldRegistry } from '../world/loader';
+import {
+  BUILTIN_WORLD_REGISTRY,
+  compatibleWorldPackForDistrict,
+  worldPackBaseUrl,
+  worldPackCompatibilityError,
+  type WorldPackEntry,
+  type WorldPackRegistry,
+} from '../world/registry';
 import {
   formatBytes,
   summarizeWorldOffline,
@@ -66,6 +74,9 @@ function statusText(fr: boolean, summary: OfflineWorldSnapshot, catalog: WorldFi
 }
 
 export function WorldOffline({ fr }: WorldOfflineProps) {
+  const district = useGame((s) => s.engine?.state.player.district ?? 'mvog_mbi');
+  const [registry, setRegistry] = useState<WorldPackRegistry>(BUILTIN_WORLD_REGISTRY);
+  const [selectedPackId, setSelectedPackId] = useState<string | null>('nlongkak');
   const [catalog, setCatalog] = useState<WorldFileCatalog | null>(null);
   const [summary, setSummary] = useState<OfflineWorldSnapshot>(() =>
     summarizeWorldOffline(null, [], { supported: worldCacheSupported() }),
@@ -76,6 +87,8 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
   const [checking, setChecking] = useState(true);
   const abortRef = useRef<AbortController | null>(null);
   const mounted = useRef(true);
+  const packs = registry.packs.filter((pack) => worldPackCompatibilityError(pack) === null);
+  const selectedPack = packs.find((pack) => pack.id === selectedPackId) ?? packs[0] ?? null;
 
   useEffect(() => {
     mounted.current = true;
@@ -85,10 +98,30 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
     };
   }, []);
 
-  const refresh = useCallback(async () => {
+  useEffect(() => {
+    let live = true;
+    loadWorldRegistry(import.meta.env.BASE_URL)
+      .then((next) => {
+        if (!live) return;
+        setRegistry(next);
+        const current = compatibleWorldPackForDistrict(next, district);
+        const first = next.packs.find((pack) => worldPackCompatibilityError(pack) === null);
+        setSelectedPackId(current?.id ?? first?.id ?? null);
+      })
+      .catch(() => {
+        if (!live) return;
+        const current = compatibleWorldPackForDistrict(BUILTIN_WORLD_REGISTRY, district);
+        setSelectedPackId(current?.id ?? 'nlongkak');
+      });
+    return () => {
+      live = false;
+    };
+  }, [district]);
+
+  const refresh = useCallback(async (pack: WorldPackEntry) => {
     setChecking(true);
     const baseUrl = import.meta.env.BASE_URL;
-    const worldBase = `${baseUrl}world/v1`;
+    const worldBase = worldPackBaseUrl(baseUrl, pack);
     if (!worldCacheSupported()) {
       if (mounted.current) {
         setSummary(summarizeWorldOffline(null, [], { supported: false }));
@@ -98,7 +131,10 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
     }
     try {
       const nextCatalog = await loadWorldCatalog(worldBase);
-      const manifest = await loadManifest(worldBase);
+      const manifest = await loadManifest(worldBase, {
+        expectedWorldVersion: pack.worldVersion,
+        expectedAreaId: pack.districtId,
+      });
       const versions = await worldCacheVersions();
       const cacheNames = versions.map((version) => worldCacheName(version));
       const cachedPaths = await cachedWorldPaths(worldCacheName(nextCatalog.worldVersion), baseUrl);
@@ -115,6 +151,7 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
       );
     } catch {
       if (!mounted.current) return;
+      setCatalog(null);
       setSummary(summarizeWorldOffline(null, [], { supported: true }));
     } finally {
       if (mounted.current) setChecking(false);
@@ -122,11 +159,17 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
   }, []);
 
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    if (!selectedPack) {
+      setCatalog(null);
+      setSummary(summarizeWorldOffline(null, [], { supported: worldCacheSupported() }));
+      setChecking(false);
+      return;
+    }
+    void refresh(selectedPack);
+  }, [refresh, selectedPack]);
 
   const download = async () => {
-    if (!catalog || busy) return;
+    if (!catalog || !selectedPack || busy) return;
     const controller = new AbortController();
     abortRef.current = controller;
     setBusy(true);
@@ -142,13 +185,16 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
           if (mounted.current) setProgress(next);
         },
       });
-      await cleanupOldWorldCaches(catalog.worldVersion);
+      const keepVersions = packs.map((pack) => pack.worldVersion);
+      if (!keepVersions.includes(catalog.worldVersion)) keepVersions.push(catalog.worldVersion);
+      await cleanupOldWorldCaches(keepVersions);
       notifyWorldCacheUpdated();
       if (mounted.current) {
+        const label = selectedPack.name;
         useGame.getState().engine?.toast(
-          'Nlongkak is available offline',
+          `${label} is available offline`,
           'success',
-          'Nlongkak est disponible hors ligne',
+          `${label} est disponible hors ligne`,
         );
       }
     } catch (error) {
@@ -164,19 +210,19 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
       abortRef.current = null;
       if (mounted.current) {
         setBusy(false);
-        await refresh();
+        if (selectedPack) await refresh(selectedPack);
       }
     }
   };
 
   const remove = async () => {
-    if (!catalog || busy) return;
+    if (!catalog || !selectedPack || busy) return;
     setBusy(true);
     try {
       const versions = await worldCacheVersions();
       await Promise.all(versions.map((version) => deleteWorldCache(version)));
       notifyWorldCacheUpdated();
-      await refresh();
+      await refresh(selectedPack);
     } finally {
       if (mounted.current) setBusy(false);
     }
@@ -190,7 +236,20 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
     <div className="world-offline">
       <div className="world-offline-head">
         <strong>{fr ? 'Monde hors ligne' : 'Offline world'}</strong>
-        <span className="muted small">{fr ? 'Nlongkak' : 'Nlongkak'}</span>
+        {packs.length > 1 ? (
+          <select
+            aria-label={fr ? 'Quartier géographique' : 'Geographic district'}
+            value={selectedPack?.id ?? ''}
+            onChange={(event) => setSelectedPackId(event.target.value)}
+            disabled={busy}
+          >
+            {packs.map((pack) => (
+              <option key={pack.id} value={pack.id}>{pack.name}</option>
+            ))}
+          </select>
+        ) : (
+          <span className="muted small">{selectedPack?.name ?? (fr ? 'Indisponible' : 'Unavailable')}</span>
+        )}
       </div>
       <div className={`world-offline-status world-offline-${summary.status}`} role="status">
         {checking
@@ -223,8 +282,8 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
                   ? 'Mettre à jour hors ligne'
                   : 'Update offline world'
                 : fr
-                  ? 'Télécharger Nlongkak hors ligne'
-                  : 'Download Nlongkak offline'}
+                  ? `Télécharger ${selectedPack?.name ?? 'le monde'} hors ligne`
+                  : `Download ${selectedPack?.name ?? 'world'} offline`}
           </button>
         )}
         {busy && abortRef.current && (

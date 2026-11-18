@@ -8,9 +8,11 @@ import { decodeHeightfield } from '../src/world/terrain.ts';
 import { decodeBuildings } from '../src/world/buildings.ts';
 import { validateChunkPayload, validateWorldData } from '../src/world/validation.ts';
 import { validateWorldFileCatalog } from '../src/world/offline.ts';
+import { validateWorldPackRegistry } from '../src/world/registry.ts';
 
 const ROOT = resolve(dirname(dirname(fileURLToPath(import.meta.url))));
 const WORLD_DIR = join(ROOT, 'public/world/v1');
+const REGISTRY_PATH = join(ROOT, 'public/world/registry.json');
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, 'utf8'));
@@ -34,6 +36,39 @@ if (!existsSync(manifestPath)) {
 const rawManifest = readJson(manifestPath);
 for (const message of validateManifest(rawManifest)) errors.push(`manifest: ${message}`);
 const manifest = assertValidManifest(rawManifest);
+
+let registry = null;
+if (!existsSync(REGISTRY_PATH)) {
+  errors.push('registry: missing public/world/registry.json');
+} else {
+  try {
+    registry = validateWorldPackRegistry(readJson(REGISTRY_PATH));
+  } catch (error) {
+    errors.push(`registry: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+const registered = registry?.packs.find((pack) => pack.districtId === manifest.area.id) ?? null;
+if (registry && !registered) errors.push(`registry: no pack registered for ${manifest.area.id}`);
+if (registered) {
+  if (registered.worldVersion !== manifest.worldVersion) errors.push('registry: worldVersion does not match manifest');
+  if (registered.manifestFormatVersion !== manifest.formatVersion) errors.push('registry: manifestFormatVersion does not match manifest');
+  if (registered.basePath !== 'world/v1') errors.push(`registry: unexpected basePath ${registered.basePath} for the committed pack`);
+}
+for (const pack of registry?.packs ?? []) {
+  const packManifestPath = join(ROOT, 'public', pack.basePath, 'manifest.json');
+  if (!existsSync(packManifestPath)) {
+    errors.push(`registry: ${pack.id} is missing ${pack.basePath}/manifest.json`);
+    continue;
+  }
+  try {
+    const packManifest = assertValidManifest(readJson(packManifestPath));
+    if (packManifest.worldVersion !== pack.worldVersion) errors.push(`registry: ${pack.id} worldVersion does not match its manifest`);
+    if (packManifest.area.id !== pack.districtId) errors.push(`registry: ${pack.id} district does not match its manifest area`);
+    if (packManifest.formatVersion !== pack.manifestFormatVersion) errors.push(`registry: ${pack.id} manifest format does not match`);
+  } catch (error) {
+    errors.push(`registry: ${pack.id}: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
 
 const roads = readJson(join(WORLD_DIR, 'roads/network.json'));
 const pois = readJson(join(WORLD_DIR, 'pois/pois.json'));

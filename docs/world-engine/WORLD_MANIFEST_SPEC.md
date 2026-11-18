@@ -1,7 +1,47 @@
 # World Manifest Specification
 
-`public/world/v1/manifest.json` is the entry point for the geographic world. It
-is fetched and validated before any chunk is used.
+`public/world/registry.json` selects a versioned pack for each gameplay
+district. The selected pack's `manifest.json` is the entry point for its
+geographic world and is fetched and validated before any chunk is used.
+
+## Pack registry (`public/world/registry.json`)
+
+```json
+{
+  "format": "yaounde-life-world-registry",
+  "formatVersion": 1,
+  "generatedAt": "2026-11-12T20:28:33.684Z",
+  "packs": [{
+    "id": "nlongkak",
+    "districtId": "nlongkak",
+    "name": "Nlongkak",
+    "basePath": "world/v1",
+    "worldVersion": "nlongkak-2026-10-30-v2",
+    "manifestFormatVersion": 1,
+    "precacheOnInstall": true
+  }]
+}
+```
+
+Rules enforced by `src/world/registry.ts`:
+
+- `districtId` is unique, so at most one pack is selected for a gameplay area.
+- `basePath` is a site-relative path below `world/`; absolute URLs, `..` and
+  backslashes are rejected.
+- `worldVersion` is a safe version token. The loaded manifest must match both
+  the registered `worldVersion` and `area.id`.
+- `manifestFormatVersion` must match the runtime's `WORLD_FORMAT_VERSION`;
+  incompatible packs fall back explicitly instead of rendering silently.
+- Unregistered districts keep the legacy procedural world. A missing or invalid
+  registry falls back to the built-in Nlongkak mapping, then to legacy if that
+  pack also fails validation.
+- `precacheOnInstall` is opt-in. The service worker precaches only packs that
+  set it; other registered packs remain available for explicit download.
+
+The registry is a deployment file, not part of a pack's `files.json` catalog.
+`npm run world:build` upserts the current area's entry without deleting other
+registered packs; `npm run world:validate` checks the registry against every
+registered manifest and the committed Nlongkak pack.
 
 ## Required fields
 
@@ -62,6 +102,8 @@ scripts additionally check:
 - road/POI JSON parses and counts match the manifest;
 - waterway records have at least two points, one level per point and a positive width;
 - `contentHash` and per-chunk hashes are stable;
+- `world/registry.json` is valid, has unique districts and points at an existing
+  pack whose manifest matches its `worldVersion`, `area.id` and format;
 - `files.json` lists every world file with its byte size;
 - `precache.json` exactly matches the catalog's initial list;
 - `worldVersion` matches between manifest and catalog.
@@ -103,5 +145,7 @@ chunks around the spawn chunk (radius 1). The rest downloads on demand.
 - Keep `formatVersion` at `1` until the runtime format changes incompatibly.
 - A new `worldVersion` gets a new Cache Storage bucket
   (`yaounde-world-<version>`); old buckets are removed after a successful
-  download, not during app-shell activation.
-- Saves do not embed the world version; they store player state only.
+  download, not during app-shell activation. Cleanup preserves every version
+  still registered for another district.
+- Saves do not embed the world version; they store player state only. Adding a
+  registry entry does not change gameplay district IDs or save data.

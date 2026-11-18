@@ -70,10 +70,11 @@ export function createGeoAdapter(options: GeoAdapterOptions): WorldAdapter {
     minZ: world.manifest.bounds.minZ,
     maxZ: world.manifest.bounds.maxZ,
   };
-  const anchor = world.districts.find((district) => district.id === 'nlongkak');
+  const districtId = world.manifest.area.id as DistrictId;
+  const anchor = world.districts.find((district) => district.id === districtId);
   const anchorX = anchor?.gameX ?? (bounds.minX + bounds.maxX) / 2;
   const anchorZ = anchor?.gameZ ?? (bounds.minZ + bounds.maxZ) / 2;
-  const oldCenter = DISTRICT_MAP.nlongkak.center;
+  const oldCenter = DISTRICT_MAP[districtId]?.center ?? [anchorX, anchorZ];
   const scale = 2.2;
   const clamp = (x: number, z: number): [number, number] => clampToBounds(x, z, {
     minX: bounds.minX + 8,
@@ -125,7 +126,7 @@ export function createGeoAdapter(options: GeoAdapterOptions): WorldAdapter {
   })();
 
   const places: RenderPlace[] = PLACES
-    .filter((place) => place.district === 'nlongkak')
+    .filter((place) => place.district === districtId)
     .map((place, index) => {
       const baseX = anchorX + (place.pos[0] - oldCenter[0]) * scale;
       const baseZ = anchorZ + (place.pos[1] - oldCenter[1]) * scale;
@@ -138,7 +139,7 @@ export function createGeoAdapter(options: GeoAdapterOptions): WorldAdapter {
     places,
     bounds,
     terrainHeight: height,
-    districtAt: () => 'nlongkak',
+    districtAt: () => districtId,
     clamp,
     collide: (x, z, radius) => {
       const [cx, cz] = clamp(x, z);
@@ -149,7 +150,7 @@ export function createGeoAdapter(options: GeoAdapterOptions): WorldAdapter {
     crowdCenter: () => [anchorX, anchorZ],
     crowdRadius: () => 220,
     toWorldPosition: (district, pos) => {
-      if (district !== 'nlongkak') return pos;
+      if (district !== districtId) return pos;
       return mapLegacy(pos);
     },
     placePedestrian,
@@ -157,5 +158,5 @@ export function createGeoAdapter(options: GeoAdapterOptions): WorldAdapter {
 }
 
 export function geoWorldAvailable(world: WorldData | null): world is WorldData {
-  return Boolean(world && world.manifest.area.id === 'nlongkak');
+  return Boolean(world);
 }

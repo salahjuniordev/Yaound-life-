@@ -6,12 +6,12 @@ This document describes the first real-geography world pack for Yaoundé Life. I
 
 - Geographic area: Nlongkak, Yaoundé, Cameroon.
 - Area id: `nlongkak`.
-- World package: `public/world/v1/`.
-- Runtime default: geographic Nlongkak when the player is in Nlongkak; other districts continue to use the legacy procedural world.
+- World package: `public/world/v1/`; district selector: `public/world/registry.json`.
+- Runtime default: the registry selects the versioned pack registered for the current gameplay district. Only Nlongkak is registered today; other districts continue to use the legacy procedural world.
 - Rollback: Settings -> `Geographic Nlongkak (preview)`, `?world=legacy`, or localStorage key `yaounde-world-mode=legacy`.
 - Force preview: `?world=geo`.
 - The world package is generated at build time and is loaded from the app origin. There is no runtime Overpass, geocoding, or map-tile dependency.
-- Offline: `public/sw.js` precaches the build-generated `app-shell.json` (HTML, hashed JS/CSS, manifest, fonts and icons), `world/v1/manifest.json`, `world/v1/files.json` and the initial `world/v1/precache.json` set, then serves world assets cache-first from a versioned `yaounde-world-<version>` cache. Settings → Offline world downloads the full 5.4 MB pack (90 catalog files) with progress, cancel and quota handling. A completed download or removal invalidates the service worker's memoized world version so the next request uses the new cache immediately.
+- Offline: `public/sw.js` resolves `world/registry.json`, precaches the build-generated `app-shell.json` (HTML, hashed JS/CSS, manifest, fonts and icons), `world/registry.json`, and the initial files for registered packs flagged `precacheOnInstall` (currently `world/v1`). It then serves world assets cache-first from a versioned `yaounde-world-<version>` cache. Settings → Offline world lets the player choose a registered pack and downloads the full 5.4 MB Nlongkak catalog (90 files) with progress, cancel and quota handling. Cleanup preserves every version still listed in the registry. A completed download or removal invalidates the service worker's memoized world version so the next request uses the new cache immediately.
 - Water: 2 polygon water features plus 35 real OSM waterway centrelines (rivers, streams, drains; 5.9 km) rendered as terrain-following ribbons.
 - Implementation suite: `docs/world-engine/` (architecture, data sources, coordinates, manifest, chunks, roads, terrain, buildings, offline packaging, licensing, budgets, progress, M8 review, remaining work).
 
@@ -44,8 +44,8 @@ Requirements: Node, `osmium-tool`, Python 3 with Pillow, and curl.
 ```bash
 npm run world:acquire   # download, extract, decode DEM, build, validate
 npm run world:inspect   # show source presence, bbox, chunk grid, raw feature counts
-npm run world:build     # regenerate public/world/v1 from processed inputs
-npm run world:validate  # verify manifest, hashes, counts, binary payloads
+npm run world:build     # regenerate a pack from processed inputs and upsert its registry entry
+npm run world:validate  # verify registry, manifest, hashes, counts and binary payloads
 ```
 
 The full app checks are:
@@ -62,7 +62,7 @@ Raw and intermediate geodata are intentionally gitignored:
 - `data/geodata/raw/`
 - `data/geodata/processed/`
 
-The shippable derived package is `public/world/v1/`, including `manifest.json`, `licenses.json`, `files.json`, `precache.json`, global terrain/roads/POIs/water/waterways/districts, and 16 chunk packs.
+The shippable derived package is `public/world/registry.json` plus `public/world/v1/`. The Nlongkak pack includes `manifest.json`, `licenses.json`, `files.json`, `precache.json`, global terrain/roads/POIs/water/waterways/districts, and 16 chunk packs. A second district must add its own directory and registry entry; the registry is not part of the pack's 90-file offline catalog.
 
 ## Package format
 
@@ -89,8 +89,10 @@ Every rendered feature carries provenance. Status values mean:
 
 ## Runtime behaviour
 
-- `src/world/` is the pure data layer: UTM transforms, chunk math, terrain sampling, road graph utilities, building decoding/collision, manifest validation, and async loading.
+- `src/world/` is the pure data layer: UTM transforms, chunk math, terrain sampling, road graph utilities, building decoding/collision, registry and manifest validation, and async loading.
 - `src/render/geo/` is the Three.js adapter: collision grid, road index, terrain/road/building/prop/water/waterway geometry, runtime adapter, and the streaming `GeoScene`.
+- `src/world/registry.ts` validates the district → pack mapping, rejects duplicate districts/unsafe paths, checks manifest-format compatibility, and provides a built-in Nlongkak fallback if `world/registry.json` cannot be fetched. The loader also enforces the registry's `worldVersion` and `area.id` against the fetched manifest.
+- The geographic adapter uses the loaded manifest's `area.id` and `WorldDistrictAnchor`. It no longer hard-codes the Nlongkak anchor, place filter or `districtAt` result.
 - Chunk radius: low = current chunk, mid = 3 x 3, high = 5 x 5 (capped by the 4 x 4 pack). `ChunkLru` caps loaded chunks at 5/10/16, keeps a stable nearest-first subset when the desired radius exceeds the cap, retains keep-ring buffers in spare slots, and disposes geometry on unload.
 - Building LOD: near detail includes windows, doors, awnings, painted shop boards/blade signs, roof details, capped upper-floor balconies, and rooftop props; far detail is a simplified massing mesh. Mid/high use both; low uses the simple mesh.
 - Terrain LOD: chunk meshes are always built from the fine heightfield; quality controls props, building detail, shadows, and draw distance.
@@ -106,7 +108,7 @@ Every rendered feature carries provenance. Status values mean:
 
 ## Known limitations
 
-- Only Nlongkak is geographic. The other eight districts remain procedural until their own packs are built.
+- Only Nlongkak is geographic. The registry, loader, adapter, offline UI and service worker can handle multiple registered packs, but the other eight districts remain procedural until their own reproducible packs are built and reviewed. No second production pack exists yet.
 - Building heights are mostly inferred from footprint area and tags; only tagged heights/levels are real.
 - Waterway ribbons use DEM-derived per-point heights; there is no flow, flooding or channel-carving simulation. OSM bridge decks use a straight grade between endpoints and have no hydraulic, underpass or parapet-collision model.
 - There is no real-time traffic, routing, live closures, or live geocoding. Parked/waiting vehicles, market stalls, vendor umbrellas, produce and signage are deterministic visual dressing, not vendor registries, real shop names or traffic data.

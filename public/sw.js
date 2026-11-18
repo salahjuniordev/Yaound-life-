@@ -14,8 +14,17 @@ const APP_SHELL_FALLBACK = [
   'fonts/plus-jakarta-sans-latin.woff2',
 ];
 const WORLD_CACHE_PREFIX = 'yaounde-world-';
-const WORLD_ROOT = 'world/v1/';
+const WORLD_REGISTRY = 'world/registry.json';
+const WORLD_LEGACY_PACK = Object.freeze({
+  id: 'nlongkak',
+  districtId: 'nlongkak',
+  name: 'Nlongkak',
+  basePath: 'world/v1',
+  worldVersion: null,
+  precacheOnInstall: true,
+});
 const WORLD_VERSION_PATTERN = /^[A-Za-z0-9._-]+$/;
+const WORLD_PACK_PATH_PATTERN = /^world\/[A-Za-z0-9._/-]+$/;
 
 function isWorldCacheName(name) {
   return name.startsWith(WORLD_CACHE_PREFIX) && name.length > WORLD_CACHE_PREFIX.length;
@@ -25,13 +34,69 @@ function scopeUrl(path) {
   return new URL(path, self.registration.scope);
 }
 
+function validRegistryPack(pack) {
+  return Boolean(
+    pack &&
+    typeof pack.id === 'string' &&
+    /^[a-z0-9][a-z0-9_-]*$/.test(pack.id) &&
+    typeof pack.districtId === 'string' &&
+    /^[a-z0-9][a-z0-9_-]*$/.test(pack.districtId) &&
+    typeof pack.name === 'string' &&
+    pack.name.length > 0 &&
+    typeof pack.basePath === 'string' &&
+    !pack.basePath.startsWith('/') &&
+    !pack.basePath.includes('..') &&
+    !pack.basePath.includes('\\') &&
+    WORLD_PACK_PATH_PATTERN.test(pack.basePath) &&
+    typeof pack.worldVersion === 'string' &&
+    WORLD_VERSION_PATTERN.test(pack.worldVersion) &&
+    Number.isInteger(pack.manifestFormatVersion)
+  );
+}
+
 const WORLD_MANIFEST_TTL_MS = 60_000;
+let registryPromise = null;
+let registryResolvedAt = 0;
 let activeWorldCachePromise = null;
 let activeWorldCacheResolvedAt = 0;
 
 function invalidateActiveWorldCache() {
+  registryPromise = null;
+  registryResolvedAt = 0;
   activeWorldCachePromise = null;
   activeWorldCacheResolvedAt = 0;
+}
+
+async function loadWorldRegistry() {
+  if (
+    registryPromise &&
+    (registryResolvedAt === 0 || Date.now() - registryResolvedAt < WORLD_MANIFEST_TTL_MS)
+  ) {
+    return registryPromise;
+  }
+  const pending = (async () => {
+    try {
+      const response = await fetch(scopeUrl(WORLD_REGISTRY), { cache: 'no-store' });
+      if (!response.ok) return null;
+      const registry = await response.json();
+      if (!registry || registry.format !== 'yaounde-life-world-registry' || registry.formatVersion !== 1) return null;
+      if (!Array.isArray(registry.packs) || registry.packs.length === 0) return null;
+      const seenPaths = new Set();
+      const packs = registry.packs.filter((pack) => {
+        if (!validRegistryPack(pack) || seenPaths.has(pack.basePath)) return false;
+        seenPaths.add(pack.basePath);
+        return true;
+      });
+      return packs.length > 0 ? { ...registry, packs } : null;
+    } catch {
+      return null;
+    }
+  })();
+  registryPromise = pending;
+  registryResolvedAt = 0;
+  const registry = await pending;
+  if (registryPromise === pending) registryResolvedAt = Date.now();
+  return registry;
 }
 
 async function activeWorldCacheName() {
@@ -42,8 +107,13 @@ async function activeWorldCacheName() {
     return activeWorldCachePromise;
   }
   const pending = (async () => {
+    const registry = await loadWorldRegistry();
+    if (registry) {
+      const pack = registry.packs.find((entry) => entry.precacheOnInstall === true) ?? registry.packs[0];
+      return `${WORLD_CACHE_PREFIX}${pack.worldVersion}`;
+    }
     try {
-      const response = await fetch(scopeUrl(`${WORLD_ROOT}manifest.json`), { cache: 'no-store' });
+      const response = await fetch(scopeUrl(`${WORLD_LEGACY_PACK.basePath}/manifest.json`), { cache: 'no-store' });
       if (response.ok) {
         const manifest = await response.json();
         if (manifest && typeof manifest.worldVersion === 'string' && WORLD_VERSION_PATTERN.test(manifest.worldVersion)) {
@@ -67,6 +137,16 @@ async function activeWorldCacheName() {
     if (activeWorldCachePromise === pending) invalidateActiveWorldCache();
     throw error;
   }
+}
+
+async function worldCacheNameForRequest(request) {
+  const registry = await loadWorldRegistry();
+  if (registry) {
+    const path = new URL(request.url).pathname;
+    const pack = registry.packs.find((entry) => path.includes(`/${entry.basePath}/`));
+    if (pack) return `${WORLD_CACHE_PREFIX}${pack.worldVersion}`;
+  }
+  return activeWorldCacheName();
 }
 
 async function matchWorldRequest(request) {
@@ -111,26 +191,46 @@ async function precacheAppShell(cache) {
   if (!shell) throw new Error('app shell could not be cached');
 }
 
-async function precacheWorld() {
-  const manifestResponse = await fetch(scopeUrl(`${WORLD_ROOT}manifest.json`), { cache: 'no-store' }).catch(() => null);
-  if (!manifestResponse || !manifestResponse.ok) return;
-  const manifest = await manifestResponse.json().catch(() => null);
-  if (!manifest || typeof manifest.worldVersion !== 'string' || !WORLD_VERSION_PATTERN.test(manifest.worldVersion)) return;
-  const cache = await caches.open(`${WORLD_CACHE_PREFIX}${manifest.worldVersion}`);
-  const listResponse = await fetch(scopeUrl(`${WORLD_ROOT}precache.json`), { cache: 'no-store' }).catch(() => null);
+function isSafeWorldPath(path, basePath) {
+  if (typeof path !== 'string' || path.length > 1024) return false;
+  if (!path.startsWith(`${basePath}/`)) return false;
+  if (path.includes('..') || path.includes('\\')) return false;
+  return !/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(path);
+}
+
+async function precachePack(pack) {
+  let worldVersion = pack.worldVersion;
+  if (!worldVersion) {
+    const manifestResponse = await fetch(scopeUrl(`${pack.basePath}/manifest.json`), { cache: 'no-store' }).catch(() => null);
+    if (!manifestResponse || !manifestResponse.ok) return;
+    const manifest = await manifestResponse.json().catch(() => null);
+    if (!manifest || typeof manifest.worldVersion !== 'string' || !WORLD_VERSION_PATTERN.test(manifest.worldVersion)) return;
+    worldVersion = manifest.worldVersion;
+  }
+  const cache = await caches.open(`${WORLD_CACHE_PREFIX}${worldVersion}`);
+  const listResponse = await fetch(scopeUrl(`${pack.basePath}/precache.json`), { cache: 'no-store' }).catch(() => null);
   if (!listResponse || !listResponse.ok) return;
   const files = await listResponse.json().catch(() => []);
   if (!Array.isArray(files)) return;
   await Promise.allSettled([
-    cache.add(scopeUrl(`${WORLD_ROOT}files.json`)).catch(() => undefined),
-    cache.add(scopeUrl(`${WORLD_ROOT}precache.json`)).catch(() => undefined),
+    cache.add(scopeUrl(WORLD_REGISTRY)).catch(() => undefined),
+    cache.add(scopeUrl(`${pack.basePath}/files.json`)).catch(() => undefined),
+    cache.add(scopeUrl(`${pack.basePath}/precache.json`)).catch(() => undefined),
   ]);
   await Promise.allSettled(
     files.map((path) => {
-      if (typeof path !== 'string') return Promise.resolve();
+      if (!isSafeWorldPath(path, pack.basePath)) return Promise.resolve();
       return cache.add(scopeUrl(path)).catch(() => undefined);
     }),
   );
+}
+
+async function precacheWorld() {
+  const registry = await loadWorldRegistry();
+  const packs = registry
+    ? registry.packs.filter((pack) => pack.precacheOnInstall === true)
+    : [WORLD_LEGACY_PACK];
+  await Promise.allSettled(packs.map(precachePack));
 }
 
 self.addEventListener('install', (event) => {
@@ -178,7 +278,7 @@ self.addEventListener('fetch', (event) => {
         try {
           const response = await fetch(request);
           if (response.ok) {
-            const cache = await caches.open(await activeWorldCacheName());
+            const cache = await caches.open(await worldCacheNameForRequest(request));
             cache.put(request, response.clone()).catch(() => undefined);
           }
           return response;

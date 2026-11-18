@@ -16,6 +16,7 @@
   "simplifyTolerance": 0.45,
   "minBuildingArea": 2,
   "outputDir": "public/world/v1",
+  "precacheOnInstall": true,
   "sources": [
     {
       "id": "openstreetmap",

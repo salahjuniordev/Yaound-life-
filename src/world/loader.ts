@@ -12,6 +12,13 @@ import type {
   WorldRoad,
 } from './types';
 import { assertValidManifest } from './manifest';
+import {
+  assertWorldPackManifest,
+  validateWorldPackRegistry,
+  WORLD_REGISTRY_FILE,
+  type WorldPackEntry,
+  type WorldPackRegistry,
+} from './registry';
 import { decodeHeightfield } from './terrain';
 import { decodeBuildings, type DecodedBuilding } from './buildings';
 
@@ -32,6 +39,8 @@ export class WorldLoadError extends Error {
 export interface WorldLoadOptions {
   signal?: AbortSignal;
   fetchImpl?: typeof fetch;
+  expectedWorldVersion?: string;
+  expectedAreaId?: string;
 }
 
 export interface LoadedChunk {
@@ -74,13 +83,50 @@ async function fetchJson<T>(url: string, options: WorldLoadOptions = {}): Promis
   }
 }
 
+export async function loadWorldRegistry(
+  appBaseUrl: string,
+  options: WorldLoadOptions = {},
+): Promise<WorldPackRegistry> {
+  const url = joinWorldUrl(appBaseUrl, `world/${WORLD_REGISTRY_FILE}`);
+  const raw = await fetchJson<unknown>(url, options);
+  try {
+    return validateWorldPackRegistry(raw);
+  } catch (error) {
+    throw new WorldLoadError('version', error instanceof Error ? error.message : String(error), url);
+  }
+}
+
 export async function loadManifest(baseUrl: string, options: WorldLoadOptions = {}): Promise<WorldManifest> {
   const url = joinWorldUrl(baseUrl, 'manifest.json');
   const raw = await fetchJson<unknown>(url, options);
+  let manifest: WorldManifest;
   try {
-    return assertValidManifest(raw);
+    manifest = assertValidManifest(raw);
   } catch (error) {
     throw new WorldLoadError('version', error instanceof Error ? error.message : String(error), url);
+  }
+  if (options.expectedWorldVersion && manifest.worldVersion !== options.expectedWorldVersion) {
+    throw new WorldLoadError(
+      'version',
+      `World version ${manifest.worldVersion} does not match expected ${options.expectedWorldVersion}`,
+      url,
+    );
+  }
+  if (options.expectedAreaId && manifest.area.id !== options.expectedAreaId) {
+    throw new WorldLoadError(
+      'version',
+      `World area ${manifest.area.id} does not match expected ${options.expectedAreaId}`,
+      url,
+    );
+  }
+  return manifest;
+}
+
+export function assertLoadedPackManifest(manifest: WorldManifest, pack: WorldPackEntry): void {
+  try {
+    assertWorldPackManifest(manifest, pack);
+  } catch (error) {
+    throw new WorldLoadError('version', error instanceof Error ? error.message : String(error));
   }
 }
 

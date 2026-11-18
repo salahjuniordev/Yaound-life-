@@ -2,7 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGame, type NearbyInfo } from '../../state/store';
-import { loadChunk, loadManifest, loadWorldData, joinWorldUrl, type LoadedChunk } from '../../world/loader';
+import type { DistrictId } from '../../sim/types';
+import { loadChunk, loadManifest, loadWorldData, assertLoadedPackManifest, type LoadedChunk } from '../../world/loader';
+import { worldPackBaseUrl, type WorldPackEntry } from '../../world/registry';
 import { ChunkLru } from '../../world/chunkManager';
 import { heightAt } from '../../world/terrain';
 import { roadsForChunk } from '../../world/roads';
@@ -31,6 +33,7 @@ export interface GeoStatus {
 }
 
 interface GeoSceneProps {
+  pack: WorldPackEntry;
   quality: QualityTier;
   onInteract: (nearby: NearbyInfo) => void;
   onStatus?: (status: GeoStatus) => void;
@@ -78,7 +81,7 @@ function triangleCount(geometry: THREE.BufferGeometry | undefined): number {
   return geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3;
 }
 
-export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSceneProps) {
+export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }: GeoSceneProps) {
   const { gl } = useThree();
   const collision = useMemo(() => new GeoCollisionWorld(), []);
   const visualGroup = useMemo(() => new THREE.Group(), []);
@@ -119,7 +122,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
     if (initialised.current) return;
     initialised.current = true;
     const controller = new AbortController();
-    const baseUrl = `${import.meta.env.BASE_URL}world/v1`.replace(/\/{2,}/g, '/').replace(':/', '://');
+    const baseUrl = worldPackBaseUrl(import.meta.env.BASE_URL, pack);
 
     const removeChunk = (id: string) => {
       const visual = chunkVisuals.current.get(id);
@@ -216,7 +219,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         chunkVisuals.current.set(ref.id, visual);
         chunkLru.current.markLoaded(ref.id);
         visualGroup.add(visual.group);
-        statusRef.current?.({ phase: 'ready', message: 'Nlongkak' });
+        statusRef.current?.({ phase: 'ready', message: pack.name });
       } catch (error) {
         if (controller.signal.aborted) return;
         console.error('Geo chunk failed', ref.id, error);
@@ -266,8 +269,13 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
 
     const load = async () => {
       try {
-        statusRef.current?.({ phase: 'loading', message: 'Loading Nlongkak geography…' });
-        const manifest = await loadManifest(baseUrl, { signal: controller.signal });
+        statusRef.current?.({ phase: 'loading', message: `Loading ${pack.name} geography…` });
+        const manifest = await loadManifest(baseUrl, {
+          signal: controller.signal,
+          expectedWorldVersion: pack.worldVersion,
+          expectedAreaId: pack.districtId,
+        });
+        assertLoadedPackManifest(manifest, pack);
         const data = await loadWorldData(baseUrl, manifest, { signal: controller.signal });
         if (controller.signal.aborted) return;
         const roads = new RoadIndex(data.roads);
@@ -281,7 +289,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
         const terrainHeight = (x: number, z: number): number =>
           bridgeSurfaceAt(bridgeRoads, x, z, baseTerrainHeight) ?? baseTerrainHeight(x, z);
         const geoAdapter = createGeoAdapter({ world: data, collision, roads, terrainHeight });
-        const spawnPoint = geoAdapter.spawnForDistrict('nlongkak');
+        const spawnPoint = geoAdapter.spawnForDistrict(pack.districtId as DistrictId);
         worldRef.current = { baseUrl, manifest, data, roads };
         setAdapter(geoAdapter);
         setSpawn(spawnPoint);
@@ -301,7 +309,7 @@ export function GeoScene({ quality, onInteract, onStatus, onUnavailable }: GeoSc
           waterGroup.add(mesh);
         }
         ensure(spawnPoint[0], spawnPoint[1]);
-        statusRef.current?.({ phase: 'ready', message: 'Nlongkak' });
+        statusRef.current?.({ phase: 'ready', message: pack.name });
       } catch (error) {
         if (controller.signal.aborted) return;
         const message = error instanceof Error ? error.message : String(error);

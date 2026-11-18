@@ -66,9 +66,13 @@ export function worldVersionFromCacheName(name: string): string | null {
   return VERSION_PATTERN.test(version) ? version : null;
 }
 
-export function obsoleteWorldCaches(cacheNames: readonly string[], keepVersion: string): string[] {
-  const keep = worldCacheName(keepVersion);
-  return cacheNames.filter((name) => isWorldCacheName(name) && name !== keep);
+export function obsoleteWorldCaches(
+  cacheNames: readonly string[],
+  keepVersions: string | readonly string[],
+): string[] {
+  const versions = typeof keepVersions === 'string' ? [keepVersions] : keepVersions;
+  const keep = new Set(versions.map(worldCacheName));
+  return cacheNames.filter((name) => isWorldCacheName(name) && !keep.has(name));
 }
 
 export function validateWorldFileCatalog(raw: unknown): WorldFileCatalog {

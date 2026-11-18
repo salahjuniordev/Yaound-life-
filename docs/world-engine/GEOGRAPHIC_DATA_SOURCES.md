@@ -1,7 +1,9 @@
 # Geographic Data Sources
 
-All runtime geometry comes from committed files in `public/world/v1/`. The game
-does not query geodata services at play time.
+All runtime geometry comes from committed, registry-selected packs. The current
+production pack is `public/world/v1/`, registered for the `nlongkak` gameplay
+district in `public/world/registry.json`. The game does not query geodata
+services at play time.
 
 ## Sources in the current pack
 
@@ -22,8 +24,8 @@ Requirements: Node, `osmium-tool`, Python 3 with Pillow, and `curl`.
 ```bash
 npm run world:acquire   # download, extract, decode DEM, build and validate
 npm run world:inspect   # source presence, bbox, chunk grid, raw feature counts
-npm run world:build     # rebuild public/world/v1 from processed inputs
-npm run world:validate  # verify manifest, hashes, counts and payloads
+npm run world:build     # rebuild a pack from processed inputs and upsert its registry entry
+npm run world:validate  # verify registry, manifest, hashes, counts and payloads
 ```
 
 Raw and intermediate data stay out of git:
@@ -33,7 +35,10 @@ Raw and intermediate data stay out of git:
 
 Only the derived, versioned pack is committed. `world:build` writes
 `metadata/build-report.json` with input counts and skipped features, and
-`metadata/validation.json` with validation evidence.
+`metadata/validation.json` with validation evidence. It also upserts the area's
+entry in `public/world/registry.json`, keyed by gameplay district, without
+deleting other registered packs. No second district has verified processed
+inputs yet, so only Nlongkak is registered.
 
 ## Processing rules
 

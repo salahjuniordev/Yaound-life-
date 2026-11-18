@@ -220,10 +220,10 @@ export async function deleteWorldCache(version: string): Promise<void> {
   await caches.delete(worldCacheName(version));
 }
 
-export async function cleanupOldWorldCaches(keepVersion: string): Promise<string[]> {
+export async function cleanupOldWorldCaches(keepVersions: string | readonly string[]): Promise<string[]> {
   if (!worldCacheSupported()) return [];
   const names = await caches.keys();
-  const obsolete = obsoleteWorldCaches(names, keepVersion);
+  const obsolete = obsoleteWorldCaches(names, keepVersions);
   await Promise.all(obsolete.map((name) => caches.delete(name)));
   return obsolete;
 }

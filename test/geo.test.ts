@@ -342,6 +342,64 @@ test('geo adapter maps Nlongkak gameplay positions into the real slice', () => {
   assert.ok(Number.isFinite(mapped[0]) && Number.isFinite(mapped[1]));
 });
 
+test('geo adapter follows the pack district instead of a hard-coded Nlongkak anchor', () => {
+  const hf = flatField();
+  const manifest = {
+    format: 'yaounde-life-world',
+    formatVersion: 1,
+    worldVersion: 'mvog-test-v1',
+    generatorVersion: 'test',
+    generatedAt: new Date(0).toISOString(),
+    area: { id: 'mvog_mbi', name: 'Mvog-Mbi', description: 'test' },
+    projection: { id: 'EPSG:32632', name: 'UTM 32N', zone: 32, hemisphere: 'N', datum: 'WGS84', centralMeridian: 9 },
+    origin: { lon: 11.5, lat: 3.87, east: 0, north: 0 },
+    unitsPerMetre: 1,
+    verticalScale: 1,
+    verticalOffset: 0,
+    elevationDatum: 'test',
+    terrainCellSize: 8,
+    coarseTerrainCellSize: 16,
+    chunkSize: 512,
+    bounds: { minX: 0, maxX: 512, minZ: -512, maxZ: 0, minEast: 0, maxEast: 512, minNorth: 0, maxNorth: 512 },
+    waterLevel: null,
+    sources: [],
+    featureCounts: { chunks: 1, roads: 1, buildings: 1, pois: 0, waterPolygons: 0, waterways: 0, terrainSamples: 9 },
+    chunks: [],
+    contentHash: '',
+    validation: { ok: true, errors: [], warnings: [] },
+  } satisfies WorldManifest;
+  const data: WorldData = {
+    manifest,
+    roads: [road({ points: [[0, -100], [200, -100]] })],
+    pois: [],
+    water: [],
+    waterways: [],
+    districts: [{
+      id: 'mvog_mbi',
+      name: 'Mvog-Mbi',
+      nameFr: 'Mvog-Mbi',
+      lon: 11.5,
+      lat: 3.88,
+      gameX: 100,
+      gameZ: -100,
+      provenance: { source: 'openstreetmap', sourceVersion: 'test', license: 'ODbL-1.0', geometryStatus: 'real' },
+    }],
+    coarseTerrain: hf,
+  };
+  const adapter = createGeoAdapter({
+    world: data,
+    collision: new GeoCollisionWorld(),
+    roads: new RoadIndex(data.roads),
+    terrainHeight: () => 0,
+  });
+  assert.equal(adapter.districtAt(0, 0), 'mvog_mbi');
+  assert.ok(adapter.places.length > 0);
+  assert.ok(adapter.places.every((place) => place.district === 'mvog_mbi'));
+  const mapped = adapter.toWorldPosition('mvog_mbi', [10, 85]);
+  assert.ok(Number.isFinite(mapped[0]) && Number.isFinite(mapped[1]));
+  assert.deepEqual(adapter.toWorldPosition('nlongkak', [-95, -25]), [-95, -25]);
+});
+
 test('geo props cluster market stalls around real marketplace POIs', () => {
   const hf = flatField();
   const roadOnly = road({ points: [[0, -100], [200, -100]] });

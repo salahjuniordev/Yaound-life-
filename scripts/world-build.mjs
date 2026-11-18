@@ -26,6 +26,11 @@ import {
 import { validateChunkPayload, validateWaterway, validateWorldData } from '../src/world/validation.ts';
 import { validateManifest, WORLD_FORMAT, WORLD_FORMAT_VERSION, WORLD_GENERATOR_VERSION } from '../src/world/manifest.ts';
 import {
+  validateWorldPackRegistry,
+  WORLD_REGISTRY_FORMAT,
+  WORLD_REGISTRY_VERSION,
+} from '../src/world/registry.ts';
+import {
   enabledOpenBuildingsSourceConfig,
   importOpenBuildings,
   openBuildingToGeometry,
@@ -965,6 +970,34 @@ function main() {
   writeJson(join(outputDir, 'precache.json'), catalog.initial);
   writeJson(join(outputDir, 'files.json'), catalog);
   console.log(`  offline catalog: ${catalog.files.length} files, ${(catalog.totalBytes / (1024 * 1024)).toFixed(1)} MB, ${catalog.initial.length} initial files`);
+
+  const registryPath = join(ROOT, dirname(config.outputDir), 'registry.json');
+  let existingPacks = [];
+  if (existsSync(registryPath)) {
+    try {
+      existingPacks = validateWorldPackRegistry(readJson(registryPath)).packs
+        .filter((pack) => pack.districtId !== config.areaId);
+    } catch (error) {
+      console.warn(`  registry: ignoring invalid ${registryPath}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+  const packEntry = {
+    id: config.areaId,
+    districtId: config.areaId,
+    name: config.name,
+    basePath: outputPrefix,
+    worldVersion: manifest.worldVersion,
+    manifestFormatVersion: WORLD_FORMAT_VERSION,
+    ...(config.precacheOnInstall === true ? { precacheOnInstall: true } : {}),
+  };
+  const packs = [...existingPacks, packEntry].sort((a, b) => a.districtId.localeCompare(b.districtId));
+  writeJson(registryPath, validateWorldPackRegistry({
+    format: WORLD_REGISTRY_FORMAT,
+    formatVersion: WORLD_REGISTRY_VERSION,
+    generatedAt: manifest.generatedAt,
+    packs,
+  }));
+  console.log(`  registry: ${packs.length} pack(s), ${packEntry.basePath}`);
 
   console.log(`world built: ${config.outputDir}`);
   console.log(`  chunks: ${chunkRefs.length}`);

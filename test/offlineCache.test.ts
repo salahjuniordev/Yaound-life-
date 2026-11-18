@@ -205,6 +205,12 @@ test('cleanupOldWorldCaches removes only obsolete world caches', async () => {
     assert.equal(await caches.has('yaounde-world-current-v2'), true);
     assert.equal(await caches.has('yaounde-life-v8'), true);
     assert.equal(await caches.has('unrelated-cache'), true);
+
+    caches.create('yaounde-world-other-v3');
+    caches.create('yaounde-world-stale-v1');
+    const multiple = await cleanupOldWorldCaches(['current-v2', 'other-v3']);
+    assert.deepEqual(multiple, ['yaounde-world-stale-v1']);
+    assert.equal(await caches.has('yaounde-world-other-v3'), true);
   });
 });
 

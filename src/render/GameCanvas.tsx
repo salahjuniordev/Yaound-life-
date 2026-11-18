@@ -1,6 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useGame, type NearbyInfo } from '../state/store';
+import { loadWorldRegistry } from '../world/loader';
+import {
+  compatibleWorldPackForDistrict,
+  worldPackCompatibilityError,
+  BUILTIN_WORLD_REGISTRY,
+  type WorldPackRegistry,
+} from '../world/registry';
 import { qualityTiers, type QualityTier } from './controls';
 import { SkyAndWeather } from './Sky';
 import { InteriorScene } from './Interior';
@@ -16,8 +23,10 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
   const [geoEnabled, setGeoEnabled] = useState(() => isGeographicWorldEnabled());
   const [geoFailed, setGeoFailed] = useState(false);
   const [geoStatus, setGeoStatus] = useState<GeoStatus | null>(null);
+  const [registry, setRegistry] = useState<WorldPackRegistry>(BUILTIN_WORLD_REGISTRY);
   const [worldDebug] = useState(() => isWorldDebugEnabled());
   const [worldMetrics, setWorldMetrics] = useState<WorldRenderMetrics | null>(null);
+  const pack = useMemo(() => compatibleWorldPackForDistrict(registry, district), [registry, district]);
   const dataSaver = engine?.state.settings.dataSaver ?? false;
   const declared = (engine?.state.settings.quality ?? 'mid') as QualityTier;
   const quality: QualityTier = dataSaver ? (declared === 'high' ? 'mid' : 'low') : declared;
@@ -34,8 +43,28 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
   }, []);
 
   useEffect(() => {
-    if (district !== 'nlongkak') setGeoFailed(false);
-  }, [district]);
+    let live = true;
+    loadWorldRegistry(import.meta.env.BASE_URL)
+      .then((next) => {
+        if (!live) return;
+        setRegistry(next);
+        for (const entry of next.packs) {
+          const issue = worldPackCompatibilityError(entry);
+          if (issue) console.warn(issue);
+        }
+      })
+      .catch((error) => {
+        if (live) console.warn('World registry unavailable; using the built-in Nlongkak mapping.', error);
+      });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    setGeoFailed(false);
+    setGeoStatus(null);
+  }, [district, pack?.id, pack?.worldVersion]);
 
   useEffect(() => {
     if (!worldDebug) return;
@@ -47,16 +76,17 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
 
   const onUnavailable = useCallback((reason: string) => {
     setGeoFailed(true);
+    const label = pack?.name ?? 'geographic world';
     useGame.getState().engine?.toast(
-      'Geographic Nlongkak is unavailable. Using the legacy neighbourhood.',
+      `Geographic ${label} is unavailable. Using the legacy neighbourhood.`,
       'info',
-      'La géographie de Nlongkak est indisponible. Quartier classique utilisé.',
+      `La géographie de ${label} est indisponible. Quartier classique utilisé.`,
     );
     console.warn('Geographic world fallback:', reason);
-  }, []);
+  }, [pack?.name]);
 
   if (!engine) return null;
-  const useGeo = district === 'nlongkak' && geoEnabled && !geoFailed;
+  const useGeo = Boolean(pack) && geoEnabled && !geoFailed;
 
   return (
     <div className="game-canvas">
@@ -74,8 +104,15 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
         ) : (
           <>
             <SkyAndWeather quality={quality} />
-            {useGeo ? (
-              <GeoScene key={`geo-${quality}`} quality={quality} onInteract={onInteract} onStatus={setGeoStatus} onUnavailable={onUnavailable} />
+            {useGeo && pack ? (
+              <GeoScene
+                key={`geo-${pack.id}-${pack.worldVersion}-${quality}`}
+                pack={pack}
+                quality={quality}
+                onInteract={onInteract}
+                onStatus={setGeoStatus}
+                onUnavailable={onUnavailable}
+              />
             ) : (
               <LegacyScene quality={quality} onInteract={onInteract} />
             )}

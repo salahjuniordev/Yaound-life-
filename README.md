@@ -25,7 +25,7 @@ React 19 · TypeScript · Vite 7 · three.js + @react-three/fiber · zustand · 
 npm install            # on Termux see SETUP.md for flags
 npm run dev            # dev server at http://localhost:5173
 npm run typecheck      # tsc --noEmit (includes tests)
-npm test               # 180 tests (node --test)
+npm test               # 238 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)
@@ -33,8 +33,8 @@ npm run deploy:cf      # build + deploy dist/ to Cloudflare Pages
 npm run export:character # bake idle/walk/run/sit/phone clips → art/player_rig.glb
 npm run review:packet  # generate the cultural review packet → art/cultural_review_packet.md
 npm run world:inspect  # inspect the Nlongkak source data and 4 x 4 chunk grid
-npm run world:build    # rebuild public/world/v1 from processed geodata
-npm run world:validate # validate manifest, hashes and chunk payloads
+npm run world:build    # rebuild a pack from processed geodata and upsert its registry entry
+npm run world:validate # validate registry, manifest, hashes and chunk payloads
 npm run preview        # serve the production build
 ```
 
@@ -52,7 +52,7 @@ and `public/_headers`; Sentry/PostHog are optional and env-gated.
 src/
   sim/          headless simulation: engine, state, needs, economy, relationships, rng
   data/         content packs: districts, items, activities, jobs, events, goals, places, NPCs
-  world/        pure geographic world data layer: UTM, chunks, terrain, roads, buildings, loader
+  world/        pure geographic world data layer: registry, UTM, chunks, terrain, roads, buildings, loader
   render/       three.js layer: world geometry, crowd, player rig, interiors, sky, geo renderer
   ui/           React phone, HUD, toasts, modals (travel, vendors, dialogue, njangi)
   state/        zustand bridge between sim and UI

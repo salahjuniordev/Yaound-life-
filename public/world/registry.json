@@ -1,0 +1,16 @@
+{
+  "format": "yaounde-life-world-registry",
+  "formatVersion": 1,
+  "generatedAt": "2026-11-12T20:28:33.684Z",
+  "packs": [
+    {
+      "id": "nlongkak",
+      "districtId": "nlongkak",
+      "name": "Nlongkak",
+      "basePath": "world/v1",
+      "worldVersion": "nlongkak-2026-10-30-v2",
+      "manifestFormatVersion": 1,
+      "precacheOnInstall": true
+    }
+  ]
+}

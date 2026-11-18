@@ -49,6 +49,10 @@ test('world cache names are versioned and validated', () => {
 test('obsolete world caches preserve the active version and app caches', () => {
   const names = ['yaounde-life-v8', `${WORLD_CACHE_PREFIX}old-v1`, `${WORLD_CACHE_PREFIX}current-v2`];
   assert.deepEqual(obsoleteWorldCaches(names, 'current-v2'), [`${WORLD_CACHE_PREFIX}old-v1`]);
+  assert.deepEqual(
+    obsoleteWorldCaches([...names, `${WORLD_CACHE_PREFIX}other-v3`], ['current-v2', 'other-v3']),
+    [`${WORLD_CACHE_PREFIX}old-v1`],
+  );
 });
 
 test('catalog validation rejects incompatible, duplicate or dangling entries', () => {

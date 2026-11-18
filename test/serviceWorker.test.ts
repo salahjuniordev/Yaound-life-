@@ -405,3 +405,87 @@ test('non-string precache entries are ignored without blocking valid files', asy
   assert.ok(world?.has(`${SCOPE}${valid}`));
   assert.equal(world?.has(`${SCOPE}42`), false);
 });
+
+test('install follows the pack registry and precaches only flagged packs', async () => {
+  const sw = new ServiceWorkerHarness();
+  const registry = {
+    format: 'yaounde-life-world-registry',
+    formatVersion: 1,
+    generatedAt: '2026-11-16T00:00:00.000Z',
+    packs: [
+      {
+        id: 'nlongkak',
+        districtId: 'nlongkak',
+        name: 'Nlongkak',
+        basePath: 'world/v1',
+        worldVersion: 'nlongkak-test-v5',
+        manifestFormatVersion: 1,
+        precacheOnInstall: true,
+      },
+      {
+        id: 'mokolo',
+        districtId: 'mokolo',
+        name: 'Mokolo',
+        basePath: 'world/mokolo/v1',
+        worldVersion: 'mokolo-test-v1',
+        manifestFormatVersion: 1,
+      },
+    ],
+  };
+  sw.setFetch((url) => {
+    const path = pathOf(url);
+    if (path.endsWith('/world/registry.json')) return json(registry);
+    if (path.endsWith('/world/v1/precache.json')) return json(['world/v1/terrain/c_0_0.bin']);
+    if (path.endsWith('/world/v1/files.json')) return json({ files: [] });
+    if (path.endsWith('/world/mokolo/v1/precache.json')) return json(['world/mokolo/v1/terrain/c_0_0.bin']);
+    return text('ok');
+  });
+
+  await sw.install();
+
+  const world = sw.caches.get('yaounde-world-nlongkak-test-v5');
+  assert.ok(world?.has(`${SCOPE}world/registry.json`));
+  assert.ok(world?.has(`${SCOPE}world/v1/terrain/c_0_0.bin`));
+  assert.equal(await sw.caches.has('yaounde-world-mokolo-test-v1'), false);
+});
+
+test('online assets are cached under the registry pack that owns their path', async () => {
+  const sw = new ServiceWorkerHarness();
+  const registry = {
+    format: 'yaounde-life-world-registry',
+    formatVersion: 1,
+    generatedAt: '2026-11-16T00:00:00.000Z',
+    packs: [
+      {
+        id: 'nlongkak',
+        districtId: 'nlongkak',
+        name: 'Nlongkak',
+        basePath: 'world/v1',
+        worldVersion: 'nlongkak-test-v6',
+        manifestFormatVersion: 1,
+        precacheOnInstall: true,
+      },
+      {
+        id: 'mokolo',
+        districtId: 'mokolo',
+        name: 'Mokolo',
+        basePath: 'world/mokolo/v1',
+        worldVersion: 'mokolo-test-v2',
+        manifestFormatVersion: 1,
+      },
+    ],
+  };
+  const asset = `${SCOPE}world/mokolo/v1/terrain/c_0_0.bin`;
+  sw.setFetch((url) => {
+    if (pathOf(url).endsWith('/world/registry.json')) return json(registry);
+    if (url === asset) return text('mokolo-terrain');
+    return new Response('missing', { status: 404 });
+  });
+
+  const response = await sw.dispatchFetch(new Request(asset));
+
+  assert.equal(await response?.text(), 'mokolo-terrain');
+  await sw.flush();
+  assert.ok(sw.caches.get('yaounde-world-mokolo-test-v2')?.has(asset));
+  assert.equal(sw.caches.get('yaounde-world-nlongkak-test-v6')?.has(asset) ?? false, false);
+});
