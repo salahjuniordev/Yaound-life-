@@ -152,20 +152,31 @@ export function assertWorldPackManifest(manifest: WorldManifest, pack: WorldPack
 
 /**
  * Built-in compatibility mapping used only when `world/registry.json` is
- * missing. The checked-in registry is authoritative; tests assert this entry
- * still matches the generated Nlongkak manifest.
+ * missing. The checked-in registry is authoritative; tests assert these
+ * entries still match the generated manifests.
  */
 export const BUILTIN_WORLD_REGISTRY: WorldPackRegistry = {
   format: WORLD_REGISTRY_FORMAT,
   formatVersion: WORLD_REGISTRY_VERSION,
-  generatedAt: '2026-11-16T00:00:00.000Z',
-  packs: [{
-    id: 'nlongkak',
-    districtId: 'nlongkak',
-    name: 'Nlongkak',
-    basePath: 'world/v1',
-    worldVersion: 'nlongkak-2026-10-30-v2',
-    manifestFormatVersion: WORLD_FORMAT_VERSION,
-    precacheOnInstall: true,
-  }],
+  generatedAt: '2026-11-18T00:00:00.000Z',
+  packs: [
+    {
+      id: 'nlongkak',
+      districtId: 'nlongkak',
+      name: 'Nlongkak',
+      basePath: 'world/v1',
+      worldVersion: 'nlongkak-2026-10-30-v2',
+      manifestFormatVersion: WORLD_FORMAT_VERSION,
+      precacheOnInstall: true,
+    },
+    {
+      id: 'mvog_mbi',
+      districtId: 'mvog_mbi',
+      name: 'Mvog-Mbi',
+      basePath: 'world/mvog-mbi/v1',
+      worldVersion: 'mvog-mbi-2026-10-30-v1',
+      manifestFormatVersion: WORLD_FORMAT_VERSION,
+      precacheOnInstall: true,
+    },
+  ],
 };

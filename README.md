@@ -4,8 +4,8 @@ A playable 3D browser life simulator set in Yaoundé, Cameroon. Built from the
 requirements in `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 
 - Day/night cycle (1 in-game day ≈ 12 real minutes), needs, FCFA economy (cash / MoMo / bank / debt)
-- 9 districts; Nlongkak is the first real-geography slice (OSM roads, buildings, water and waterway lines + Copernicus terrain), other districts use the procedural world
-- Offline world pack: download the full Nlongkak area from Settings; versioned caches survive app updates
+- 9 districts; Nlongkak and Mvog-Mbi are real-geography slices (OSM roads, buildings, water and waterway lines + Copernicus terrain), the other seven use the procedural world
+- Offline world packs: download the full Nlongkak or Mvog-Mbi area from Settings; versioned caches survive app updates and removing one pack preserves the other
 - Walk / shared taxi / moto with real cost, time and risk
 - 8 starting backgrounds, 10 jobs, 30+ events, 13 goals, 11 achievements
 - Njangi/tontine system (reliable group + fraudulent "Fast Pot" to learn from)
@@ -25,16 +25,17 @@ React 19 · TypeScript · Vite 7 · three.js + @react-three/fiber · zustand · 
 npm install            # on Termux see SETUP.md for flags
 npm run dev            # dev server at http://localhost:5173
 npm run typecheck      # tsc --noEmit (includes tests)
-npm test               # 238 tests (node --test)
+npm test               # 240 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)
 npm run deploy:cf      # build + deploy dist/ to Cloudflare Pages
 npm run export:character # bake idle/walk/run/sit/phone clips → art/player_rig.glb
 npm run review:packet  # generate the cultural review packet → art/cultural_review_packet.md
-npm run world:inspect  # inspect the Nlongkak source data and 4 x 4 chunk grid
-npm run world:build    # rebuild a pack from processed geodata and upsert its registry entry
-npm run world:validate # validate registry, manifest, hashes and chunk payloads
+npm run world:inspect -- data/geodata/config/mvog_mbi.json  # inspect one area config
+npm run world:build -- data/geodata/config/mvog_mbi.json    # rebuild one pack and upsert its registry entry
+npm run world:validate # validate every registered pack, manifest, hashes and chunk payloads
+npm run world:validate -- world/mvog-mbi/v1                 # validate one pack
 npm run preview        # serve the production build
 ```
 

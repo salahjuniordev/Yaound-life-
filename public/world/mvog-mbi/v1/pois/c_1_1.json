@@ -1,0 +1,302 @@
+[
+  {
+    "id": "osm-n1987811022",
+    "sourceId": "n1987811022",
+    "name": "Afriland First bank POS",
+    "kind": "bank",
+    "pos": [
+      712.080670694937,
+      -727.7718076670426
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n1987811022",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n1987811024",
+    "sourceId": "n1987811024",
+    "name": "L&F Computer",
+    "kind": "computer",
+    "pos": [
+      648.9682466087397,
+      -667.5060377757763
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n1987811024",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n1987811293",
+    "sourceId": "n1987811293",
+    "name": "Marché de Mvog Mbi",
+    "kind": "marketplace",
+    "pos": [
+      584.6150046066614,
+      -673.5670759669156
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n1987811293",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2277689000",
+    "sourceId": "n2277689000",
+    "name": "Place d'Awae",
+    "kind": "locality",
+    "pos": [
+      690.3108201606665,
+      -749.8913147191633
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2277689000",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2284012112",
+    "sourceId": "n2284012112",
+    "name": "Poste de Police",
+    "kind": "police",
+    "pos": [
+      649.4493000607472,
+      -685.2213865602389
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284012112",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4120735451",
+    "sourceId": "n4120735451",
+    "name": "Ekotto center",
+    "kind": "estate_agent",
+    "pos": [
+      671.3747086320072,
+      -625.5279971024138
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4120735451",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4470347540",
+    "sourceId": "n4470347540",
+    "name": "UBA",
+    "kind": "bank",
+    "pos": [
+      653.9251064072596,
+      -674.9227055893862
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4470347540",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4470347541",
+    "sourceId": "n4470347541",
+    "name": "Socropole",
+    "kind": "bakery",
+    "pos": [
+      645.2485988263506,
+      -632.5540156827774
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4470347541",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5239183523",
+    "sourceId": "n5239183523",
+    "name": "ANGLO SHOPPING",
+    "kind": "shoes",
+    "pos": [
+      576.2632721308619,
+      -705.5292265539174
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5239183523",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5239192721",
+    "sourceId": "n5239192721",
+    "name": "Martin Shoes",
+    "kind": "shoes",
+    "pos": [
+      570.1158768022433,
+      -702.3466660556733
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5239192721",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13507161436",
+    "sourceId": "n13507161436",
+    "name": "La Force du Poulet",
+    "kind": "restaurant",
+    "pos": [
+      643.226334486506,
+      -658.7372061323258
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13507161436",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a413179770",
+    "sourceId": "a413179770",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      518.6356235855492,
+      -947.7108255320345
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a413179770",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a413179774",
+    "sourceId": "a413179774",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      538.8093081676634,
+      -924.1593211141299
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a413179774",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438660774",
+    "sourceId": "a438660774",
+    "name": "Western Union",
+    "kind": "bank",
+    "pos": [
+      793.8500176810194,
+      -800.0976531300694
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438660774",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a453968202",
+    "sourceId": "a453968202",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      683.9416676475666,
+      -742.7802629053476
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a453968202",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

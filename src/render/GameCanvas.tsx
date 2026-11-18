@@ -54,7 +54,7 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
         }
       })
       .catch((error) => {
-        if (live) console.warn('World registry unavailable; using the built-in Nlongkak mapping.', error);
+        if (live) console.warn('World registry unavailable; using the built-in district pack mapping.', error);
       });
     return () => {
       live = false;

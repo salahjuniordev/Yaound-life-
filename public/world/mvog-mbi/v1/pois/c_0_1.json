@@ -1,0 +1,322 @@
+[
+  {
+    "id": "osm-n1987382964",
+    "sourceId": "n1987382964",
+    "name": "A.M.T Club",
+    "kind": "sports_centre",
+    "pos": [
+      73.0624454828212,
+      -987.7078709761845
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n1987382964",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n1987823101",
+    "sourceId": "n1987823101",
+    "name": "Bibliothèque",
+    "kind": "library",
+    "pos": [
+      36.33788119792007,
+      -967.2412125477567
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n1987823101",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n1987823120",
+    "sourceId": "n1987823120",
+    "name": "arts_centre",
+    "kind": "arts_centre",
+    "pos": [
+      31.85512978141196,
+      -979.9186615162762
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n1987823120",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2040149863",
+    "sourceId": "n2040149863",
+    "name": "Petanque",
+    "kind": "sports_centre",
+    "pos": [
+      45.33297900762409,
+      -1003.3703986756154
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2040149863",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2040149864",
+    "sourceId": "n2040149864",
+    "name": "Salle de Danse",
+    "kind": "attraction",
+    "pos": [
+      32.99252275703475,
+      -997.43671528087
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2040149864",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2284173469",
+    "sourceId": "n2284173469",
+    "name": "Mfoundassi",
+    "kind": "locality",
+    "pos": [
+      368.3352648820728,
+      -636.8251798764104
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284173469",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3597871456",
+    "sourceId": "n3597871456",
+    "name": "Artisanat plus",
+    "kind": "artwork",
+    "pos": [
+      3.54631623881869,
+      -973.4952649697661
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3597871456",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3600005096",
+    "sourceId": "n3600005096",
+    "name": "Chefferie traditionnelle de Mfoundassi 7",
+    "kind": "information",
+    "pos": [
+      388.67434256291017,
+      -1008.5340598128387
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3600005096",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376314894",
+    "sourceId": "a376314894",
+    "name": "playground",
+    "kind": "playground",
+    "pos": [
+      51.51772023236845,
+      -963.7897358470946
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376314894",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376314896",
+    "sourceId": "a376314896",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      51.58628700382542,
+      -1015.836139818537
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376314896",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376314898",
+    "sourceId": "a376314898",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      106.03227059729397,
+      -996.3579109282582
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376314898",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a413179768",
+    "sourceId": "a413179768",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      480.5378328743391,
+      -921.8405139619135
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a413179768",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438641908",
+    "sourceId": "a438641908",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      81.50162195437588,
+      -1001.3418173815007
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438641908",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438641940",
+    "sourceId": "a438641940",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      77.31719251314644,
+      -980.7388978404924
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438641940",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a983751274",
+    "sourceId": "a983751274",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      7.845684927888215,
+      -973.9947855019127
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a983751274",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a983751276",
+    "sourceId": "a983751276",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      16.904704184969887,
+      -954.6037905204576
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a983751276",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

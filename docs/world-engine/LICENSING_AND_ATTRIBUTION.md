@@ -1,7 +1,8 @@
 # Licensing and Attribution
 
 This file is a practical summary, not legal advice. The machine-readable source
-record is `public/world/v1/licenses.json` and `manifest.sources`.
+records are `public/world/v1/licenses.json`,
+`public/world/mvog-mbi/v1/licenses.json`, and each pack's `manifest.sources`.
 
 ## OpenStreetMap
 
@@ -9,8 +10,8 @@ record is `public/world/v1/licenses.json` and `manifest.sources`.
 - Licence: ODbL 1.0.
 - Attribution: `Map data © OpenStreetMap contributors, ODbL 1.0`.
 - Derived data (clipped roads, buildings, water polygons, waterway lines, POIs,
-  boundary) is distributed under the same obligations. Keep attribution visible
-  in the product and in redistributed data.
+  boundaries) in both packs is distributed under the same obligations. Keep
+  attribution visible in the product and in redistributed data.
 - Do not imply OSM endorses Yaoundé Life.
 
 ## Copernicus DEM GLO-30
@@ -22,8 +23,9 @@ record is `public/world/v1/licenses.json` and `manifest.sources`.
 
 ## Google Open Buildings V3
 
-Not used in the current pack. The pack contains no Open Buildings geometry, so
-its licence and attribution terms do not apply to the shipped Nlongkak package.
+Not used in either current pack. Neither pack contains Open Buildings geometry,
+so its licence and attribution terms do not apply to the shipped Nlongkak or
+Mvog-Mbi packages.
 See `GEOGRAPHIC_DATA_SOURCES.md` for the blocker and the opt-in import contract.
 
 If an export is added later, the importer accepts either licence Google
@@ -54,7 +56,7 @@ mapped near real roads.
 
 - Settings → About/attribution shows the OSM and Copernicus lines.
 - `docs/WORLD.md` and `README.md` carry the same lines.
-- `licenses.json` is shipped with the world pack.
+- `licenses.json` is shipped with each world pack.
 - The service worker caches `licenses.json` in the initial pack.
 
 ## Redistribution checklist

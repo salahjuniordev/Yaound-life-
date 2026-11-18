@@ -11,7 +11,12 @@ import { validateWorldFileCatalog } from '../src/world/offline.ts';
 import { validateWorldPackRegistry } from '../src/world/registry.ts';
 
 const ROOT = resolve(dirname(dirname(fileURLToPath(import.meta.url))));
-const WORLD_DIR = join(ROOT, 'public/world/v1');
+const PACK_PREFIX = (process.argv[2] ?? 'world/v1').replace(/^\/+/, '').replace(/^public\//, '').replace(/\/+$/, '');
+if (!/^world\/[A-Za-z0-9._/-]+$/.test(PACK_PREFIX) || PACK_PREFIX.includes('..')) {
+  console.error(`Invalid world pack path: ${process.argv[2] ?? ''}`);
+  process.exit(1);
+}
+const WORLD_DIR = join(ROOT, 'public', PACK_PREFIX);
 const REGISTRY_PATH = join(ROOT, 'public/world/registry.json');
 
 function readJson(path) {
@@ -52,7 +57,7 @@ if (registry && !registered) errors.push(`registry: no pack registered for ${man
 if (registered) {
   if (registered.worldVersion !== manifest.worldVersion) errors.push('registry: worldVersion does not match manifest');
   if (registered.manifestFormatVersion !== manifest.formatVersion) errors.push('registry: manifestFormatVersion does not match manifest');
-  if (registered.basePath !== 'world/v1') errors.push(`registry: unexpected basePath ${registered.basePath} for the committed pack`);
+  if (registered.basePath !== PACK_PREFIX) errors.push(`registry: unexpected basePath ${registered.basePath} for ${PACK_PREFIX}`);
 }
 for (const pack of registry?.packs ?? []) {
   const packManifestPath = join(ROOT, 'public', pack.basePath, 'manifest.json');
@@ -97,7 +102,7 @@ if (!existsSync(catalogPath)) {
 }
 if (catalog) {
   if (catalog.worldVersion !== manifest.worldVersion) errors.push('catalog: worldVersion does not match manifest');
-  const prefix = 'world/v1/';
+  const prefix = `${PACK_PREFIX}/`;
   const listed = new Set(catalog.files.map((file) => file.path));
   for (const file of catalog.files) {
     const relative = file.path.startsWith(prefix) ? file.path.slice(prefix.length) : file.path;
@@ -166,7 +171,7 @@ for (const ref of manifest.chunks) {
   }
 }
 
-console.log(`world: ${manifest.area.name} (${manifest.worldVersion})`);
+console.log(`world: ${manifest.area.name} (${manifest.worldVersion}) at ${PACK_PREFIX}`);
 console.log(`chunks: ${manifest.chunks.length}, roads: ${manifest.featureCounts.roads}, buildings: ${manifest.featureCounts.buildings}, pois: ${manifest.featureCounts.pois}, water: ${manifest.featureCounts.waterPolygons}, waterways: ${manifest.featureCounts.waterways ?? 0}`);
 console.log(`elevation offset: ${manifest.verticalOffset.toFixed(1)} m, water level: ${manifest.waterLevel ?? 'none'}`);
 if (warnings.length > 0) {

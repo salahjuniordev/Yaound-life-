@@ -31,7 +31,8 @@ so the scale can change without rewriting the renderer.
 
 ## Origin
 
-The origin is the south-west corner of the configured bbox projected to UTM 32N:
+The origin is the south-west corner of each pack's configured bbox projected to
+UTM 32N. Nlongkak example:
 
 ```text
 lon 11.512546690536405
@@ -40,15 +41,17 @@ east 779036.8796419629
 north 429056.09154497687
 ```
 
-The bbox is `11.5126,3.8780,11.5305,3.8960`. The generated slice is
-`1995.14 m × 1997.49 m`, split into 512 m chunks (4 × 4 = 16 chunks). Bounds are
-stored in the manifest in both projected and game coordinates.
+The Nlongkak bbox is `11.5126,3.8780,11.5305,3.8960`; the generated slice is
+`1995.14 m × 1997.49 m`, split into 512 m chunks (4 × 4 = 16 chunks). Mvog-Mbi
+uses bbox `11.5156,3.8445..11.5258,3.8583`, about `1,138 m × 1,530 m`, split into
+3 × 3 chunks. Every pack stores its own origin and bounds in its manifest.
 
 ## Elevation
 
 - Source: Copernicus DEM GLO-30.
 - The pipeline samples elevation in projected space, smooths it once, and
-  subtracts a local vertical offset (currently `713.3 m`).
+  subtracts each pack's local vertical offset (Nlongkak `713.3 m`; Mvog-Mbi
+  `698.9 m`).
 - `localHeight = max(0, elevation - verticalOffset)`.
 - `verticalScale` is `1`; `verticalOffset` is stored in the manifest so absolute
   elevation can be reconstructed.

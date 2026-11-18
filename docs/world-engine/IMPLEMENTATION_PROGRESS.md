@@ -8,24 +8,40 @@ Last updated: 2026-11-18
 | --- | --- | --- |
 | M0 — Baseline and contract | Done | Baseline verified before the slice commit; architecture and decisions documented here and in `WORLD_ENGINE_ARCHITECTURE.md` |
 | M1 — Coordinates and data layer | Done | `src/world/`, manifest/transform/chunk/terrain/road/building tests |
-| M2 — Real Yaoundé data | Done with documented exclusion | Nlongkak pack from OSM 2026-10-30 + Copernicus GLO-30; Open Buildings excluded with blocker |
-| M3 — Real road network | Done | 426 clipped roads, classes/widths/roundabouts, graph, spatial index |
-| M4 — Buildings and terrain | Done | 8,085 buildings, 16 heightfield chunks, 2 water polygons, 35 waterway lines, collision metadata |
+| M2 — Real Yaoundé data | Done with documented exclusion | Nlongkak and Mvog-Mbi packs from OSM 2026-10-30 + Copernicus GLO-30; Open Buildings excluded with blocker |
+| M3 — Real road network | Done | 426 Nlongkak + 224 Mvog-Mbi clipped roads, classes/widths/roundabouts, graph, spatial index |
+| M4 — Buildings and terrain | Done | 8,085 Nlongkak + 2,659 Mvog-Mbi buildings; 16 + 9 heightfield chunks; water polygons and waterway lines; collision metadata |
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, registry-aware versioned world caches, Settings pack download UI, progress/quota/cancel, multi-pack cleanup, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | Manifest-driven district adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
 | M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, bounded parking bays with parked cars, architecture, lighting, attribution and budgets exist; an internal cultural review, a renderer-only geometry review and single-view WebGL frames for spawn, compound, balcony, market, bridge and parking are complete. The cross-chunk spawn road defect and the dark-gate framing finding are resolved. Android Chrome/device performance/offline checks and a named local Cameroonian cultural review remain |
-| Phase 5 — Geographic expansion infrastructure | Infrastructure done; second pack blocked | District-keyed registry, manifest/version/area checks, generic adapter, multi-pack offline UI/cache cleanup, service-worker path-aware caching and save round-trips are tested. Only Nlongkak is registered; no second production pack exists |
+| Phase 5 — Geographic expansion | Infrastructure done; second pack generated | District-keyed registry, manifest/version/area checks, generic adapter, multi-pack offline UI/cache cleanup, service-worker path-aware caching and save round-trips are tested. Nlongkak (`world/v1`) and Mvog-Mbi (`world/mvog-mbi/v1`) are registered; Mvog-Mbi visual/device/offline/cultural acceptance remains open |
 
-## Current pack
+## Current packs
+
+Nlongkak:
 
 - Area: Nlongkak, Yaoundé (`nlongkak`), bbox `11.5126,3.8780,11.5305,3.8960`.
 - World version: `nlongkak-2026-10-30-v2`; generator version `1.1.0`.
 - Chunks: 16 (4 × 4, 512 m).
 - Features: 426 roads (including six `bridge`-tagged ways), 8,085 buildings, 409 POIs, 2 water polygons, 35 waterway lines (5 rivers, 29 streams, 1 drain; 5,868 m of centrelines), 62,750 terrain samples.
 - Offline catalog: 90 files, 5,391,242 bytes; initial precache 53 files (8 global files + 3 × 3 chunks, about 5.1 MB).
-- Registry: `public/world/registry.json` registers `nlongkak` at `world/v1`; it is deployment metadata outside the pack catalog. The full deployed `public/world` tree is 93 files, 5,402,442 bytes raw / 853,691 bytes gzip.
 - Projection: EPSG:32632; 1 unit = 1 m; vertical offset 713.3 m.
+
+Mvog-Mbi:
+
+- Area: Mvog-Mbi, Yaoundé (`mvog_mbi`), bbox `11.5156,3.8445..11.5258,3.8583`, derived from OSM relation `3093787` and padded for edge geometry.
+- World version: `mvog-mbi-2026-10-30-v1`; generator version `1.1.0`.
+- Chunks: 9 (3 × 3, 512 m); 1,138 m × 1,530 m.
+- Features: 224 roads, 2,659 buildings, 89 POIs, 5 water polygons, 18 waterway lines, 27,456 terrain samples.
+- Offline catalog: 55 files, 2,042,372 bytes; initial precache 53 files (8 global files + 3 × 3 chunks).
+- Projection: EPSG:32632; 1 unit = 1 m; vertical offset 698.9 m.
+
+Registry and deployment:
+
+- `public/world/registry.json` registers `mvog_mbi` at `world/mvog-mbi/v1` and `nlongkak` at `world/v1`, both with `precacheOnInstall: true`. The registry is deployment metadata outside the pack catalogs.
+- The full deployed `public/world` tree is 150 files, 7,454,583 bytes raw / 1,227,338 bytes gzip.
+- Mvog-Mbi has runtime-loader, chunk, manifest and default-spawn clearance evidence only. It has not had visual, Android/device/offline or named local cultural review.
 
 ## Verification
 
@@ -42,46 +58,48 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 238 pass, 0 fail.
+- `npm test`: 240 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 578,950 B gzip, CSS 8,625 B, HTML 1,814 B,
-  first load 589,389 B, world assets 5,402,442 B raw / 853,691 B gzip (93 files).
-- `world:validate`: pass.
-- Production geometry after the road correction: 640,576 building, 102,550
-  prop and 157,182 road triangles at high quality across 16 chunks.
+- `size`: all budgets pass — JS 578,997 B gzip, CSS 8,625 B, HTML 1,816 B,
+  first load 589,438 B, world assets 7,454,583 B raw / 1,227,338 B gzip (150 files).
+- `world:validate`: pass for both registered packs.
+- Nlongkak production geometry after the road correction: 640,576 building,
+  102,550 prop and 157,182 road triangles at high quality across 16 chunks.
+  Mvog-Mbi geometry has not yet had a production visual/performance pass.
 
-## Latest round: Phase 5 pack registry infrastructure
+## Latest round: second geographic pack (Mvog-Mbi)
 
-The renderer is no longer hard-wired to `world/v1` and Nlongkak, while the
-production pack stays byte-for-byte unchanged:
+Mvog-Mbi is now a real, separate geographic pack rather than a registry-only
+test fixture:
 
-- `src/world/registry.ts` defines a validated registry format, selects a pack by
-  gameplay district, rejects duplicate districts and unsafe paths, checks
-  `manifestFormatVersion`, and exposes a built-in Nlongkak fallback. The checked-in
-  `public/world/registry.json` registers only `nlongkak` at `world/v1` with the
-  current `worldVersion`.
-- `src/world/loader.ts` adds `loadWorldRegistry` and expected-version/area checks.
-  `GameCanvas` loads the registry once and selects a compatible pack;
-  `GeoScene` enforces the registered manifest before loading chunks.
-- `src/render/geo/adapter.ts` derives its district, anchor, places, `districtAt`
-  and position mapping from the manifest area and `WorldDistrictAnchor`. A
-  synthetic `mvog_mbi` adapter test covers the non-Nlongkak path.
-- Settings resolves a registered pack, validates its manifest against the
-  registry, and offers a pack selector when more than one compatible pack
-  exists. Download cleanup preserves all registered `worldVersion`s.
-- `public/sw.js` resolves `world/registry.json`, precaches only packs with
-  `precacheOnInstall: true`, maps runtime requests to the cache of the pack that
-  owns their path, and retains the legacy `world/v1` manifest fallback.
-- `scripts/world-build.mjs` upserts the area's registry entry without deleting
-  other districts; `scripts/world-validate.mjs` checks registry consistency and
-  every registered manifest.
-- New tests: `test/registry.test.ts` (8), registry-driven service-worker tests
-  (2), multi-pack cache cleanup assertions, a non-Nlongkak adapter test and save
-  round-trips. No world-pack, gameplay-district or save-format change was made.
-
-The second-district blocker remains external: only Nlongkak has processed
-OSM/DEM inputs in this environment. No second pack was fabricated, and no
-Android/device/offline or named cultural review is claimed.
+- Acquired from the pinned raw inputs already in the repository
+  (`cameroon-261030.osm.pbf` and the Copernicus GLO-30 N03/E011 tile), using OSM
+  relation `3093787` to define the district bbox. `osmium` and Pillow are now
+  installed in the build environment, so the extraction and DEM decode are
+  reproducible.
+- `data/geodata/config/mvog_mbi.json` declares the bbox, output path,
+  world version, source files and disabled Open Buildings reason. The processed
+  inputs remain gitignored.
+- Generated `public/world/mvog-mbi/v1` with 9 chunks, 224 roads, 2,659
+  buildings, 89 POIs, 5 water polygons, 18 waterway lines and 27,456 terrain
+  samples. `world:validate` passes for the pack and every chunk hash/payload.
+- `scripts/world-acquire.sh` now accepts an area config and derives the bbox,
+  source/output paths and DEM window; `scripts/world-build.mjs` accepts a config
+  argument and always upserts `public/world/registry.json`;
+  `scripts/world-inspect.mjs` accepts an area config; `scripts/world-validate.mjs`
+  accepts an optional pack path, and `scripts/world-validate-all.mjs` validates
+  every registered pack by default.
+- `BUILTIN_WORLD_REGISTRY` now mirrors both packs so an offline registry fetch
+  failure still selects the correct district.
+- Added a runtime-loader test that loads Mvog-Mbi's manifest, global data and
+  all 9 chunks from the committed files, then checks that the default spawn is
+  outside building footprints and within 3 m of a walkable road. Settings
+  removal now deletes only the selected pack's cache; other registered packs
+  and their offline data are preserved.
+- No Nlongkak pack data, gameplay district ID, save format, collision rule or
+  renderer behavior changed. Mvog-Mbi has not yet had visual, Android/device,
+  offline or named local cultural review, so this is not a claim that the new
+  pack is device-playable.
 
 ## Previous round: optional Open Buildings importer contract
 
@@ -394,7 +412,7 @@ gameplay IDs and save format untouched.
 
 1. **Open Buildings not ingested in production.** The optional importer contract
    and synthetic tests now exist, but the dataset still requires a licensed
-   Google export that is not in the repository. The current pack contains no
+   Google export that is not in the repository. The current packs contain no
    Open Buildings geometry. Exact blocker is in `GEOGRAPHIC_DATA_SOURCES.md`.
 2. **Waterway hydrology is visual only.** Surface heights are inferred from the
    DEM; there is no flow simulation, flooding or channel carving beyond the
@@ -404,10 +422,11 @@ gameplay IDs and save format untouched.
    no low-end Android numbers are recorded. Chromium + Mesa produced live WebGL
    frames (about 4.0 FPS at 736,857 rendered triangles and 92 draw calls after
    the road fix), but this is software rendering, not device evidence.
-4. **Only Nlongkak is geographic.** The other eight districts remain procedural.
-   The Phase 5 registry, loader, generic adapter and multi-pack offline plumbing
-   are implemented and tested, but a second pack still needs verified extraction
-   and per-area visual/performance/cultural review.
+4. **Two districts are geographic; seven remain procedural.** Nlongkak and
+   Mvog-Mbi have real packs. The Phase 5 registry, loader, generic adapter and
+   multi-pack offline plumbing are implemented and tested, but Mvog-Mbi still
+   needs visual/device/performance/cultural review, and the other seven
+   districts still need verified packs.
 5. **M8 still needs device and local review.** The renderer-only review
    inspected compound walls/gates, balconies, roadside and market vendors,
    vehicles/utilities and bridge approaches, and found one concrete facade
@@ -462,9 +481,12 @@ deleted. Procedural fallback remains available through Settings,
    compound gate treatments, parking placement and bridge parapets before
    treating M8 as complete. The internal review record is in
    `M8_VISUAL_CULTURAL_REVIEW.md`; it is not a local approval.
-5. The next large build step is either a real Open Buildings import (only with
+5. Review Mvog-Mbi as its own area: production geometry/performance pass,
+   Android/offline/Settings checks, then named local cultural review. Do not
+   treat the pack's automated validation as visual or cultural approval.
+6. The next large build step is either a real Open Buildings import (only with
    a licensed export and licence review; the contract and synthetic tests are
-   complete) or a second geographic district pack. The registry, loader/cache
+   complete) or a third geographic district pack. The registry, loader/cache
    selection and save-compatibility tests now exist; the remaining work is a
    verified per-area extraction plus a separate visual/performance/cultural
    acceptance pass. Do not generate all of Yaoundé at once.

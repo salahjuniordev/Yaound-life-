@@ -1,7 +1,8 @@
 # Chunk Format and Streaming
 
-The Nlongkak slice is a 4 × 4 grid of 512 m chunks (16 chunks). Each chunk has
-five payload files plus a manifest reference.
+The current packs use 512 m chunks: Nlongkak is a 4 × 4 grid (16 chunks) and
+Mvog-Mbi is a 3 × 3 grid (9 chunks). Each chunk has five payload files plus a
+manifest reference.
 
 ## Files per chunk
 
@@ -106,9 +107,10 @@ Each chunk build decodes data once and creates:
 
 Global waterway ribbons are built once from `water/waterways.json` and follow
 their per-point DEM-derived levels. Quality changes remount the geo scene; low
-quality uses only the far building mesh and disables shadows. The 4 × 4 pack
-caps the high tier at 16 chunks; over-cap plans keep a stable nearest-first
-subset instead of reloading chunk sets each tick.
+quality uses only the far building mesh and disables shadows. The pack grid caps
+the high tier (Nlongkak: 4 × 4 = 16 chunks; Mvog-Mbi: 3 × 3 = 9 chunks);
+over-cap plans keep a stable nearest-first subset instead of reloading chunk
+sets each tick.
 
 ## Caching
 

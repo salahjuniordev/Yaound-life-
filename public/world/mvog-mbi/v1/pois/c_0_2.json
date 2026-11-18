@@ -1,0 +1,222 @@
+[
+  {
+    "id": "osm-n419588091",
+    "sourceId": "n419588091",
+    "name": "Centre Médico Social français",
+    "kind": "hospital",
+    "pos": [
+      220.841572370613,
+      -1384.3001498812228
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n419588091",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3599959235",
+    "sourceId": "n3599959235",
+    "name": "Ordre des avocats du barreau",
+    "kind": "lawyer",
+    "pos": [
+      432.7733047074871,
+      -1068.2123791736667
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3599959235",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3600013993",
+    "sourceId": "n3600013993",
+    "name": "Distributeur",
+    "kind": "atm",
+    "pos": [
+      476.62283500190824,
+      -1219.6792578598252
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3600013993",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4374242098",
+    "sourceId": "n4374242098",
+    "name": "car_wash",
+    "kind": "car_wash",
+    "pos": [
+      289.7612593473168,
+      -1329.5588860636344
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4374242098",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6306072755",
+    "sourceId": "n6306072755",
+    "name": "Voirie Municipale",
+    "kind": "government",
+    "pos": [
+      414.7128279451281,
+      -1312.8453380890423
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6306072755",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11140944205",
+    "sourceId": "n11140944205",
+    "name": "company",
+    "kind": "company",
+    "pos": [
+      453.4476996745216,
+      -1378.714958473749
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11140944205",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11140944305",
+    "sourceId": "n11140944305",
+    "name": "Direction des affaires sociales culturelles et sportives de la ville de Yaoundé",
+    "kind": "company",
+    "pos": [
+      497.82429261447396,
+      -1385.7946935594664
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11140944305",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11850685847",
+    "sourceId": "n11850685847",
+    "name": "laundry",
+    "kind": "laundry",
+    "pos": [
+      360.3282729217317,
+      -1349.10798987007
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11850685847",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376106156",
+    "sourceId": "a376106156",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      236.57037491584197,
+      -1431.9451128335786
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376106156",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376145530",
+    "sourceId": "a376145530",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      271.460819037864,
+      -1343.5342386136763
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376145530",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a593803726",
+    "sourceId": "a593803726",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      197.75664637167938,
+      -1298.7715649704915
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a593803726",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

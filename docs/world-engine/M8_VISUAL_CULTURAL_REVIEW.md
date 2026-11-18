@@ -7,7 +7,8 @@ complete.**
 This document records what was actually reviewed, how it was produced, what
 changed as a result, and what remains unverified. It is not an approval. The
 parked acceptance checklist and the remaining master-brief work are consolidated
-in `REMAINING_WORK.md`.
+in `REMAINING_WORK.md`. All evidence below is for the Nlongkak pack; the later
+Mvog-Mbi pack has not been included in this visual or cultural review.
 
 ## Scope and method
 

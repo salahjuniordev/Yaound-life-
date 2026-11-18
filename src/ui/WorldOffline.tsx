@@ -76,7 +76,7 @@ function statusText(fr: boolean, summary: OfflineWorldSnapshot, catalog: WorldFi
 export function WorldOffline({ fr }: WorldOfflineProps) {
   const district = useGame((s) => s.engine?.state.player.district ?? 'mvog_mbi');
   const [registry, setRegistry] = useState<WorldPackRegistry>(BUILTIN_WORLD_REGISTRY);
-  const [selectedPackId, setSelectedPackId] = useState<string | null>('nlongkak');
+  const [selectedPackId, setSelectedPackId] = useState<string | null>(district);
   const [catalog, setCatalog] = useState<WorldFileCatalog | null>(null);
   const [summary, setSummary] = useState<OfflineWorldSnapshot>(() =>
     summarizeWorldOffline(null, [], { supported: worldCacheSupported() }),
@@ -111,7 +111,8 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
       .catch(() => {
         if (!live) return;
         const current = compatibleWorldPackForDistrict(BUILTIN_WORLD_REGISTRY, district);
-        setSelectedPackId(current?.id ?? 'nlongkak');
+        const first = BUILTIN_WORLD_REGISTRY.packs.find((pack) => worldPackCompatibilityError(pack) === null);
+        setSelectedPackId(current?.id ?? first?.id ?? null);
       });
     return () => {
       live = false;
@@ -219,8 +220,7 @@ export function WorldOffline({ fr }: WorldOfflineProps) {
     if (!catalog || !selectedPack || busy) return;
     setBusy(true);
     try {
-      const versions = await worldCacheVersions();
-      await Promise.all(versions.map((version) => deleteWorldCache(version)));
+      await deleteWorldCache(catalog.worldVersion);
       notifyWorldCacheUpdated();
       await refresh(selectedPack);
     } finally {

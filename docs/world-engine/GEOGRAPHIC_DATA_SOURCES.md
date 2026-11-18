@@ -1,44 +1,66 @@
 # Geographic Data Sources
 
-All runtime geometry comes from committed, registry-selected packs. The current
-production pack is `public/world/v1/`, registered for the `nlongkak` gameplay
-district in `public/world/registry.json`. The game does not query geodata
-services at play time.
+All runtime geometry comes from committed, registry-selected packs. Two
+production packs are registered: Nlongkak at `public/world/v1/` and Mvog-Mbi at
+`public/world/mvog-mbi/v1/`. `public/world/registry.json` maps each to its
+gameplay district. The game does not query geodata services at play time.
 
-## Sources in the current pack
+## Sources in the current packs
 
 | Source | Snapshot | Used for | Licence / attribution |
 | --- | --- | --- | --- |
-| OpenStreetMap Cameroon extract (Geofabrik), `cameroon-261030.osm.pbf` | 2026-10-30 | Roads, buildings, water polygons, waterway lines, POIs, Nlongkak boundary | ODbL 1.0, © OpenStreetMap contributors |
-| Nominatim / OSM relation `3095854` | 2026-10-30 | Nlongkak boundary anchoring | ODbL 1.0, © OpenStreetMap contributors |
-| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 release | Terrain elevation | © ESA, Copernicus DEM GLO-30 |
+| OpenStreetMap Cameroon extract (Geofabrik), `cameroon-261030.osm.pbf` | 2026-10-30 | Roads, buildings, water polygons, waterway lines, POIs, Nlongkak and Mvog-Mbi boundaries | ODbL 1.0, © OpenStreetMap contributors |
+| OSM relation `3095854` | 2026-10-30 | Nlongkak boundary anchoring | ODbL 1.0, © OpenStreetMap contributors |
+| OSM relation `3093787` | 2026-10-30 | Mvog-Mbi boundary bbox and anchoring | ODbL 1.0, © OpenStreetMap contributors |
+| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 release | Terrain elevation for both packs | © ESA, Copernicus DEM GLO-30 |
 
-The exact source URLs, snapshot identifiers and usage notes are stored in
-`public/world/v1/manifest.json` and `public/world/v1/licenses.json`. The build
-configuration is `data/geodata/config/nlongkak.json`.
+The exact source URLs, snapshot identifiers and usage notes are stored in each
+pack's `manifest.json` and `licenses.json`:
+
+- `public/world/v1/manifest.json` and `public/world/v1/licenses.json`;
+- `public/world/mvog-mbi/v1/manifest.json` and
+  `public/world/mvog-mbi/v1/licenses.json`.
+
+The build configurations are `data/geodata/config/nlongkak.json` and
+`data/geodata/config/mvog_mbi.json`.
 
 ## Acquisition and processing
 
 Requirements: Node, `osmium-tool`, Python 3 with Pillow, and `curl`.
 
 ```bash
-npm run world:acquire   # download, extract, decode DEM, build and validate
-npm run world:inspect   # source presence, bbox, chunk grid, raw feature counts
-npm run world:build     # rebuild a pack from processed inputs and upsert its registry entry
-npm run world:validate  # verify registry, manifest, hashes, counts and payloads
+# One area at a time; the default is Nlongkak only when no config is passed.
+npm run world:acquire -- data/geodata/config/mvog_mbi.json
+npm run world:inspect -- data/geodata/config/mvog_mbi.json
+npm run world:build -- data/geodata/config/mvog_mbi.json
+
+# Validates every registered pack by default, or one explicit pack.
+npm run world:validate
+npm run world:validate -- world/mvog-mbi/v1
 ```
+
+The acquisition script derives the OSM bbox, source/output paths and DEM window
+from the area config. It downloads the pinned raw files only when missing,
+extracts the bbox with `osmium extract --bbox`, exports GeoJSON/OPL, decodes the
+DEM window with Pillow, then runs `world:build` and `world:validate`.
 
 Raw and intermediate data stay out of git:
 
 - `data/geodata/raw/`
 - `data/geodata/processed/`
 
-Only the derived, versioned pack is committed. `world:build` writes
+Only the derived, versioned packs are committed. `world:build` writes
 `metadata/build-report.json` with input counts and skipped features, and
 `metadata/validation.json` with validation evidence. It also upserts the area's
 entry in `public/world/registry.json`, keyed by gameplay district, without
-deleting other registered packs. No second district has verified processed
-inputs yet, so only Nlongkak is registered.
+deleting other registered packs.
+
+Current packs:
+
+- Nlongkak, `nlongkak-2026-10-30-v2`, 16 chunks, 426 roads, 8,085 buildings,
+  409 POIs, 2 water polygons, 35 waterway lines; 90-file catalog.
+- Mvog-Mbi, `mvog-mbi-2026-10-30-v1`, 9 chunks, 224 roads, 2,659 buildings,
+  89 POIs, 5 water polygons, 18 waterway lines; 55-file catalog.
 
 ## Processing rules
 
@@ -55,13 +77,13 @@ inputs yet, so only Nlongkak is registered.
 
 ## Google Open Buildings V3
 
-Open Buildings V3 is **not used** in the current pack. The exact blocker:
+Open Buildings V3 is **not used** in either current pack. The exact blocker:
 
 - The dataset is distributed as country/region tiles through Google's download
   flow and requires accepting Google's terms and exporting tiles for the area.
   No such export is present in this repository, and the build must remain
   reproducible without a Google account or a manual export step.
-- The Nlongkak slice already has dense OSM building coverage. Mixing a second
+- The current slices already have dense OSM building coverage. Mixing a second
   footprint source without a verified local export would create unverifiable
   geometry and licensing claims.
 
@@ -73,7 +95,7 @@ committed or supplied locally.
 
 ### Enabling a licensed export
 
-Add an explicit `openBuildings` block to the area config. Ingestion only runs
+Add an explicit `openBuildings` block to one area config. Ingestion only runs
 when `enabled` is exactly `true`:
 
 ```json
@@ -119,11 +141,12 @@ the real export; the synthetic fixtures are never production data.
 
 ### Current decision
 
-This exclusion is recorded in `data/geodata/config/nlongkak.json` and
-`docs/WORLD.md`. If a local Open Buildings export is later supplied, it must be
-added as an explicitly licensed source, used only to fill gaps after OSM
-footprints are accepted, and deduplicated against OSM footprints. It must not
-silently replace OSM geometry.
+The exclusion is recorded in both configs
+(`data/geodata/config/nlongkak.json`,
+`data/geodata/config/mvog_mbi.json`) and in `docs/WORLD.md`. If a local Open
+Buildings export is later supplied, it must be added as an explicitly licensed
+source, used only to fill gaps after OSM footprints are accepted, and
+deduplicated against OSM footprints. It must not silently replace OSM geometry.
 
 ## Reproducibility and pinning
 

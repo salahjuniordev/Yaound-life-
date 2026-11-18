@@ -1,8 +1,17 @@
 {
   "format": "yaounde-life-world-registry",
   "formatVersion": 1,
-  "generatedAt": "2026-11-12T20:28:33.684Z",
+  "generatedAt": "2026-11-18T18:26:38.070Z",
   "packs": [
+    {
+      "id": "mvog_mbi",
+      "districtId": "mvog_mbi",
+      "name": "Mvog-Mbi",
+      "basePath": "world/mvog-mbi/v1",
+      "worldVersion": "mvog-mbi-2026-10-30-v1",
+      "manifestFormatVersion": 1,
+      "precacheOnInstall": true
+    },
     {
       "id": "nlongkak",
       "districtId": "nlongkak",

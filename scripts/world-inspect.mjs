@@ -6,7 +6,11 @@ import { utmForward } from '../src/world/transform.ts';
 import { chunkKey } from '../src/world/chunks.ts';
 
 const ROOT = resolve(dirname(dirname(fileURLToPath(import.meta.url))));
-const config = JSON.parse(readFileSync(join(ROOT, 'data/geodata/config/nlongkak.json'), 'utf8'));
+const configPath = resolve(
+  ROOT,
+  process.argv[2] ?? process.env.WORLD_CONFIG ?? 'data/geodata/config/nlongkak.json',
+);
+const config = JSON.parse(readFileSync(configPath, 'utf8'));
 
 function countFeatures(path) {
   const data = JSON.parse(readFileSync(path, 'utf8'));

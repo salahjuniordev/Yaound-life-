@@ -1433,15 +1433,15 @@ function SettingsApp() {
         </select>
       </div>
       <Toggle
-        label={fr ? 'Nlongkak géographique (aperçu)' : 'Geographic Nlongkak (preview)'}
+        label={fr ? 'Monde géographique (aperçu)' : 'Geographic world (preview)'}
         value={geoWorld}
         onChange={(v) => {
           setGeoWorld(v);
           setGeographicWorldEnabled(v);
           engine.toast(
-            v ? 'Geographic Nlongkak enabled' : 'Legacy Nlongkak enabled',
+            v ? 'Geographic world enabled' : 'Legacy world enabled',
             'info',
-            v ? 'Nlongkak géographique activé' : 'Nlongkak classique activé',
+            v ? 'Monde géographique activé' : 'Monde classique activé',
           );
         }}
       />

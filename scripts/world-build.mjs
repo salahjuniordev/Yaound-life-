@@ -37,8 +37,10 @@ import {
 } from '../src/world/openBuildings.ts';
 
 const ROOT = resolve(dirname(dirname(fileURLToPath(import.meta.url))));
-const CONFIG_PATH = join(ROOT, 'data/geodata/config/nlongkak.json');
+const DEFAULT_CONFIG_PATH = join(ROOT, 'data/geodata/config/nlongkak.json');
+const CONFIG_PATH = resolve(ROOT, process.argv[2] ?? process.env.WORLD_CONFIG ?? DEFAULT_CONFIG_PATH);
 const DISTRICTS_PATH = join(ROOT, 'data/geodata/config/districts.json');
+const REGISTRY_PATH = join(ROOT, 'public/world/registry.json');
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, 'utf8'));
@@ -737,6 +739,10 @@ function main() {
     };
   });
 
+  const outputPrefix = config.outputDir.replace(/^public\//, '').replace(/\/$/, '');
+  if (!config.outputDir.startsWith('public/world/') || !/^world\/[A-Za-z0-9._/-]+$/.test(outputPrefix) || outputPrefix.includes('..')) {
+    throw new Error(`outputDir must be a public/world pack path, got ${config.outputDir}`);
+  }
   const outputDir = join(ROOT, config.outputDir);
   rmSync(outputDir, { recursive: true, force: true });
   mkdirSync(join(outputDir, 'terrain'), { recursive: true });
@@ -934,7 +940,6 @@ function main() {
     })),
   });
 
-  const outputPrefix = config.outputDir.replace(/^public\//, '').replace(/\/$/, '');
   const sitePath = (path) => `${outputPrefix}/${path}`;
   const globalFiles = [
     'manifest.json',
@@ -971,7 +976,7 @@ function main() {
   writeJson(join(outputDir, 'files.json'), catalog);
   console.log(`  offline catalog: ${catalog.files.length} files, ${(catalog.totalBytes / (1024 * 1024)).toFixed(1)} MB, ${catalog.initial.length} initial files`);
 
-  const registryPath = join(ROOT, dirname(config.outputDir), 'registry.json');
+  const registryPath = REGISTRY_PATH;
   let existingPacks = [];
   if (existsSync(registryPath)) {
     try {

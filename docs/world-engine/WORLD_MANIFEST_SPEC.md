@@ -10,16 +10,27 @@ geographic world and is fetched and validated before any chunk is used.
 {
   "format": "yaounde-life-world-registry",
   "formatVersion": 1,
-  "generatedAt": "2026-11-12T20:28:33.684Z",
-  "packs": [{
-    "id": "nlongkak",
-    "districtId": "nlongkak",
-    "name": "Nlongkak",
-    "basePath": "world/v1",
-    "worldVersion": "nlongkak-2026-10-30-v2",
-    "manifestFormatVersion": 1,
-    "precacheOnInstall": true
-  }]
+  "generatedAt": "...",
+  "packs": [
+    {
+      "id": "mvog_mbi",
+      "districtId": "mvog_mbi",
+      "name": "Mvog-Mbi",
+      "basePath": "world/mvog-mbi/v1",
+      "worldVersion": "mvog-mbi-2026-10-30-v1",
+      "manifestFormatVersion": 1,
+      "precacheOnInstall": true
+    },
+    {
+      "id": "nlongkak",
+      "districtId": "nlongkak",
+      "name": "Nlongkak",
+      "basePath": "world/v1",
+      "worldVersion": "nlongkak-2026-10-30-v2",
+      "manifestFormatVersion": 1,
+      "precacheOnInstall": true
+    }
+  ]
 }
 ```
 
@@ -33,15 +44,15 @@ Rules enforced by `src/world/registry.ts`:
 - `manifestFormatVersion` must match the runtime's `WORLD_FORMAT_VERSION`;
   incompatible packs fall back explicitly instead of rendering silently.
 - Unregistered districts keep the legacy procedural world. A missing or invalid
-  registry falls back to the built-in Nlongkak mapping, then to legacy if that
-  pack also fails validation.
+  registry falls back to the built-in two-pack mapping (Nlongkak and Mvog-Mbi),
+  then to legacy if the selected pack also fails validation.
 - `precacheOnInstall` is opt-in. The service worker precaches only packs that
   set it; other registered packs remain available for explicit download.
 
 The registry is a deployment file, not part of a pack's `files.json` catalog.
 `npm run world:build` upserts the current area's entry without deleting other
 registered packs; `npm run world:validate` checks the registry against every
-registered manifest and the committed Nlongkak pack.
+registered manifest and validates every registered pack by default.
 
 ## Required fields
 
@@ -49,7 +60,7 @@ registered manifest and the committed Nlongkak pack.
 | --- | --- |
 | `format` | Must be `yaounde-life-world` |
 | `formatVersion` | Must be `1`; incompatible versions are rejected |
-| `worldVersion` | Versioned pack id, e.g. `nlongkak-2026-10-30-v2` |
+| `worldVersion` | Versioned pack id, e.g. `nlongkak-2026-10-30-v2` or `mvog-mbi-2026-10-30-v1` |
 | `generatorVersion` | Pipeline version |
 | `generatedAt` | ISO timestamp of the build |
 | `area` | `{ id, name, description }` |
@@ -102,8 +113,8 @@ scripts additionally check:
 - road/POI JSON parses and counts match the manifest;
 - waterway records have at least two points, one level per point and a positive width;
 - `contentHash` and per-chunk hashes are stable;
-- `world/registry.json` is valid, has unique districts and points at an existing
-  pack whose manifest matches its `worldVersion`, `area.id` and format;
+- `world/registry.json` is valid, has unique districts and points at existing
+  packs whose manifests match their `worldVersion`, `area.id` and format;
 - `files.json` lists every world file with its byte size;
 - `precache.json` exactly matches the catalog's initial list;
 - `worldVersion` matches between manifest and catalog.
@@ -111,7 +122,8 @@ scripts additionally check:
 Run:
 
 ```bash
-npm run world:validate
+npm run world:validate                    # every registered pack
+npm run world:validate -- world/v1        # one pack
 ```
 
 ## Offline catalog (`files.json`)
@@ -136,8 +148,8 @@ Rules:
 - Every `initial` path must exist in `files`.
 - `worldVersion` must equal the manifest's version.
 
-`precache.json` is the service worker's initial set: global files plus the nine
-chunks around the spawn chunk (radius 1). The rest downloads on demand.
+`precache.json` is the service worker's initial set: global files plus up to the
+nine chunks around the spawn chunk (radius 1). The rest downloads on demand.
 
 ## Versioning
 

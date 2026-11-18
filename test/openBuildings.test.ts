@@ -90,10 +90,12 @@ test('Open Buildings import is opt-in through the world config', () => {
   assert.throws(() => enabledOpenBuildingsSourceConfig({ openBuildings: { ...source(), enabled: 'yes' } }), /enabled must be a boolean/);
 });
 
-test('checked-in Nlongkak config keeps Open Buildings production ingestion disabled', () => {
-  const config = JSON.parse(readFileSync(new URL('../data/geodata/config/nlongkak.json', import.meta.url), 'utf8'));
-  assert.equal(enabledOpenBuildingsSourceConfig(config), null);
-  assert.ok(config.notUsed?.some((item: { id: string }) => item.id === OPEN_BUILDINGS_SOURCE_ID));
+test('checked-in world configs keep Open Buildings production ingestion disabled', () => {
+  for (const name of ['nlongkak', 'mvog_mbi']) {
+    const config = JSON.parse(readFileSync(new URL(`../data/geodata/config/${name}.json`, import.meta.url), 'utf8'));
+    assert.equal(enabledOpenBuildingsSourceConfig(config), null);
+    assert.ok(config.notUsed?.some((item: { id: string }) => item.id === OPEN_BUILDINGS_SOURCE_ID));
+  }
 });
 
 test('Open Buildings CSV parser accepts Polygon and MultiPolygon WKT and preserves deterministic provenance fields', () => {

@@ -1,0 +1,200 @@
+[
+  {
+    "id": "osm-w198851071",
+    "sourceId": "w198851071",
+    "name": "Rue 4.030",
+    "roadClass": "residential",
+    "points": [
+      [
+        948.5402020430192,
+        -1024.176422438759
+      ],
+      [
+        987.774183853413,
+        -1011.6350968093029
+      ],
+      [
+        1017.5326637935359,
+        -1001.4334646539064
+      ],
+      [
+        1027.6833101402735,
+        -996.2854444038239
+      ],
+      [
+        1039.4202421953669,
+        -984.6252413181937
+      ],
+      [
+        1043.4713469689013,
+        -975.1551247608149
+      ],
+      [
+        1049.311886066338,
+        -965.6239248749334
+      ],
+      [
+        1055.5837759312708,
+        -960.5418598280521
+      ],
+      [
+        1065.066780754365,
+        -955.6795331872418
+      ],
+      [
+        1105.8077859469922,
+        -937.1458297630888
+      ],
+      [
+        1111.1800927934237,
+        -935.6127472725348
+      ],
+      [
+        1116.8502942603081,
+        -934.8107933988795
+      ],
+      [
+        1123.6938801293727,
+        -935.5723877117271
+      ],
+      [
+        1138.0676318387268,
+        -939.7823764243946
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w198851071",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w198990033",
+    "sourceId": "w198990033",
+    "roadClass": "path",
+    "points": [
+      [
+        1026.0782613023184,
+        -558.8860688328277
+      ],
+      [
+        1050.7268976597115,
+        -562.9532610942842
+      ]
+    ],
+    "nodeIds": [
+      2089093008,
+      2090526136
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w198990033",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w706722577",
+    "sourceId": "w706722577",
+    "name": "Rue 4.146",
+    "roadClass": "residential",
+    "points": [
+      [
+        1033.474164629355,
+        -808.4747281050077
+      ],
+      [
+        1090.393149209558,
+        -813.5116536868154
+      ],
+      [
+        1120.4676990974694,
+        -812.9369053700357
+      ],
+      [
+        1138.0676318387268,
+        -813.233728249111
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w706722577",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1297894118",
+    "sourceId": "w1297894118",
+    "roadClass": "residential",
+    "points": [
+      [
+        1082.2118030611891,
+        -1027.9029234500485
+      ],
+      [
+        1104.2489233347587,
+        -1009.3912486893823
+      ],
+      [
+        1116.2811075460631,
+        -999.3583809826523
+      ]
+    ],
+    "nodeIds": [
+      5806672191,
+      12024625640,
+      12024625639
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1297894118",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

@@ -2,7 +2,8 @@
 
 Roads come from OSM ways tagged `highway`. They are clipped to the world bbox,
 validated, assigned a gameplay class and width, and split across chunks. The
-current pack has 426 clipped road pieces.
+current packs have 426 clipped Nlongkak road pieces and 224 Mvog-Mbi road
+pieces.
 
 ## Classes and widths
 

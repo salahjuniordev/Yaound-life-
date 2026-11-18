@@ -1,0 +1,282 @@
+[
+  {
+    "id": "osm-n2284209766",
+    "sourceId": "n2284209766",
+    "name": "Montée Zoé",
+    "kind": "locality",
+    "pos": [
+      727.64877338917,
+      -1336.47583142214
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284209766",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2558754860",
+    "sourceId": "n2558754860",
+    "name": "Crédit Communauté Du Cameroun",
+    "kind": "bank",
+    "pos": [
+      706.1620439931285,
+      -1424.3401273496565
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2558754860",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2558754861",
+    "sourceId": "n2558754861",
+    "name": "Cyber",
+    "kind": "computer",
+    "pos": [
+      730.9851478470955,
+      -1436.938466867432
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2558754861",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2558754865",
+    "sourceId": "n2558754865",
+    "name": "Western Union",
+    "kind": "bank",
+    "pos": [
+      706.1592240016907,
+      -1429.042444372957
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2558754865",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3616904898",
+    "sourceId": "n3616904898",
+    "name": "Complexe culturel \"Le passe simple\" chez Amerigo",
+    "kind": "arts_centre",
+    "pos": [
+      543.9780525048263,
+      -1175.4665718968026
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3616904898",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5161900898",
+    "sourceId": "n5161900898",
+    "name": "Bonjour",
+    "kind": "convenience",
+    "pos": [
+      697.9537514119875,
+      -1441.5982339576585
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5161900898",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6306072756",
+    "sourceId": "n6306072756",
+    "name": "RDPC",
+    "kind": "association",
+    "pos": [
+      528.0383042166941,
+      -1394.3151317174197
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6306072756",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11626735332",
+    "sourceId": "n11626735332",
+    "name": "lawyer",
+    "kind": "lawyer",
+    "pos": [
+      951.000918179052,
+      -1063.8603391755023
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11626735332",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13628665162",
+    "sourceId": "n13628665162",
+    "name": "Albatros Premium",
+    "kind": "hotel",
+    "pos": [
+      737.6473320904188,
+      -1285.1117941436823
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13628665162",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a437081158",
+    "sourceId": "a437081158",
+    "name": "Hôtel Zoé Motel",
+    "kind": "hotel",
+    "pos": [
+      774.1996211078949,
+      -1389.921555346984
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a437081158",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a788225210",
+    "sourceId": "a788225210",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      726.953920458327,
+      -1405.957554630877
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a788225210",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a788225212",
+    "sourceId": "a788225212",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      700.844491144293,
+      -1309.8753095617867
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a788225212",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820465108",
+    "sourceId": "a820465108",
+    "name": "TOTAL Olezoa",
+    "kind": "fuel",
+    "pos": [
+      568.8462736350484,
+      -1285.4749004070763
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820465108",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167409866",
+    "sourceId": "a1167409866",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      586.1132480686065,
+      -1474.1499648112222
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167409866",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

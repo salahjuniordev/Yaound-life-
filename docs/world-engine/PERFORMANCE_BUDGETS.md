@@ -7,15 +7,17 @@ are instrumented, but real-device measurements are still pending.
 
 | Check | Budget | Current |
 | --- | --- | --- |
-| JS total (gzip) | 620 KB | 576,491 B |
+| JS total (gzip) | 620 KB | 578,997 B |
 | CSS total (gzip) | 24 KB | 8,625 B |
-| HTML total (gzip) | 5 KB | 1,814 B |
-| First load JS+CSS+HTML (gzip) | 1 MB | 586,930 B |
-| World assets raw | 12 MB | 5,402,073 B |
-| World assets gzip | 6 MB | 853,458 B |
+| HTML total (gzip) | 5 KB | 1,816 B |
+| First load JS+CSS+HTML (gzip) | 1 MB | 589,438 B |
+| World assets raw | 12 MB | 7,454,583 B |
+| World assets gzip | 6 MB | 1,227,338 B |
 
-The world pack is 90 catalog files plus `files.json`/`precache.json`; the size
-check sees 92 files under `dist/world/`.
+The deployed world tree is 150 files: Nlongkak has 90 catalog files plus
+`files.json`/`precache.json` (92 files), Mvog-Mbi has 55 catalog files plus those
+two metadata files (57 files), and `registry.json` is shared. The size check sees
+all 150 under `dist/world/`.
 
 ## Quality tiers
 
@@ -25,8 +27,9 @@ check sees 92 files under `dist/world/`.
 | mid | 1 (3 × 3) | 10 | off | near + far |
 | high | 2 (5 × 5) | 16 | on | near + far |
 
-The pack has only 16 chunks, so high can load the whole slice. Chunks outside
-the keep radius are evicted first; the LRU never evicts an in-flight load.
+Nlongkak has 16 chunks, so high can load the whole slice; Mvog-Mbi has 9. Chunks
+outside the keep radius are evicted first; the LRU never evicts an in-flight
+load.
 
 ## Runtime LOD
 

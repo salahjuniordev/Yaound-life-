@@ -17,7 +17,7 @@
     "deploy:cf": "npm run build && npx --yes wrangler pages deploy dist --project-name yaounde-life",
     "world:inspect": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-inspect.mjs",
     "world:build": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-build.mjs",
-    "world:validate": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-validate.mjs",
+    "world:validate": "node scripts/world-validate-all.mjs",
     "world:acquire": "bash scripts/world-acquire.sh"
   },
   "dependencies": {

@@ -1,0 +1,61 @@
+{
+  "worldVersion": "mvog-mbi-2026-10-30-v1",
+  "area": {
+    "id": "mvog_mbi",
+    "name": "Mvog-Mbi",
+    "description": "Second playable geographical slice, covering the Mvog-Mbi neighbourhood of Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "bbox": {
+    "minLon": 11.5156,
+    "minLat": 3.8445,
+    "maxLon": 11.5258,
+    "maxLat": 3.8583
+  },
+  "origin": {
+    "lon": 11.515559456361629,
+    "lat": 3.844500119873623,
+    "east": 779382.6497210062,
+    "north": 425350.5930393018
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1138.0676318387268,
+    "minZ": -1530.2096051692497,
+    "maxZ": 0,
+    "minEast": 779382.6497210062,
+    "maxEast": 780520.7173528449,
+    "minNorth": 425350.5930393018,
+    "maxNorth": 426880.80264447106
+  },
+  "chunkSize": 512,
+  "chunks": 9,
+  "roads": 224,
+  "buildings": 2659,
+  "pois": 89,
+  "waterPolygons": 5,
+  "waterways": 18,
+  "skippedBuildings": 16,
+  "openBuildings": {
+    "used": false,
+    "reason": "No explicitly enabled Open Buildings export is configured."
+  },
+  "elevation": {
+    "absoluteMin": 698.9671630859375,
+    "absoluteMax": 751.7691040039062,
+    "verticalOffset": 698.9,
+    "relativeMin": 0,
+    "relativeMax": 52.86910400390627
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "osm-n2056858437",
+    "sourceId": "n2056858437",
+    "name": "Tchopetyamo",
+    "kind": "fast_food",
+    "pos": [
+      653.2120544560021,
+      -465.03103978803847
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2056858437",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4470347542",
+    "sourceId": "n4470347542",
+    "name": "Afriland First bank",
+    "kind": "bank",
+    "pos": [
+      613.169710409129,
+      -495.3726683098357
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4470347542",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4470347543",
+    "sourceId": "n4470347543",
+    "name": "AURA Cameroun - siège social",
+    "kind": "company",
+    "pos": [
+      603.7677846543957,
+      -446.484999358654
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4470347543",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5161969351",
+    "sourceId": "n5161969351",
+    "name": "SOREPCO",
+    "kind": "hardware",
+    "pos": [
+      582.3482162116561,
+      -263.52911020594183
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5161969351",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5937472355",
+    "sourceId": "n5937472355",
+    "name": "ITKOLA",
+    "kind": "association",
+    "pos": [
+      678.2945564128458,
+      -378.7041395304841
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5937472355",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5937472356",
+    "sourceId": "n5937472356",
+    "name": "AFOUP",
+    "kind": "association",
+    "pos": [
+      681.7906727887457,
+      -380.2634729449055
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5937472356",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13724089552",
+    "sourceId": "n13724089552",
+    "name": "Restaurant des Sept Saveurs",
+    "kind": "restaurant",
+    "pos": [
+      630.672803962836,
+      -266.1281286367448
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13724089552",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440269548",
+    "sourceId": "a440269548",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      658.4854058236815,
+      -11.720607641502284
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440269548",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1171245466",
+    "sourceId": "a1171245466",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      552.7501139082015,
+      -268.3321038496797
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1171245466",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1512793124",
+    "sourceId": "a1512793124",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      615.770841376856,
+      -118.99550350144273
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1512793124",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1512793126",
+    "sourceId": "a1512793126",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      902.0958744930103,
+      -209.84959295060253
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1512793126",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

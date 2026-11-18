@@ -1,7 +1,8 @@
 # Offline World Packaging
 
-The app shell and the initial world area work offline after one successful load.
-The full world pack can be downloaded explicitly from Settings.
+The app shell and the initial files for both registered world packs work offline
+after one successful load. The full catalogs can also be downloaded explicitly
+from Settings.
 
 ## What is cached
 
@@ -18,10 +19,13 @@ The service worker precaches:
 - `world/registry.json`;
 - for each registered pack with `precacheOnInstall: true`: its manifest,
   `files.json`, `precache.json` and every path in that pack's `precache.json`
-  (currently Nlongkak: 53 files, 8 global files + 3 × 3 chunks around spawn).
+  (both current packs: 53 initial files each, 8 global files + 3 × 3 chunks
+  around spawn).
 
-The initial pack is about 5.1 MB uncompressed. The full catalog is 90 files and
-5.39 MB. The service worker also caches world responses fetched at runtime.
+The initial Nlongkak pack is about 5.1 MB uncompressed; its full catalog is 90
+files and 5.39 MB. The initial Mvog-Mbi pack is about 1.9 MB; its full catalog is
+55 files and 2.04 MB. The service worker also caches world responses fetched at
+runtime.
 
 The production build stamps `dist/sw.js` and `app-shell.json` with a
 content-derived build ID. Any change to the shell changes the worker bytes and
@@ -40,9 +44,10 @@ a stale cached `index.html` indefinitely.
 - Download, Update, Cancel and Remove actions for the selected pack.
 
 The selected pack is resolved from `world/registry.json` and the player's
-current district. Only Nlongkak is registered today, so the selector stays
-hidden in the current build. Removing offline data clears all world caches; a
-successful download cleanup keeps every version still present in the registry.
+current district. Nlongkak and Mvog-Mbi are both registered, so the selector is
+visible. Removing offline data deletes only the selected pack's cache; a
+successful download cleanup keeps every version still present in the registry,
+including the other pack.
 
 Downloads use `src/pwa/worldCache.ts` with four concurrent requests, abort
 support and byte progress. Before downloading, it checks `navigator.storage`
@@ -117,5 +122,9 @@ still required before release:
 1. Load the app online once.
 2. Open Settings and download the world pack.
 3. Go offline and reload.
-4. Walk through Nlongkak and confirm chunks load from cache.
-5. Update the pack and confirm the old cache is removed after success.
+4. Walk through the selected geographic district and confirm chunks load from
+   cache.
+5. Switch packs, download the second pack and confirm the first remains
+   available.
+6. Update a pack and confirm its old cache is removed after success while the
+   other pack remains.

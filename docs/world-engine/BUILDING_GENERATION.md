@@ -9,22 +9,24 @@ designed.
 1. Read OSM building ways/relations.
 2. Convert rings from lon/lat to game metres.
 3. Drop a repeated closing vertex.
-4. Simplify with the configured tolerance (0.35 m).
+4. Simplify with the configured tolerance (0.45 m in the current configs).
 5. Reject rings with fewer than 3 points or area below the configured minimum
-   (12 m²).
+   (2 m² in the current configs).
 6. Reject centroids more than 40 m outside the bbox.
 7. Deduplicate by `round(centroidX):round(centroidZ):round(area)`.
 8. Infer classification, floors and height.
 9. Assign the building to the chunk containing its centroid.
 10. Encode geometry as `YLB1` and metadata as JSON.
 
-The current pack contains 8,085 buildings.
+The current packs contain 8,085 Nlongkak buildings and 2,659 Mvog-Mbi
+buildings.
 
 ## Optional Google Open Buildings source
 
 The build supports an opt-in Open Buildings V3 importer contract in
-`src/world/openBuildings.ts`. It is disabled in the current Nlongkak pack and
-there is no production Open Buildings data in `public/world/v1/`.
+`src/world/openBuildings.ts`. It is disabled in both current packs and there is
+no production Open Buildings data in `public/world/v1/` or
+`public/world/mvog-mbi/v1/`.
 
 When explicitly enabled with a licensed local CSV export, the pipeline:
 
