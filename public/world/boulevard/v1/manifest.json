@@ -1,0 +1,157 @@
+{
+  "format": "yaounde-life-world",
+  "formatVersion": 1,
+  "worldVersion": "boulevard-2026-10-30-v1",
+  "generatorVersion": "1.1.0",
+  "generatedAt": "2026-11-19T07:16:37.126Z",
+  "area": {
+    "id": "boulevard",
+    "name": "Boulevard du 20 Mai",
+    "description": "Sixth playable geographical slice, covering the central Boulevard du 20 Mai civic spine in Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "projection": {
+    "id": "EPSG:32632",
+    "name": "WGS 84 / UTM zone 32N",
+    "zone": 32,
+    "hemisphere": "N",
+    "datum": "WGS84",
+    "centralMeridian": 9
+  },
+  "origin": {
+    "lon": 11.512472915587837,
+    "lat": 3.8594000802596575,
+    "east": 779034.7738059349,
+    "north": 426998.13220653095
+  },
+  "unitsPerMetre": 1,
+  "verticalScale": 1,
+  "verticalOffset": 699.9,
+  "elevationDatum": "Copernicus DEM GLO-30 (EGM2008), local offset",
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "chunkSize": 512,
+  "bounds": {
+    "minX": 0,
+    "maxX": 1003.1912765372545,
+    "minZ": -1020.8653077148483,
+    "maxZ": 0,
+    "minEast": 779034.7738059349,
+    "maxEast": 780037.9650824722,
+    "minNorth": 426998.13220653095,
+    "maxNorth": 428018.9975142458
+  },
+  "waterLevel": 9.697051465679168,
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries for the central Boulevard du 20 Mai area."
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the central Boulevard du 20 Mai slice."
+    }
+  ],
+  "featureCounts": {
+    "chunks": 4,
+    "roads": 229,
+    "buildings": 467,
+    "pois": 250,
+    "waterPolygons": 17,
+    "waterways": 7,
+    "terrainSamples": 16254
+  },
+  "chunks": [
+    {
+      "id": "c_0_0",
+      "ix": 0,
+      "iz": 0,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_0_0.bin",
+      "roadsFile": "roads/c_0_0.json",
+      "buildingsFile": "buildings/c_0_0.bin",
+      "buildingsMetaFile": "buildings/c_0_0.json",
+      "poisFile": "pois/c_0_0.json",
+      "buildingCount": 149,
+      "roadCount": 58,
+      "hash": "f7ecf8eb5ee91fab6033f6fe3c506713de390bb1874d6dd7df71e6ce8f2f58fa"
+    },
+    {
+      "id": "c_1_0",
+      "ix": 1,
+      "iz": 0,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_1_0.bin",
+      "roadsFile": "roads/c_1_0.json",
+      "buildingsFile": "buildings/c_1_0.bin",
+      "buildingsMetaFile": "buildings/c_1_0.json",
+      "poisFile": "pois/c_1_0.json",
+      "buildingCount": 114,
+      "roadCount": 48,
+      "hash": "c1828f2dca8913c187139000e9f864ddf1274069f0f65ddcb2d428b00482c4c7"
+    },
+    {
+      "id": "c_0_1",
+      "ix": 0,
+      "iz": 1,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_0_1.bin",
+      "roadsFile": "roads/c_0_1.json",
+      "buildingsFile": "buildings/c_0_1.bin",
+      "buildingsMetaFile": "buildings/c_0_1.json",
+      "poisFile": "pois/c_0_1.json",
+      "buildingCount": 86,
+      "roadCount": 82,
+      "hash": "5f2b2cc652d30d898a8accad9327986cc43bfd9fcc393a9d3c44d71122aeec3b"
+    },
+    {
+      "id": "c_1_1",
+      "ix": 1,
+      "iz": 1,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_1_1.bin",
+      "roadsFile": "roads/c_1_1.json",
+      "buildingsFile": "buildings/c_1_1.bin",
+      "buildingsMetaFile": "buildings/c_1_1.json",
+      "poisFile": "pois/c_1_1.json",
+      "buildingCount": 118,
+      "roadCount": 41,
+      "hash": "cd359753a98422dee3f03767ab0727413b7e5903046e961067a8caaa3ccc568d"
+    }
+  ],
+  "contentHash": "998d68a1fbed1b6d25a70062d63a3e9fc629faf2798a8708fbea2c6fe231c5ee",
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+}

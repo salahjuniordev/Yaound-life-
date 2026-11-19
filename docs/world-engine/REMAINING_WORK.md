@@ -2,13 +2,14 @@
 
 Last updated: 2026-11-19
 
-Status: **M0–M7 complete; M8 partial; four geographic packs registered
-(Nlongkak, Mvog-Mbi, Mokolo and Bastos) with Phase 5 infrastructure. The master
-brief defines no M9.** Browser-based/device/cultural acceptance checks are deferred by
-product direction and remain unverified; they are not the active build goal.
-The remaining active build work is further district packs, per-area static
-review, and the blocked Open Buildings production import. Nothing in this
-document is a claim that an unperformed check has passed.
+Status: **M0–M7 complete; M8 partial; nine geographic packs registered
+(Nlongkak, Mvog-Mbi, Mokolo, Bastos, Ngoa-Ekelle, Boulevard du 20 Mai, Lac
+Municipal, Mvan and Mont Febe) with Phase 5 district coverage complete. The
+master brief defines no M9.** Browser-based/device/cultural acceptance checks are
+deferred by product direction and remain unverified; they are not the active
+build goal. The remaining active build work is acceptance evidence, any future
+content polish, and the blocked Open Buildings production import. Nothing in
+this document is a claim that an unperformed check has passed.
 
 ## M8 acceptance work — status
 
@@ -111,30 +112,32 @@ solely because the importer contract exists.
 
 ### Phase 5 — Geographic city expansion
 
-Nlongkak, Mvog-Mbi, Mokolo and Bastos are geographic. Ngoa-Ekelle, Mvan, Mont
-Febe, Lac Municipal, Boulevard du 20 Mai and the remaining gameplay areas still
-render the legacy procedural world.
+All nine gameplay districts are now geographic. Nlongkak, Mvog-Mbi, Mokolo,
+Bastos, Ngoa-Ekelle, Boulevard du 20 Mai, Lac Municipal, Mvan and Mont Febe each
+have a registered pack. The legacy procedural world remains an explicit fallback,
+not the default for any district with a valid pack.
 
 The multi-pack infrastructure is implemented without changing gameplay district
 IDs or the save format:
 
-1. **Area build configuration and reproducible extraction.** Nlongkak,
-   Mvog-Mbi, Mokolo and Bastos each have an explicit config
-   (`data/geodata/config/*.json`). The `world:acquire` script takes an area
-   config, derives its bbox and DEM window, and runs `world:build`; the raw
-   OSM/DEM inputs remain pinned and gitignored. Mvog-Mbi used OSM relation
-   `3093787`; Mokolo used relation `2758122`; Bastos uses relation `3096136` as
-   a reference for a central slice; all use the same 2026-10-30 OSM/Copernicus
-   inputs as Nlongkak.
+1. **Area build configuration and reproducible extraction.** Each district has
+   an explicit config under `data/geodata/config/`. The `world:acquire` script
+   takes an area config, derives its bbox and DEM window, and runs
+   `world:build`; the raw OSM/DEM inputs remain pinned and gitignored. Mvog-Mbi
+   used OSM relation `3093787`; Mokolo used `2758122`; Bastos uses `3096136` as
+   a reference for a central slice; Mvan uses `3092564`; Ngoa-Ekelle uses way
+   `583759448`; Boulevard du 20 Mai uses node `6310721515`; Mont Febe uses node
+   `2370598711`; and Lac Municipal uses a shoreline-derived anchor recorded as
+   `way/1054466544+shore`. All use the same 2026-10-30 OSM/Copernicus inputs.
 2. **Registry/selector.** `public/world/registry.json` maps gameplay district IDs
    to versioned packs. `src/world/registry.ts` validates unique districts, safe
    site-relative `basePath`s, version tokens and manifest-format compatibility,
-   and provides a built-in four-pack fallback if the registry request fails.
+   and provides a built-in nine-pack fallback if the registry request fails.
 3. **Loader and offline support.** `loadWorldRegistry` and `loadManifest` check
    the registered `worldVersion` and `area.id`. Settings selects among
    compatible registered packs, downloads each separately and removes only the
    selected pack; cleanup preserves every registered version. Nlongkak and
-   Mvog-Mbi have `precacheOnInstall: true`; Mokolo and Bastos are on-demand.
+   Mvog-Mbi have `precacheOnInstall: true`; the other seven packs are on-demand.
 4. **Adapter and gameplay mapping.** `src/render/geo/adapter.ts` derives its
    district, anchor, place filter, `districtAt` and position mapping from the
    loaded manifest/`WorldDistrictAnchor`. A non-Nlongkak adapter test and
@@ -143,22 +146,23 @@ IDs or the save format:
 5. **Save compatibility.** `test/registry.test.ts` round-trips saves for a
    geographic and a legacy district without changing district IDs or save
    format.
-6. **Per-area review.** Automated pack/runtime review now covers all four
-   packs. Visual, Android/offline/Settings and named cultural review remain
-   deferred for Nlongkak, Mvog-Mbi, Mokolo and Bastos.
+6. **Per-area review.** Automated pack/runtime/geometry review now covers all
+   nine packs. Production visual, Android/device/offline/Settings and named
+   cultural review remain unperformed for every pack; only Nlongkak has the
+   internal renderer-only and Chromium + Mesa WebGL review.
 
 Remaining Phase 5 work:
 
-- add one more verified district pack when needed, one coherent pack at a time;
+- no further district pack is currently pending; future areas should still be
+  built one coherent pack at a time;
 - keep automated manifest/runtime/chunk/spawn validation and size budgets green
   for every pack;
 - record visual/device/offline/cultural evidence later, when browser and local
-  review work is resumed, before claiming any new area device-playable;
-- keep unaffected districts on the legacy procedural fallback.
+  review work is resumed, before claiming any area device-playable;
+- keep the legacy procedural fallback available for missing or invalid packs.
 
-Do not generate all of Yaoundé in one operation. Keep the existing Nlongkak,
-Mvog-Mbi, Mokolo and Bastos `worldVersion`s unchanged unless their inputs or
-format are rebuilt and revalidated.
+Do not regenerate packs without a reason. Keep the existing nine `worldVersion`s
+unchanged unless their inputs or format are rebuilt and revalidated.
 
 ## Not build work
 
@@ -186,27 +190,40 @@ code alone:
 - Real Bastos pack: 170 roads, 2,270 buildings, 352 POIs, 11 waterway lines;
   runtime loader, all 9 chunks and default-spawn clearance validated;
   registered for on-demand download.
+- Real Ngoa-Ekelle pack: 198 roads, 2,862 buildings, 723 POIs, 25 water
+  polygons, 50 waterway lines; 9 chunks; on-demand.
+- Real Boulevard du 20 Mai pack: 229 roads, 467 buildings, 250 POIs, 17 water
+  polygons, 7 waterway lines; 4 chunks (2 × 2); on-demand.
+- Real Lac Municipal pack: 208 roads, 743 buildings, 124 POIs, 5 water polygons,
+  7 waterway lines; 9 chunks; shoreline gameplay anchor; on-demand.
+- Real Mvan pack: 102 roads, 1,539 buildings, 20 POIs, 1 water polygon, 29
+  waterway lines; 9 chunks; on-demand.
+- Real Mont Febe pack: 91 roads, 492 buildings, 12 POIs, 0 water polygons, 2
+  waterway lines; 9 chunks; on-demand.
 - Offline packaging, registry-driven service-worker lifecycle, app-shell
   precache, pack download UI and multi-pack cache cleanup with automated tests.
 - Phase 5 multi-pack infrastructure: district-keyed registry, manifest/version
   validation, generic adapter, path-aware service-worker caching and save
-  compatibility tests. Nlongkak, Mvog-Mbi, Mokolo and Bastos are registered.
+  compatibility tests. All nine district packs are registered.
 - M8 geometry implementation, attribution/licensing, feature flag/rollback and
   size budgets.
 - Current verification (2026-11-19): typecheck pass, 241/241 tests, build pass,
-  all size budgets pass, `world:validate` pass for all four packs.
+  all size budgets pass — JS 580,092 B gzip, first load 590,532 B, world assets
+  17,805,627 B raw / 3,241,290 B gzip across 509 files — and `world:validate`
+  passes for all nine packs.
 - Renderer-only visual review and internal cultural plausibility review.
 - Live-app Chromium + Mesa WebGL capture at Nlongkak and the market. No
-  equivalent visual/device review exists yet for Mvog-Mbi, Mokolo or Bastos.
+  equivalent visual/device review exists yet for the other eight packs.
 
 ## Exact next action
 
 1. Browser-based, Android/device and named cultural checks are deferred by
    product direction. Do not schedule browser automation now and do not mark
    M8 complete without later evidence.
-2. Continue Phase 5 with one more verified district pack when needed: use a
-   per-area OSM/DEM config, `npm run world:acquire -- ...`, then
-   `world:validate`; do not regenerate existing packs or invent inputs.
+2. Phase 5 district coverage is complete. Do not add or regenerate a pack
+   without a concrete reason; if a new area is needed, use a per-area OSM/DEM
+   config, `npm run world:acquire -- ...`, then `world:validate`, and do not
+   invent inputs.
 3. Keep automated pack/runtime/chunk/spawn validation and size budgets green
    for every registered pack. A static renderer-geometry pass is useful; visual
    claims still require later review.

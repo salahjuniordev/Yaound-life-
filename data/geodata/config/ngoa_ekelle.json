@@ -1,0 +1,55 @@
+{
+  "areaId": "ngoa_ekelle",
+  "name": "Ngoa-Ekelle",
+  "nameFr": "Ngoa-Ekelle",
+  "description": "Fifth playable geographical slice, covering the Ngoa-Ekelle university area in Yaoundé with real OSM geometry and Copernicus terrain.",
+  "worldVersion": "ngoa-ekelle-2026-10-30-v1",
+  "bbox": {
+    "minLon": 11.4935,
+    "minLat": 3.8505,
+    "maxLon": 11.5065,
+    "maxLat": 3.8625
+  },
+  "chunkSize": 512,
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "simplifyTolerance": 0.45,
+  "minBuildingArea": 2,
+  "outputDir": "public/world/ngoa-ekelle/v1",
+  "precacheOnInstall": false,
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "downloadUrl": "https://download.geofabrik.de/africa/cameroon-261030.osm.pbf",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries for the Ngoa-Ekelle university area.",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "extractFile": "data/geodata/processed/ngoa_ekelle.osm.pbf",
+      "exportFile": "data/geodata/processed/ngoa_ekelle.geojson",
+      "oplFile": "data/geodata/processed/ngoa_ekelle.opl"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "downloadUrl": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N03_00_E011_00_DEM/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the Ngoa-Ekelle slice.",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "decodedFile": "data/geodata/processed/ngoa_ekelle-dem.f32",
+      "decodedMetaFile": "data/geodata/processed/ngoa_ekelle-dem.json"
+    }
+  ],
+  "notUsed": [
+    {
+      "id": "google_open_buildings_v3",
+      "reason": "OSM building coverage in the Ngoa-Ekelle slice is sufficient for this pack. The optional importer contract remains tested with synthetic fixtures, but no licensed local Open Buildings export or licence review is present, so production ingestion stays disabled."
+    }
+  ]
+}

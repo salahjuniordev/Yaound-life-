@@ -1,8 +1,8 @@
 # Offline World Packaging
 
 The app shell and the initial files for the install-precached world packs work
-offline after one successful load. Every registered pack, including Mokolo and
-Bastos, can also be downloaded explicitly from Settings.
+offline after one successful load. Every registered pack can also be downloaded
+explicitly from Settings.
 
 ## What is cached
 
@@ -20,13 +20,15 @@ The service worker precaches:
 - for each registered pack with `precacheOnInstall: true`: its manifest,
   `files.json`, `precache.json` and every path in that pack's `precache.json`
   (Nlongkak and Mvog-Mbi: 53 initial files each, 8 global files + 3 × 3 chunks
-  around spawn). Mokolo and Bastos are registered without install precache.
+  around spawn). The other seven packs are registered without install precache.
 
 The initial Nlongkak pack is about 5.1 MB uncompressed; its full catalog is 90
 files and 5.39 MB. The initial Mvog-Mbi pack is about 1.9 MB; its full catalog is
-55 files and 2.04 MB. Mokolo is an on-demand catalog of 40 files and 1.35 MB;
-Bastos is an on-demand catalog of 55 files and 2.00 MB. The service worker also
-caches world responses fetched at runtime.
+55 files and 2.04 MB. Mokolo is an on-demand catalog of 40 files and 1.35 MB
+(38 initial files). Bastos is 55 files / 2.00 MB, Ngoa-Ekelle 55 / 2.77 MB, Lac
+Municipal 55 / 1.17 MB, Mvan 55 / 1.21 MB and Mont Febe 55 / 0.71 MB. Boulevard
+du 20 Mai is a 30-file / 1.08 MB catalog whose 28 initial files cover all four
+chunks. The service worker also caches world responses fetched at runtime.
 
 The production build stamps `dist/sw.js` and `app-shell.json` with a
 content-derived build ID. Any change to the shell changes the worker bytes and
@@ -45,10 +47,10 @@ a stale cached `index.html` indefinitely.
 - Download, Update, Cancel and Remove actions for the selected pack.
 
 The selected pack is resolved from `world/registry.json` and the player's
-current district. Nlongkak, Mvog-Mbi, Mokolo and Bastos are registered, so the
-selector is visible. Removing offline data deletes only the selected pack's
-cache; a successful download cleanup keeps every version still present in the
-registry, including the other packs.
+current district. All nine packs are registered, so the selector is visible.
+Removing offline data deletes only the selected pack's cache; a successful
+download cleanup keeps every version still present in the registry, including
+the other packs.
 
 Downloads use `src/pwa/worldCache.ts` with four concurrent requests, abort
 support and byte progress. Before downloading, it checks `navigator.storage`
@@ -113,7 +115,8 @@ offline cache fallback, missing-asset 503, version invalidation, corrupt
 manifests, legacy cache cleanup, multi-pack cleanup, resume, quota rejection,
 HTTP failure and abort behavior. `test/registry.test.ts` covers registry
 validation, district selection, version/area compatibility, pack URLs and save
-round-trips; `test/geo.test.ts` covers a non-Nlongkak manifest anchor.
+round-trips; `test/geo.test.ts` covers a non-Nlongkak manifest anchor and builds
+finite geometry for every chunk in all nine registered packs.
 
 This is not a substitute for a real browser pass: service-worker installation
 timing, persistent-storage prompts, quota accounting and real network

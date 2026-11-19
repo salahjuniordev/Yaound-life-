@@ -47,14 +47,23 @@ uses bbox `11.5156,3.8445..11.5258,3.8583`, about `1,138 m × 1,530 m`, split in
 3 × 3 chunks. Mokolo uses bbox `11.4929,3.8713..11.5040,3.8800`, about
 `1,236 m × 966 m`, split into 3 × 2 chunks. Bastos uses bbox
 `11.5039,3.8882..11.5168,3.8999`, about `1,437 m × 1,299 m`, split into 3 × 3
-chunks. Every pack stores its own origin and bounds in its manifest.
+chunks. Ngoa-Ekelle uses bbox `11.4935,3.8505..11.5065,3.8625`, about
+`1,449 m × 1,332 m`; Boulevard du 20 Mai uses bbox
+`11.5125,3.8594..11.5215,3.8686`, about `1,003 m × 1,021 m`; Lac Municipal uses
+bbox `11.5045,3.8600..11.5145,3.8700`, about `1,115 m × 1,110 m`; Mvan uses bbox
+`11.5108,3.8170..11.5220,3.8282`, about `1,248 m × 1,243 m`; and Mont Febe uses
+bbox `11.4840,3.9050..11.4960,3.9185`, about `1,338 m × 1,498 m`. Ngoa-Ekelle,
+Lac Municipal, Mvan and Mont Febe are 3 × 3 grids; Boulevard du 20 Mai is a
+2 × 2 grid. Every pack stores its own origin and bounds in its manifest.
 
 ## Elevation
 
 - Source: Copernicus DEM GLO-30.
 - The pipeline samples elevation in projected space, smooths it once, and
   subtracts each pack's local vertical offset (Nlongkak `713.3 m`; Mvog-Mbi
-  `698.9 m`; Mokolo `717.1 m`; Bastos `726.6 m`).
+  `698.9 m`; Mokolo `717.1 m`; Bastos `726.6 m`; Ngoa-Ekelle `711.4 m`;
+  Boulevard du 20 Mai `699.9 m`; Lac Municipal `707.1 m`; Mvan `679.2 m`; Mont
+  Febe `762.7 m`).
 - `localHeight = max(0, elevation - verticalOffset)`.
 - `verticalScale` is `1`; `verticalOffset` is stored in the manifest so absolute
   elevation can be reconstructed.

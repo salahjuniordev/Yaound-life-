@@ -1,0 +1,252 @@
+{
+  "format": "yaounde-life-world",
+  "formatVersion": 1,
+  "worldVersion": "ngoa-ekelle-2026-10-30-v1",
+  "generatorVersion": "1.1.0",
+  "generatedAt": "2026-11-19T07:15:01.351Z",
+  "area": {
+    "id": "ngoa_ekelle",
+    "name": "Ngoa-Ekelle",
+    "description": "Fifth playable geographical slice, covering the Ngoa-Ekelle university area in Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "projection": {
+    "id": "EPSG:32632",
+    "name": "WGS 84 / UTM zone 32N",
+    "zone": 32,
+    "hemisphere": "N",
+    "datum": "WGS84",
+    "centralMeridian": 9
+  },
+  "origin": {
+    "lon": 11.49346500832696,
+    "lat": 3.8505001026950736,
+    "east": 776925.3066292317,
+    "north": 426007.2273962067
+  },
+  "unitsPerMetre": 1,
+  "verticalScale": 1,
+  "verticalOffset": 711.4,
+  "elevationDatum": "Copernicus DEM GLO-30 (EGM2008), local offset",
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "chunkSize": 512,
+  "bounds": {
+    "minX": 0,
+    "maxX": 1448.5913944742642,
+    "minZ": -1331.923927793745,
+    "maxZ": 0,
+    "minEast": 776925.3066292317,
+    "maxEast": 778373.8980237059,
+    "minNorth": 426007.2273962067,
+    "maxNorth": 427339.15132400044
+  },
+  "waterLevel": 3.8483188472159813,
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries for the Ngoa-Ekelle university area."
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the Ngoa-Ekelle slice."
+    }
+  ],
+  "featureCounts": {
+    "chunks": 9,
+    "roads": 198,
+    "buildings": 2862,
+    "pois": 723,
+    "waterPolygons": 25,
+    "waterways": 50,
+    "terrainSamples": 30394
+  },
+  "chunks": [
+    {
+      "id": "c_0_0",
+      "ix": 0,
+      "iz": 0,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_0_0.bin",
+      "roadsFile": "roads/c_0_0.json",
+      "buildingsFile": "buildings/c_0_0.bin",
+      "buildingsMetaFile": "buildings/c_0_0.json",
+      "poisFile": "pois/c_0_0.json",
+      "buildingCount": 628,
+      "roadCount": 25,
+      "hash": "faafb8d28722b7355c081dbefae3aca0c902ead2b7ea2f6ff0b0da1eec1230a4"
+    },
+    {
+      "id": "c_1_0",
+      "ix": 1,
+      "iz": 0,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_1_0.bin",
+      "roadsFile": "roads/c_1_0.json",
+      "buildingsFile": "buildings/c_1_0.bin",
+      "buildingsMetaFile": "buildings/c_1_0.json",
+      "poisFile": "pois/c_1_0.json",
+      "buildingCount": 551,
+      "roadCount": 36,
+      "hash": "fc4da3cf59a47d953a7a417a3ea1bb94e1ac2ba7e9a4566c50595fafe70b6eb4"
+    },
+    {
+      "id": "c_2_0",
+      "ix": 2,
+      "iz": 0,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_2_0.bin",
+      "roadsFile": "roads/c_2_0.json",
+      "buildingsFile": "buildings/c_2_0.bin",
+      "buildingsMetaFile": "buildings/c_2_0.json",
+      "poisFile": "pois/c_2_0.json",
+      "buildingCount": 474,
+      "roadCount": 18,
+      "hash": "47740beff3e310641b10a4cd71d281e18e2b61ae3dd0cc11dd01a467e731bbdc"
+    },
+    {
+      "id": "c_0_1",
+      "ix": 0,
+      "iz": 1,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_0_1.bin",
+      "roadsFile": "roads/c_0_1.json",
+      "buildingsFile": "buildings/c_0_1.bin",
+      "buildingsMetaFile": "buildings/c_0_1.json",
+      "poisFile": "pois/c_0_1.json",
+      "buildingCount": 231,
+      "roadCount": 21,
+      "hash": "e0d5aedf5e7b7a7eb46a165f60b95897a9ccb2fcd2d86fbb43cc0a940d8b0fe9"
+    },
+    {
+      "id": "c_1_1",
+      "ix": 1,
+      "iz": 1,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_1_1.bin",
+      "roadsFile": "roads/c_1_1.json",
+      "buildingsFile": "buildings/c_1_1.bin",
+      "buildingsMetaFile": "buildings/c_1_1.json",
+      "poisFile": "pois/c_1_1.json",
+      "buildingCount": 161,
+      "roadCount": 33,
+      "hash": "b7c1b9729b2cd0397abd054ee6fb893ec7ecbb8532ecb8ad52e149d3c9a82da1"
+    },
+    {
+      "id": "c_2_1",
+      "ix": 2,
+      "iz": 1,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_2_1.bin",
+      "roadsFile": "roads/c_2_1.json",
+      "buildingsFile": "buildings/c_2_1.bin",
+      "buildingsMetaFile": "buildings/c_2_1.json",
+      "poisFile": "pois/c_2_1.json",
+      "buildingCount": 317,
+      "roadCount": 19,
+      "hash": "fa258b9bf1d29dc48af7a8a8c9d349d950943aadf1bba7598d1678e75a506c3f"
+    },
+    {
+      "id": "c_0_2",
+      "ix": 0,
+      "iz": 2,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_0_2.bin",
+      "roadsFile": "roads/c_0_2.json",
+      "buildingsFile": "buildings/c_0_2.bin",
+      "buildingsMetaFile": "buildings/c_0_2.json",
+      "poisFile": "pois/c_0_2.json",
+      "buildingCount": 138,
+      "roadCount": 12,
+      "hash": "b25a93312d9e163faba0ca70744bb678226212baeccce9ff2bcfa38e521068a8"
+    },
+    {
+      "id": "c_1_2",
+      "ix": 1,
+      "iz": 2,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_1_2.bin",
+      "roadsFile": "roads/c_1_2.json",
+      "buildingsFile": "buildings/c_1_2.bin",
+      "buildingsMetaFile": "buildings/c_1_2.json",
+      "poisFile": "pois/c_1_2.json",
+      "buildingCount": 140,
+      "roadCount": 6,
+      "hash": "c7facaeaef4627bcff1e2bec204e7b1984d61d4ac9c7248d6ed6938cd870e373"
+    },
+    {
+      "id": "c_2_2",
+      "ix": 2,
+      "iz": 2,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_2_2.bin",
+      "roadsFile": "roads/c_2_2.json",
+      "buildingsFile": "buildings/c_2_2.bin",
+      "buildingsMetaFile": "buildings/c_2_2.json",
+      "poisFile": "pois/c_2_2.json",
+      "buildingCount": 222,
+      "roadCount": 28,
+      "hash": "6cbd215a5bee3ce9de2a77a3150f45169ade6b156dde289a6aead0124db8a608"
+    }
+  ],
+  "contentHash": "ebcff4efd5b442e283c8c6ecae3a2d92a3bec19ec01f6437f62d8133898f2ff7",
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+}

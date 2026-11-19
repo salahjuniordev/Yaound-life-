@@ -1,0 +1,3110 @@
+[
+  {
+    "id": "osm-a385675034",
+    "source": "openstreetmap",
+    "sourceId": "a385675034",
+    "classification": "small_house",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 591.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385675120",
+    "source": "openstreetmap",
+    "sourceId": "a385675120",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 357.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385675144",
+    "source": "openstreetmap",
+    "sourceId": "a385675144",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 139.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385675212",
+    "source": "openstreetmap",
+    "sourceId": "a385675212",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 368.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385675518",
+    "source": "openstreetmap",
+    "sourceId": "a385675518",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 503,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385675522",
+    "source": "openstreetmap",
+    "sourceId": "a385675522",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 347.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385675528",
+    "source": "openstreetmap",
+    "sourceId": "a385675528",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 293.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385675616",
+    "source": "openstreetmap",
+    "sourceId": "a385675616",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 274.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385675872",
+    "source": "openstreetmap",
+    "sourceId": "a385675872",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 288,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385676008",
+    "source": "openstreetmap",
+    "sourceId": "a385676008",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 408.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes",
+      "building:levels": "1"
+    }
+  },
+  {
+    "id": "osm-a385676162",
+    "source": "openstreetmap",
+    "sourceId": "a385676162",
+    "classification": "unknown",
+    "height": 3.5,
+    "floors": 1,
+    "area": 1073.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic",
+      "building:levels": "1"
+    }
+  },
+  {
+    "id": "osm-a385676576",
+    "source": "openstreetmap",
+    "sourceId": "a385676576",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 344.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385676910",
+    "source": "openstreetmap",
+    "sourceId": "a385676910",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 380.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385676990",
+    "source": "openstreetmap",
+    "sourceId": "a385676990",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 681.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385677082",
+    "source": "openstreetmap",
+    "sourceId": "a385677082",
+    "classification": "unknown",
+    "height": 3.5,
+    "floors": 1,
+    "area": 734.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic",
+      "building:levels": "1"
+    }
+  },
+  {
+    "id": "osm-a385677186",
+    "source": "openstreetmap",
+    "sourceId": "a385677186",
+    "classification": "small_house",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 490.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385677198",
+    "source": "openstreetmap",
+    "sourceId": "a385677198",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 443,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385677264",
+    "source": "openstreetmap",
+    "sourceId": "a385677264",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 377.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385677452",
+    "source": "openstreetmap",
+    "sourceId": "a385677452",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 415.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385677458",
+    "source": "openstreetmap",
+    "sourceId": "a385677458",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 189.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385677642",
+    "source": "openstreetmap",
+    "sourceId": "a385677642",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 177.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385677782",
+    "source": "openstreetmap",
+    "sourceId": "a385677782",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 267,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385677964",
+    "source": "openstreetmap",
+    "sourceId": "a385677964",
+    "classification": "public",
+    "height": 12.8,
+    "floors": 4,
+    "area": 1158,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385678072",
+    "source": "openstreetmap",
+    "sourceId": "a385678072",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 868.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385678174",
+    "source": "openstreetmap",
+    "sourceId": "a385678174",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 613.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385678230",
+    "source": "openstreetmap",
+    "sourceId": "a385678230",
+    "classification": "public",
+    "height": 12.8,
+    "floors": 4,
+    "area": 1454.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385678522",
+    "source": "openstreetmap",
+    "sourceId": "a385678522",
+    "classification": "small_house",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 521,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385678530",
+    "source": "openstreetmap",
+    "sourceId": "a385678530",
+    "name": "Centre d'Enseignement Technique et Industriel Féminin",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 827.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Centre d'Enseignement Technique et Industriel Féminin",
+      "building": "yes",
+      "amenity": "school"
+    }
+  },
+  {
+    "id": "osm-a385678628",
+    "source": "openstreetmap",
+    "sourceId": "a385678628",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 545.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385678636",
+    "source": "openstreetmap",
+    "sourceId": "a385678636",
+    "name": "Centre National de l'Education",
+    "classification": "public",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 2103.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Centre National de l'Education",
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385678790",
+    "source": "openstreetmap",
+    "sourceId": "a385678790",
+    "classification": "small_house",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 2042.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385678860",
+    "source": "openstreetmap",
+    "sourceId": "a385678860",
+    "name": "CAMTEL représentation régionale Du Centre",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 449.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "CAMTEL représentation régionale Du Centre",
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385679084",
+    "source": "openstreetmap",
+    "sourceId": "a385679084",
+    "classification": "school",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 1977.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385679120",
+    "source": "openstreetmap",
+    "sourceId": "a385679120",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 411.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385679504",
+    "source": "openstreetmap",
+    "sourceId": "a385679504",
+    "name": "Institut de Recherches Médicales et d'Etudes des Plantes Médicinales",
+    "classification": "office",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 1330.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Institut de Recherches Médicales et d'Etudes des Plantes Médicinales",
+      "building": "yes",
+      "amenity": "research_institute",
+      "office": "research"
+    }
+  },
+  {
+    "id": "osm-a385679794",
+    "source": "openstreetmap",
+    "sourceId": "a385679794",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 129.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385679824",
+    "source": "openstreetmap",
+    "sourceId": "a385679824",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 274.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385679930",
+    "source": "openstreetmap",
+    "sourceId": "a385679930",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 22,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385680406",
+    "source": "openstreetmap",
+    "sourceId": "a385680406",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 15.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385680428",
+    "source": "openstreetmap",
+    "sourceId": "a385680428",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 114.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385680458",
+    "source": "openstreetmap",
+    "sourceId": "a385680458",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 343.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385680518",
+    "source": "openstreetmap",
+    "sourceId": "a385680518",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 65,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385680606",
+    "source": "openstreetmap",
+    "sourceId": "a385680606",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 329.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681070",
+    "source": "openstreetmap",
+    "sourceId": "a385681070",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 159.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681078",
+    "source": "openstreetmap",
+    "sourceId": "a385681078",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 23.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681166",
+    "source": "openstreetmap",
+    "sourceId": "a385681166",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 84.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681190",
+    "source": "openstreetmap",
+    "sourceId": "a385681190",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 55.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681226",
+    "source": "openstreetmap",
+    "sourceId": "a385681226",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 334.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385681374",
+    "source": "openstreetmap",
+    "sourceId": "a385681374",
+    "name": "Agence Nationale de Radioprotection",
+    "classification": "office",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 312.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Agence Nationale de Radioprotection",
+      "building": "yes",
+      "building:levels": "3",
+      "office": "government",
+      "addr:street": "Rue Mpondo Akwa"
+    }
+  },
+  {
+    "id": "osm-a385681464",
+    "source": "openstreetmap",
+    "sourceId": "a385681464",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 19.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681552",
+    "source": "openstreetmap",
+    "sourceId": "a385681552",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 152.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681556",
+    "source": "openstreetmap",
+    "sourceId": "a385681556",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 119.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385681652",
+    "source": "openstreetmap",
+    "sourceId": "a385681652",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 5.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681686",
+    "source": "openstreetmap",
+    "sourceId": "a385681686",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 53.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681754",
+    "source": "openstreetmap",
+    "sourceId": "a385681754",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 159.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385681876",
+    "source": "openstreetmap",
+    "sourceId": "a385681876",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 95.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385681938",
+    "source": "openstreetmap",
+    "sourceId": "a385681938",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 240.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385681962",
+    "source": "openstreetmap",
+    "sourceId": "a385681962",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 50.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385681998",
+    "source": "openstreetmap",
+    "sourceId": "a385681998",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 11,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682080",
+    "source": "openstreetmap",
+    "sourceId": "a385682080",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 177.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682138",
+    "source": "openstreetmap",
+    "sourceId": "a385682138",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 44.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682238",
+    "source": "openstreetmap",
+    "sourceId": "a385682238",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 197.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682254",
+    "source": "openstreetmap",
+    "sourceId": "a385682254",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 17.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682278",
+    "source": "openstreetmap",
+    "sourceId": "a385682278",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 112.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385682416",
+    "source": "openstreetmap",
+    "sourceId": "a385682416",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 13.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682518",
+    "source": "openstreetmap",
+    "sourceId": "a385682518",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 39.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682528",
+    "source": "openstreetmap",
+    "sourceId": "a385682528",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 96.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682562",
+    "source": "openstreetmap",
+    "sourceId": "a385682562",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 52.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682570",
+    "source": "openstreetmap",
+    "sourceId": "a385682570",
+    "classification": "unknown",
+    "height": 3.5,
+    "floors": 1,
+    "area": 254.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic"
+    }
+  },
+  {
+    "id": "osm-a385682580",
+    "source": "openstreetmap",
+    "sourceId": "a385682580",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 112.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682610",
+    "source": "openstreetmap",
+    "sourceId": "a385682610",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 56.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682672",
+    "source": "openstreetmap",
+    "sourceId": "a385682672",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 174.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682760",
+    "source": "openstreetmap",
+    "sourceId": "a385682760",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 525,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682768",
+    "source": "openstreetmap",
+    "sourceId": "a385682768",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 44.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682824",
+    "source": "openstreetmap",
+    "sourceId": "a385682824",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 72.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682848",
+    "source": "openstreetmap",
+    "sourceId": "a385682848",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 143.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682892",
+    "source": "openstreetmap",
+    "sourceId": "a385682892",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 9.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385682982",
+    "source": "openstreetmap",
+    "sourceId": "a385682982",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 34.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385683098",
+    "source": "openstreetmap",
+    "sourceId": "a385683098",
+    "classification": "unknown",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 106.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "greenhouse"
+    }
+  },
+  {
+    "id": "osm-a385683100",
+    "source": "openstreetmap",
+    "sourceId": "a385683100",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 22,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385683290",
+    "source": "openstreetmap",
+    "sourceId": "a385683290",
+    "classification": "unknown",
+    "height": 3.5,
+    "floors": 1,
+    "area": 253.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic"
+    }
+  },
+  {
+    "id": "osm-a385683304",
+    "source": "openstreetmap",
+    "sourceId": "a385683304",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 433.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385683364",
+    "source": "openstreetmap",
+    "sourceId": "a385683364",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 50.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385683604",
+    "source": "openstreetmap",
+    "sourceId": "a385683604",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 173.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385683956",
+    "source": "openstreetmap",
+    "sourceId": "a385683956",
+    "classification": "public",
+    "height": 3.5,
+    "floors": 1,
+    "area": 96.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385684026",
+    "source": "openstreetmap",
+    "sourceId": "a385684026",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 57,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385684310",
+    "source": "openstreetmap",
+    "sourceId": "a385684310",
+    "classification": "public",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 243.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385684646",
+    "source": "openstreetmap",
+    "sourceId": "a385684646",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 70.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385684892",
+    "source": "openstreetmap",
+    "sourceId": "a385684892",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 109.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385684950",
+    "source": "openstreetmap",
+    "sourceId": "a385684950",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 64.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685160",
+    "source": "openstreetmap",
+    "sourceId": "a385685160",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 68.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685210",
+    "source": "openstreetmap",
+    "sourceId": "a385685210",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 162,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385685232",
+    "source": "openstreetmap",
+    "sourceId": "a385685232",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 66.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685280",
+    "source": "openstreetmap",
+    "sourceId": "a385685280",
+    "name": "Ministère de la Recherche Scientifique et del'Innovation",
+    "classification": "public",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 615.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Ministère de la Recherche Scientifique et del'Innovation",
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385685450",
+    "source": "openstreetmap",
+    "sourceId": "a385685450",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 213.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685668",
+    "source": "openstreetmap",
+    "sourceId": "a385685668",
+    "classification": "small_house",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 523.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685674",
+    "source": "openstreetmap",
+    "sourceId": "a385685674",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 228.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385685730",
+    "source": "openstreetmap",
+    "sourceId": "a385685730",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 53.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes",
+      "building:levels": "1"
+    }
+  },
+  {
+    "id": "osm-a385685768",
+    "source": "openstreetmap",
+    "sourceId": "a385685768",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 43.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685774",
+    "source": "openstreetmap",
+    "sourceId": "a385685774",
+    "classification": "public",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 494,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385685794",
+    "source": "openstreetmap",
+    "sourceId": "a385685794",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 36.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685800",
+    "source": "openstreetmap",
+    "sourceId": "a385685800",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 216.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685802",
+    "source": "openstreetmap",
+    "sourceId": "a385685802",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 212.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385685806",
+    "source": "openstreetmap",
+    "sourceId": "a385685806",
+    "classification": "public",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 524,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385685972",
+    "source": "openstreetmap",
+    "sourceId": "a385685972",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 13.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385686024",
+    "source": "openstreetmap",
+    "sourceId": "a385686024",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 215.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385686032",
+    "source": "openstreetmap",
+    "sourceId": "a385686032",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 88.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385686086",
+    "source": "openstreetmap",
+    "sourceId": "a385686086",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 214.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385686290",
+    "source": "openstreetmap",
+    "sourceId": "a385686290",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 264.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385686294",
+    "source": "openstreetmap",
+    "sourceId": "a385686294",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 113,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385686508",
+    "source": "openstreetmap",
+    "sourceId": "a385686508",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 108.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385686572",
+    "source": "openstreetmap",
+    "sourceId": "a385686572",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 83.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385686744",
+    "source": "openstreetmap",
+    "sourceId": "a385686744",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 214.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385686836",
+    "source": "openstreetmap",
+    "sourceId": "a385686836",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 202.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385687852",
+    "source": "openstreetmap",
+    "sourceId": "a385687852",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 76.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385687970",
+    "source": "openstreetmap",
+    "sourceId": "a385687970",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 95.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385688272",
+    "source": "openstreetmap",
+    "sourceId": "a385688272",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 302.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385688698",
+    "source": "openstreetmap",
+    "sourceId": "a385688698",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 139.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385688764",
+    "source": "openstreetmap",
+    "sourceId": "a385688764",
+    "classification": "unknown",
+    "height": 3.5,
+    "floors": 1,
+    "area": 260.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic"
+    }
+  },
+  {
+    "id": "osm-a385688960",
+    "source": "openstreetmap",
+    "sourceId": "a385688960",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 26,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385689820",
+    "source": "openstreetmap",
+    "sourceId": "a385689820",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 156.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385690900",
+    "source": "openstreetmap",
+    "sourceId": "a385690900",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 681.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385691002",
+    "source": "openstreetmap",
+    "sourceId": "a385691002",
+    "classification": "public",
+    "height": 3.5,
+    "floors": 1,
+    "area": 282.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385691482",
+    "source": "openstreetmap",
+    "sourceId": "a385691482",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 303.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385692202",
+    "source": "openstreetmap",
+    "sourceId": "a385692202",
+    "classification": "unknown",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 223.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic",
+      "building:levels": "2"
+    }
+  },
+  {
+    "id": "osm-a385692384",
+    "source": "openstreetmap",
+    "sourceId": "a385692384",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 133.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385692468",
+    "source": "openstreetmap",
+    "sourceId": "a385692468",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 572.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385692474",
+    "source": "openstreetmap",
+    "sourceId": "a385692474",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 121.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385692528",
+    "source": "openstreetmap",
+    "sourceId": "a385692528",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 110.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385692880",
+    "source": "openstreetmap",
+    "sourceId": "a385692880",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 108.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385692888",
+    "source": "openstreetmap",
+    "sourceId": "a385692888",
+    "name": "Programme de gouvernance urbaine (P.G.U)",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 399.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Programme de gouvernance urbaine (P.G.U)",
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385693086",
+    "source": "openstreetmap",
+    "sourceId": "a385693086",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 830.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385693102",
+    "source": "openstreetmap",
+    "sourceId": "a385693102",
+    "classification": "public",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 412.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "public"
+    }
+  },
+  {
+    "id": "osm-a385693226",
+    "source": "openstreetmap",
+    "sourceId": "a385693226",
+    "classification": "small_house",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 606.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385694096",
+    "source": "openstreetmap",
+    "sourceId": "a385694096",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 211.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385694228",
+    "source": "openstreetmap",
+    "sourceId": "a385694228",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 317.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385694318",
+    "source": "openstreetmap",
+    "sourceId": "a385694318",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 388.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385694420",
+    "source": "openstreetmap",
+    "sourceId": "a385694420",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 59.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385694838",
+    "source": "openstreetmap",
+    "sourceId": "a385694838",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 257.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385695014",
+    "source": "openstreetmap",
+    "sourceId": "a385695014",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 178.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385695056",
+    "source": "openstreetmap",
+    "sourceId": "a385695056",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 264,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385695094",
+    "source": "openstreetmap",
+    "sourceId": "a385695094",
+    "classification": "school",
+    "height": 3.5,
+    "floors": 1,
+    "area": 191.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385695198",
+    "source": "openstreetmap",
+    "sourceId": "a385695198",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 528.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385695894",
+    "source": "openstreetmap",
+    "sourceId": "a385695894",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 451.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385695912",
+    "source": "openstreetmap",
+    "sourceId": "a385695912",
+    "classification": "school",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 522.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a385696270",
+    "source": "openstreetmap",
+    "sourceId": "a385696270",
+    "classification": "unknown",
+    "height": 3.5,
+    "floors": 1,
+    "area": 371.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic"
+    }
+  },
+  {
+    "id": "osm-a385696316",
+    "source": "openstreetmap",
+    "sourceId": "a385696316",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 288.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385696434",
+    "source": "openstreetmap",
+    "sourceId": "a385696434",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 67.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025010",
+    "source": "openstreetmap",
+    "sourceId": "a442025010",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 92.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025078",
+    "source": "openstreetmap",
+    "sourceId": "a442025078",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 47.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes",
+      "building:levels": "1"
+    }
+  },
+  {
+    "id": "osm-a442025518",
+    "source": "openstreetmap",
+    "sourceId": "a442025518",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 36.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025532",
+    "source": "openstreetmap",
+    "sourceId": "a442025532",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 16.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025538",
+    "source": "openstreetmap",
+    "sourceId": "a442025538",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 36.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025550",
+    "source": "openstreetmap",
+    "sourceId": "a442025550",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 29.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025554",
+    "source": "openstreetmap",
+    "sourceId": "a442025554",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 29.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes",
+      "building:levels": "1"
+    }
+  },
+  {
+    "id": "osm-a442025566",
+    "source": "openstreetmap",
+    "sourceId": "a442025566",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 66.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025570",
+    "source": "openstreetmap",
+    "sourceId": "a442025570",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 18.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025578",
+    "source": "openstreetmap",
+    "sourceId": "a442025578",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 6.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025588",
+    "source": "openstreetmap",
+    "sourceId": "a442025588",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 15.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025598",
+    "source": "openstreetmap",
+    "sourceId": "a442025598",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 30.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025772",
+    "source": "openstreetmap",
+    "sourceId": "a442025772",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 15.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025782",
+    "source": "openstreetmap",
+    "sourceId": "a442025782",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 56.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025906",
+    "source": "openstreetmap",
+    "sourceId": "a442025906",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 20.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025916",
+    "source": "openstreetmap",
+    "sourceId": "a442025916",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 36.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442025930",
+    "source": "openstreetmap",
+    "sourceId": "a442025930",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 30.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442026008",
+    "source": "openstreetmap",
+    "sourceId": "a442026008",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 30.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a442026096",
+    "source": "openstreetmap",
+    "sourceId": "a442026096",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 23.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a444205278",
+    "source": "openstreetmap",
+    "sourceId": "a444205278",
+    "classification": "unknown",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 809.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "civic",
+      "building:levels": "3",
+      "addr:street": "Rue 3.054"
+    }
+  },
+  {
+    "id": "osm-a1470568822",
+    "source": "openstreetmap",
+    "sourceId": "a1470568822",
+    "classification": "small_house",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 770.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes",
+      "building:levels": "3"
+    }
+  },
+  {
+    "id": "osm-a1672959076",
+    "source": "openstreetmap",
+    "sourceId": "a1672959076",
+    "classification": "small_house",
+    "height": 12.8,
+    "floors": 4,
+    "area": 379.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes",
+      "building:levels": "4"
+    }
+  },
+  {
+    "id": "osm-a1944132304",
+    "source": "openstreetmap",
+    "sourceId": "a1944132304",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 556.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944132310",
+    "source": "openstreetmap",
+    "sourceId": "a1944132310",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 94.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944132656",
+    "source": "openstreetmap",
+    "sourceId": "a1944132656",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 11,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944132664",
+    "source": "openstreetmap",
+    "sourceId": "a1944132664",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 293.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944132668",
+    "source": "openstreetmap",
+    "sourceId": "a1944132668",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 45.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944137560",
+    "source": "openstreetmap",
+    "sourceId": "a1944137560",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 137.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944137562",
+    "source": "openstreetmap",
+    "sourceId": "a1944137562",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 122.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944137564",
+    "source": "openstreetmap",
+    "sourceId": "a1944137564",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 283.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1944137566",
+    "source": "openstreetmap",
+    "sourceId": "a1944137566",
+    "classification": "school",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 70.6,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "school"
+    }
+  },
+  {
+    "id": "osm-a2497674060",
+    "source": "openstreetmap",
+    "sourceId": "a2497674060",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 210.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a2497674062",
+    "source": "openstreetmap",
+    "sourceId": "a2497674062",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 23.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  }
+]

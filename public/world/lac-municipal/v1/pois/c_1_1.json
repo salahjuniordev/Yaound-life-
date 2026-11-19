@@ -1,0 +1,502 @@
+[
+  {
+    "id": "osm-n2450442448",
+    "sourceId": "n2450442448",
+    "name": "Plus vieux bâtiment en dur de Yaoundé",
+    "kind": "attraction",
+    "pos": [
+      949.4540808701422,
+      -790.2977835123311
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2450442448",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5177886921",
+    "sourceId": "n5177886921",
+    "name": "Eugène Jamot",
+    "kind": "memorial",
+    "pos": [
+      953.6341155790724,
+      -759.7507764974143
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5177886921",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6305590847",
+    "sourceId": "n6305590847",
+    "name": "Ministère de la Fonction Publique et de la Réforme Administrative",
+    "kind": "government",
+    "pos": [
+      854.8251477035228,
+      -771.8613519266364
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6305590847",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6305590848",
+    "sourceId": "n6305590848",
+    "name": "Ministère de l'Enseignement Secondaire",
+    "kind": "government",
+    "pos": [
+      876.7855319469236,
+      -756.5249446727103
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6305590848",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6305590853",
+    "sourceId": "n6305590853",
+    "name": "Ministère de l'Éducation de Base",
+    "kind": "government",
+    "pos": [
+      903.4268854027614,
+      -740.3947017943719
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6305590853",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6305613709",
+    "sourceId": "n6305613709",
+    "name": "Ministères des Postes et des Télécommunications",
+    "kind": "government",
+    "pos": [
+      916.5925548532978,
+      -651.3888313745847
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6305613709",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6306003428",
+    "sourceId": "n6306003428",
+    "name": "Hôtel des Députés",
+    "kind": "hotel",
+    "pos": [
+      859.2083185953088,
+      -605.0149078202085
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6306003428",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6308090901",
+    "sourceId": "n6308090901",
+    "name": "Ministère de la Santé Publique",
+    "kind": "government",
+    "pos": [
+      957.482462556567,
+      -833.7486194357625
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6308090901",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6308090902",
+    "sourceId": "n6308090902",
+    "name": "Centre D'accueil des Enfants en Détresse",
+    "kind": "social_facility",
+    "pos": [
+      935.3944920515642,
+      -895.9305368273635
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6308090902",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6308090915",
+    "sourceId": "n6308090915",
+    "name": "Croix Rouge Camerounaise",
+    "kind": "hospital",
+    "pos": [
+      912.0098488089861,
+      -990.6927268079016
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6308090915",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13645571132",
+    "sourceId": "n13645571132",
+    "name": "waste_disposal",
+    "kind": "waste_disposal",
+    "pos": [
+      870.6826269933954,
+      -655.72295116022
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13645571132",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a377408160",
+    "sourceId": "a377408160",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      861.871746718185,
+      -527.3630673848675
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a377408160",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a385676920",
+    "sourceId": "a385676920",
+    "name": "hotel",
+    "kind": "hotel",
+    "pos": [
+      833.5087486731354,
+      -528.1532672888716
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a385676920",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664162",
+    "sourceId": "a438664162",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      833.7348832313437,
+      -617.032750096696
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664162",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664228",
+    "sourceId": "a438664228",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      850.886128634098,
+      -619.5286692533991
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664228",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440235016",
+    "sourceId": "a440235016",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      871.1748448656872,
+      -846.172743956151
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440235016",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440269494",
+    "sourceId": "a440269494",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      835.9631502397824,
+      -573.7893352495739
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440269494",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a444457856",
+    "sourceId": "a444457856",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      988.67845243169,
+      -739.3746301183128
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a444457856",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a444457966",
+    "sourceId": "a444457966",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1017.0921648954973,
+      -635.0898950767587
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a444457966",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a474005854",
+    "sourceId": "a474005854",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      679.3265518622939,
+      -854.8326920171967
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a474005854",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820497230",
+    "sourceId": "a820497230",
+    "name": "attraction",
+    "kind": "attraction",
+    "pos": [
+      832.0170541384723,
+      -622.9580870374339
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820497230",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1067524664",
+    "sourceId": "a1067524664",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      962.7272887947038,
+      -713.7947838821565
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1067524664",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167523152",
+    "sourceId": "a1167523152",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      981.1299375109375,
+      -800.3604157379013
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167523152",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1361963718",
+    "sourceId": "a1361963718",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      930.9456055265618,
+      -945.9608337302343
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1361963718",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2969008236",
+    "sourceId": "a2969008236",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      762.709901109105,
+      -887.9511039308854
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2969008236",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

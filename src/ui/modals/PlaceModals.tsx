@@ -194,11 +194,14 @@ export function InteriorPanel({ interiorId, placeId }: { interiorId: string; pla
   const def = INTERIORS[interiorId];
   const place = PLACE_MAP[placeId];
   const actions = (def?.actions ?? []).map((id) => ACTIVITY_MAP[id]).filter(Boolean);
+  const title = fr
+    ? place?.nameFr ?? def?.nameFr ?? interiorId
+    : place?.name ?? def?.name ?? interiorId;
 
   return (
     <div className="interior-panel">
       <div className="interior-header">
-        <span>{fr ? def?.nameFr ?? interiorId : def?.name ?? interiorId}</span>
+        <span>{title}</span>
         <button className="phone-close" onClick={() => useGame.getState().setModal({ kind: 'none' })}>
           <Icon name="close" size={14} />
         </button>

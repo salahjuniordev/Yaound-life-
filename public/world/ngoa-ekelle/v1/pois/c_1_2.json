@@ -1,0 +1,162 @@
+[
+  {
+    "id": "osm-n4211031902",
+    "sourceId": "n4211031902",
+    "name": "Eglise protestante africaine",
+    "kind": "place_of_worship",
+    "pos": [
+      878.5977411177009,
+      -1187.0091841378016
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4211031902",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5937627533",
+    "sourceId": "n5937627533",
+    "name": "Ecole National Superieur Polytechnique",
+    "kind": "association",
+    "pos": [
+      709.632790266769,
+      -1316.1836194880889
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5937627533",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752540406",
+    "sourceId": "n11752540406",
+    "name": "Minresi",
+    "kind": "government",
+    "pos": [
+      935.9838821456069,
+      -1134.7230033999658
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752540406",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752542330",
+    "sourceId": "n11752542330",
+    "name": "Ministère de la recherche scientifique",
+    "kind": "library",
+    "pos": [
+      904.9978394897189,
+      -1128.1150777117582
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752542330",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11925931534",
+    "sourceId": "n11925931534",
+    "name": "Robinet",
+    "kind": "drinking_water",
+    "pos": [
+      782.1222625774099,
+      -1089.759532548429
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11925931534",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11925939466",
+    "sourceId": "n11925939466",
+    "name": "waste_disposal",
+    "kind": "waste_disposal",
+    "pos": [
+      747.5601408998482,
+      -1052.1173954869155
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11925939466",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440269498",
+    "sourceId": "a440269498",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      738.1176216906169,
+      -1024.4293656287482
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440269498",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a842653686",
+    "sourceId": "a842653686",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      755.9405384489801,
+      -1047.948731853743
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a842653686",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

@@ -55,11 +55,19 @@ export const PLACES: PlaceDef[] = [
   { id: 'mosque_mokolo', name: 'Central mosque', nameFr: 'Mosquée centrale', kind: 'activity', district: 'mokolo', pos: [134, -6], activities: ['mosque_visit'], icon: 'mosque' },
   { id: 'school_mvog', name: 'Bright Future School', nameFr: 'École Bright Future', kind: 'interior', district: 'mvog_mbi', pos: [22, 86], interior: 'school', activities: [], icon: 'book' },
   { id: 'febe_viewpoint', name: 'Mont Febe viewpoint', nameFr: 'Point de vue Mont Fébé', kind: 'landmark', district: 'mont_febe', pos: [-195, -120], landmarkId: 'febe_viewpoint', activities: ['mont_febe_walk', 'photo_walk', 'jog_mont'], icon: 'tree' },
-  { id: 'lac_path', name: 'Lac Municipal path', nameFr: 'Sentier du Lac Municipal', kind: 'landmark', district: 'lac_municipal', pos: [80, -192], landmarkId: 'lac_path', activities: ['lac_walk', 'photo_walk'], icon: 'tree' },
+  { id: 'lac_path', name: 'Lac Municipal path', nameFr: 'Sentier du Lac Municipal', kind: 'landmark', district: 'lac_municipal', pos: [84, -201], landmarkId: 'lac_path', activities: ['lac_walk', 'photo_walk'], icon: 'tree' },
   { id: 'univ_gate_landmark', name: 'University Gate landmark', nameFr: 'Portail universitaire', kind: 'landmark', district: 'ngoa_ekelle', pos: [30, -112], landmarkId: 'university_gate', activities: ['photo_walk'], icon: 'photo' },
   { id: 'market_hall_landmark', name: 'Mokolo Market Hall', nameFr: 'Halle Mokolo', kind: 'landmark', district: 'mokolo', pos: [130, -14], landmarkId: 'mokolo_hall', activities: ['photo_walk'], icon: 'photo' },
   { id: 'boulevard_landmark', name: 'Boulevard du 20 Mai', nameFr: 'Boulevard du 20 Mai', kind: 'landmark', district: 'boulevard', pos: [-25, -36], landmarkId: 'boulevard_parade', activities: ['photo_walk', 'volunteer_cleanup'], icon: 'photo' },
   { id: 'roundabout_nlongkak', name: 'Nlongkak Roundabout', nameFr: 'Rond-point Nlongkak', kind: 'landmark', district: 'nlongkak', pos: [-95, -25], landmarkId: 'nlongkak_roundabout', activities: ['photo_walk', 'public_transport_learn'], icon: 'photo' },
+
+  { id: 'hotel_beausejour', name: 'Hotel Beausejour', nameFr: 'Hôtel Beausejour', kind: 'interior', district: 'bastos', pos: [178, -108], interior: 'hotel', vendor: 'restaurant', activities: ['business_lunch', 'eat_ndole'], icon: 'home' },
+  { id: 'ministry_public_service', name: 'Ministry of Public Service', nameFr: 'Ministère de la Fonction publique', kind: 'interior', district: 'bastos', pos: [148, -78], interior: 'office', activities: ['interview_prep', 'networking'], icon: 'laptop' },
+  { id: 'sanaga_tech', name: 'Sanaga Tech Group', nameFr: 'Sanaga Tech Group', kind: 'interior', district: 'bastos', pos: [188, -84], interior: 'office', activities: ['interview_prep', 'networking'], icon: 'laptop' },
+  { id: 'wouri_creative', name: 'Wouri Creative Agency', nameFr: 'Agence Wouri Creative', kind: 'interior', district: 'bastos', pos: [140, -104], interior: 'office', activities: ['interview_prep', 'networking'], icon: 'laptop' },
+  { id: 'sentinel_security', name: 'Sentinel Security', nameFr: 'Sentinel Sécurité', kind: 'interior', district: 'bastos', pos: [150, -60], interior: 'office', activities: ['interview_prep', 'networking'], icon: 'people' },
+  { id: 'restaurant_bastos', name: 'Le Baobab dining room', nameFr: 'Salle à manger Le Baobab', kind: 'interior', district: 'bastos', pos: [172, -70], interior: 'restaurant', vendor: 'restaurant', activities: ['business_lunch', 'eat_ndole'], icon: 'food' },
+  { id: 'bastos_hillside', name: 'Bastos hillside walk', nameFr: 'Promenade des collines de Bastos', kind: 'activity', district: 'bastos', pos: [170, -120], activities: ['photo_walk', 'jog_mont'], icon: 'tree' },
 
   { id: 'taxi_mvog', name: 'Taxi point - Mvog-Mbi', nameFr: 'Point taxi - Mvog-Mbi', kind: 'taxi', district: 'mvog_mbi', pos: [0, 82], icon: 'bus' },
   { id: 'taxi_mokolo', name: 'Taxi point - Mokolo', nameFr: 'Point taxi - Mokolo', kind: 'taxi', district: 'mokolo', pos: [126, -16], icon: 'bus' },
@@ -68,7 +76,7 @@ export const PLACES: PlaceDef[] = [
   { id: 'taxi_mvan', name: 'Mvan transport hub', nameFr: 'Gare de Mvan', kind: 'taxi', district: 'mvan', pos: [210, 66], icon: 'bus' },
   { id: 'taxi_boulevard', name: 'Taxi point - Boulevard', nameFr: 'Point taxi - Boulevard', kind: 'taxi', district: 'boulevard', pos: [-26, -34], icon: 'bus' },
   { id: 'taxi_febe', name: 'Taxi point - Mont Febe', nameFr: 'Point taxi - Mont Fébé', kind: 'taxi', district: 'mont_febe', pos: [-185, -112], icon: 'bus' },
-  { id: 'taxi_lac', name: 'Taxi point - Lac', nameFr: 'Point taxi - Lac', kind: 'taxi', district: 'lac_municipal', pos: [72, -186], icon: 'bus' },
+  { id: 'taxi_lac', name: 'Taxi point - Lac', nameFr: 'Point taxi - Lac', kind: 'taxi', district: 'lac_municipal', pos: [88, -204], icon: 'bus' },
   { id: 'taxi_bastos', name: 'Taxi point - Bastos', nameFr: 'Point taxi - Bastos', kind: 'taxi', district: 'bastos', pos: [160, -88], icon: 'bus' },
 ];
 
@@ -127,4 +135,6 @@ export const INTERIORS: Record<string, { name: string; nameFr: string; actions: 
   workshop: { name: 'Workshop', nameFr: 'Atelier', actions: ['public_transport_learn', 'driving_lessons'], special: 'counter' },
   studio: { name: 'Recording studio', nameFr: 'Studio', actions: ['record_track', 'music_practice'], special: 'floor' },
   school: { name: 'School', nameFr: 'École', actions: [], special: 'counter' },
+  office: { name: 'Office', nameFr: 'Bureau', actions: ['interview_prep', 'networking'], special: 'counter' },
+  hotel: { name: 'Hotel Beausejour', nameFr: 'Hôtel Beausejour', actions: ['business_lunch', 'eat_ndole', 'drink_jus'], vendor: 'restaurant', special: 'counter' },
 };

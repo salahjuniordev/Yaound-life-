@@ -1,0 +1,62 @@
+[
+  {
+    "id": "osm-n5777072968",
+    "sourceId": "n5777072968",
+    "name": "Paroise Notre-Dame du lac",
+    "kind": "place_of_worship",
+    "pos": [
+      392.0562752285041,
+      -1079.7591343193199
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777072968",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8108601617",
+    "sourceId": "n8108601617",
+    "name": "Hygiène Mobile",
+    "kind": "hospital",
+    "pos": [
+      414.44784124963917,
+      -1098.9442341226386
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8108601617",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a410797808",
+    "sourceId": "a410797808",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      405.96932708774693,
+      -1042.3148210085346
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a410797808",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

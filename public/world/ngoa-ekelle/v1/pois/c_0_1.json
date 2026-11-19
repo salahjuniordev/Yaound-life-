@@ -1,0 +1,322 @@
+[
+  {
+    "id": "osm-n4362565208",
+    "sourceId": "n4362565208",
+    "name": "CABINET DES SOINS LES DELICES",
+    "kind": "clinic",
+    "pos": [
+      8.173499600496143,
+      -1018.8568807396805
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4362565208",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n10765348205",
+    "sourceId": "n10765348205",
+    "name": "toilets",
+    "kind": "toilets",
+    "pos": [
+      339.3475284143351,
+      -1013.134511229815
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n10765348205",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11925826282",
+    "sourceId": "n11925826282",
+    "name": "drinking_water",
+    "kind": "drinking_water",
+    "pos": [
+      284.39662312937435,
+      -871.9284261572757
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11925826282",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11925844835",
+    "sourceId": "n11925844835",
+    "name": "drinking_water",
+    "kind": "drinking_water",
+    "pos": [
+      277.3587451139465,
+      -838.9589693991584
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11925844835",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11925849153",
+    "sourceId": "n11925849153",
+    "name": "waste_disposal",
+    "kind": "waste_disposal",
+    "pos": [
+      255.83511314645875,
+      -872.2540202556411
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11925849153",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11925857846",
+    "sourceId": "n11925857846",
+    "name": "drinking_water",
+    "kind": "drinking_water",
+    "pos": [
+      286.20195344113745,
+      -870.2187902546139
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11925857846",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13858955334",
+    "sourceId": "n13858955334",
+    "name": "cinema",
+    "kind": "cinema",
+    "pos": [
+      334.2577318993863,
+      -982.848253881326
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13858955334",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376145494",
+    "sourceId": "a376145494",
+    "name": "Université de Yaoundé I",
+    "kind": "university",
+    "pos": [
+      172.8528163859155,
+      -944.6462600714294
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376145494",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376145518",
+    "sourceId": "a376145518",
+    "name": "Le Mateco",
+    "kind": "pitch",
+    "pos": [
+      376.5767784299096,
+      -547.0144566146191
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376145518",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376145520",
+    "sourceId": "a376145520",
+    "name": "track",
+    "kind": "track",
+    "pos": [
+      364.64656705525704,
+      -545.2202882833662
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376145520",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376145526",
+    "sourceId": "a376145526",
+    "name": "MATECO Complexe Sportif de l'Université de Yaoundé 1",
+    "kind": "pitch",
+    "pos": [
+      387.7722255429253,
+      -769.0148951970623
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376145526",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376145536",
+    "sourceId": "a376145536",
+    "name": "MATECO Complexe Sportif de l'Université",
+    "kind": "pitch",
+    "pos": [
+      447.612005101284,
+      -721.1944598337868
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376145536",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376145548",
+    "sourceId": "a376145548",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      424.38455956592225,
+      -744.2945063820225
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376145548",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667468",
+    "sourceId": "a439667468",
+    "name": "Groupe Scolaire Bilingue Jumping Jacks",
+    "kind": "school",
+    "pos": [
+      9.97822510683909,
+      -653.2615839165519
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667468",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1763938214",
+    "sourceId": "a1763938214",
+    "name": "Majestic Yaoundé I University",
+    "kind": "cinema",
+    "pos": [
+      306.0923004250508,
+      -1003.4775539911352
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1763938214",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2948385206",
+    "sourceId": "a2948385206",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      339.1318827479845,
+      -961.6527183694998
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2948385206",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

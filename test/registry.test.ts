@@ -205,6 +205,10 @@ test('every registered pack loads globals and every chunk through the runtime lo
     assert.ok(nearestRoad && nearestRoad.distance <= 5, `${pack.name} spawn should sit beside a walkable road`);
 
     const expectedPlaces = PLACES.filter((place) => place.district === pack.districtId);
+    assert.ok(
+      expectedPlaces.some((place) => place.kind !== 'taxi'),
+      `${pack.name} should expose at least one non-taxi gameplay place`,
+    );
     assert.deepEqual(
       adapter.places.map((place) => place.id).sort(),
       expectedPlaces.map((place) => place.id).sort(),

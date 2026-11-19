@@ -1,0 +1,61 @@
+{
+  "worldVersion": "lac-municipal-2026-10-30-v1",
+  "area": {
+    "id": "lac_municipal",
+    "name": "Lac Municipal",
+    "description": "Seventh playable geographical slice, covering the Lac Municipal lakeside area in central Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "bbox": {
+    "minLon": 11.5045,
+    "minLat": 3.86,
+    "maxLon": 11.5145,
+    "maxLat": 3.87
+  },
+  "origin": {
+    "lon": 11.504470646678643,
+    "lat": 3.860000086726314,
+    "east": 778145.2819194659,
+    "north": 427061.8949091979
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1114.5675097012427,
+    "minZ": -1109.6924535518629,
+    "maxZ": 0,
+    "minEast": 778145.2819194659,
+    "maxEast": 779259.8494291671,
+    "minNorth": 427061.8949091979,
+    "maxNorth": 428171.58736274973
+  },
+  "chunkSize": 512,
+  "chunks": 9,
+  "roads": 208,
+  "buildings": 743,
+  "pois": 124,
+  "waterPolygons": 5,
+  "waterways": 7,
+  "skippedBuildings": 19,
+  "openBuildings": {
+    "used": false,
+    "reason": "No explicitly enabled Open Buildings export is configured."
+  },
+  "elevation": {
+    "absoluteMin": 707.1915283203125,
+    "absoluteMax": 782.6785888671875,
+    "verticalOffset": 707.1,
+    "relativeMin": 0,
+    "relativeMax": 75.57858886718748
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

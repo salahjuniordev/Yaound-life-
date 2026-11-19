@@ -534,7 +534,7 @@ test('geo vehicles mix taxis, private cars, buses, trucks and motos by road clas
   assert.deepEqual([...minorKinds].sort(), ['moto', 'private', 'taxi']);
 });
 
-test('Mokolo and Bastos production packs build finite geometry for every chunk', async () => {
+test('every production pack builds finite geometry for every chunk', async () => {
   const PUBLIC = new URL('../public/', import.meta.url);
   const fetchImpl = (async (input: string | URL | Request) => {
     const url = String(input).replace(/^https?:\/\/[^/]+/, '');
@@ -551,12 +551,19 @@ test('Mokolo and Bastos production packs build finite geometry for every chunk',
   };
 
   const packs = [
-    { id: 'mokolo', version: 'mokolo-2026-10-30-v1', chunks: 6 },
-    { id: 'bastos', version: 'bastos-2026-10-30-v1', chunks: 9 },
+    { id: 'nlongkak', basePath: 'world/v1', version: 'nlongkak-2026-10-30-v2', chunks: 16 },
+    { id: 'mvog_mbi', basePath: 'world/mvog-mbi/v1', version: 'mvog-mbi-2026-10-30-v1', chunks: 9 },
+    { id: 'mokolo', basePath: 'world/mokolo/v1', version: 'mokolo-2026-10-30-v1', chunks: 6 },
+    { id: 'bastos', basePath: 'world/bastos/v1', version: 'bastos-2026-10-30-v1', chunks: 9 },
+    { id: 'ngoa_ekelle', basePath: 'world/ngoa-ekelle/v1', version: 'ngoa-ekelle-2026-10-30-v1', chunks: 9 },
+    { id: 'boulevard', basePath: 'world/boulevard/v1', version: 'boulevard-2026-10-30-v1', chunks: 4 },
+    { id: 'lac_municipal', basePath: 'world/lac-municipal/v1', version: 'lac-municipal-2026-10-30-v1', chunks: 9 },
+    { id: 'mvan', basePath: 'world/mvan/v1', version: 'mvan-2026-10-30-v1', chunks: 9 },
+    { id: 'mont_febe', basePath: 'world/mont-febe/v1', version: 'mont-febe-2026-10-30-v1', chunks: 9 },
   ] as const;
 
   for (const pack of packs) {
-    const baseUrl = `/app/world/${pack.id}/v1`;
+    const baseUrl = `/app/${pack.basePath}`;
     const manifest = await loadManifest(baseUrl, {
       fetchImpl,
       expectedWorldVersion: pack.version,

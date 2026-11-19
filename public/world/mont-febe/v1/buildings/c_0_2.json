@@ -1,0 +1,19 @@
+[
+  {
+    "id": "osm-a2465227080",
+    "source": "openstreetmap",
+    "sourceId": "a2465227080",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 262.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  }
+]

@@ -7,19 +7,19 @@ are instrumented, but real-device measurements are still pending.
 
 | Check | Budget | Current |
 | --- | --- | --- |
-| JS total (gzip) | 620 KB | 579,023 B |
+| JS total (gzip) | 620 KB | 580,092 B |
 | CSS total (gzip) | 24 KB | 8,625 B |
-| HTML total (gzip) | 5 KB | 1,816 B |
-| First load JS+CSS+HTML (gzip) | 1 MB | 589,464 B |
-| World assets raw | 12 MB | 10,821,387 B |
-| World assets gzip | 6 MB | 1,852,244 B |
+| HTML total (gzip) | 5 KB | 1,815 B |
+| First load JS+CSS+HTML (gzip) | 1 MB | 590,532 B |
+| World assets raw | 24 MB | 17,805,627 B |
+| World assets gzip | 6 MB | 3,241,290 B |
 
-The deployed world tree is 249 files: Nlongkak has 90 catalog files plus
-`files.json`/`precache.json` (92 files), Mvog-Mbi has 55 catalog files plus those
-two metadata files (57 files), Mokolo has 40 catalog files plus those two
-metadata files (42 files), Bastos has 55 catalog files plus those two metadata
-files (57 files), and `registry.json` is shared. The size check sees all 249
-under `dist/world/`.
+The deployed world tree is 509 files: Nlongkak has 90 catalog files plus
+`files.json`/`precache.json` (92 files), Mvog-Mbi has 55 + 2 (57), Mokolo has
+40 + 2 (42), Bastos has 55 + 2 (57), Ngoa-Ekelle has 55 + 2 (57), Boulevard du
+20 Mai has 30 + 2 (32), Lac Municipal has 55 + 2 (57), Mvan has 55 + 2 (57) and
+Mont Febe has 55 + 2 (57); `registry.json` is shared. The size check sees all
+509 under `dist/world/`.
 
 ## Quality tiers
 
@@ -29,8 +29,9 @@ under `dist/world/`.
 | mid | 1 (3 × 3) | 10 | off | near + far |
 | high | 2 (5 × 5) | 16 | on | near + far |
 
-Nlongkak has 16 chunks, Mvog-Mbi has 9, Mokolo has 6 and Bastos has 9; high can
-load each whole slice. Chunks outside the keep radius are evicted first; the LRU
+Nlongkak has 16 chunks; Mvog-Mbi, Bastos, Ngoa-Ekelle, Lac Municipal, Mvan and
+Mont Febe have 9 each; Mokolo has 6; Boulevard du 20 Mai has 4. High can load
+each whole slice. Chunks outside the keep radius are evicted first; the LRU
 never evicts an in-flight load.
 
 ## Runtime LOD
@@ -102,11 +103,11 @@ second and is hidden by default.
   The only current runtime frame is Chromium + Mesa llvmpipe Vulkan at about 4
   FPS, which is software rendering and not a device target.
 - No automated frame-time regression test; only bundle/asset budgets are CI-safe.
-  The Mokolo and Bastos production-loader geometry smoke test checks finite,
-  non-empty geometry, not frame time.
+  The production-loader geometry smoke test checks finite, non-empty geometry
+  for all nine packs, not frame time.
 - No explicit triangle/draw-call cap is enforced in CI. The Nlongkak high-tier
   static geometry is about 900k triangles across all 16 chunks before terrain,
-  crowd, water and shadow passes; Mokolo and Bastos have not had a production
+  crowd, water and shadow passes; the other eight packs have not had a production
   visual/performance pass. Device measurements should decide whether the road
   subdivision or building detail needs a lower tier.
 - Shadows and near building detail are the first things to disable if a device

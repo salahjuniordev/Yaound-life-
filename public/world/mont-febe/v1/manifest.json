@@ -1,0 +1,252 @@
+{
+  "format": "yaounde-life-world",
+  "formatVersion": 1,
+  "worldVersion": "mont-febe-2026-10-30-v1",
+  "generatorVersion": "1.1.0",
+  "generatedAt": "2026-11-19T07:20:50.626Z",
+  "area": {
+    "id": "mont_febe",
+    "name": "Mont Febe",
+    "description": "Ninth playable geographical slice, covering the Mont Fébé hill and its southeastern approaches in Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "projection": {
+    "id": "EPSG:32632",
+    "name": "WGS 84 / UTM zone 32N",
+    "zone": 32,
+    "hemisphere": "N",
+    "datum": "WGS84",
+    "centralMeridian": 9
+  },
+  "origin": {
+    "lon": 11.483960221000249,
+    "lat": 3.905000117947339,
+    "east": 775851.3492894054,
+    "north": 432033.9619269478
+  },
+  "unitsPerMetre": 1,
+  "verticalScale": 1,
+  "verticalOffset": 762.7,
+  "elevationDatum": "Copernicus DEM GLO-30 (EGM2008), local offset",
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "chunkSize": 512,
+  "bounds": {
+    "minX": 0,
+    "maxX": 1337.8962721219286,
+    "minZ": -1497.587840894179,
+    "maxZ": 0,
+    "minEast": 775851.3492894054,
+    "maxEast": 777189.2455615273,
+    "minNorth": 432033.9619269478,
+    "maxNorth": 433531.549767842
+  },
+  "waterLevel": null,
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries for the Mont Fébé hill area."
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the Mont Fébé slice."
+    }
+  ],
+  "featureCounts": {
+    "chunks": 9,
+    "roads": 91,
+    "buildings": 492,
+    "pois": 12,
+    "waterPolygons": 0,
+    "waterways": 2,
+    "terrainSamples": 31584
+  },
+  "chunks": [
+    {
+      "id": "c_0_0",
+      "ix": 0,
+      "iz": 0,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_0_0.bin",
+      "roadsFile": "roads/c_0_0.json",
+      "buildingsFile": "buildings/c_0_0.bin",
+      "buildingsMetaFile": "buildings/c_0_0.json",
+      "poisFile": "pois/c_0_0.json",
+      "buildingCount": 52,
+      "roadCount": 5,
+      "hash": "7ebe1c4d9c5d901516088b1fbb9b11714d0a2d7390c185636e0ad18675f34102"
+    },
+    {
+      "id": "c_1_0",
+      "ix": 1,
+      "iz": 0,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_1_0.bin",
+      "roadsFile": "roads/c_1_0.json",
+      "buildingsFile": "buildings/c_1_0.bin",
+      "buildingsMetaFile": "buildings/c_1_0.json",
+      "poisFile": "pois/c_1_0.json",
+      "buildingCount": 203,
+      "roadCount": 20,
+      "hash": "252a7cceb261748f26c553a26e3cbaaa969ec41769fdaafda821aa9274e1357d"
+    },
+    {
+      "id": "c_2_0",
+      "ix": 2,
+      "iz": 0,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_2_0.bin",
+      "roadsFile": "roads/c_2_0.json",
+      "buildingsFile": "buildings/c_2_0.bin",
+      "buildingsMetaFile": "buildings/c_2_0.json",
+      "poisFile": "pois/c_2_0.json",
+      "buildingCount": 51,
+      "roadCount": 14,
+      "hash": "bf13b9c2c7fcecb9b1c9c50d401956fd893e205d720334e7e13184c32fe781cc"
+    },
+    {
+      "id": "c_0_1",
+      "ix": 0,
+      "iz": 1,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_0_1.bin",
+      "roadsFile": "roads/c_0_1.json",
+      "buildingsFile": "buildings/c_0_1.bin",
+      "buildingsMetaFile": "buildings/c_0_1.json",
+      "poisFile": "pois/c_0_1.json",
+      "buildingCount": 125,
+      "roadCount": 13,
+      "hash": "dbdb6b802bb34c65b235829c5e6497267fff93fa215c2e38625f1e707b260a5e"
+    },
+    {
+      "id": "c_1_1",
+      "ix": 1,
+      "iz": 1,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_1_1.bin",
+      "roadsFile": "roads/c_1_1.json",
+      "buildingsFile": "buildings/c_1_1.bin",
+      "buildingsMetaFile": "buildings/c_1_1.json",
+      "poisFile": "pois/c_1_1.json",
+      "buildingCount": 24,
+      "roadCount": 6,
+      "hash": "a86b9fdd997d4c19654094d335d708a900935908ffa1c30d80871bc3e53f9e59"
+    },
+    {
+      "id": "c_2_1",
+      "ix": 2,
+      "iz": 1,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_2_1.bin",
+      "roadsFile": "roads/c_2_1.json",
+      "buildingsFile": "buildings/c_2_1.bin",
+      "buildingsMetaFile": "buildings/c_2_1.json",
+      "poisFile": "pois/c_2_1.json",
+      "buildingCount": 13,
+      "roadCount": 12,
+      "hash": "a2146262611921fc959fec7300a297e8d1ebeeef3a38f328a2c155c9a99472bf"
+    },
+    {
+      "id": "c_0_2",
+      "ix": 0,
+      "iz": 2,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_0_2.bin",
+      "roadsFile": "roads/c_0_2.json",
+      "buildingsFile": "buildings/c_0_2.bin",
+      "buildingsMetaFile": "buildings/c_0_2.json",
+      "poisFile": "pois/c_0_2.json",
+      "buildingCount": 1,
+      "roadCount": 6,
+      "hash": "3a29ff5932329d51688b6d4d34dbcb9d458d2932bf7035eb26c6cd8286780cfa"
+    },
+    {
+      "id": "c_1_2",
+      "ix": 1,
+      "iz": 2,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_1_2.bin",
+      "roadsFile": "roads/c_1_2.json",
+      "buildingsFile": "buildings/c_1_2.bin",
+      "buildingsMetaFile": "buildings/c_1_2.json",
+      "poisFile": "pois/c_1_2.json",
+      "buildingCount": 9,
+      "roadCount": 9,
+      "hash": "db499692395d784434ccbc0004695e62cc6143bb159bd223e27e104c3414115d"
+    },
+    {
+      "id": "c_2_2",
+      "ix": 2,
+      "iz": 2,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -1536,
+        "maxZ": -1024
+      },
+      "terrainFile": "terrain/c_2_2.bin",
+      "roadsFile": "roads/c_2_2.json",
+      "buildingsFile": "buildings/c_2_2.bin",
+      "buildingsMetaFile": "buildings/c_2_2.json",
+      "poisFile": "pois/c_2_2.json",
+      "buildingCount": 14,
+      "roadCount": 6,
+      "hash": "fdcc25fbdfa8db6cdba475874ff2478db5a569d9b8883562309d991764c75ccd"
+    }
+  ],
+  "contentHash": "2938c1e5a4c6213ca6b2460612f86beaaf2a8a0015f8ba73f36d075597e4db76",
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+}

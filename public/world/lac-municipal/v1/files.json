@@ -1,0 +1,284 @@
+{
+  "format": "yaounde-life-world-catalog",
+  "formatVersion": 1,
+  "worldVersion": "lac-municipal-2026-10-30-v1",
+  "generatedAt": "2026-11-19T07:17:49.568Z",
+  "totalBytes": 1165404,
+  "files": [
+    {
+      "path": "world/lac-municipal/v1/manifest.json",
+      "bytes": 7194
+    },
+    {
+      "path": "world/lac-municipal/v1/licenses.json",
+      "bytes": 1403
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/heightfield.bin",
+      "bytes": 19916
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/network.json",
+      "bytes": 239631
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/pois.json",
+      "bytes": 61077
+    },
+    {
+      "path": "world/lac-municipal/v1/water/water.json",
+      "bytes": 12170
+    },
+    {
+      "path": "world/lac-municipal/v1/water/waterways.json",
+      "bytes": 8184
+    },
+    {
+      "path": "world/lac-municipal/v1/districts/districts.json",
+      "bytes": 32043
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_0_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_0_0.json",
+      "bytes": 41757
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_0_0.bin",
+      "bytes": 7360
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_0_0.json",
+      "bytes": 72863
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_0_0.json",
+      "bytes": 18136
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_1_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_1_0.json",
+      "bytes": 40874
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_1_0.bin",
+      "bytes": 5404
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_1_0.json",
+      "bytes": 51165
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_1_0.json",
+      "bytes": 8307
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_2_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_2_0.json",
+      "bytes": 14469
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_2_0.bin",
+      "bytes": 1448
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_2_0.json",
+      "bytes": 14393
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_2_0.json",
+      "bytes": 3457
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_0_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_0_1.json",
+      "bytes": 42154
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_0_1.bin",
+      "bytes": 9324
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_0_1.json",
+      "bytes": 92081
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_0_1.json",
+      "bytes": 10304
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_1_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_1_1.json",
+      "bytes": 64861
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_1_1.bin",
+      "bytes": 3668
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_1_1.json",
+      "bytes": 33417
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_1_1.json",
+      "bytes": 12394
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_2_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_2_1.json",
+      "bytes": 12462
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_2_1.bin",
+      "bytes": 536
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_2_1.json",
+      "bytes": 4625
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_2_1.json",
+      "bytes": 4565
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_0_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_0_2.json",
+      "bytes": 4982
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_0_2.bin",
+      "bytes": 1164
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_0_2.json",
+      "bytes": 12398
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_0_2.json",
+      "bytes": 1493
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_1_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_1_2.json",
+      "bytes": 8877
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_1_2.bin",
+      "bytes": 1668
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_1_2.json",
+      "bytes": 16543
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_1_2.json",
+      "bytes": 2442
+    },
+    {
+      "path": "world/lac-municipal/v1/terrain/c_2_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/lac-municipal/v1/roads/c_2_2.json",
+      "bytes": 9219
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_2_2.bin",
+      "bytes": 80
+    },
+    {
+      "path": "world/lac-municipal/v1/buildings/c_2_2.json",
+      "bytes": 803
+    },
+    {
+      "path": "world/lac-municipal/v1/pois/c_2_2.json",
+      "bytes": 3
+    },
+    {
+      "path": "world/lac-municipal/v1/metadata/validation.json",
+      "bytes": 94
+    },
+    {
+      "path": "world/lac-municipal/v1/metadata/build-report.json",
+      "bytes": 1572
+    }
+  ],
+  "initial": [
+    "world/lac-municipal/v1/manifest.json",
+    "world/lac-municipal/v1/licenses.json",
+    "world/lac-municipal/v1/terrain/heightfield.bin",
+    "world/lac-municipal/v1/roads/network.json",
+    "world/lac-municipal/v1/pois/pois.json",
+    "world/lac-municipal/v1/water/water.json",
+    "world/lac-municipal/v1/water/waterways.json",
+    "world/lac-municipal/v1/districts/districts.json",
+    "world/lac-municipal/v1/terrain/c_0_0.bin",
+    "world/lac-municipal/v1/roads/c_0_0.json",
+    "world/lac-municipal/v1/buildings/c_0_0.bin",
+    "world/lac-municipal/v1/buildings/c_0_0.json",
+    "world/lac-municipal/v1/pois/c_0_0.json",
+    "world/lac-municipal/v1/terrain/c_1_0.bin",
+    "world/lac-municipal/v1/roads/c_1_0.json",
+    "world/lac-municipal/v1/buildings/c_1_0.bin",
+    "world/lac-municipal/v1/buildings/c_1_0.json",
+    "world/lac-municipal/v1/pois/c_1_0.json",
+    "world/lac-municipal/v1/terrain/c_2_0.bin",
+    "world/lac-municipal/v1/roads/c_2_0.json",
+    "world/lac-municipal/v1/buildings/c_2_0.bin",
+    "world/lac-municipal/v1/buildings/c_2_0.json",
+    "world/lac-municipal/v1/pois/c_2_0.json",
+    "world/lac-municipal/v1/terrain/c_0_1.bin",
+    "world/lac-municipal/v1/roads/c_0_1.json",
+    "world/lac-municipal/v1/buildings/c_0_1.bin",
+    "world/lac-municipal/v1/buildings/c_0_1.json",
+    "world/lac-municipal/v1/pois/c_0_1.json",
+    "world/lac-municipal/v1/terrain/c_1_1.bin",
+    "world/lac-municipal/v1/roads/c_1_1.json",
+    "world/lac-municipal/v1/buildings/c_1_1.bin",
+    "world/lac-municipal/v1/buildings/c_1_1.json",
+    "world/lac-municipal/v1/pois/c_1_1.json",
+    "world/lac-municipal/v1/terrain/c_2_1.bin",
+    "world/lac-municipal/v1/roads/c_2_1.json",
+    "world/lac-municipal/v1/buildings/c_2_1.bin",
+    "world/lac-municipal/v1/buildings/c_2_1.json",
+    "world/lac-municipal/v1/pois/c_2_1.json",
+    "world/lac-municipal/v1/terrain/c_0_2.bin",
+    "world/lac-municipal/v1/roads/c_0_2.json",
+    "world/lac-municipal/v1/buildings/c_0_2.bin",
+    "world/lac-municipal/v1/buildings/c_0_2.json",
+    "world/lac-municipal/v1/pois/c_0_2.json",
+    "world/lac-municipal/v1/terrain/c_1_2.bin",
+    "world/lac-municipal/v1/roads/c_1_2.json",
+    "world/lac-municipal/v1/buildings/c_1_2.bin",
+    "world/lac-municipal/v1/buildings/c_1_2.json",
+    "world/lac-municipal/v1/pois/c_1_2.json",
+    "world/lac-municipal/v1/terrain/c_2_2.bin",
+    "world/lac-municipal/v1/roads/c_2_2.json",
+    "world/lac-municipal/v1/buildings/c_2_2.bin",
+    "world/lac-municipal/v1/buildings/c_2_2.json",
+    "world/lac-municipal/v1/pois/c_2_2.json"
+  ]
+}

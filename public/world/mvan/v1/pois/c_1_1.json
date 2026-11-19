@@ -1,0 +1,142 @@
+[
+  {
+    "id": "osm-n2040363224",
+    "sourceId": "n2040363224",
+    "name": "Pharmacie de l'Aéroport",
+    "kind": "pharmacy",
+    "pos": [
+      657.4169428944588,
+      -927.4676665401785
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2040363224",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2267159067",
+    "sourceId": "n2267159067",
+    "name": "La Kribienne",
+    "kind": "bus_station",
+    "pos": [
+      638.2114056841237,
+      -810.3406242572819
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2267159067",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2277745190",
+    "sourceId": "n2277745190",
+    "name": "BUCAVOYAGES",
+    "kind": "travel_agency",
+    "pos": [
+      554.1490718943533,
+      -544.2871020510793
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2277745190",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6130738789",
+    "sourceId": "n6130738789",
+    "name": "Transcam Voyage",
+    "kind": "travel_agency",
+    "pos": [
+      666.7534942365019,
+      -783.0624252017587
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6130738789",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8989860018",
+    "sourceId": "n8989860018",
+    "name": "Santa Lucia",
+    "kind": "supermarket",
+    "pos": [
+      696.7549631600268,
+      -910.0019442448975
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8989860018",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8989860117",
+    "sourceId": "n8989860117",
+    "name": "Poste de Police de Mvan",
+    "kind": "police",
+    "pos": [
+      684.3595598265529,
+      -880.9330173344351
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8989860117",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a442718198",
+    "sourceId": "a442718198",
+    "name": "Ecole Publique de Mvan",
+    "kind": "school",
+    "pos": [
+      515.345220120158,
+      -808.1106808313634
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a442718198",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

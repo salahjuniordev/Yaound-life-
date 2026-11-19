@@ -1,0 +1,406 @@
+[
+  {
+    "id": "osm-n2040363224",
+    "sourceId": "n2040363224",
+    "name": "Pharmacie de l'Aéroport",
+    "kind": "pharmacy",
+    "pos": [
+      657.4169428944588,
+      -927.4676665401785
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2040363224",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2267159067",
+    "sourceId": "n2267159067",
+    "name": "La Kribienne",
+    "kind": "bus_station",
+    "pos": [
+      638.2114056841237,
+      -810.3406242572819
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2267159067",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2277745190",
+    "sourceId": "n2277745190",
+    "name": "BUCAVOYAGES",
+    "kind": "travel_agency",
+    "pos": [
+      554.1490718943533,
+      -544.2871020510793
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2277745190",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4381897490",
+    "sourceId": "n4381897490",
+    "name": "Danay Express",
+    "nameFr": "Danay Express",
+    "kind": "bus_station",
+    "pos": [
+      482.97818101616576,
+      -429.98438150814036
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4381897490",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4381907389",
+    "sourceId": "n4381907389",
+    "name": "Green Oil",
+    "nameFr": "Green Oil",
+    "kind": "fuel",
+    "pos": [
+      458.10488768504,
+      -377.10203085601097
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4381907389",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4381907390",
+    "sourceId": "n4381907390",
+    "name": "FineXs Voyages",
+    "nameFr": "FineXs Voyages",
+    "kind": "bus_station",
+    "pos": [
+      313.54796886001714,
+      -16.317660214495845
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4381907390",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5161969332",
+    "sourceId": "n5161969332",
+    "name": "Centre de Santé Intégré Moïse & Elisabeth",
+    "kind": "clinic",
+    "pos": [
+      1226.4451290408615,
+      -466.9717308730469
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5161969332",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5650207971",
+    "sourceId": "n5650207971",
+    "name": "Auberge",
+    "kind": "hostel",
+    "pos": [
+      683.4807672458701,
+      -1135.0650625562412
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5650207971",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5650210704",
+    "sourceId": "n5650210704",
+    "name": "Auberge grd mvan",
+    "kind": "motel",
+    "pos": [
+      757.8331954400055,
+      -1172.1935885151615
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5650210704",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5650210744",
+    "sourceId": "n5650210744",
+    "name": "Motel",
+    "nameFr": "Motel beau lieu",
+    "kind": "hostel",
+    "pos": [
+      653.2548537170514,
+      -1133.9805993410992
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5650210744",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6130738789",
+    "sourceId": "n6130738789",
+    "name": "Transcam Voyage",
+    "kind": "travel_agency",
+    "pos": [
+      666.7534942365019,
+      -783.0624252017587
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6130738789",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6579571685",
+    "sourceId": "n6579571685",
+    "name": "Général Express Voyages",
+    "kind": "travel_agency",
+    "pos": [
+      270.0274087570142,
+      -80.68376188032562
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6579571685",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n7205824645",
+    "sourceId": "n7205824645",
+    "name": "École de music Nsimeyong",
+    "kind": "school",
+    "pos": [
+      562.1785508508328,
+      -299.51445721293567
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7205824645",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8989860018",
+    "sourceId": "n8989860018",
+    "name": "Santa Lucia",
+    "kind": "supermarket",
+    "pos": [
+      696.7549631600268,
+      -910.0019442448975
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8989860018",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8989860117",
+    "sourceId": "n8989860117",
+    "name": "Poste de Police de Mvan",
+    "kind": "police",
+    "pos": [
+      684.3595598265529,
+      -880.9330173344351
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8989860117",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438587340",
+    "sourceId": "a438587340",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1152.9368869606405,
+      -206.19224306341494
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438587340",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440272476",
+    "sourceId": "a440272476",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      608.9925460200757,
+      -1098.7549884842592
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440272476",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a442718198",
+    "sourceId": "a442718198",
+    "name": "Ecole Publique de Mvan",
+    "kind": "school",
+    "pos": [
+      515.345220120158,
+      -808.1106808313634
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a442718198",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a443300812",
+    "sourceId": "a443300812",
+    "name": "Société Internationale de Linguistique",
+    "kind": "school",
+    "pos": [
+      1189.7366172019392,
+      -197.93557143979706
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a443300812",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820074854",
+    "sourceId": "a820074854",
+    "name": "MRS Mvan",
+    "kind": "fuel",
+    "pos": [
+      713.2833878138335,
+      -1132.6962486931006
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820074854",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

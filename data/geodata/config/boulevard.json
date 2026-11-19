@@ -1,0 +1,55 @@
+{
+  "areaId": "boulevard",
+  "name": "Boulevard du 20 Mai",
+  "nameFr": "Boulevard du 20 Mai",
+  "description": "Sixth playable geographical slice, covering the central Boulevard du 20 Mai civic spine in Yaoundé with real OSM geometry and Copernicus terrain.",
+  "worldVersion": "boulevard-2026-10-30-v1",
+  "bbox": {
+    "minLon": 11.5125,
+    "minLat": 3.8594,
+    "maxLon": 11.5215,
+    "maxLat": 3.8686
+  },
+  "chunkSize": 512,
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "simplifyTolerance": 0.45,
+  "minBuildingArea": 2,
+  "outputDir": "public/world/boulevard/v1",
+  "precacheOnInstall": false,
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "downloadUrl": "https://download.geofabrik.de/africa/cameroon-261030.osm.pbf",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries for the central Boulevard du 20 Mai area.",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "extractFile": "data/geodata/processed/boulevard.osm.pbf",
+      "exportFile": "data/geodata/processed/boulevard.geojson",
+      "oplFile": "data/geodata/processed/boulevard.opl"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "downloadUrl": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N03_00_E011_00_DEM/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the central Boulevard du 20 Mai slice.",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "decodedFile": "data/geodata/processed/boulevard-dem.f32",
+      "decodedMetaFile": "data/geodata/processed/boulevard-dem.json"
+    }
+  ],
+  "notUsed": [
+    {
+      "id": "google_open_buildings_v3",
+      "reason": "OSM building coverage in the central Boulevard du 20 Mai slice is sufficient for this pack. The optional importer contract remains tested with synthetic fixtures, but no licensed local Open Buildings export or licence review is present, so production ingestion stays disabled."
+    }
+  ]
+}

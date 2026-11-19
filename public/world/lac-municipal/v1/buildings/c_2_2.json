@@ -1,0 +1,36 @@
+[
+  {
+    "id": "osm-a1347203644",
+    "source": "openstreetmap",
+    "sourceId": "a1347203644",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 57.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a1347203646",
+    "source": "openstreetmap",
+    "sourceId": "a1347203646",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 259.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  }
+]

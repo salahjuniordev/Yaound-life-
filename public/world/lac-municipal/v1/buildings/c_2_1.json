@@ -1,0 +1,195 @@
+[
+  {
+    "id": "osm-a385640160",
+    "source": "openstreetmap",
+    "sourceId": "a385640160",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 211.4,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385641654",
+    "source": "openstreetmap",
+    "sourceId": "a385641654",
+    "name": "Immeuble Ministeriel N°2",
+    "classification": "office",
+    "height": 40,
+    "floors": 18,
+    "area": 1453.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "real",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Immeuble Ministeriel N°2",
+      "building": "office",
+      "building:levels": "18"
+    }
+  },
+  {
+    "id": "osm-a385641786",
+    "source": "openstreetmap",
+    "sourceId": "a385641786",
+    "classification": "office",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 1419.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "office"
+    }
+  },
+  {
+    "id": "osm-a385642116",
+    "source": "openstreetmap",
+    "sourceId": "a385642116",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 618.1,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385646364",
+    "source": "openstreetmap",
+    "sourceId": "a385646364",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 40.2,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385646472",
+    "source": "openstreetmap",
+    "sourceId": "a385646472",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 18.7,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385648948",
+    "source": "openstreetmap",
+    "sourceId": "a385648948",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 207.5,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a385663020",
+    "source": "openstreetmap",
+    "sourceId": "a385663020",
+    "classification": "office",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 652.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "office"
+    }
+  },
+  {
+    "id": "osm-a385682010",
+    "source": "openstreetmap",
+    "sourceId": "a385682010",
+    "classification": "small_house",
+    "height": 3.5,
+    "floors": 1,
+    "area": 37.3,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  },
+  {
+    "id": "osm-a632156320",
+    "source": "openstreetmap",
+    "sourceId": "a632156320",
+    "name": "Restaurant Municipal La Cascade",
+    "classification": "restaurant",
+    "height": 9.700000000000001,
+    "floors": 3,
+    "area": 1461.9,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "name": "Restaurant Municipal La Cascade",
+      "building": "yes",
+      "amenity": "restaurant"
+    }
+  },
+  {
+    "id": "osm-a1347191998",
+    "source": "openstreetmap",
+    "sourceId": "a1347191998",
+    "classification": "small_house",
+    "height": 6.6000000000000005,
+    "floors": 2,
+    "area": 476.8,
+    "confidence": 1,
+    "geometryStatus": "real",
+    "heightStatus": "inferred",
+    "architectureStatus": "procedural",
+    "gameplayStatus": "designed",
+    "tags": {
+      "building": "yes"
+    }
+  }
+]

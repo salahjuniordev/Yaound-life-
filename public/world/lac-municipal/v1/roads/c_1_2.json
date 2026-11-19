@@ -1,0 +1,414 @@
+[
+  {
+    "id": "osm-w34602560",
+    "sourceId": "w34602560",
+    "roadClass": "service",
+    "points": [
+      [
+        556.244283579872,
+        -1025.709235900198
+      ],
+      [
+        571.7028368720785,
+        -1051.8996437348542
+      ],
+      [
+        573.510186712374,
+        -1053.276949547988
+      ],
+      [
+        576.3422498011496,
+        -1053.871728696453
+      ],
+      [
+        581.7100250318181,
+        -1053.8101568226703
+      ],
+      [
+        584.8292571656639,
+        -1055.0032521829125
+      ],
+      [
+        586.599929846474,
+        -1057.5089977274183
+      ],
+      [
+        592.3065973109333,
+        -1070.6148206667276
+      ]
+    ],
+    "nodeIds": [
+      401786833,
+      401786972,
+      5820190647,
+      5820190650,
+      5820190649,
+      5820190648,
+      401786974,
+      401786975
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "paving_stones",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w34602560",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199063441",
+    "sourceId": "w199063441",
+    "name": "Impasse 2.010/250",
+    "roadClass": "residential",
+    "points": [
+      [
+        775.7328772078035,
+        -1068.712417679897
+      ],
+      [
+        784.6925571159227,
+        -1090.3694692326244
+      ],
+      [
+        791.1318459541644,
+        -1109.6924535518629
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199063441",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w219940642",
+    "sourceId": "w219940642",
+    "name": "Allée/Boulevard Rodolph Manga Bell (2.002)",
+    "roadClass": "residential",
+    "points": [
+      [
+        608.9923834259389,
+        -1001.2584811822744
+      ],
+      [
+        648.3804411804304,
+        -1082.7300489440095
+      ],
+      [
+        659.4682560977526,
+        -1106.2742816313403
+      ]
+    ],
+    "nodeIds": [
+      5812464905,
+      2290702225,
+      3474117131
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w219940642",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w273063177",
+    "sourceId": "w273063177",
+    "name": "Rue 2.006",
+    "roadClass": "residential",
+    "points": [
+      [
+        821.0221057441086,
+        -969.8992412966327
+      ],
+      [
+        813.0747572665568,
+        -977.9193998535629
+      ],
+      [
+        752.5897888087202,
+        -1025.5930853274185
+      ],
+      [
+        694.8247643982759,
+        -1070.4645116613829
+      ],
+      [
+        659.4682560977526,
+        -1106.2742816313403
+      ],
+      [
+        655.9621735809927,
+        -1109.6924535518629
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "paved",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w273063177",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615499151",
+    "sourceId": "w615499151",
+    "roadClass": "service",
+    "points": [
+      [
+        606.6576821149793,
+        -1099.258221032389
+      ],
+      [
+        592.3065973109333,
+        -1070.6148206667276
+      ]
+    ],
+    "nodeIds": [
+      2153688724,
+      401786975
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615499151",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615499152",
+    "sourceId": "w615499152",
+    "roadClass": "service",
+    "points": [
+      [
+        606.6576821149793,
+        -1099.258221032389
+      ],
+      [
+        635.2577519027982,
+        -1085.8777106626076
+      ]
+    ],
+    "nodeIds": [
+      2153688724,
+      5820190646
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615499152",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615499153",
+    "sourceId": "w615499153",
+    "roadClass": "service",
+    "points": [
+      [
+        584.78081924756,
+        -1109.6924535518629
+      ],
+      [
+        606.6576821149793,
+        -1099.258221032389
+      ]
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615499153",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615499154",
+    "sourceId": "w615499154",
+    "roadClass": "service",
+    "points": [
+      [
+        592.3065973109333,
+        -1070.6148206667276
+      ],
+      [
+        579.1530801472254,
+        -1076.6722817824339
+      ],
+      [
+        531.3552856842289,
+        -1099.4448415106745
+      ],
+      [
+        529.6932097855024,
+        -1101.553185820696
+      ],
+      [
+        529.5402006364893,
+        -1104.440486832813
+      ],
+      [
+        531.7297436161779,
+        -1109.6924535518629
+      ]
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615499154",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w679424479",
+    "sourceId": "w679424479",
+    "name": "Rue 2.056",
+    "roadClass": "residential",
+    "points": [
+      [
+        932.918951116923,
+        -1109.6924535518629
+      ],
+      [
+        927.3199587636627,
+        -1104.5114389140508
+      ],
+      [
+        918.0901420013979,
+        -1102.7802110954071
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w679424479",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1287790475",
+    "sourceId": "w1287790475",
+    "name": "Allée/Boulevard Rodolph Manga Bell (2.002)",
+    "roadClass": "residential",
+    "points": [
+      [
+        659.4682560977526,
+        -1106.2742816313403
+      ],
+      [
+        660.8075533158876,
+        -1109.6924535518629
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1287790475",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

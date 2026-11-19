@@ -1,0 +1,142 @@
+[
+  {
+    "id": "osm-n4406739144",
+    "sourceId": "n4406739144",
+    "name": "Ministère de l'Economie, de la Planification et de l'Aménagement du Territoire",
+    "kind": "government",
+    "pos": [
+      1050.0340700559318,
+      -420.1430549478973
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4406739144",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376430002",
+    "sourceId": "a376430002",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1059.4492290185299,
+      -317.9263729827362
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376430002",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376430004",
+    "sourceId": "a376430004",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1076.8238926236518,
+      -312.5452303873026
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376430004",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376430006",
+    "sourceId": "a376430006",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1113.0902068810537,
+      -314.92068283929257
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376430006",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376430016",
+    "sourceId": "a376430016",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1069.262834303081,
+      -302.6646363607724
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376430016",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376463430",
+    "sourceId": "a376463430",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1024.1405491782352,
+      -352.4861594468239
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376463430",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167490768",
+    "sourceId": "a1167490768",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1099.1927177368198,
+      -440.9122328389785
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167490768",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

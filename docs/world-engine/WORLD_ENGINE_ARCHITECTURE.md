@@ -6,7 +6,8 @@ the game systems, not a second game.
 
 ## Goals
 
-- Load real Nlongkak, Mvog-Mbi, Mokolo and Bastos slices from versioned local data.
+- Load real Nlongkak, Mvog-Mbi, Mokolo, Bastos, Ngoa-Ekelle, Boulevard du 20 Mai,
+  Lac Municipal, Mvan and Mont Febe slices from versioned local data.
 - Keep the first playable load small and stream the rest on demand.
 - Work offline after the app shell and initial world pack are cached.
 - Preserve gameplay, saves and the procedural fallback.
@@ -22,10 +23,15 @@ data pipeline (scripts/world-build.mjs)
 public/world/registry.json ──► district → versioned pack selector
         │
         ▼
-public/world/v1/            Nlongkak manifest + chunks + catalog
-public/world/mvog-mbi/v1/   Mvog-Mbi manifest + chunks + catalog
-public/world/mokolo/v1/     Mokolo manifest + chunks + catalog
-public/world/bastos/v1/     Bastos manifest + chunks + catalog
+public/world/v1/              Nlongkak manifest + chunks + catalog
+public/world/mvog-mbi/v1/     Mvog-Mbi manifest + chunks + catalog
+public/world/mokolo/v1/       Mokolo manifest + chunks + catalog
+public/world/bastos/v1/       Bastos manifest + chunks + catalog
+public/world/ngoa-ekelle/v1/  Ngoa-Ekelle manifest + chunks + catalog
+public/world/boulevard/v1/    Boulevard du 20 Mai manifest + chunks + catalog
+public/world/lac-municipal/v1/ Lac Municipal manifest + chunks + catalog
+public/world/mvan/v1/         Mvan manifest + chunks + catalog
+public/world/mont-febe/v1/    Mont Febe manifest + chunks + catalog
         │
         ├── fetch/cache ──► src/world/loader.ts ──► decoded chunks
         │                                           │
@@ -51,14 +57,15 @@ simulation remains authoritative for player state, saves and time.
 1. `GameCanvas` loads `world/registry.json` once, validates the registry, and
    selects the versioned pack registered for the current gameplay district. A
    missing, incompatible or unmapped pack keeps the legacy procedural fallback;
-   the checked-in Nlongkak, Mvog-Mbi, Mokolo and Bastos entries are also mirrored
-   as a built-in compatibility fallback when the registry request fails.
+   all nine checked-in pack entries are also mirrored as a built-in
+   compatibility fallback when the registry request fails.
 2. `GeoScene` receives that pack entry, fetches its manifest, and enforces the
    registered `worldVersion`, manifest format and `area.id` before loading data.
 3. `ChunkLru` plans loads and evictions. The visible radius is 1×1 (low),
    3×3 (mid) or 5×5 (high), capped by the pack grid: Nlongkak has 16 chunks in a
-   4×4 grid; Mvog-Mbi has 9 chunks in a 3×3 grid; Mokolo has 6 chunks in a 3×2
-   grid; Bastos has 9 chunks in a 3×3 grid.
+   4×4 grid; Mvog-Mbi, Bastos, Ngoa-Ekelle, Lac Municipal, Mvan and Mont Febe
+   have 9 chunks in 3×3 grids; Mokolo has 6 chunks in a 3×2 grid; Boulevard du
+   20 Mai has 4 chunks in a 2×2 grid.
 4. Each chunk loads terrain, roads, building metadata, buildings and POIs.
 5. Chunk groups are built once and cached in memory. Quality changes rebuild
    geometry; distance decides near/far building LOD.
@@ -88,6 +95,11 @@ simulation remains authoritative for player state, saves and time.
 | `public/world/mvog-mbi/v1/` | Generated, committed Mvog-Mbi world data |
 | `public/world/mokolo/v1/` | Generated, committed Mokolo world data |
 | `public/world/bastos/v1/` | Generated, committed Bastos world data |
+| `public/world/ngoa-ekelle/v1/` | Generated, committed Ngoa-Ekelle world data |
+| `public/world/boulevard/v1/` | Generated, committed Boulevard du 20 Mai world data |
+| `public/world/lac-municipal/v1/` | Generated, committed Lac Municipal world data |
+| `public/world/mvan/v1/` | Generated, committed Mvan world data |
+| `public/world/mont-febe/v1/` | Generated, committed Mont Febe world data |
 | `public/sw.js` | Versioned app-shell and world caches |
 | `docs/world-engine/` | This documentation suite |
 

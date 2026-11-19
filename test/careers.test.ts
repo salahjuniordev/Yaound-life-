@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { GameEngine } from '../src/sim/engine';
 import { JOBS, JOB_MAP, SENIOR_JOB_IDS } from '../src/data/jobs';
 import { ACTIVITIES, ACTIVITY_MAP } from '../src/data/activities';
+import { PLACES } from '../src/data/places';
 import { ZONES } from '../src/data/districts';
 import { makeState } from './helpers';
 
@@ -27,6 +28,10 @@ test('career job data is consistent', () => {
   for (const job of JOBS) {
     assert.ok(DISTRICT_IDS.has(job.district), `${job.id} has valid district`);
     assert.ok(JOB_MAP[job.id], `${job.id} in JOB_MAP`);
+    assert.ok(
+      PLACES.some((place) => place.district === job.district && place.kind !== 'taxi'),
+      `${job.id} district should have a non-taxi place`,
+    );
   }
   for (const id of SENIOR_JOB_IDS) assert.ok(JOB_MAP[id], `senior job ${id} exists`);
   for (const a of ACTIVITIES) assert.ok(ACTIVITY_MAP[a.id], `${a.id} in ACTIVITY_MAP`);

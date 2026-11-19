@@ -4,8 +4,8 @@ A playable 3D browser life simulator set in Yaoundé, Cameroon. Built from the
 requirements in `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 
 - Day/night cycle (1 in-game day ≈ 12 real minutes), needs, FCFA economy (cash / MoMo / bank / debt)
-- 9 districts; Nlongkak, Mvog-Mbi, Mokolo and Bastos are real-geography slices (OSM roads, buildings, water and waterway lines + Copernicus terrain), the other five use the procedural world
-- Offline world packs: download the full Nlongkak, Mvog-Mbi, Mokolo or Bastos area from Settings; versioned caches survive app updates and removing one pack preserves the others
+- 9 districts; all nine are real-geography slices with OSM roads, buildings, water and waterway lines plus Copernicus terrain
+- Offline world packs: download any district pack from Settings; Nlongkak and Mvog-Mbi are precached on install, while the other seven stay on-demand; versioned caches survive app updates and removing one pack preserves the others
 - Walk / shared taxi / moto with real cost, time and risk
 - 8 starting backgrounds, 10 jobs, 30+ events, 13 goals, 11 achievements
 - Njangi/tontine system (reliable group + fraudulent "Fast Pot" to learn from)

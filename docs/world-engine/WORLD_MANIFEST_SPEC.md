@@ -21,11 +21,43 @@ geographic world and is fetched and validated before any chunk is used.
       "manifestFormatVersion": 1
     },
     {
+      "id": "boulevard",
+      "districtId": "boulevard",
+      "name": "Boulevard du 20 Mai",
+      "basePath": "world/boulevard/v1",
+      "worldVersion": "boulevard-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
+      "id": "lac_municipal",
+      "districtId": "lac_municipal",
+      "name": "Lac Municipal",
+      "basePath": "world/lac-municipal/v1",
+      "worldVersion": "lac-municipal-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
       "id": "mokolo",
       "districtId": "mokolo",
       "name": "Mokolo",
       "basePath": "world/mokolo/v1",
       "worldVersion": "mokolo-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
+      "id": "mont_febe",
+      "districtId": "mont_febe",
+      "name": "Mont Febe",
+      "basePath": "world/mont-febe/v1",
+      "worldVersion": "mont-febe-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
+      "id": "mvan",
+      "districtId": "mvan",
+      "name": "Mvan",
+      "basePath": "world/mvan/v1",
+      "worldVersion": "mvan-2026-10-30-v1",
       "manifestFormatVersion": 1
     },
     {
@@ -36,6 +68,14 @@ geographic world and is fetched and validated before any chunk is used.
       "worldVersion": "mvog-mbi-2026-10-30-v1",
       "manifestFormatVersion": 1,
       "precacheOnInstall": true
+    },
+    {
+      "id": "ngoa_ekelle",
+      "districtId": "ngoa_ekelle",
+      "name": "Ngoa-Ekelle",
+      "basePath": "world/ngoa-ekelle/v1",
+      "worldVersion": "ngoa-ekelle-2026-10-30-v1",
+      "manifestFormatVersion": 1
     },
     {
       "id": "nlongkak",
@@ -60,8 +100,9 @@ Rules enforced by `src/world/registry.ts`:
 - `manifestFormatVersion` must match the runtime's `WORLD_FORMAT_VERSION`;
   incompatible packs fall back explicitly instead of rendering silently.
 - Unregistered districts keep the legacy procedural world. A missing or invalid
-  registry falls back to the built-in four-pack mapping (Nlongkak, Mvog-Mbi,
-  Mokolo and Bastos), then to legacy if the selected pack also fails validation.
+  registry falls back to the built-in nine-pack mapping (Nlongkak, Mvog-Mbi,
+  Mokolo, Bastos, Ngoa-Ekelle, Boulevard du 20 Mai, Lac Municipal, Mvan and Mont
+  Febe), then to legacy if the selected pack also fails validation.
 - `precacheOnInstall` is opt-in. The service worker precaches only packs that
   set it; other registered packs remain available for explicit download.
 
@@ -76,7 +117,7 @@ registered manifest and validates every registered pack by default.
 | --- | --- |
 | `format` | Must be `yaounde-life-world` |
 | `formatVersion` | Must be `1`; incompatible versions are rejected |
-| `worldVersion` | Versioned pack id, e.g. `nlongkak-2026-10-30-v2`, `mvog-mbi-2026-10-30-v1`, `mokolo-2026-10-30-v1` or `bastos-2026-10-30-v1` |
+| `worldVersion` | Versioned pack id, e.g. `nlongkak-2026-10-30-v2`, `mvog-mbi-2026-10-30-v1`, `mokolo-2026-10-30-v1`, `bastos-2026-10-30-v1`, `ngoa-ekelle-2026-10-30-v1`, `boulevard-2026-10-30-v1`, `lac-municipal-2026-10-30-v1`, `mvan-2026-10-30-v1` or `mont-febe-2026-10-30-v1` |
 | `generatorVersion` | Pipeline version |
 | `generatedAt` | ISO timestamp of the build |
 | `area` | `{ id, name, description }` |
@@ -165,7 +206,9 @@ Rules:
 - `worldVersion` must equal the manifest's version.
 
 `precache.json` is the service worker's initial set: global files plus up to the
-nine chunks around the spawn chunk (radius 1). The rest downloads on demand.
+nine chunks around the spawn chunk (radius 1). Packs smaller than 3 × 3 list all
+their chunks; Boulevard du 20 Mai lists all 4 and Mokolo lists all 6. The rest
+downloads on demand.
 
 ## Versioning
 

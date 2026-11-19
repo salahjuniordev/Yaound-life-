@@ -1,0 +1,61 @@
+{
+  "worldVersion": "mvan-2026-10-30-v1",
+  "area": {
+    "id": "mvan",
+    "name": "Mvan",
+    "description": "Eighth playable geographical slice, covering the Mvan transport and workshop area in Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "bbox": {
+    "minLon": 11.5108,
+    "minLat": 3.817,
+    "maxLon": 11.522,
+    "maxLat": 3.8282
+  },
+  "origin": {
+    "lon": 11.510767404158198,
+    "lat": 3.8170000954897323,
+    "east": 778859.008808712,
+    "north": 422306.39625136956
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1248.353770549409,
+    "minZ": -1242.8310245174798,
+    "maxZ": 0,
+    "minEast": 778859.008808712,
+    "maxEast": 780107.3625792614,
+    "minNorth": 422306.39625136956,
+    "maxNorth": 423549.22727588704
+  },
+  "chunkSize": 512,
+  "chunks": 9,
+  "roads": 102,
+  "buildings": 1539,
+  "pois": 20,
+  "waterPolygons": 1,
+  "waterways": 29,
+  "skippedBuildings": 9,
+  "openBuildings": {
+    "used": false,
+    "reason": "No explicitly enabled Open Buildings export is configured."
+  },
+  "elevation": {
+    "absoluteMin": 679.250732421875,
+    "absoluteMax": 739.565185546875,
+    "verticalOffset": 679.2,
+    "relativeMin": 0,
+    "relativeMax": 60.365185546874955
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

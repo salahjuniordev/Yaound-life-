@@ -1,0 +1,162 @@
+[
+  {
+    "id": "osm-a377383650",
+    "sourceId": "a377383650",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1286.35921612347,
+      -781.1476036405656
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a377383650",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a377383652",
+    "sourceId": "a377383652",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1299.08490167954,
+      -787.9345363772009
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a377383652",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440250626",
+    "sourceId": "a440250626",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1328.6249440202955,
+      -805.4704499568325
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440250626",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a443489226",
+    "sourceId": "a443489226",
+    "name": "sports_centre",
+    "kind": "sports_centre",
+    "pos": [
+      1279.2136684325524,
+      -784.9877219908522
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a443489226",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a446593494",
+    "sourceId": "a446593494",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1266.7886838540435,
+      -852.7182869112003
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a446593494",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a446593496",
+    "sourceId": "a446593496",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1275.12894529209,
+      -880.5913884546608
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a446593496",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a446593502",
+    "sourceId": "a446593502",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1225.6568772069877,
+      -839.462916228862
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a446593502",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2168946924",
+    "sourceId": "a2168946924",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1074.8746182239847,
+      -783.0305395382456
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2168946924",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

@@ -1,7 +1,7 @@
 {
   "format": "yaounde-life-world-registry",
   "formatVersion": 1,
-  "generatedAt": "2026-11-19T06:22:11.650Z",
+  "generatedAt": "2026-11-19T07:20:50.626Z",
   "packs": [
     {
       "id": "bastos",
@@ -9,6 +9,22 @@
       "name": "Bastos",
       "basePath": "world/bastos/v1",
       "worldVersion": "bastos-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
+      "id": "boulevard",
+      "districtId": "boulevard",
+      "name": "Boulevard du 20 Mai",
+      "basePath": "world/boulevard/v1",
+      "worldVersion": "boulevard-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
+      "id": "lac_municipal",
+      "districtId": "lac_municipal",
+      "name": "Lac Municipal",
+      "basePath": "world/lac-municipal/v1",
+      "worldVersion": "lac-municipal-2026-10-30-v1",
       "manifestFormatVersion": 1
     },
     {
@@ -20,6 +36,22 @@
       "manifestFormatVersion": 1
     },
     {
+      "id": "mont_febe",
+      "districtId": "mont_febe",
+      "name": "Mont Febe",
+      "basePath": "world/mont-febe/v1",
+      "worldVersion": "mont-febe-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
+      "id": "mvan",
+      "districtId": "mvan",
+      "name": "Mvan",
+      "basePath": "world/mvan/v1",
+      "worldVersion": "mvan-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
       "id": "mvog_mbi",
       "districtId": "mvog_mbi",
       "name": "Mvog-Mbi",
@@ -27,6 +59,14 @@
       "worldVersion": "mvog-mbi-2026-10-30-v1",
       "manifestFormatVersion": 1,
       "precacheOnInstall": true
+    },
+    {
+      "id": "ngoa_ekelle",
+      "districtId": "ngoa_ekelle",
+      "name": "Ngoa-Ekelle",
+      "basePath": "world/ngoa-ekelle/v1",
+      "worldVersion": "ngoa-ekelle-2026-10-30-v1",
+      "manifestFormatVersion": 1
     },
     {
       "id": "nlongkak",

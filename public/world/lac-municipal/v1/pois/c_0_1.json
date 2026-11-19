@@ -1,0 +1,422 @@
+[
+  {
+    "id": "osm-n4362727875",
+    "sourceId": "n4362727875",
+    "name": "Thomas pressing",
+    "kind": "dry_cleaning",
+    "pos": [
+      6.833458288572729,
+      -846.9378646049299
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4362727875",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4756335529",
+    "sourceId": "n4756335529",
+    "name": "library",
+    "kind": "library",
+    "pos": [
+      29.813994477735832,
+      -640.1392436067108
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4756335529",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777079986",
+    "sourceId": "n5777079986",
+    "name": "les Petits Chaperons",
+    "kind": "school",
+    "pos": [
+      318.1603702182183,
+      -968.7994049911504
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777079986",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n7200490285",
+    "sourceId": "n7200490285",
+    "name": "Boulangerie pâtisserie",
+    "kind": "bakery",
+    "pos": [
+      10.167484906734899,
+      -861.9617523721536
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7200490285",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n7252691387",
+    "sourceId": "n7252691387",
+    "name": "supermarket",
+    "kind": "supermarket",
+    "pos": [
+      19.499888302059844,
+      -874.1155974317808
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7252691387",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11497533262",
+    "sourceId": "n11497533262",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      27.87812013749499,
+      -821.7183731410187
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11497533262",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11778717252",
+    "sourceId": "n11778717252",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      36.67295550298877,
+      -861.6416528801783
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11778717252",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11947017568",
+    "sourceId": "n11947017568",
+    "name": "The best boulangerie",
+    "kind": "fast_food",
+    "pos": [
+      330.47872762731276,
+      -948.2564370632172
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11947017568",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n12787770853",
+    "sourceId": "n12787770853",
+    "name": "Kobong",
+    "kind": "restaurant",
+    "pos": [
+      290.6077792495489,
+      -958.6717353914282
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n12787770853",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a382317922",
+    "sourceId": "a382317922",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      18.394063549116254,
+      -518.0901241629617
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a382317922",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a385642744",
+    "sourceId": "a385642744",
+    "name": "school",
+    "kind": "school",
+    "pos": [
+      290.5092560190242,
+      -1007.0661296345643
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a385642744",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664226",
+    "sourceId": "a438664226",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      79.05255099572241,
+      -863.4816621605423
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664226",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664248",
+    "sourceId": "a438664248",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      31.796005992218852,
+      -604.905769486737
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664248",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664250",
+    "sourceId": "a438664250",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      46.13290528464131,
+      -597.0039895330556
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664250",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664252",
+    "sourceId": "a438664252",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      91.99493218376301,
+      -846.1048788307235
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664252",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667780",
+    "sourceId": "a439667780",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      15.286351017653942,
+      -622.2831187418778
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667780",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440269514",
+    "sourceId": "a440269514",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      26.184868931304663,
+      -695.0177899420378
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440269514",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440269516",
+    "sourceId": "a440269516",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      15.337008438655175,
+      -627.7157654452021
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440269516",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440269562",
+    "sourceId": "a440269562",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      460.78716962691396,
+      -629.5615332585876
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440269562",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1692132132",
+    "sourceId": "a1692132132",
+    "name": "Gendarmerie Legion du Centre",
+    "kind": "police",
+    "pos": [
+      237.98793310730252,
+      -939.7625366043649
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1692132132",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2738678062",
+    "sourceId": "a2738678062",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      153.34113669220824,
+      -551.5699196532369
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2738678062",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

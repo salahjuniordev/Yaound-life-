@@ -1,0 +1,468 @@
+[
+  {
+    "id": "osm-w227022715",
+    "sourceId": "w227022715",
+    "name": "Rue 8.068",
+    "roadClass": "residential",
+    "points": [
+      [
+        713.1212298438186,
+        -1184.1666486816248
+      ],
+      [
+        694.9183657222893,
+        -1187.521016891289
+      ],
+      [
+        616.2159128015628,
+        -1186.0619588879053
+      ],
+      [
+        581.0398672467563,
+        -1186.5451717996038
+      ],
+      [
+        543.4909074984025,
+        -1181.4008068694966
+      ],
+      [
+        498.2396294712089,
+        -1168.8761592354276
+      ],
+      [
+        484.54117739002686,
+        -1163.5030323378742
+      ],
+      [
+        468.7689859753009,
+        -1152.8019345172215
+      ]
+    ],
+    "nodeIds": [
+      2357531649,
+      2357531665,
+      2357531661,
+      2357531637,
+      2357531657,
+      2357531670,
+      2357531681,
+      2357531635
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w227022715",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w227022716",
+    "sourceId": "w227022716",
+    "name": "Rue 8.049",
+    "roadClass": "residential",
+    "points": [
+      [
+        727.7501598070376,
+        -1046.6699184481986
+      ],
+      [
+        721.713467467227,
+        -1062.4962091083871
+      ],
+      [
+        715.3672092205379,
+        -1085.3473872607574
+      ],
+      [
+        710.9454774967162,
+        -1107.5624845983111
+      ],
+      [
+        708.2215420024004,
+        -1126.8726660039974
+      ],
+      [
+        707.9937693611719,
+        -1147.6838449187344
+      ],
+      [
+        709.7252564637456,
+        -1167.3832846340956
+      ],
+      [
+        713.1212298438186,
+        -1184.1666486816248
+      ],
+      [
+        719.4442978007719,
+        -1207.0881975573138
+      ],
+      [
+        729.6495948245283,
+        -1232.5769855790422
+      ],
+      [
+        733.8374244780406,
+        -1242.8310245174798
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w227022716",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613483909",
+    "sourceId": "w613483909",
+    "name": "Rue 8.229",
+    "roadClass": "residential",
+    "points": [
+      [
+        1031.505201041,
+        -1093.3123692692607
+      ],
+      [
+        1025.5252586782444,
+        -1074.6625718944706
+      ],
+      [
+        1020.6702529632021,
+        -1055.175196036871
+      ],
+      [
+        1017.5636177430861,
+        -1045.8388921045116
+      ],
+      [
+        1010.826511695399,
+        -1031.4576839083456
+      ],
+      [
+        1004.8253046619939,
+        -1020.0438627092517
+      ],
+      [
+        997.4730814395007,
+        -1010.7614793379325
+      ],
+      [
+        988.4825465369504,
+        -1003.0454127693083
+      ]
+    ],
+    "nodeIds": [
+      2323750397,
+      5804647114,
+      5804647113,
+      5804647115,
+      5804647112,
+      5804647116,
+      5804647111,
+      5804647117
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613483909",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613495352",
+    "sourceId": "w613495352",
+    "name": "Route de Mbalmayo",
+    "roadClass": "trunk",
+    "points": [
+      [
+        808.2232657612411,
+        -1242.8310245174798
+      ],
+      [
+        807.4699447008315,
+        -1239.2337731333682
+      ]
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": false,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613495352",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w679774087",
+    "sourceId": "w679774087",
+    "name": "Avenue Max Abé Fouda",
+    "roadClass": "trunk",
+    "points": [
+      [
+        807.4699447008315,
+        -1239.2337731333682
+      ],
+      [
+        810.9093072200212,
+        -1242.8310245174798
+      ]
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": false,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w679774087",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w704813923-1",
+    "sourceId": "w704813923",
+    "name": "Rue 8.052",
+    "roadClass": "residential",
+    "points": [
+      [
+        530.5366286911499,
+        -1242.8310245174798
+      ],
+      [
+        532.3766472742427,
+        -1242.2436196268536
+      ],
+      [
+        540.1599591413978,
+        -1237.1658388092183
+      ],
+      [
+        543.5249262573197,
+        -1230.4265267155133
+      ],
+      [
+        544.7908696660306,
+        -1215.6152308472083
+      ],
+      [
+        545.6369670405984,
+        -1192.3828212801018
+      ],
+      [
+        543.4909074984025,
+        -1181.4008068694966
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w704813923",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w704813925",
+    "sourceId": "w704813925",
+    "name": "Rue 8.123",
+    "roadClass": "residential",
+    "points": [
+      [
+        795.7862806557678,
+        -1172.1943515419844
+      ],
+      [
+        805.024492057506,
+        -1167.4638420519768
+      ],
+      [
+        814.6068624262698,
+        -1159.0720749362372
+      ],
+      [
+        816.9628325877711,
+        -1155.3282089277636
+      ],
+      [
+        817.9652556498768,
+        -1150.7948072360596
+      ],
+      [
+        816.9747799963225,
+        -1147.4726231591194
+      ],
+      [
+        808.8326997475233,
+        -1123.317583571712
+      ],
+      [
+        804.2927054574247,
+        -1117.6614878688706
+      ],
+      [
+        793.5657103854464,
+        -1095.7338457013248
+      ],
+      [
+        787.4850771138445,
+        -1084.873032042873
+      ]
+    ],
+    "nodeIds": [
+      2357531652,
+      6618948918,
+      6618948917,
+      6618948916,
+      6618948915,
+      6618948914,
+      6618948913,
+      6618948912,
+      6618948911,
+      6618948910
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w704813925",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w704813926",
+    "sourceId": "w704813926",
+    "name": "Rue 8.222",
+    "roadClass": "residential",
+    "points": [
+      [
+        903.2814126352314,
+        -1095.1597185621504
+      ],
+      [
+        889.7010992986616,
+        -1102.5329001562204
+      ],
+      [
+        884.5696944806259,
+        -1109.045747520693
+      ],
+      [
+        869.6466629670467,
+        -1119.5129798129783
+      ],
+      [
+        847.9290295490064,
+        -1131.3986178631894
+      ],
+      [
+        831.6847940343432,
+        -1141.4194020261057
+      ],
+      [
+        823.2248514394742,
+        -1146.0415536335204
+      ],
+      [
+        816.9747799963225,
+        -1147.4726231591194
+      ]
+    ],
+    "nodeIds": [
+      6618948925,
+      6618948924,
+      6618948923,
+      6618948922,
+      6618948921,
+      6618948920,
+      6618948919,
+      6618948914
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w704813926",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

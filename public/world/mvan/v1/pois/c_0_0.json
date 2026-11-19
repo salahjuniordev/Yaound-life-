@@ -1,0 +1,85 @@
+[
+  {
+    "id": "osm-n4381897490",
+    "sourceId": "n4381897490",
+    "name": "Danay Express",
+    "nameFr": "Danay Express",
+    "kind": "bus_station",
+    "pos": [
+      482.97818101616576,
+      -429.98438150814036
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4381897490",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4381907389",
+    "sourceId": "n4381907389",
+    "name": "Green Oil",
+    "nameFr": "Green Oil",
+    "kind": "fuel",
+    "pos": [
+      458.10488768504,
+      -377.10203085601097
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4381907389",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4381907390",
+    "sourceId": "n4381907390",
+    "name": "FineXs Voyages",
+    "nameFr": "FineXs Voyages",
+    "kind": "bus_station",
+    "pos": [
+      313.54796886001714,
+      -16.317660214495845
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4381907390",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6579571685",
+    "sourceId": "n6579571685",
+    "name": "Général Express Voyages",
+    "kind": "travel_agency",
+    "pos": [
+      270.0274087570142,
+      -80.68376188032562
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6579571685",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

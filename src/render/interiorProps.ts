@@ -66,6 +66,8 @@ export const INTERIOR_IDS = [
   'studio',
   'school',
   'njangi',
+  'office',
+  'hotel',
 ];
 
 export const PROP_SAFE_ZONE = { minX: -0.9, maxX: 0.9, minZ: -0.15, maxZ: 1.75, maxY: 1.8 };
@@ -485,6 +487,59 @@ function schoolRoom(): InteriorLayout {
   return { floorColor: '#9a8f7f', matColor: '#2f6fe0', props };
 }
 
+function officeRoom(): InteriorLayout {
+  const props: PropDef[] = [
+    ...baseProps('#7d848c', '#3f4a55'),
+    b(2.6, 1.05, 0.8, -4.7, 0.52, -1.4, '#7a5b3a'),
+    b(2.7, 0.06, 0.9, -4.7, 1.08, -1.4, '#d8d2c6'),
+    b(0.55, 0.38, 0.08, -4.7, 1.35, -1.4, '#1a2530'),
+    c(0.05, 0.3, -4.7, 1.22, -1.5, '#3a3a3a'),
+    b(0.5, 0.5, 0.5, -4.7, 0.25, -0.2, '#3f4a55'),
+    b(0.5, 0.5, 0.08, -4.7, 0.62, 0.05, '#3f4a55'),
+    b(2.8, 0.08, 1.4, 0, 0.75, -2.9, '#8c6b45'),
+    c(0.09, 0.7, -1.1, 0.35, -2.9, '#5c6b73'),
+    c(0.09, 0.7, 1.1, 0.35, -2.9, '#5c6b73'),
+    ...chair(-1.2, -3.8, '#3f4a55'),
+    ...chair(1.2, -2.0, '#3f4a55'),
+    b(3.4, 0.75, 0.8, 3.4, 0.38, -0.9, '#8c6b45'),
+    b(0.5, 0.38, 0.08, 3.4, 1.0, -0.9, '#1a2530'),
+    c(0.05, 0.3, 3.4, 0.9, -1.0, '#3a3a3a'),
+    b(0.5, 0.5, 0.5, 3.4, 0.25, 0.2, '#3f4a55'),
+    b(0.5, 0.5, 0.08, 3.4, 0.62, 0.45, '#3f4a55'),
+    b(1.2, 1.3, 0.5, 5.8, 0.65, -4.3, '#5c6b73'),
+    b(0.5, 2.2, 2.4, 6.5, 1.1, 1.8, '#8c6b45'),
+    b(0.3, 0.35, 0.3, 5.9, 0.55, 3.6, '#2fa05a'),
+    c(0.3, 0.6, 5.9, 1.05, 3.6, '#2fa05a'),
+    b(2.6, 0.8, 0.12, 0, 2.2, -4.75, '#2c3e50'),
+  ];
+  return { floorColor: '#7d848c', matColor: '#3f4a55', props };
+}
+
+function hotelRoom(): InteriorLayout {
+  const props: PropDef[] = [
+    ...baseProps('#8a6f5a', '#c96f4a'),
+    b(3.0, 1.1, 0.9, -4.6, 0.55, -1.2, '#6d4c41'),
+    b(3.1, 0.08, 1.0, -4.6, 1.14, -1.2, '#e8e2d4'),
+    b(0.6, 0.45, 0.1, -4.6, 1.4, -1.2, '#1a2530'),
+    b(0.6, 0.5, 0.5, -4.6, 0.25, -0.1, '#3f4a55'),
+    b(0.7, 2.2, 0.18, -4.6, 1.6, -4.65, '#8c6b45'),
+    b(2.4, 0.6, 1.0, 4.6, 0.3, 2.6, '#c96f4a'),
+    b(2.4, 0.12, 1.0, 4.6, 0.66, 2.6, '#d94f6b'),
+    b(0.5, 0.5, 0.5, 3.4, 0.25, 1.8, '#3f4a55'),
+    b(1.2, 0.4, 0.7, 2.0, 0.2, 2.4, '#8c6b45'),
+    b(0.4, 0.6, 0.4, 2.0, 0.75, 2.4, '#2fa05a'),
+    b(0.1, 1.8, 0.1, 6.3, 0.9, -1.6, '#3a3a3a'),
+    c(0.35, 0.5, 6.3, 1.9, -1.6, '#f2b134'),
+    b(0.8, 1.5, 0.6, 6.2, 0.75, -3.8, '#5c6b73'),
+    c(0.2, 0.5, 6.2, 1.0, -3.4, '#8c6b45'),
+    b(2.4, 1.8, 0.08, 3.8, 1.0, -4.8, '#a8c6d8'),
+    b(2.0, 1.0, 0.6, -3.8, 0.5, 3.4, '#8c6b45'),
+    b(0.5, 2.6, 0.5, 6.35, 1.3, 2.8, '#8c6b45'),
+    c(0.4, 0.5, 6.35, 2.85, 2.8, '#2fa05a'),
+  ];
+  return { floorColor: '#8a6f5a', matColor: '#c96f4a', props };
+}
+
 function njangiRoom(): InteriorLayout {
   const props: PropDef[] = [...baseProps('#7d6b52', '#2f6fe0')];
   for (let i = 0; i < 7; i++) {
@@ -527,6 +582,8 @@ export function interiorLayout(interiorId: string): InteriorLayout {
     case 'studio': return studioRoom();
     case 'school': return schoolRoom();
     case 'njangi': return njangiRoom();
+    case 'office': return officeRoom();
+    case 'hotel': return hotelRoom();
     default:
       return {
         floorColor: '#8a7a66',

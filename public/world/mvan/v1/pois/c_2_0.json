@@ -1,0 +1,62 @@
+[
+  {
+    "id": "osm-n5161969332",
+    "sourceId": "n5161969332",
+    "name": "Centre de Santé Intégré Moïse & Elisabeth",
+    "kind": "clinic",
+    "pos": [
+      1226.4451290408615,
+      -466.9717308730469
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5161969332",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438587340",
+    "sourceId": "a438587340",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1152.9368869606405,
+      -206.19224306341494
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438587340",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a443300812",
+    "sourceId": "a443300812",
+    "name": "Société Internationale de Linguistique",
+    "kind": "school",
+    "pos": [
+      1189.7366172019392,
+      -197.93557143979706
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a443300812",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

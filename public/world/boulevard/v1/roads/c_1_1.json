@@ -1,0 +1,1947 @@
+[
+  {
+    "id": "osm-w35897045",
+    "sourceId": "w35897045",
+    "name": "Rue 1.014",
+    "roadClass": "residential",
+    "points": [
+      [
+        623.4772174062673,
+        -800.7518581874901
+      ],
+      [
+        521.8908148226328,
+        -756.1825553330709
+      ]
+    ],
+    "nodeIds": [
+      419588000,
+      5812779896
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w35897045",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w35897046",
+    "sourceId": "w35897046",
+    "name": "Rue Marie Gocker",
+    "roadClass": "tertiary",
+    "points": [
+      [
+        644.9662965352181,
+        -599.6229780808208
+      ],
+      [
+        705.9664719778812,
+        -607.1173125167843
+      ],
+      [
+        712.8367685460253,
+        -610.0697159998235
+      ],
+      [
+        719.8128149711993,
+        -614.8369743641233
+      ],
+      [
+        755.9798451210372,
+        -654.4436882947339
+      ],
+      [
+        865.5662431600504,
+        -774.4732628263882
+      ],
+      [
+        879.6316434203181,
+        -787.0065868413076
+      ]
+    ],
+    "nodeIds": [
+      420603829,
+      3300293527,
+      5812779894,
+      420603826,
+      419587998,
+      5814664351,
+      497056408
+    ],
+    "width": 8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w35897046",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w35985682",
+    "sourceId": "w35985682",
+    "name": "Place John F Kennedy",
+    "roadClass": "roundabout",
+    "points": [
+      [
+        900.0014164359309,
+        -783.4822228137054
+      ],
+      [
+        902.0628630170831,
+        -785.3692706990987
+      ],
+      [
+        902.8522308550309,
+        -789.0006997106248
+      ],
+      [
+        902.5758611485362,
+        -792.2527793787303
+      ],
+      [
+        901.3999573182082,
+        -795.2919673089054
+      ],
+      [
+        898.6117397937924,
+        -798.6361690076883
+      ],
+      [
+        894.7825731607154,
+        -800.7380806319416
+      ],
+      [
+        890.4578842648771,
+        -801.300585736928
+      ],
+      [
+        885.3280180192087,
+        -799.8138082509977
+      ],
+      [
+        882.2459108451148,
+        -797.3373239869834
+      ],
+      [
+        880.1777194698807,
+        -793.9787067920552
+      ],
+      [
+        879.3445556319784,
+        -790.1258628299693
+      ],
+      [
+        879.6316434203181,
+        -787.0065868413076
+      ],
+      [
+        880.7070032763295,
+        -784.1441291494411
+      ],
+      [
+        882.4924826021306,
+        -781.6599648928386
+      ],
+      [
+        884.8542320956476,
+        -779.7196610593819
+      ],
+      [
+        887.6585337778088,
+        -778.4445279170177
+      ],
+      [
+        890.6827979469672,
+        -777.9445476703695
+      ],
+      [
+        895.381029687007,
+        -778.8325720592402
+      ],
+      [
+        898.07628240739,
+        -780.599793955218
+      ],
+      [
+        900.0014164359309,
+        -783.4822228137054
+      ]
+    ],
+    "nodeIds": [
+      420603742,
+      497056400,
+      420603747,
+      497056402,
+      420603748,
+      420603746,
+      497056404,
+      420603745,
+      420603741,
+      420603744,
+      497056407,
+      420603743,
+      497056408,
+      5814664342,
+      331136288,
+      5814664341,
+      497056410,
+      5814664340,
+      2449160798,
+      5814664350,
+      420603742
+    ],
+    "width": 7,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w35985682",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w35985691",
+    "sourceId": "w35985691",
+    "name": "Rue 1.143",
+    "roadClass": "residential",
+    "points": [
+      [
+        685.346262391191,
+        -477.69274438841967
+      ],
+      [
+        609.3429807722569,
+        -541.5295798114967
+      ],
+      [
+        605.3522080595139,
+        -541.9160660118796
+      ],
+      [
+        601.7451492064865,
+        -540.3231866039569
+      ],
+      [
+        575.3135263428558,
+        -511.8429024130455
+      ]
+    ],
+    "nodeIds": [
+      401775052,
+      2357507114,
+      401775054,
+      2357507113,
+      401775056
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w35985691",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w35985692",
+    "sourceId": "w35985692",
+    "name": "Rue Narvick",
+    "roadClass": "tertiary",
+    "points": [
+      [
+        858.5577599820681,
+        -563.4123422241537
+      ],
+      [
+        755.9798451210372,
+        -654.4436882947339
+      ],
+      [
+        677.0467105617281,
+        -724.4123876825324
+      ],
+      [
+        642.8039396720706,
+        -755.4567498678225
+      ],
+      [
+        623.4772174062673,
+        -800.7518581874901
+      ],
+      [
+        586.065936776693,
+        -888.4468990580062
+      ],
+      [
+        578.5467919940129,
+        -905.6848464346258
+      ],
+      [
+        527.9912434150219,
+        -1020.8653077148483
+      ]
+    ],
+    "width": 8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w35985692",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w35985693",
+    "sourceId": "w35985693",
+    "name": "Rue 1.008",
+    "roadClass": "residential",
+    "points": [
+      [
+        900.0014164359309,
+        -783.4822228137054
+      ],
+      [
+        921.1207601111382,
+        -767.0480640455498
+      ],
+      [
+        940.5581299439073,
+        -751.9255624139332
+      ],
+      [
+        959.820971537265,
+        -731.9563834927976
+      ],
+      [
+        976.273427462671,
+        -711.569481101993
+      ],
+      [
+        1002.1074018831132,
+        -679.2831208026037
+      ],
+      [
+        1003.1912765372545,
+        -677.9279437024753
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w35985693",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w97257140",
+    "sourceId": "w97257140",
+    "name": "Avenue John F. Kennedy",
+    "roadClass": "secondary",
+    "points": [
+      [
+        825.5844155250816,
+        -432.4351743897423
+      ],
+      [
+        833.0867808701005,
+        -443.3557361958665
+      ],
+      [
+        835.6045563903172,
+        -448.762570922554
+      ],
+      [
+        837.8202763558365,
+        -454.8434312585159
+      ],
+      [
+        839.9609831057023,
+        -463.7343965796754
+      ],
+      [
+        845.9109006389044,
+        -492.2425646809279
+      ],
+      [
+        858.5577599820681,
+        -563.4123422241537
+      ],
+      [
+        872.80501221749,
+        -627.0410425099544
+      ],
+      [
+        880.572430794593,
+        -672.2174317569588
+      ],
+      [
+        884.6610508556478,
+        -695.0330545617035
+      ],
+      [
+        891.5356920199702,
+        -726.4760254673893
+      ],
+      [
+        896.5369427441619,
+        -756.3201823685667
+      ],
+      [
+        898.8370977141894,
+        -760.1552525384468
+      ],
+      [
+        902.7826103232801,
+        -763.7849853981752
+      ]
+    ],
+    "nodeIds": [
+      331136286,
+      5847974093,
+      2449160777,
+      5847974092,
+      5847974091,
+      2449160779,
+      5814704583,
+      5814968278,
+      5814704581,
+      2781138240,
+      5814968279,
+      2449160797,
+      5814704590,
+      5825323140
+    ],
+    "width": 9,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w97257140",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199028541",
+    "sourceId": "w199028541",
+    "name": "Rue 1.041",
+    "roadClass": "residential",
+    "points": [
+      [
+        962.4713923016097,
+        -584.090012992383
+      ],
+      [
+        958.824244203046,
+        -588.515969601518
+      ],
+      [
+        957.7072656778619,
+        -601.6570309138624
+      ],
+      [
+        976.273427462671,
+        -711.569481101993
+      ]
+    ],
+    "nodeIds": [
+      2090874956,
+      5812925159,
+      2090874959,
+      2090874967
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199028541",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199028542",
+    "sourceId": "w199028542",
+    "name": "Rue 1.012",
+    "roadClass": "residential",
+    "points": [
+      [
+        604.1756928540999,
+        -638.9019041073625
+      ],
+      [
+        677.0467105617281,
+        -724.4123876825324
+      ],
+      [
+        742.5793560941238,
+        -803.6277997228899
+      ],
+      [
+        744.8858655726071,
+        -809.0672014048905
+      ],
+      [
+        743.9249084647745,
+        -814.5743586344179
+      ],
+      [
+        725.1070024144137,
+        -856.9057555164909
+      ],
+      [
+        691.4110180166317,
+        -935.882120083028
+      ]
+    ],
+    "nodeIds": [
+      5812779899,
+      1993239677,
+      2090874975,
+      5814704588,
+      2090874976,
+      6110050560,
+      2090874982
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199028542",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199028543",
+    "sourceId": "w199028543",
+    "name": "Rue 1.055",
+    "roadClass": "tertiary",
+    "points": [
+      [
+        578.5467919940129,
+        -905.6848464346258
+      ],
+      [
+        589.0098238708451,
+        -915.0430520413211
+      ],
+      [
+        597.4120618851157,
+        -933.5342285232036
+      ],
+      [
+        608.00571043778,
+        -1020.8653077148483
+      ]
+    ],
+    "width": 8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199028543",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199028545",
+    "sourceId": "w199028545",
+    "name": "Rue 1.075",
+    "roadClass": "residential",
+    "points": [
+      [
+        586.065936776693,
+        -888.4468990580062
+      ],
+      [
+        691.4110180166317,
+        -935.882120083028
+      ],
+      [
+        776.368511010427,
+        -974.1289772003656
+      ]
+    ],
+    "nodeIds": [
+      5812815265,
+      2090874982,
+      2090874985
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199028545",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199063193",
+    "sourceId": "w199063193",
+    "roadClass": "residential",
+    "points": [
+      [
+        844.1553195057204,
+        -1012.6679602050572
+      ],
+      [
+        853.8911581755383,
+        -1012.4202635632246
+      ],
+      [
+        879.8132285049651,
+        -1010.3175795206917
+      ],
+      [
+        901.3082078529987,
+        -1009.5847890303121
+      ],
+      [
+        908.6714528815355,
+        -1011.1888513249578
+      ],
+      [
+        914.2696035099216,
+        -1015.8967364671989
+      ],
+      [
+        916.541497752557,
+        -1020.8653077148483
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199063193",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199063228",
+    "sourceId": "w199063228",
+    "roadClass": "service",
+    "points": [
+      [
+        976.2990078961011,
+        -830.2119556705002
+      ],
+      [
+        993.7969210566953,
+        -865.6807207609527
+      ]
+    ],
+    "nodeIds": [
+      2091142567,
+      2091142579
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199063228",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199063334",
+    "sourceId": "w199063334",
+    "roadClass": "residential",
+    "points": [
+      [
+        947.3368207667954,
+        -804.4457392090117
+      ],
+      [
+        941.9942480728496,
+        -810.968871668505
+      ]
+    ],
+    "nodeIds": [
+      2091142549,
+      2091142555
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199063334",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199063369",
+    "sourceId": "w199063369",
+    "roadClass": "residential",
+    "points": [
+      [
+        1003.1912765372545,
+        -902.8405971672951
+      ],
+      [
+        982.8407963423524,
+        -910.0934442756698
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199063369",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w199063425",
+    "sourceId": "w199063425",
+    "name": "Rue 1.073",
+    "roadClass": "residential",
+    "points": [
+      [
+        841.2132312802132,
+        -1000.4663853847305
+      ],
+      [
+        835.0241847448051,
+        -1011.3684539987007
+      ],
+      [
+        830.5383104684378,
+        -1020.8653077148483
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w199063425",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w236956785",
+    "sourceId": "w236956785",
+    "name": "Avenue John F. Kennedy",
+    "roadClass": "secondary",
+    "points": [
+      [
+        840.204042725265,
+        -419.24564649973763
+      ],
+      [
+        867.2712355579715,
+        -555.6710643878905
+      ],
+      [
+        881.6128099353518,
+        -624.9649621827994
+      ],
+      [
+        890.0574994629715,
+        -670.3535860200645
+      ],
+      [
+        900.6205221217824,
+        -724.6663177533192
+      ],
+      [
+        906.1306401377078,
+        -755.2975517276209
+      ],
+      [
+        905.5078610416967,
+        -759.1903318404802
+      ],
+      [
+        902.7826103232801,
+        -763.7849853981752
+      ]
+    ],
+    "nodeIds": [
+      2449160775,
+      2449160780,
+      2449160784,
+      2449160786,
+      2449160788,
+      2449160796,
+      2247871622,
+      5825323140
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w236956785",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w236961681",
+    "sourceId": "w236961681",
+    "name": "Avenue de l'Indépendance",
+    "roadClass": "secondary",
+    "points": [
+      [
+        796.0175056370208,
+        -932.6188131553936
+      ],
+      [
+        789.6320243752562,
+        -946.0540205395664
+      ],
+      [
+        782.4875732932705,
+        -960.5934019815177
+      ],
+      [
+        776.368511010427,
+        -974.1289772003656
+      ],
+      [
+        755.2429380294196,
+        -1020.8653077148483
+      ]
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w236961681",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w273239564",
+    "sourceId": "w273239564",
+    "roadClass": "residential",
+    "points": [
+      [
+        999.2778232489945,
+        -733.9876502326224
+      ],
+      [
+        1003.1912765372545,
+        -744.714918630252
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w273239564",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w273239565",
+    "sourceId": "w273239565",
+    "roadClass": "path",
+    "points": [
+      [
+        862.4317905161297,
+        -954.3470737197786
+      ],
+      [
+        853.6792098304722,
+        -964.0355259237695
+      ],
+      [
+        832.2260114992969,
+        -988.1251550806337
+      ]
+    ],
+    "nodeIds": [
+      5814704585,
+      2091402265,
+      2091142885
+    ],
+    "width": 1.8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w273239565",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w273239566",
+    "sourceId": "w273239566",
+    "roadClass": "residential",
+    "points": [
+      [
+        1003.1912765372545,
+        -886.3352297467484
+      ],
+      [
+        997.3525109619368,
+        -888.3398896625731
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w273239566",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w273239567",
+    "sourceId": "w273239567",
+    "roadClass": "residential",
+    "points": [
+      [
+        1003.1912765372545,
+        -820.7483388403313
+      ],
+      [
+        976.2990078961011,
+        -830.2119556705002
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w273239567",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w273239568",
+    "sourceId": "w273239568",
+    "roadClass": "residential",
+    "points": [
+      [
+        976.2990078961011,
+        -830.2119556705002
+      ],
+      [
+        947.3368207667954,
+        -804.4457392090117
+      ],
+      [
+        947.619555474259,
+        -795.3074755869457
+      ],
+      [
+        952.8319286082406,
+        -776.4915300925495
+      ],
+      [
+        951.2766696054023,
+        -768.8082956099533
+      ],
+      [
+        940.5581299439073,
+        -751.9255624139332
+      ]
+    ],
+    "nodeIds": [
+      2091142567,
+      2091142549,
+      5825314773,
+      2091142535,
+      5825314774,
+      2091142528
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w273239568",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614502824",
+    "sourceId": "w614502824",
+    "name": "Avenue du Pdt El Hadj Ahmadou Ahidjo",
+    "roadClass": "secondary",
+    "points": [
+      [
+        490.58786223398056,
+        -822.7408388127806
+      ],
+      [
+        521.8908148226328,
+        -756.1825553330709
+      ],
+      [
+        550.4470561438939,
+        -693.9754306745599
+      ],
+      [
+        557.5186702837236,
+        -685.2445629722206
+      ],
+      [
+        604.1756928540999,
+        -638.9019041073625
+      ],
+      [
+        644.9662965352181,
+        -599.6229780808208
+      ],
+      [
+        726.4495513939764,
+        -524.1517544015078
+      ],
+      [
+        819.6225036181277,
+        -437.949635646306
+      ],
+      [
+        825.5844155250816,
+        -432.4351743897423
+      ],
+      [
+        840.204042725265,
+        -419.24564649973763
+      ],
+      [
+        893.6453593033366,
+        -371.23023555096006
+      ],
+      [
+        903.9043674271088,
+        -359.4771956502809
+      ],
+      [
+        930.5122134988196,
+        -324.803180207673
+      ]
+    ],
+    "nodeIds": [
+      11766208656,
+      5812779896,
+      5812779897,
+      5812779898,
+      5812779899,
+      420603829,
+      2357221390,
+      2491120026,
+      331136286,
+      2449160775,
+      419601285,
+      5847974090,
+      401774881
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614502824",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614776690",
+    "sourceId": "w614776690",
+    "name": "Avenue John F. Kennedy",
+    "roadClass": "unclassified",
+    "points": [
+      [
+        906.1306401377078,
+        -755.2975517276209
+      ],
+      [
+        910.4292751308531,
+        -759.7692189079244
+      ],
+      [
+        914.299722162541,
+        -762.4803939018748
+      ],
+      [
+        921.1207601111382,
+        -767.0480640455498
+      ]
+    ],
+    "nodeIds": [
+      2449160796,
+      5814664345,
+      5814664344,
+      5814664343
+    ],
+    "width": 7,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614776690",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614782468",
+    "sourceId": "w614782468",
+    "name": "Rue de Narvik",
+    "roadClass": "tertiary",
+    "points": [
+      [
+        867.2712355579715,
+        -555.6710643878905
+      ],
+      [
+        858.5577599820681,
+        -563.4123422241537
+      ]
+    ],
+    "nodeIds": [
+      2449160780,
+      5814704583
+    ],
+    "width": 8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614782468",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614819463",
+    "sourceId": "w614819463",
+    "roadClass": "unclassified",
+    "points": [
+      [
+        872.80501221749,
+        -627.0410425099544
+      ],
+      [
+        881.6128099353518,
+        -624.9649621827994
+      ]
+    ],
+    "nodeIds": [
+      5814968278,
+      2449160784
+    ],
+    "width": 7,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "concrete",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614819463",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614819464",
+    "sourceId": "w614819464",
+    "roadClass": "unclassified",
+    "points": [
+      [
+        880.572430794593,
+        -672.2174317569588
+      ],
+      [
+        890.0574994629715,
+        -670.3535860200645
+      ]
+    ],
+    "nodeIds": [
+      5814704581,
+      2449160786
+    ],
+    "width": 7,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "concrete",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614819464",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614819465",
+    "sourceId": "w614819465",
+    "roadClass": "unclassified",
+    "points": [
+      [
+        891.5356920199702,
+        -726.4760254673893
+      ],
+      [
+        900.6205221217824,
+        -724.6663177533192
+      ]
+    ],
+    "nodeIds": [
+      5814968279,
+      2449160788
+    ],
+    "width": 7,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "concrete",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614819465",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w651614778",
+    "sourceId": "w651614778",
+    "roadClass": "service",
+    "points": [
+      [
+        696.3861695132218,
+        -843.432775651745
+      ],
+      [
+        725.1070024144137,
+        -856.9057555164909
+      ]
+    ],
+    "nodeIds": [
+      6110050557,
+      6110050560
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w651614778",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w651614779",
+    "sourceId": "w651614779",
+    "roadClass": "service",
+    "points": [
+      [
+        687.2693674000911,
+        -863.5205713949981
+      ],
+      [
+        696.3861695132218,
+        -843.432775651745
+      ],
+      [
+        702.7288196780719,
+        -829.4442258512136
+      ]
+    ],
+    "nodeIds": [
+      6110050559,
+      6110050557,
+      6110050558
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w651614779",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w651614780",
+    "sourceId": "w651614780",
+    "roadClass": "service",
+    "points": [
+      [
+        731.0976003061514,
+        -912.875558897038
+      ],
+      [
+        748.1910065864213,
+        -874.9536963094724
+      ],
+      [
+        746.6591152509209,
+        -866.8832946349867
+      ],
+      [
+        725.1070024144137,
+        -856.9057555164909
+      ]
+    ],
+    "nodeIds": [
+      6110050563,
+      6110050562,
+      6110050561,
+      6110050560
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w651614780",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w679441305",
+    "sourceId": "w679441305",
+    "name": "Rue 1.147",
+    "roadClass": "residential",
+    "points": [
+      [
+        782.4875732932705,
+        -960.5934019815177
+      ],
+      [
+        808.2199434409849,
+        -973.7256393120624
+      ],
+      [
+        832.2260114992969,
+        -988.1251550806337
+      ],
+      [
+        838.165252546547,
+        -993.9847303229617
+      ],
+      [
+        841.2132312802132,
+        -1000.4663853847305
+      ],
+      [
+        844.1553195057204,
+        -1012.6679602050572
+      ],
+      [
+        845.3837541688646,
+        -1020.8653077148483
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w679441305",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w682805737",
+    "sourceId": "w682805737",
+    "name": "Avenue Mvog-Fouda Ada",
+    "roadClass": "secondary",
+    "points": [
+      [
+        898.6117397937924,
+        -798.6361690076883
+      ],
+      [
+        982.8407963423524,
+        -910.0934442756698
+      ],
+      [
+        1003.1912765372545,
+        -937.0094884727591
+      ]
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w682805737",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w736394641",
+    "sourceId": "w736394641",
+    "name": "Avenue John F. Kennedy",
+    "roadClass": "secondary",
+    "points": [
+      [
+        902.7826103232801,
+        -763.7849853981752
+      ],
+      [
+        895.381029687007,
+        -778.8325720592402
+      ]
+    ],
+    "nodeIds": [
+      5825323140,
+      2449160798
+    ],
+    "width": 9,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w736394641",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w853551440",
+    "sourceId": "w853551440",
+    "roadClass": "service",
+    "points": [
+      [
+        904.2758326593321,
+        -837.289470414049
+      ],
+      [
+        893.5678482534131,
+        -828.0853880532668
+      ],
+      [
+        887.1676134427544,
+        -827.7676523792907
+      ],
+      [
+        855.3448966876604,
+        -852.1695100966608
+      ]
+    ],
+    "nodeIds": [
+      7961321029,
+      7961321028,
+      7961321031,
+      7961321030
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "paving_stones",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w853551440",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w853551441",
+    "sourceId": "w853551441",
+    "roadClass": "service",
+    "points": [
+      [
+        890.4578842648771,
+        -801.300585736928
+      ],
+      [
+        888.4085957624484,
+        -817.7802870630985
+      ],
+      [
+        887.1676134427544,
+        -827.7676523792907
+      ]
+    ],
+    "nodeIds": [
+      420603745,
+      7961321027,
+      7961321031
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "paving_stones",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w853551441",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1266065451",
+    "sourceId": "w1266065451",
+    "name": "Avenue de l'Indépendance",
+    "roadClass": "secondary",
+    "points": [
+      [
+        863.233526249649,
+        -804.0743604454328
+      ],
+      [
+        846.3746367667336,
+        -826.6175848828861
+      ],
+      [
+        830.0698031075299,
+        -860.9348461656482
+      ]
+    ],
+    "nodeIds": [
+      5825323141,
+      331136684,
+      11760690367
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1266065451",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1266065452",
+    "sourceId": "w1266065452",
+    "name": "Avenue de l'Indépendance",
+    "roadClass": "secondary",
+    "points": [
+      [
+        830.0698031075299,
+        -860.9348461656482
+      ],
+      [
+        796.0175056370208,
+        -932.6188131553936
+      ]
+    ],
+    "nodeIds": [
+      11760690367,
+      11760690368
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1266065452",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1266065736",
+    "sourceId": "w1266065736",
+    "name": "Avenue de l'Indépendance",
+    "roadClass": "secondary",
+    "points": [
+      [
+        880.1777194698807,
+        -793.9787067920552
+      ],
+      [
+        863.233526249649,
+        -804.0743604454328
+      ]
+    ],
+    "nodeIds": [
+      497056407,
+      5825323141
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "paving_stones",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1266065736",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1266070059",
+    "sourceId": "w1266070059",
+    "name": "Rue 1.041",
+    "roadClass": "residential",
+    "points": [
+      [
+        1003.1912765372545,
+        -570.1372247453918
+      ],
+      [
+        962.4713923016097,
+        -584.090012992383
+      ]
+    ],
+    "width": 7.4,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1266070059",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

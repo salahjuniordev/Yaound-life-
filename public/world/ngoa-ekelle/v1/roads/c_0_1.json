@@ -1,0 +1,1362 @@
+[
+  {
+    "id": "osm-w207574376",
+    "sourceId": "w207574376",
+    "name": "Rue 3.409",
+    "roadClass": "residential",
+    "points": [
+      [
+        434.494963519508,
+        -828.4665431232424
+      ],
+      [
+        411.7137297121808,
+        -820.6990886307904
+      ],
+      [
+        399.81294407870155,
+        -812.6759002835606
+      ],
+      [
+        389.56427891599014,
+        -802.1349512648885
+      ],
+      [
+        381.84523642563727,
+        -789.2226487145526
+      ],
+      [
+        375.04826386342756,
+        -772.6287141668145
+      ],
+      [
+        370.6131595626939,
+        -757.8119630888687
+      ],
+      [
+        369.9532805290073,
+        -751.6694624910597
+      ],
+      [
+        371.26450754352845,
+        -740.3436900348752
+      ],
+      [
+        373.05868250643834,
+        -734.8611688258825
+      ],
+      [
+        376.06382101611234,
+        -721.9250089327106
+      ],
+      [
+        381.7038961156504,
+        -697.2354588055168
+      ]
+    ],
+    "nodeIds": [
+      2178343014,
+      2178342972,
+      2178342779,
+      2178343058,
+      2178342943,
+      2178343019,
+      2178342962,
+      2991178895,
+      2178343061,
+      2178342921,
+      6381223366,
+      6381223358
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w207574376",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w207574381",
+    "sourceId": "w207574381",
+    "roadClass": "service",
+    "points": [
+      [
+        369.9532805290073,
+        -751.6694624910597
+      ],
+      [
+        363.60091967403423,
+        -753.9853494833224
+      ],
+      [
+        357.81994350941386,
+        -758.5157287394977
+      ],
+      [
+        338.3796470940579,
+        -778.6617129315273
+      ],
+      [
+        262.69606063561514,
+        -870.8247504514875
+      ],
+      [
+        261.4882815296296,
+        -877.1941138789989
+      ],
+      [
+        265.49686120729893,
+        -882.0851279814378
+      ],
+      [
+        327.2951859898167,
+        -935.5842080536531
+      ],
+      [
+        336.3281247036066,
+        -943.8313238203991
+      ]
+    ],
+    "nodeIds": [
+      2991178895,
+      2991178896,
+      2991178891,
+      2991178897,
+      2991178893,
+      2991178894,
+      2991178892,
+      2991178890,
+      2178342835
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "paved",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w207574381",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w295408957",
+    "sourceId": "w295408957",
+    "name": "Rue 3.414",
+    "roadClass": "residential",
+    "points": [
+      [
+        129.286328996066,
+        -551.4566206996678
+      ],
+      [
+        140.89180747664068,
+        -584.4283349158359
+      ],
+      [
+        140.8807212249376,
+        -588.2122119585401
+      ],
+      [
+        138.86188023956493,
+        -590.7289033367997
+      ],
+      [
+        70.28566947276704,
+        -605.0219239474973
+      ],
+      [
+        44.39029423287138,
+        -609.4712722516269
+      ],
+      [
+        2.348458943190053,
+        -613.6409931633971
+      ],
+      [
+        0,
+        -613.9025081956618
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "dirt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w295408957",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614769728",
+    "sourceId": "w614769728",
+    "name": "Rue 3.411",
+    "roadClass": "residential",
+    "points": [
+      [
+        117.3327525871573,
+        -868.6061173090129
+      ],
+      [
+        119.5753426119918,
+        -865.5811386286514
+      ],
+      [
+        122.9856839273125,
+        -847.092024216312
+      ],
+      [
+        126.30808212934062,
+        -832.0657028902788
+      ],
+      [
+        130.17944790038746,
+        -807.9463307154947
+      ],
+      [
+        127.52935338299721,
+        -794.5510469966102
+      ]
+    ],
+    "nodeIds": [
+      5814616588,
+      5814616587,
+      5814616586,
+      5814616585,
+      5814616584,
+      5814616583
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614769728",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614769729",
+    "sourceId": "w614769729",
+    "name": "Rue 3.424",
+    "roadClass": "residential",
+    "points": [
+      [
+        0,
+        -785.5759174912616
+      ],
+      [
+        19.816102552693337,
+        -781.2793762449874
+      ],
+      [
+        40.76664526411332,
+        -780.4445736600319
+      ],
+      [
+        53.799968816689216,
+        -781.2240558936028
+      ],
+      [
+        68.03239020262845,
+        -782.3832319081994
+      ],
+      [
+        77.56082200002857,
+        -784.6239666719921
+      ],
+      [
+        108.98879792867228,
+        -792.1179303773097
+      ],
+      [
+        120.15232695429586,
+        -793.8545162720256
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614769729",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w614775202",
+    "sourceId": "w614775202",
+    "name": "Rue 3.392",
+    "roadClass": "residential",
+    "points": [
+      [
+        312.79119309643283,
+        -1061.052541562647
+      ],
+      [
+        295.48512849234976,
+        -1046.9503742310335
+      ],
+      [
+        287.60684661369305,
+        -1039.0828249924234
+      ],
+      [
+        283.67853751126677,
+        -1033.3511705470737
+      ],
+      [
+        279.4483277925756,
+        -1028.2492829477997
+      ],
+      [
+        272.2969616758637,
+        -1018.8238354637288
+      ],
+      [
+        242.44644497823901,
+        -992.613978357811
+      ],
+      [
+        206.1476140662562,
+        -967.3367372741341
+      ],
+      [
+        202.52611032500863,
+        -963.0885765434359
+      ],
+      [
+        194.65800358052365,
+        -951.746957275609
+      ],
+      [
+        188.51438054488972,
+        -939.7354893689044
+      ],
+      [
+        181.0812476258725,
+        -931.6479849736788
+      ],
+      [
+        174.62585806311108,
+        -923.6297336748685
+      ],
+      [
+        171.4993719640188,
+        -921.1090221505146
+      ],
+      [
+        165.11048089328688,
+        -916.9412623583921
+      ],
+      [
+        161.75978885148652,
+        -915.0837379334844
+      ],
+      [
+        148.58825066825375,
+        -908.3845485339989
+      ],
+      [
+        130.6542528636055,
+        -899.967533176241
+      ],
+      [
+        122.2538645210443,
+        -892.021035683516
+      ],
+      [
+        117.3327525871573,
+        -868.6061173090129
+      ],
+      [
+        113.60641162924003,
+        -869.7901120366878
+      ],
+      [
+        101.98508896678686,
+        -868.7934712134884
+      ],
+      [
+        90.43543910677545,
+        -866.0931768559967
+      ],
+      [
+        66.09690547152422,
+        -858.8412638202426
+      ],
+      [
+        43.450416625477374,
+        -854.4045885484084
+      ],
+      [
+        35.84164815628901,
+        -853.1541797947721
+      ],
+      [
+        21.479419426992536,
+        -850.7886395803071
+      ],
+      [
+        4.440892098500626e-16,
+        -846.5648977039191
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w614775202",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615199792",
+    "sourceId": "w615199792",
+    "name": "Rue 3.394",
+    "roadClass": "residential",
+    "points": [
+      [
+        251.31709355860949,
+        -635.5692092632526
+      ],
+      [
+        247.3807821488008,
+        -640.1381960249855
+      ],
+      [
+        242.03451651404612,
+        -644.2272946023149
+      ],
+      [
+        235.89226779842284,
+        -646.8978589152102
+      ],
+      [
+        210.86263002594933,
+        -655.4987228426617
+      ],
+      [
+        181.64346309017856,
+        -667.8601581170806
+      ],
+      [
+        125.4081127170939,
+        -699.2943181157461
+      ],
+      [
+        97.74596635310445,
+        -711.2620200759266
+      ],
+      [
+        95.53156820463482,
+        -712.2512966981158
+      ],
+      [
+        91.63234355894383,
+        -711.7530524415779
+      ],
+      [
+        89.00485998159274,
+        -709.5989258963382
+      ],
+      [
+        73.85776707390323,
+        -683.0450603679637
+      ],
+      [
+        70.94270644558128,
+        -680.4254021457746
+      ],
+      [
+        66.7459590965882,
+        -679.0632916949689
+      ],
+      [
+        60.8787983157672,
+        -678.880141874426
+      ],
+      [
+        54.392353730858304,
+        -681.4501282728161
+      ],
+      [
+        41.70101349311881,
+        -689.1135312019032
+      ],
+      [
+        20.050971352262422,
+        -701.1099281894276
+      ],
+      [
+        8.784207543591037,
+        -704.2633715423872
+      ],
+      [
+        0,
+        -704.1754882308477
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615199792",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615213648",
+    "sourceId": "w615213648",
+    "roadClass": "residential",
+    "points": [
+      [
+        188.76984658720903,
+        -537.9335822674329
+      ],
+      [
+        200.16650248062797,
+        -585.2769277485786
+      ],
+      [
+        201.8959946015384,
+        -594.2770829683286
+      ],
+      [
+        203.60804130905308,
+        -609.2296557850204
+      ]
+    ],
+    "nodeIds": [
+      5817821903,
+      5817821902,
+      5817821901,
+      5817821900
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615213648",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615213649",
+    "sourceId": "w615213649",
+    "name": "Rue 3.426",
+    "roadClass": "residential",
+    "points": [
+      [
+        249.14996660361066,
+        -521.8463331736275
+      ],
+      [
+        213.7826836692402,
+        -531.2799205808551
+      ],
+      [
+        188.76984658720903,
+        -537.9335822674329
+      ],
+      [
+        173.06591707118787,
+        -542.1140433928813
+      ]
+    ],
+    "nodeIds": [
+      5817821904,
+      5817821905,
+      5817821903,
+      5817821906
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615213649",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615245675",
+    "sourceId": "w615245675",
+    "roadClass": "residential",
+    "points": [
+      [
+        252.08687123155687,
+        -577.684243874508
+      ],
+      [
+        259.2155865258537,
+        -575.9016945455223
+      ],
+      [
+        276.3408312825486,
+        -568.3287444862654
+      ],
+      [
+        327.946120418841,
+        -531.7583506695228
+      ]
+    ],
+    "nodeIds": [
+      5817723418,
+      5818027730,
+      5818027732,
+      5818027731
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615245675",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w681415624",
+    "sourceId": "w681415624",
+    "roadClass": "residential",
+    "points": [
+      [
+        127.52935338299721,
+        -794.5510469966102
+      ],
+      [
+        120.15232695429586,
+        -793.8545162720256
+      ]
+    ],
+    "nodeIds": [
+      5814616583,
+      5814616582
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w681415624",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w681415625",
+    "sourceId": "w681415625",
+    "roadClass": "residential",
+    "points": [
+      [
+        0,
+        -537.4783300339736
+      ],
+      [
+        30.8246106589213,
+        -536.2206905329367
+      ],
+      [
+        61.32984792534262,
+        -532.4818620904698
+      ],
+      [
+        86.43473293283023,
+        -528.5391356780892
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "unpaved",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w681415625",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w706356062",
+    "sourceId": "w706356062",
+    "roadClass": "residential",
+    "points": [
+      [
+        257.34963276446797,
+        -613.4587492478313
+      ],
+      [
+        256.58260829746723,
+        -624.9078152378788
+      ],
+      [
+        254.77554682642221,
+        -630.9988216385827
+      ],
+      [
+        251.31709355860949,
+        -635.5692092632526
+      ]
+    ],
+    "nodeIds": [
+      5818027750,
+      5818027749,
+      5818027748,
+      2153200126
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w706356062",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w706358966",
+    "sourceId": "w706358966",
+    "name": "Rue 3.361",
+    "roadClass": "residential",
+    "points": [
+      [
+        35.84164815628901,
+        -853.1541797947721
+      ],
+      [
+        30.30025227693841,
+        -916.2473116779001
+      ],
+      [
+        33.513029077323154,
+        -938.6171847156947
+      ],
+      [
+        35.404216470429674,
+        -956.9005483311485
+      ],
+      [
+        34.669876030413434,
+        -960.9920964057092
+      ]
+    ],
+    "nodeIds": [
+      6637242165,
+      6637242164,
+      6637242163,
+      6637242162,
+      6637242161
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w706358966",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w706358967",
+    "sourceId": "w706358967",
+    "name": "Rue 3.422",
+    "roadClass": "residential",
+    "points": [
+      [
+        0,
+        -966.3843791614606
+      ],
+      [
+        17.054192900890484,
+        -961.515791608661
+      ],
+      [
+        27.194829324027523,
+        -959.6203701799386
+      ],
+      [
+        34.669876030413434,
+        -960.9920964057092
+      ],
+      [
+        50.87501781270839,
+        -963.982639489288
+      ],
+      [
+        75.75715640431736,
+        -967.7509808385512
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w706358967",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w706358968",
+    "sourceId": "w706358968",
+    "name": "Rue 3.420",
+    "roadClass": "residential",
+    "points": [
+      [
+        -4.440892098500626e-16,
+        -1020.8358367149344
+      ],
+      [
+        22.2475090585649,
+        -1020.9671172213857
+      ],
+      [
+        68.2269073415082,
+        -1019.3206084549893
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w706358968",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1205699977",
+    "sourceId": "w1205699977",
+    "roadClass": "residential",
+    "points": [
+      [
+        125.4081127170939,
+        -699.2943181157461
+      ],
+      [
+        112.47303564939648,
+        -646.0161515172222
+      ]
+    ],
+    "nodeIds": [
+      2153200133,
+      11173514114
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1205699977",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1205699978",
+    "sourceId": "w1205699978",
+    "roadClass": "residential",
+    "points": [
+      [
+        44.1313125990564,
+        -572.6825289053959
+      ],
+      [
+        44.39029423287138,
+        -609.4712722516269
+      ]
+    ],
+    "nodeIds": [
+      11173514115,
+      5812751121
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1205699978",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1227646204",
+    "sourceId": "w1227646204",
+    "name": "Axe principal du campus",
+    "roadClass": "tertiary",
+    "points": [
+      [
+        596.9567583198659,
+        -609.0113078971044
+      ],
+      [
+        596.5682652129326,
+        -612.6391917960718
+      ],
+      [
+        598.0521242081886,
+        -618.2309161544545
+      ],
+      [
+        604.3929182139691,
+        -638.7955567743047
+      ],
+      [
+        609.4157989124069,
+        -654.023435565352
+      ],
+      [
+        610.6786024209578,
+        -662.989062408742
+      ],
+      [
+        610.2832338828593,
+        -676.5303589784307
+      ],
+      [
+        600.9341251153965,
+        -688.9057698018732
+      ],
+      [
+        585.7659340896644,
+        -703.6428796115797
+      ],
+      [
+        540.2629420424346,
+        -743.5392134517315
+      ],
+      [
+        510.8152452148497,
+        -769.3648865830619
+      ],
+      [
+        469.13221735251136,
+        -802.7114222694072
+      ],
+      [
+        434.494963519508,
+        -828.4665431232424
+      ],
+      [
+        413.08830691489857,
+        -852.1693779625348
+      ],
+      [
+        391.2803271696903,
+        -876.302532311005
+      ],
+      [
+        348.1384345993865,
+        -929.6597024114453
+      ],
+      [
+        336.3281247036066,
+        -943.8313238203991
+      ],
+      [
+        331.66531213757116,
+        -949.814371901215
+      ],
+      [
+        312.9711084002629,
+        -973.2374891706277
+      ],
+      [
+        302.64533294620924,
+        -988.9845630728523
+      ],
+      [
+        297.4632960620802,
+        -1005.277805225458
+      ],
+      [
+        296.40502936718985,
+        -1017.5005036980729
+      ],
+      [
+        297.46508094249293,
+        -1031.178812337981
+      ],
+      [
+        301.23993591219187,
+        -1043.7586807477637
+      ],
+      [
+        312.79119309643283,
+        -1061.052541562647
+      ],
+      [
+        332.010445257416,
+        -1082.1307007636642
+      ],
+      [
+        353.4640434856992,
+        -1106.7780627498287
+      ],
+      [
+        364.17761560273357,
+        -1121.712832712743
+      ],
+      [
+        381.0720236587804,
+        -1135.968716885196
+      ],
+      [
+        407.53898941143416,
+        -1152.5651111483457
+      ],
+      [
+        417.29481942241546,
+        -1164.3991396993515
+      ],
+      [
+        421.05853160633706,
+        -1173.195077057695
+      ],
+      [
+        422.6043344810605,
+        -1184.175190147129
+      ],
+      [
+        420.24829389946535,
+        -1195.5532148480997
+      ],
+      [
+        413.9744193680817,
+        -1231.6922195737134
+      ],
+      [
+        414.68830787437037,
+        -1242.1388131084968
+      ]
+    ],
+    "nodeIds": [
+      3270486482,
+      3270486487,
+      2178342976,
+      2178343074,
+      2178342801,
+      3270486498,
+      2178343044,
+      2178343021,
+      6381223338,
+      7545705096,
+      3270486519,
+      3270486526,
+      2178343014,
+      7545705095,
+      2178343003,
+      11929965015,
+      2178342835,
+      3270486546,
+      3270486547,
+      3270486548,
+      3270486549,
+      3270486550,
+      3270486551,
+      3270486552,
+      3270486553,
+      3270486554,
+      3270486555,
+      3270486556,
+      3270486557,
+      3270486558,
+      3270486559,
+      3270486560,
+      3270486761,
+      3270486762,
+      3270486774,
+      3270486781
+    ],
+    "width": 8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1227646204",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1286172471",
+    "sourceId": "w1286172471",
+    "roadClass": "service",
+    "points": [
+      [
+        348.1384345993865,
+        -929.6597024114453
+      ],
+      [
+        356.83869920449797,
+        -937.66243494628
+      ],
+      [
+        361.8686252394691,
+        -942.9105059110443
+      ],
+      [
+        364.95154243393335,
+        -948.9162851398578
+      ],
+      [
+        363.59125639288686,
+        -954.2341159653151
+      ],
+      [
+        350.26848594250623,
+        -972.5613904293277
+      ]
+    ],
+    "nodeIds": [
+      11929965015,
+      13807572689,
+      13807572688,
+      13807572687,
+      13807572686,
+      13807572685
+    ],
+    "width": 4.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1286172471",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1286172473",
+    "sourceId": "w1286172473",
+    "name": "Rue 3.404",
+    "roadClass": "residential",
+    "points": [
+      [
+        523.4866502929945,
+        -885.8737826545257
+      ],
+      [
+        513.3964599047322,
+        -889.4953090674826
+      ],
+      [
+        457.20516232796945,
+        -909.6550836497918
+      ],
+      [
+        443.2040865586605,
+        -909.18248603557
+      ],
+      [
+        431.2792144359555,
+        -905.5848482284346
+      ],
+      [
+        411.80481433391105,
+        -891.907802367874
+      ],
+      [
+        391.2803271696903,
+        -876.302532311005
+      ]
+    ],
+    "nodeIds": [
+      6381223337,
+      7545705094,
+      2178342823,
+      2178342861,
+      2178342955,
+      2178342859,
+      2178343003
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1286172473",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

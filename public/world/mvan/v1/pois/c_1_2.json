@@ -1,0 +1,103 @@
+[
+  {
+    "id": "osm-n5650207971",
+    "sourceId": "n5650207971",
+    "name": "Auberge",
+    "kind": "hostel",
+    "pos": [
+      683.4807672458701,
+      -1135.0650625562412
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5650207971",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5650210704",
+    "sourceId": "n5650210704",
+    "name": "Auberge grd mvan",
+    "kind": "motel",
+    "pos": [
+      757.8331954400055,
+      -1172.1935885151615
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5650210704",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5650210744",
+    "sourceId": "n5650210744",
+    "name": "Motel",
+    "nameFr": "Motel beau lieu",
+    "kind": "hostel",
+    "pos": [
+      653.2548537170514,
+      -1133.9805993410992
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5650210744",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440272476",
+    "sourceId": "a440272476",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      608.9925460200757,
+      -1098.7549884842592
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440272476",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820074854",
+    "sourceId": "a820074854",
+    "name": "MRS Mvan",
+    "kind": "fuel",
+    "pos": [
+      713.2833878138335,
+      -1132.6962486931006
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820074854",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

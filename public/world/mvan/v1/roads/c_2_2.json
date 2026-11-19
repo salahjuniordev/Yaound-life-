@@ -1,0 +1,392 @@
+[
+  {
+    "id": "osm-w198805578",
+    "sourceId": "w198805578",
+    "roadClass": "residential",
+    "points": [
+      [
+        1171.445591930882,
+        -1090.55915820878
+      ],
+      [
+        1199.8038075296208,
+        -1099.449674982403
+      ],
+      [
+        1200.8780205580406,
+        -1100.7473536406178
+      ],
+      [
+        1202.656966346316,
+        -1104.2710249052034
+      ],
+      [
+        1204.0716677578166,
+        -1106.9416757418076
+      ],
+      [
+        1205.9228560144547,
+        -1108.5735669205314
+      ],
+      [
+        1220.6803989592008,
+        -1109.0595178797957
+      ],
+      [
+        1240.3509953117464,
+        -1109.2722428815905
+      ],
+      [
+        1248.353770549409,
+        -1107.9221548131638
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w198805578",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w198805640",
+    "sourceId": "w198805640",
+    "name": "Rue 8.146",
+    "roadClass": "residential",
+    "points": [
+      [
+        1206.3171159662306,
+        -1239.0890285288915
+      ],
+      [
+        1217.9236019286327,
+        -1234.011455954751
+      ],
+      [
+        1227.330675772857,
+        -1228.5622951972764
+      ],
+      [
+        1236.1387241848279,
+        -1222.7351874481537
+      ],
+      [
+        1245.1598840404768,
+        -1216.2448492029798
+      ],
+      [
+        1248.353770549409,
+        -1214.0445437588478
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w198805640",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613483902",
+    "sourceId": "w613483902",
+    "roadClass": "residential",
+    "points": [
+      [
+        1142.8428470630897,
+        -1119.4967069620616
+      ],
+      [
+        1159.293935118243,
+        -1103.4022692498984
+      ],
+      [
+        1171.445591930882,
+        -1090.55915820878
+      ],
+      [
+        1182.337918862584,
+        -1071.3393186750473
+      ]
+    ],
+    "nodeIds": [
+      5804647063,
+      5804647062,
+      5804647061,
+      5804647060
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613483902",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613483906",
+    "sourceId": "w613483906",
+    "name": "Rue 8.179",
+    "roadClass": "residential",
+    "points": [
+      [
+        780.3262385372072,
+        -1176.3091278373613
+      ],
+      [
+        795.7862806557678,
+        -1172.1943515419844
+      ],
+      [
+        805.6201791662024,
+        -1172.765368369117
+      ],
+      [
+        811.3500604678411,
+        -1174.3865063732374
+      ],
+      [
+        814.632200086955,
+        -1176.9409204485128
+      ],
+      [
+        820.8012960671913,
+        -1180.3778865637723
+      ],
+      [
+        824.054642368108,
+        -1181.3832209904795
+      ],
+      [
+        844.5794193285983,
+        -1182.1073374745902
+      ],
+      [
+        875.7024665176868,
+        -1184.2456117909169
+      ],
+      [
+        889.5061166507658,
+        -1184.075925840647
+      ],
+      [
+        903.4912242181599,
+        -1182.6675774661708
+      ],
+      [
+        908.8096772097051,
+        -1180.580986828776
+      ],
+      [
+        927.1522429522593,
+        -1167.512640673027
+      ],
+      [
+        963.0839453380322,
+        -1140.599237533228
+      ],
+      [
+        999.6709825773723,
+        -1113.8205307381577
+      ],
+      [
+        1031.505201041,
+        -1093.3123692692607
+      ],
+      [
+        1047.5539562496124,
+        -1085.5370728495764
+      ],
+      [
+        1064.4730824147118,
+        -1080.3533743078006
+      ],
+      [
+        1080.0690103224479,
+        -1079.1821219148696
+      ],
+      [
+        1096.7252777027898,
+        -1080.2489708962967
+      ],
+      [
+        1110.0185153211933,
+        -1083.5962470383965
+      ],
+      [
+        1119.3786777246278,
+        -1090.3287021220895
+      ],
+      [
+        1127.112777323462,
+        -1098.2402586059761
+      ],
+      [
+        1138.1405474520288,
+        -1112.3464276982704
+      ],
+      [
+        1142.8428470630897,
+        -1119.4967069620616
+      ],
+      [
+        1145.613496412523,
+        -1125.9221317983465
+      ],
+      [
+        1148.8623542457353,
+        -1132.2383196103037
+      ],
+      [
+        1167.4125991114415,
+        -1165.7512278333306
+      ],
+      [
+        1206.3171159662306,
+        -1239.0890285288915
+      ],
+      [
+        1208.0944371891503,
+        -1242.8310245174798
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613483906",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613483912",
+    "sourceId": "w613483912",
+    "name": "Rue 8.221",
+    "roadClass": "residential",
+    "points": [
+      [
+        1110.0185153211933,
+        -1083.5962470383965
+      ],
+      [
+        1117.7939084591344,
+        -1073.6723075860646
+      ],
+      [
+        1122.1462535583414,
+        -1063.76043856045
+      ],
+      [
+        1124.5828485356178,
+        -1043.9293471396086
+      ],
+      [
+        1128.370943969814,
+        -1025.5848392018233
+      ],
+      [
+        1139.221839984646,
+        -990.1999623715528
+      ]
+    ],
+    "nodeIds": [
+      2323750389,
+      5804647149,
+      5804647148,
+      5804647147,
+      5804647146,
+      5804647145
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613483912",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1156521983",
+    "sourceId": "w1156521983",
+    "roadClass": "residential",
+    "points": [
+      [
+        1245.1598840404768,
+        -1216.2448492029798
+      ],
+      [
+        1221.1464617723832,
+        -1154.6678738397895
+      ]
+    ],
+    "nodeIds": [
+      2088926219,
+      10755215871
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1156521983",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

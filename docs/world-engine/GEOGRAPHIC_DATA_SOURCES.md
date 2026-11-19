@@ -1,21 +1,29 @@
 # Geographic Data Sources
 
-All runtime geometry comes from committed, registry-selected packs. Four
+All runtime geometry comes from committed, registry-selected packs. Nine
 production packs are registered: Nlongkak at `public/world/v1/`, Mvog-Mbi at
-`public/world/mvog-mbi/v1/`, Mokolo at `public/world/mokolo/v1/` and Bastos at
-`public/world/bastos/v1/`. `public/world/registry.json` maps each to its gameplay
-district. The game does not query geodata services at play time.
+`public/world/mvog-mbi/v1/`, Mokolo at `public/world/mokolo/v1/`, Bastos at
+`public/world/bastos/v1/`, Ngoa-Ekelle at `public/world/ngoa-ekelle/v1/`,
+Boulevard du 20 Mai at `public/world/boulevard/v1/`, Lac Municipal at
+`public/world/lac-municipal/v1/`, Mvan at `public/world/mvan/v1/` and Mont Febe
+at `public/world/mont-febe/v1/`. `public/world/registry.json` maps each to its
+gameplay district. The game does not query geodata services at play time.
 
 ## Sources in the current packs
 
 | Source | Snapshot | Used for | Licence / attribution |
 | --- | --- | --- | --- |
-| OpenStreetMap Cameroon extract (Geofabrik), `cameroon-261030.osm.pbf` | 2026-10-30 | Roads, buildings, water polygons, waterway lines, POIs, Nlongkak, Mvog-Mbi, Mokolo and Bastos boundaries | ODbL 1.0, © OpenStreetMap contributors |
+| OpenStreetMap Cameroon extract (Geofabrik), `cameroon-261030.osm.pbf` | 2026-10-30 | Roads, buildings, water polygons, waterway lines, POIs and district slices for all nine packs | ODbL 1.0, © OpenStreetMap contributors |
 | OSM relation `3095854` | 2026-10-30 | Nlongkak boundary anchoring | ODbL 1.0, © OpenStreetMap contributors |
 | OSM relation `3093787` | 2026-10-30 | Mvog-Mbi boundary bbox and anchoring | ODbL 1.0, © OpenStreetMap contributors |
 | OSM relation `2758122` | 2026-10-30 | Mokolo boundary bbox and anchoring | ODbL 1.0, © OpenStreetMap contributors |
 | OSM relation `3096136` | 2026-10-30 | Bastos boundary reference for the central slice | ODbL 1.0, © OpenStreetMap contributors |
-| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 release | Terrain elevation for all four packs | © ESA, Copernicus DEM GLO-30 |
+| OSM relation `3092564` | 2026-10-30 | Mvan boundary bbox and anchoring | ODbL 1.0, © OpenStreetMap contributors |
+| OSM way `583759448` (`+university`) | 2026-10-30 | Ngoa-Ekelle university-area anchor | ODbL 1.0, © OpenStreetMap contributors |
+| OSM way `1054466544` (`+shore`) | 2026-10-30 | Lac Municipal shoreline-derived gameplay anchor | ODbL 1.0, © OpenStreetMap contributors |
+| OSM node `6310721515` | 2026-10-30 | Boulevard du 20 Mai anchoring | ODbL 1.0, © OpenStreetMap contributors |
+| OSM node `2370598711` | 2026-10-30 | Mont Febe anchoring | ODbL 1.0, © OpenStreetMap contributors |
+| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 release | Terrain elevation for all nine packs | © ESA, Copernicus DEM GLO-30 |
 
 The exact source URLs, snapshot identifiers and usage notes are stored in each
 pack's `manifest.json` and `licenses.json`:
@@ -26,11 +34,23 @@ pack's `manifest.json` and `licenses.json`:
 - `public/world/mokolo/v1/manifest.json` and
   `public/world/mokolo/v1/licenses.json`;
 - `public/world/bastos/v1/manifest.json` and
-  `public/world/bastos/v1/licenses.json`.
+  `public/world/bastos/v1/licenses.json`;
+- `public/world/ngoa-ekelle/v1/manifest.json` and
+  `public/world/ngoa-ekelle/v1/licenses.json`;
+- `public/world/boulevard/v1/manifest.json` and
+  `public/world/boulevard/v1/licenses.json`;
+- `public/world/lac-municipal/v1/manifest.json` and
+  `public/world/lac-municipal/v1/licenses.json`;
+- `public/world/mvan/v1/manifest.json` and
+  `public/world/mvan/v1/licenses.json`;
+- `public/world/mont-febe/v1/manifest.json` and
+  `public/world/mont-febe/v1/licenses.json`.
 
 The build configurations are `data/geodata/config/nlongkak.json`,
-`data/geodata/config/mvog_mbi.json`, `data/geodata/config/mokolo.json` and
-`data/geodata/config/bastos.json`.
+`data/geodata/config/mvog_mbi.json`, `data/geodata/config/mokolo.json`,
+`data/geodata/config/bastos.json`, `data/geodata/config/ngoa_ekelle.json`,
+`data/geodata/config/boulevard.json`, `data/geodata/config/lac_municipal.json`,
+`data/geodata/config/mvan.json` and `data/geodata/config/mont_febe.json`.
 
 ## Acquisition and processing
 
@@ -75,6 +95,28 @@ Current packs:
 - Bastos, `bastos-2026-10-30-v1`, 9 chunks, 170 roads, 2,270 buildings, 352 POIs,
   0 water polygons, 11 waterway lines; 55-file catalog. Registered for on-demand
   download.
+- Ngoa-Ekelle, `ngoa-ekelle-2026-10-30-v1`, 9 chunks, 198 roads, 2,862
+  buildings, 723 POIs, 25 water polygons, 50 waterway lines; 55-file catalog.
+  Registered for on-demand download.
+- Boulevard du 20 Mai, `boulevard-2026-10-30-v1`, 4 chunks (2 × 2), 229 roads,
+  467 buildings, 250 POIs, 17 water polygons, 7 waterway lines; 30-file catalog.
+  Registered for on-demand download.
+- Lac Municipal, `lac-municipal-2026-10-30-v1`, 9 chunks, 208 roads, 743
+  buildings, 124 POIs, 5 water polygons, 7 waterway lines; 55-file catalog.
+  Registered for on-demand download.
+- Mvan, `mvan-2026-10-30-v1`, 9 chunks, 102 roads, 1,539 buildings, 20 POIs, 1
+  water polygon, 29 waterway lines; 55-file catalog. Registered for on-demand
+  download.
+- Mont Febe, `mont-febe-2026-10-30-v1`, 9 chunks, 91 roads, 492 buildings, 12
+  POIs, 0 water polygons, 2 waterway lines; 55-file catalog. Registered for
+  on-demand download.
+
+The Lac Municipal gameplay anchor is a shoreline point
+(`11.5115261,3.8654830`) chosen on a footway at the lake edge rather than the
+lake centroid. Its provenance records `way/1054466544+shore`, and the
+`lac_path`/`taxi_lac` gameplay places are mapped to shore-side road positions
+for clearance. This is a gameplay anchor decision, not a claim about an official
+district boundary.
 
 ## Processing rules
 
@@ -155,11 +197,12 @@ the real export; the synthetic fixtures are never production data.
 
 ### Current decision
 
-The exclusion is recorded in all four configs
-(`data/geodata/config/nlongkak.json`,
-`data/geodata/config/mvog_mbi.json`,
-`data/geodata/config/mokolo.json`,
-`data/geodata/config/bastos.json`) and in `docs/WORLD.md`. If a local Open
+The exclusion is recorded in all nine area configs
+(`data/geodata/config/nlongkak.json`, `data/geodata/config/mvog_mbi.json`,
+`data/geodata/config/mokolo.json`, `data/geodata/config/bastos.json`,
+`data/geodata/config/ngoa_ekelle.json`, `data/geodata/config/boulevard.json`,
+`data/geodata/config/lac_municipal.json`, `data/geodata/config/mvan.json`,
+`data/geodata/config/mont_febe.json`) and in `docs/WORLD.md`. If a local Open
 Buildings export is later supplied, it must be added as an explicitly licensed
 source, used only to fill gaps after OSM footprints are accepted, and
 deduplicated against OSM footprints. It must not silently replace OSM geometry.

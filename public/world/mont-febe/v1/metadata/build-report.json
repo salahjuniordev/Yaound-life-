@@ -1,0 +1,61 @@
+{
+  "worldVersion": "mont-febe-2026-10-30-v1",
+  "area": {
+    "id": "mont_febe",
+    "name": "Mont Febe",
+    "description": "Ninth playable geographical slice, covering the Mont Fébé hill and its southeastern approaches in Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "bbox": {
+    "minLon": 11.484,
+    "minLat": 3.905,
+    "maxLon": 11.496,
+    "maxLat": 3.9185
+  },
+  "origin": {
+    "lon": 11.483960221000249,
+    "lat": 3.905000117947339,
+    "east": 775851.3492894054,
+    "north": 432033.9619269478
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1337.8962721219286,
+    "minZ": -1497.587840894179,
+    "maxZ": 0,
+    "minEast": 775851.3492894054,
+    "maxEast": 777189.2455615273,
+    "minNorth": 432033.9619269478,
+    "maxNorth": 433531.549767842
+  },
+  "chunkSize": 512,
+  "chunks": 9,
+  "roads": 91,
+  "buildings": 492,
+  "pois": 12,
+  "waterPolygons": 0,
+  "waterways": 2,
+  "skippedBuildings": 7,
+  "openBuildings": {
+    "used": false,
+    "reason": "No explicitly enabled Open Buildings export is configured."
+  },
+  "elevation": {
+    "absoluteMin": 762.7536010742188,
+    "absoluteMax": 1080.4598388671875,
+    "verticalOffset": 762.7,
+    "relativeMin": 0,
+    "relativeMax": 317.75983886718745
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

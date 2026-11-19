@@ -1,0 +1,102 @@
+[
+  {
+    "id": "osm-n6308090940",
+    "sourceId": "n6308090940",
+    "name": "Paroisse Tohé",
+    "kind": "place_of_worship",
+    "pos": [
+      1004.396271478734,
+      -1098.3003883723286
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6308090940",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a410797804",
+    "sourceId": "a410797804",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      570.5021355396602,
+      -1055.8238807619782
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a410797804",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264770",
+    "sourceId": "a440264770",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      885.1522243835498,
+      -1049.851022542338
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264770",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a444116844",
+    "sourceId": "a444116844",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      954.8194032532629,
+      -1027.5305859947111
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a444116844",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167499176",
+    "sourceId": "a1167499176",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      689.3817571320105,
+      -1080.9262039041496
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167499176",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

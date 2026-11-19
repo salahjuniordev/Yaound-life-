@@ -1,0 +1,1295 @@
+[
+  {
+    "id": "osm-w221925874",
+    "kind": "stream",
+    "points": [
+      [
+        921.792359007406,
+        -1028.5297607292887
+      ],
+      [
+        922.3231055561919,
+        -1021.8816971772467
+      ],
+      [
+        919.9295698466012,
+        -1004.348878753779
+      ],
+      [
+        920.3096946751466,
+        -996.0075409280253
+      ],
+      [
+        922.0249101454392,
+        -987.1722305357107
+      ],
+      [
+        925.1837540565757,
+        -978.7284070131136
+      ],
+      [
+        940.9602540343767,
+        -950.1182780014933
+      ],
+      [
+        946.9094593176851,
+        -945.1789518740261
+      ],
+      [
+        951.4776192947756,
+        -937.4584411607357
+      ],
+      [
+        954.5093438266777,
+        -930.6738824329805
+      ],
+      [
+        958.2689789927099,
+        -925.7945139019284
+      ],
+      [
+        962.7924965430284,
+        -921.9242358271149
+      ],
+      [
+        966.5733851895202,
+        -917.3768574813148
+      ],
+      [
+        971.2983067617752,
+        -909.2584924260154
+      ],
+      [
+        973.6512971548364,
+        -906.5325260599493
+      ],
+      [
+        980.9876921158284,
+        -902.2832558572409
+      ],
+      [
+        998.527732342016,
+        -897.5992414993234
+      ],
+      [
+        1006.6988887400366,
+        -896.7159603970358
+      ],
+      [
+        1015.7355377618223,
+        -892.5159401120036
+      ],
+      [
+        1029.0260688266717,
+        -893.0085958964773
+      ],
+      [
+        1042.5163176654605,
+        -889.828501925047
+      ],
+      [
+        1051.927747119218,
+        -886.6806898460491
+      ],
+      [
+        1054.7688625603914,
+        -884.2548921912676
+      ],
+      [
+        1061.9735246459022,
+        -875.6680429283879
+      ]
+    ],
+    "levels": [
+      15.949969160441949,
+      15.49772944761183,
+      14.469169480513807,
+      13.919480451724468,
+      13.304382603348513,
+      12.692410943940107,
+      10.78314492779092,
+      10.52828045894565,
+      10.123486798480561,
+      9.826628789273606,
+      9.660981897887767,
+      9.558153723802135,
+      9.633503550340658,
+      10.008872960845535,
+      10.093465483628725,
+      9.959177442116351,
+      9.190602617807556,
+      9.132231386304156,
+      8.93289503315027,
+      8.77033718749873,
+      8.366138310586587,
+      8.121632572166947,
+      7.980694047571828,
+      7.8412862494167666
+    ],
+    "width": 2.4,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221925874",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221926012",
+    "kind": "stream",
+    "points": [
+      [
+        898.0293465256691,
+        -1067.0632040947094
+      ],
+      [
+        905.6641971694771,
+        -1059.5729860447464
+      ],
+      [
+        911.2436881182948,
+        -1051.8554481883766
+      ],
+      [
+        916.5837161261588,
+        -1042.4222464028862
+      ],
+      [
+        920.836336159613,
+        -1032.3994458117522
+      ],
+      [
+        921.792359007406,
+        -1028.5297607292887
+      ]
+    ],
+    "levels": [
+      22.79752793656054,
+      20.033779899959573,
+      18.4773408386962,
+      17.196034164085873,
+      16.222230374612902,
+      15.949969160441949
+    ],
+    "width": 2.4,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221926012",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992137",
+    "kind": "ditch",
+    "points": [
+      [
+        1122.3970361085353,
+        -1242.8310245174798
+      ],
+      [
+        1126.3639205000363,
+        -1228.254395316064
+      ],
+      [
+        1126.3073882223107,
+        -1209.677305229241
+      ],
+      [
+        1123.990042842226,
+        -1196.492938289768
+      ]
+    ],
+    "levels": [
+      56.141388087437846,
+      54.96208253166333,
+      53.274449330755175,
+      52.02123441193683
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992137",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992434",
+    "kind": "ditch",
+    "points": [
+      [
+        1069.772178892279,
+        -1194.5522507210844
+      ],
+      [
+        1064.9900458788034,
+        -1184.3148091066396
+      ]
+    ],
+    "levels": [
+      57.590107675986374,
+      57.332058443785044
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992434",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992471",
+    "kind": "ditch",
+    "points": [
+      [
+        926.9282135295329,
+        -1242.8310245174798
+      ],
+      [
+        926.2860278346343,
+        -1239.1843940291437
+      ]
+    ],
+    "levels": [
+      59.35338377719352,
+      59.381392512493406
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992471",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992483",
+    "kind": "ditch",
+    "points": [
+      [
+        1185.3129303044261,
+        -1242.8310245174798
+      ],
+      [
+        1180.3113733229693,
+        -1223.887692250195
+      ]
+    ],
+    "levels": [
+      54.320698866574325,
+      53.0466892638902
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992483",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992546",
+    "kind": "ditch",
+    "points": [
+      [
+        1103.047702300285,
+        -1242.8310245174798
+      ],
+      [
+        1109.3139938400127,
+        -1240.131571282749
+      ]
+    ],
+    "levels": [
+      57.77710911534554,
+      57.0428302666817
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992546",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992549",
+    "kind": "ditch",
+    "points": [
+      [
+        1062.7812797732186,
+        -1179.5617453561863
+      ],
+      [
+        1049.7356055187993,
+        -1182.7431162195862
+      ]
+    ],
+    "levels": [
+      57.199765552504914,
+      58.58850079963814
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992549",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992575",
+    "kind": "ditch",
+    "points": [
+      [
+        1175.8222108151458,
+        -1242.8310245174798
+      ],
+      [
+        1178.3884207124356,
+        -1239.1064919430064
+      ]
+    ],
+    "levels": [
+      54.56542099279865,
+      54.33092770065325
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992575",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992593",
+    "kind": "ditch",
+    "points": [
+      [
+        1078.8424160047434,
+        -1190.263837495644
+      ],
+      [
+        1069.772178892279,
+        -1194.5522507210844
+      ]
+    ],
+    "levels": [
+      56.18999117846731,
+      57.590107675986374
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992593",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992696",
+    "kind": "ditch",
+    "points": [
+      [
+        1178.3884207124356,
+        -1239.1064919430064
+      ],
+      [
+        1172.5341180262621,
+        -1234.4422817658633
+      ],
+      [
+        1168.2657375385752,
+        -1230.911291457247
+      ]
+    ],
+    "levels": [
+      54.33092770065325,
+      54.220035741198814,
+      53.963997320386675
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992696",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992704",
+    "kind": "ditch",
+    "points": [
+      [
+        1064.9900458788034,
+        -1184.3148091066396
+      ],
+      [
+        1067.9763497305103,
+        -1181.6460299378377
+      ],
+      [
+        1073.0876211298164,
+        -1178.2089957372518
+      ]
+    ],
+    "levels": [
+      57.332058443785044,
+      56.73188608120811,
+      55.755317933597816
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992704",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992757",
+    "kind": "ditch",
+    "points": [
+      [
+        1069.6003394341096,
+        -1234.1175906866556
+      ],
+      [
+        1072.976560522453,
+        -1231.129094530479
+      ],
+      [
+        1083.3758130273782,
+        -1224.631734597613
+      ]
+    ],
+    "levels": [
+      59.97459529685567,
+      59.73781415457033,
+      58.77825750988382
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992757",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992825",
+    "kind": "ditch",
+    "points": [
+      [
+        1180.3113733229693,
+        -1223.887692250195
+      ],
+      [
+        1169.3767799437046,
+        -1227.2412161405664
+      ],
+      [
+        1168.2657375385752,
+        -1230.911291457247
+      ]
+    ],
+    "levels": [
+      53.0466892638902,
+      53.59593435681068,
+      53.963997320386675
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992825",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992859",
+    "kind": "ditch",
+    "points": [
+      [
+        1062.7812797732186,
+        -1179.5617453561863
+      ],
+      [
+        1053.1488306664396,
+        -1159.5956220572698
+      ],
+      [
+        1049.16231820127,
+        -1150.9095194304246
+      ]
+    ],
+    "levels": [
+      57.199765552504914,
+      56.35481524551102,
+      55.57651024594473
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992859",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992935",
+    "kind": "ditch",
+    "points": [
+      [
+        341.23946533491835,
+        -1020.3213426594739
+      ],
+      [
+        349.7560825785622,
+        -1026.6860915989964
+      ],
+      [
+        344.54190866393037,
+        -1038.7086842205026
+      ]
+    ],
+    "levels": [
+      5.804670498795373,
+      6.19857639985681,
+      6.29912098352289
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992935",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992947",
+    "kind": "ditch",
+    "points": [
+      [
+        1180.3113733229693,
+        -1223.887692250195
+      ],
+      [
+        1180.2235056490172,
+        -1223.5333768734708
+      ],
+      [
+        1189.2930046524853,
+        -1219.4994489866076
+      ]
+    ],
+    "levels": [
+      53.0466892638902,
+      53.01450387363699,
+      52.393046125597955
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992947",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221992966",
+    "kind": "ditch",
+    "points": [
+      [
+        1063.0703117940575,
+        -1213.5741721880622
+      ],
+      [
+        1068.3020428360905,
+        -1210.7460280244704
+      ],
+      [
+        1073.4981901327847,
+        -1208.681214319833
+      ]
+    ],
+    "levels": [
+      59.27986634647117,
+      58.80554391767029,
+      58.285064751000455
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221992966",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993030",
+    "kind": "ditch",
+    "points": [
+      [
+        1073.4981901327847,
+        -1208.681214319833
+      ],
+      [
+        1080.6324606873095,
+        -1220.2643477023812
+      ],
+      [
+        1083.3758130273782,
+        -1224.631734597613
+      ]
+    ],
+    "levels": [
+      58.285064751000455,
+      58.681588988206116,
+      58.77825750988382
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993030",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993100",
+    "kind": "ditch",
+    "points": [
+      [
+        1083.3758130273782,
+        -1224.631734597613
+      ],
+      [
+        1085.4664563920815,
+        -1227.9792900896864
+      ],
+      [
+        1092.0829566188213,
+        -1242.8310245174798
+      ]
+    ],
+    "levels": [
+      58.77825750988382,
+      58.853785349029735,
+      58.92700518145387
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993100",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993200",
+    "kind": "ditch",
+    "points": [
+      [
+        1073.4981901327847,
+        -1208.681214319833
+      ],
+      [
+        1074.5551818333333,
+        -1208.2749423580826
+      ],
+      [
+        1070.247038527974,
+        -1195.5826236439752
+      ],
+      [
+        1069.772178892279,
+        -1194.5522507210844
+      ]
+    ],
+    "levels": [
+      58.285064751000455,
+      58.16838714573113,
+      57.61752967678791,
+      57.590107675986374
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993200",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993492",
+    "kind": "ditch",
+    "points": [
+      [
+        319.94380490644835,
+        -1210.6298622230534
+      ],
+      [
+        323.4550893569831,
+        -1210.8393091561156
+      ],
+      [
+        331.7162976192776,
+        -1217.1258691407274
+      ],
+      [
+        336.19123681879137,
+        -1222.2285255163442
+      ]
+    ],
+    "levels": [
+      15.868677495867585,
+      16.184865748319893,
+      17.316971064621075,
+      18.002979539121156
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993492",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993493",
+    "kind": "ditch",
+    "points": [
+      [
+        1168.2657375385752,
+        -1230.911291457247
+      ],
+      [
+        1167.7668304139515,
+        -1230.5004463099758
+      ],
+      [
+        1149.9655681309441,
+        -1242.8310245174798
+      ]
+    ],
+    "levels": [
+      53.963997320386675,
+      53.933009580445905,
+      54.974994085114474
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993493",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993549",
+    "kind": "ditch",
+    "points": [
+      [
+        349.20372258638963,
+        -1200.0054585555918
+      ],
+      [
+        349.7009217089508,
+        -1197.20766849129
+      ],
+      [
+        346.7865324425511,
+        -1194.3113652539905
+      ],
+      [
+        339.1528247697279,
+        -1190.0624598980648
+      ],
+      [
+        333.5868781846948,
+        -1185.598331418354
+      ]
+    ],
+    "levels": [
+      17.81113216332841,
+      17.702952061751017,
+      17.252411493960956,
+      16.22213410567282,
+      15.344892918669203
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993549",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993589",
+    "kind": "ditch",
+    "points": [
+      [
+        349.20372258638963,
+        -1200.0054585555918
+      ],
+      [
+        343.1566791788209,
+        -1211.804319791554
+      ],
+      [
+        336.19123681879137,
+        -1222.2285255163442
+      ]
+    ],
+    "levels": [
+      17.81113216332841,
+      17.924805392212136,
+      18.002979539121156
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993589",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w221993654",
+    "kind": "ditch",
+    "points": [
+      [
+        336.19123681879137,
+        -1222.2285255163442
+      ],
+      [
+        332.97770485212095,
+        -1226.6005366696045
+      ],
+      [
+        330.3180421786383,
+        -1227.798740747734
+      ],
+      [
+        324.4438298075693,
+        -1226.1329549558577
+      ],
+      [
+        315.0061476046685,
+        -1219.31186494336
+      ]
+    ],
+    "levels": [
+      18.002979539121156,
+      18.04370547677289,
+      17.921563593320577,
+      17.36835504169951,
+      16.12513157077295
+    ],
+    "width": 1,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w221993654",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1006419411",
+    "name": "Nkié",
+    "kind": "stream",
+    "points": [
+      [
+        1109.525818867609,
+        -642.0748462855117
+      ],
+      [
+        1098.6807729104767,
+        -630.0493409203482
+      ],
+      [
+        1072.4949288559146,
+        -611.7606969917542
+      ],
+      [
+        1046.3614517999813,
+        -579.4095322903013
+      ],
+      [
+        1000.7428517515073,
+        -479.78580477571813
+      ],
+      [
+        977.3614956390811,
+        -422.27156773232855
+      ],
+      [
+        933.7556536521297,
+        -348.7102100223419
+      ],
+      [
+        830.8734823490959,
+        -159.7852970676031
+      ],
+      [
+        770.7636665576138,
+        -124.08195961534511
+      ],
+      [
+        656.01758912066,
+        -16.555699210963212
+      ],
+      [
+        637.3925378922347,
+        0
+      ]
+    ],
+    "levels": [
+      9.294854169749351,
+      7.4533614121910565,
+      4.840787625546136,
+      4.0967058366208535,
+      4.680817465972372,
+      4.930727327966128,
+      6.667459526991835,
+      3.7787541672528544,
+      4.610718893121331,
+      4.90581906459339,
+      4.080794928942824
+    ],
+    "width": 2.4,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1006419411",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1006419412",
+    "name": "Nkié",
+    "kind": "stream",
+    "points": [
+      [
+        1248.353770549409,
+        -743.1745463842755
+      ],
+      [
+        1221.2095327735879,
+        -724.7209974864381
+      ],
+      [
+        1197.8874996656086,
+        -700.0787337149959
+      ],
+      [
+        1155.9435463474365,
+        -670.048827751074
+      ],
+      [
+        1136.587451317464,
+        -661.1073882654891
+      ],
+      [
+        1125.8810480249813,
+        -654.8578357468941
+      ],
+      [
+        1109.525818867609,
+        -642.0748462855117
+      ]
+    ],
+    "levels": [
+      5.134105741258911,
+      4.851179794436125,
+      4.4378907297668615,
+      5.208418965383551,
+      6.936082509511557,
+      8.3598691855729,
+      9.294854169749351
+    ],
+    "width": 2.4,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1006419412",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1327767457",
+    "name": "Mfoundi",
+    "kind": "river",
+    "points": [
+      [
+        169.8289762654147,
+        -1242.8310245174798
+      ],
+      [
+        226.67708550195675,
+        -1154.2056965453085
+      ],
+      [
+        244.3937655647751,
+        -1123.3110011747922
+      ],
+      [
+        248.91733564203605,
+        -1108.022448989912
+      ],
+      [
+        251.68169996072538,
+        -1090.051203779818
+      ],
+      [
+        249.3810283143539,
+        -1059.7506550761173
+      ],
+      [
+        238.9893474651035,
+        -1033.3431412997888
+      ],
+      [
+        99.41248780395836,
+        -862.8113334778463
+      ],
+      [
+        79.09036765317433,
+        -834.6156174490461
+      ],
+      [
+        73.76248623710126,
+        -824.7418305089232
+      ],
+      [
+        69.30135022744071,
+        -811.1087534585386
+      ],
+      [
+        67.31713435030542,
+        -786.5625615834142
+      ],
+      [
+        72.5561962868087,
+        -762.2145263996208
+      ],
+      [
+        223.50207959394902,
+        -477.1774928679806
+      ],
+      [
+        233.23243257100694,
+        -452.3668047998217
+      ],
+      [
+        239.28530552610755,
+        -423.36308868037304
+      ],
+      [
+        242.06932405312546,
+        -387.24658947170246
+      ],
+      [
+        240.3683597391937,
+        -357.0363264037296
+      ],
+      [
+        237.15131473867223,
+        -336.0049242110108
+      ],
+      [
+        227.11094178212807,
+        -303.4025416299701
+      ],
+      [
+        114.49641585280187,
+        -71.16777707124129
+      ],
+      [
+        84.53322077834649,
+        0
+      ]
+    ],
+    "levels": [
+      7.342691685939086,
+      6.101057113539462,
+      6.134818554175005,
+      6.3794556731441086,
+      6.5860799181440095,
+      6.464419130460499,
+      5.602945503707551,
+      5.9499778254699,
+      4.785628568911906,
+      4.603433816001667,
+      4.281905490219764,
+      3.7816894755580894,
+      3.997031261251519,
+      4.5537390401043165,
+      4.436219159643149,
+      3.4547970638028342,
+      2.6194963359943984,
+      2.64641688761804,
+      2.2265431053714133,
+      2.3511323202285705,
+      1.9709096217165158,
+      2.5327962936085004
+    ],
+    "width": 6,
+    "widthStatus": "inferred",
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1327767457",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

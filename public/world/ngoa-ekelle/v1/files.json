@@ -1,0 +1,284 @@
+{
+  "format": "yaounde-life-world-catalog",
+  "formatVersion": 1,
+  "worldVersion": "ngoa-ekelle-2026-10-30-v1",
+  "generatedAt": "2026-11-19T07:15:01.351Z",
+  "totalBytes": 2771389,
+  "files": [
+    {
+      "path": "world/ngoa-ekelle/v1/manifest.json",
+      "bytes": 7187
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/licenses.json",
+      "bytes": 1399
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/heightfield.bin",
+      "bytes": 30948
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/network.json",
+      "bytes": 248583
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/pois.json",
+      "bytes": 357690
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/water/water.json",
+      "bytes": 25685
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/water/waterways.json",
+      "bytes": 52898
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/districts/districts.json",
+      "bytes": 31894
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_0_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_0_0.json",
+      "bytes": 29603
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_0_0.bin",
+      "bytes": 27776
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_0_0.json",
+      "bytes": 248241
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_0_0.json",
+      "bytes": 56647
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_1_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_1_0.json",
+      "bytes": 48503
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_1_0.bin",
+      "bytes": 20680
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_1_0.json",
+      "bytes": 217976
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_1_0.json",
+      "bytes": 91665
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_2_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_2_0.json",
+      "bytes": 22332
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_2_0.bin",
+      "bytes": 20068
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_2_0.json",
+      "bytes": 187371
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_2_0.json",
+      "bytes": 27267
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_0_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_0_1.json",
+      "bytes": 27248
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_0_1.bin",
+      "bytes": 10116
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_0_1.json",
+      "bytes": 91419
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_0_1.json",
+      "bytes": 7964
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_1_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_1_1.json",
+      "bytes": 48053
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_1_1.bin",
+      "bytes": 6160
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_1_1.json",
+      "bytes": 65292
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_1_1.json",
+      "bytes": 59246
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_2_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_2_1.json",
+      "bytes": 20823
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_2_1.bin",
+      "bytes": 13232
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_2_1.json",
+      "bytes": 126430
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_2_1.json",
+      "bytes": 78295
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_0_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_0_2.json",
+      "bytes": 12685
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_0_2.bin",
+      "bytes": 6420
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_0_2.json",
+      "bytes": 54665
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_0_2.json",
+      "bytes": 5472
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_1_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_1_2.json",
+      "bytes": 9737
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_1_2.bin",
+      "bytes": 5744
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_1_2.json",
+      "bytes": 55916
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_1_2.json",
+      "bytes": 4019
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/terrain/c_2_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/roads/c_2_2.json",
+      "bytes": 29623
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_2_2.bin",
+      "bytes": 9032
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/buildings/c_2_2.json",
+      "bytes": 88168
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/pois/c_2_2.json",
+      "bytes": 27139
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/metadata/validation.json",
+      "bytes": 94
+    },
+    {
+      "path": "world/ngoa-ekelle/v1/metadata/build-report.json",
+      "bytes": 1560
+    }
+  ],
+  "initial": [
+    "world/ngoa-ekelle/v1/manifest.json",
+    "world/ngoa-ekelle/v1/licenses.json",
+    "world/ngoa-ekelle/v1/terrain/heightfield.bin",
+    "world/ngoa-ekelle/v1/roads/network.json",
+    "world/ngoa-ekelle/v1/pois/pois.json",
+    "world/ngoa-ekelle/v1/water/water.json",
+    "world/ngoa-ekelle/v1/water/waterways.json",
+    "world/ngoa-ekelle/v1/districts/districts.json",
+    "world/ngoa-ekelle/v1/terrain/c_0_0.bin",
+    "world/ngoa-ekelle/v1/roads/c_0_0.json",
+    "world/ngoa-ekelle/v1/buildings/c_0_0.bin",
+    "world/ngoa-ekelle/v1/buildings/c_0_0.json",
+    "world/ngoa-ekelle/v1/pois/c_0_0.json",
+    "world/ngoa-ekelle/v1/terrain/c_1_0.bin",
+    "world/ngoa-ekelle/v1/roads/c_1_0.json",
+    "world/ngoa-ekelle/v1/buildings/c_1_0.bin",
+    "world/ngoa-ekelle/v1/buildings/c_1_0.json",
+    "world/ngoa-ekelle/v1/pois/c_1_0.json",
+    "world/ngoa-ekelle/v1/terrain/c_2_0.bin",
+    "world/ngoa-ekelle/v1/roads/c_2_0.json",
+    "world/ngoa-ekelle/v1/buildings/c_2_0.bin",
+    "world/ngoa-ekelle/v1/buildings/c_2_0.json",
+    "world/ngoa-ekelle/v1/pois/c_2_0.json",
+    "world/ngoa-ekelle/v1/terrain/c_0_1.bin",
+    "world/ngoa-ekelle/v1/roads/c_0_1.json",
+    "world/ngoa-ekelle/v1/buildings/c_0_1.bin",
+    "world/ngoa-ekelle/v1/buildings/c_0_1.json",
+    "world/ngoa-ekelle/v1/pois/c_0_1.json",
+    "world/ngoa-ekelle/v1/terrain/c_1_1.bin",
+    "world/ngoa-ekelle/v1/roads/c_1_1.json",
+    "world/ngoa-ekelle/v1/buildings/c_1_1.bin",
+    "world/ngoa-ekelle/v1/buildings/c_1_1.json",
+    "world/ngoa-ekelle/v1/pois/c_1_1.json",
+    "world/ngoa-ekelle/v1/terrain/c_2_1.bin",
+    "world/ngoa-ekelle/v1/roads/c_2_1.json",
+    "world/ngoa-ekelle/v1/buildings/c_2_1.bin",
+    "world/ngoa-ekelle/v1/buildings/c_2_1.json",
+    "world/ngoa-ekelle/v1/pois/c_2_1.json",
+    "world/ngoa-ekelle/v1/terrain/c_0_2.bin",
+    "world/ngoa-ekelle/v1/roads/c_0_2.json",
+    "world/ngoa-ekelle/v1/buildings/c_0_2.bin",
+    "world/ngoa-ekelle/v1/buildings/c_0_2.json",
+    "world/ngoa-ekelle/v1/pois/c_0_2.json",
+    "world/ngoa-ekelle/v1/terrain/c_1_2.bin",
+    "world/ngoa-ekelle/v1/roads/c_1_2.json",
+    "world/ngoa-ekelle/v1/buildings/c_1_2.bin",
+    "world/ngoa-ekelle/v1/buildings/c_1_2.json",
+    "world/ngoa-ekelle/v1/pois/c_1_2.json",
+    "world/ngoa-ekelle/v1/terrain/c_2_2.bin",
+    "world/ngoa-ekelle/v1/roads/c_2_2.json",
+    "world/ngoa-ekelle/v1/buildings/c_2_2.bin",
+    "world/ngoa-ekelle/v1/buildings/c_2_2.json",
+    "world/ngoa-ekelle/v1/pois/c_2_2.json"
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "osm-a436772610",
+    "sourceId": "a436772610",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1310.2385316216387,
+      -1184.9139486528584
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a436772610",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a835780412",
+    "sourceId": "a835780412",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1204.8168906248175,
+      -1106.2222803126788
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a835780412",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

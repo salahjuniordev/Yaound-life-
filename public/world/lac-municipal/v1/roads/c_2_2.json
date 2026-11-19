@@ -1,0 +1,431 @@
+[
+  {
+    "id": "osm-w220774746",
+    "sourceId": "w220774746",
+    "roadClass": "path",
+    "points": [
+      [
+        1082.392406144143,
+        -1109.6924535518629
+      ],
+      [
+        1076.5188660137355,
+        -1106.1926736408495
+      ]
+    ],
+    "width": 1.8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w220774746",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w224259966",
+    "sourceId": "w224259966",
+    "roadClass": "path",
+    "points": [
+      [
+        1075.3648418042008,
+        -1109.6924535518629
+      ],
+      [
+        1076.5188660137355,
+        -1106.1926736408495
+      ],
+      [
+        1078.133065686794,
+        -1105.2459334812593
+      ],
+      [
+        1080.4129992232192,
+        -1097.153672290733
+      ],
+      [
+        1083.171645147726,
+        -1085.0243847687962
+      ]
+    ],
+    "width": 1.8,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w224259966",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w490124443",
+    "sourceId": "w490124443",
+    "name": "Autoroute Yaoundé-Nsimalen",
+    "roadClass": "unclassified",
+    "points": [
+      [
+        1114.5675097012427,
+        -1004.2110594665119
+      ],
+      [
+        1100.2989191269735,
+        -1043.0863761462388
+      ],
+      [
+        1114.5675097012427,
+        -1068.4409771449978
+      ]
+    ],
+    "width": 7,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w490124443",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w615529958",
+    "sourceId": "w615529958",
+    "name": "Rue 2.001",
+    "roadClass": "primary",
+    "points": [
+      [
+        1089.5455529612955,
+        -1060.4585486366414
+      ],
+      [
+        1081.9538892791606,
+        -1053.443457187037
+      ],
+      [
+        1073.256304053124,
+        -1044.6105561550357
+      ],
+      [
+        1062.1933263060637,
+        -1031.4555985635961
+      ],
+      [
+        1052.7039940532995,
+        -1016.0371394340764
+      ],
+      [
+        1048.2058580203447,
+        -1000.1355794510455
+      ]
+    ],
+    "nodeIds": [
+      5820276972,
+      5820435811,
+      5820435812,
+      5820276977,
+      5820276970,
+      2156103022
+    ],
+    "width": 11,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w615529958",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w682805763",
+    "sourceId": "w682805763",
+    "name": "Rue 1.011",
+    "roadClass": "trunk",
+    "points": [
+      [
+        1103.309247334255,
+        -1058.5299031132017
+      ],
+      [
+        1109.9181482684799,
+        -1067.1685274924384
+      ],
+      [
+        1114.5675097012427,
+        -1076.282744217946
+      ]
+    ],
+    "width": 12,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": false,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w682805763",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w682805764",
+    "sourceId": "w682805764",
+    "name": "Boulevard du 20 Mai 1972",
+    "roadClass": "trunk",
+    "points": [
+      [
+        1114.5675097012427,
+        -950.6667266416625
+      ],
+      [
+        1109.5347428004025,
+        -975.2899902078789
+      ],
+      [
+        1106.0489353900775,
+        -992.7943440160598
+      ],
+      [
+        1099.171142566367,
+        -1018.6421424262808
+      ],
+      [
+        1098.1292729127454,
+        -1028.9619848908042
+      ],
+      [
+        1098.6600041047204,
+        -1037.3723749840865
+      ],
+      [
+        1099.5231730635278,
+        -1046.104613072006
+      ],
+      [
+        1103.309247334255,
+        -1058.5299031132017
+      ]
+    ],
+    "width": 12,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": false,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w682805764",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w713182019",
+    "sourceId": "w713182019",
+    "name": "Avenue Dr. Eugène Jamot (2.001)",
+    "roadClass": "secondary",
+    "points": [
+      [
+        1048.2058580203447,
+        -1000.1355794510455
+      ],
+      [
+        1069.634100731695,
+        -1025.6357310024323
+      ],
+      [
+        1076.8996563779656,
+        -1033.9443681896664
+      ],
+      [
+        1085.0236634495668,
+        -1041.3261550349416
+      ]
+    ],
+    "nodeIds": [
+      2156103022,
+      2156103021,
+      2156103019,
+      418721683
+    ],
+    "width": 9,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w713182019",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w740594571",
+    "sourceId": "w740594571",
+    "name": "Rue 1.011",
+    "roadClass": "trunk",
+    "points": [
+      [
+        1114.5675097012427,
+        -1089.891808431433
+      ],
+      [
+        1107.999789452413,
+        -1080.7497218282078
+      ],
+      [
+        1089.5455529612955,
+        -1060.4585486366414
+      ]
+    ],
+    "width": 12,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": false,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w740594571",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1334308071",
+    "sourceId": "w1334308071",
+    "name": "Avenue Dr. Eugène Jamot (2.001)",
+    "roadClass": "secondary",
+    "points": [
+      [
+        1085.0236634495668,
+        -1041.3261550349416
+      ],
+      [
+        1094.6231372295879,
+        -1049.575325929618
+      ],
+      [
+        1103.309247334255,
+        -1058.5299031132017
+      ]
+    ],
+    "nodeIds": [
+      418721683,
+      5820435793,
+      5820435803
+    ],
+    "width": 9,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1334308071",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1334308677",
+    "sourceId": "w1334308677",
+    "name": "Rue 1.009",
+    "roadClass": "trunk",
+    "points": [
+      [
+        1089.5455529612955,
+        -1060.4585486366414
+      ],
+      [
+        1085.3010260686278,
+        -1048.9834257555194
+      ],
+      [
+        1085.0236634495668,
+        -1041.3261550349416
+      ]
+    ],
+    "nodeIds": [
+      5820276972,
+      2156103020,
+      418721683
+    ],
+    "width": 12,
+    "widthStatus": "inferred",
+    "oneway": true,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": false,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1334308677",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

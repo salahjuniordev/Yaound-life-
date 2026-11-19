@@ -8,14 +8,14 @@ Last updated: 2026-11-19
 | --- | --- | --- |
 | M0 — Baseline and contract | Done | Baseline verified before the slice commit; architecture and decisions documented here and in `WORLD_ENGINE_ARCHITECTURE.md` |
 | M1 — Coordinates and data layer | Done | `src/world/`, manifest/transform/chunk/terrain/road/building tests |
-| M2 — Real Yaoundé data | Done with documented exclusion | Nlongkak, Mvog-Mbi, Mokolo and Bastos packs from OSM 2026-10-30 + Copernicus GLO-30; Open Buildings excluded with blocker |
-| M3 — Real road network | Done | 426 Nlongkak + 224 Mvog-Mbi + 100 Mokolo + 170 Bastos clipped roads, classes/widths/roundabouts, graph, spatial index |
-| M4 — Buildings and terrain | Done | 8,085 Nlongkak + 2,659 Mvog-Mbi + 1,989 Mokolo + 2,270 Bastos buildings; 16 + 9 + 6 + 9 heightfield chunks; water polygons and waterway lines; collision metadata |
+| M2 — Real Yaoundé data | Done with documented exclusion | Nlongkak, Mvog-Mbi, Mokolo, Bastos, Ngoa-Ekelle, Boulevard du 20 Mai, Lac Municipal, Mvan and Mont Febe packs from OSM 2026-10-30 + Copernicus GLO-30; Open Buildings excluded with blocker |
+| M3 — Real road network | Done | 426 Nlongkak + 224 Mvog-Mbi + 100 Mokolo + 170 Bastos + 198 Ngoa-Ekelle + 229 Boulevard du 20 Mai + 208 Lac Municipal + 102 Mvan + 91 Mont Febe clipped roads, classes/widths/roundabouts, graph, spatial index |
+| M4 — Buildings and terrain | Done | 8,085 Nlongkak + 2,659 Mvog-Mbi + 1,989 Mokolo + 2,270 Bastos + 2,862 Ngoa-Ekelle + 467 Boulevard du 20 Mai + 743 Lac Municipal + 1,539 Mvan + 492 Mont Febe buildings; 16 + 9 + 6 + 9 + 9 + 4 + 9 + 9 + 9 heightfield chunks; water polygons and waterway lines; collision metadata |
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, registry-aware versioned world caches, Settings pack download UI, progress/quota/cancel, multi-pack cleanup, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | Manifest-driven district adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
 | M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, bounded parking bays with parked cars, architecture, lighting, attribution and budgets exist; an internal cultural review, a renderer-only geometry review and single-view WebGL frames for spawn, compound, balcony, market, bridge and parking are complete. The cross-chunk spawn road defect and the dark-gate framing finding are resolved. Android Chrome/device performance/offline checks and a named local Cameroonian cultural review remain |
-| Phase 5 — Geographic expansion | Infrastructure done; four packs generated | District-keyed registry, manifest/version/area checks, generic adapter, multi-pack offline UI/cache cleanup, service-worker path-aware caching and save round-trips are tested. Nlongkak (`world/v1`), Mvog-Mbi (`world/mvog-mbi/v1`), Mokolo (`world/mokolo/v1`) and Bastos (`world/bastos/v1`) are registered; Mvog-Mbi, Mokolo and Bastos visual/device/offline/cultural acceptance remains open |
+| Phase 5 — Geographic expansion | Infrastructure done; nine packs generated | District-keyed registry, manifest/version/area checks, generic adapter, multi-pack offline UI/cache cleanup, service-worker path-aware caching and save round-trips are tested. All nine district packs are registered; visual/device/offline/cultural acceptance remains open for every pack except Nlongkak's internal renderer/WebGL review |
 
 ## Current packs
 
@@ -55,11 +55,57 @@ Bastos:
 - Offline catalog: 55 files, 2,003,437 bytes; initial precache 53 files (8 global files + 3 × 3 chunks). Registered for on-demand download (`precacheOnInstall` off).
 - Projection: EPSG:32632; 1 unit = 1 m; vertical offset 726.6 m.
 
+Ngoa-Ekelle:
+
+- Area: Ngoa-Ekelle, Yaoundé (`ngoa_ekelle`), bbox `11.4935,3.8505..11.5065,3.8625`.
+- World version: `ngoa-ekelle-2026-10-30-v1`; generator version `1.1.0`.
+- Chunks: 9 (3 × 3, 512 m); 1,449 m × 1,332 m.
+- Features: 198 roads, 2,862 buildings, 723 POIs, 25 water polygons, 50 waterway lines, 30,394 terrain samples.
+- Offline catalog: 55 files, 2,771,389 bytes; initial precache 53 files. On-demand (`precacheOnInstall` off).
+- Projection: EPSG:32632; 1 unit = 1 m; vertical offset 711.4 m.
+
+Boulevard du 20 Mai:
+
+- Area: central Boulevard du 20 Mai, Yaoundé (`boulevard`), bbox `11.5125,3.8594..11.5215,3.8686`.
+- World version: `boulevard-2026-10-30-v1`; generator version `1.1.0`.
+- Chunks: 4 (2 × 2, 512 m); 1,003 m × 1,021 m.
+- Features: 229 roads, 467 buildings, 250 POIs, 17 water polygons, 7 waterway lines, 16,254 terrain samples.
+- Offline catalog: 30 files, 1,081,895 bytes; initial precache 28 files (8 global files + all 4 chunks). On-demand (`precacheOnInstall` off).
+- Projection: EPSG:32632; 1 unit = 1 m; vertical offset 699.9 m.
+
+Lac Municipal:
+
+- Area: Lac Municipal, Yaoundé (`lac_municipal`), bbox `11.5045,3.8600..11.5145,3.8700`.
+- World version: `lac-municipal-2026-10-30-v1`; generator version `1.1.0`.
+- Chunks: 9 (3 × 3, 512 m); 1,115 m × 1,110 m.
+- Features: 208 roads, 743 buildings, 124 POIs, 5 water polygons, 7 waterway lines, 19,600 terrain samples.
+- Offline catalog: 55 files, 1,165,404 bytes; initial precache 53 files. On-demand (`precacheOnInstall` off).
+- Projection: EPSG:32632; 1 unit = 1 m; vertical offset 707.1 m.
+- Gameplay anchor is a shoreline point (`11.5115261,3.8654830`) on a lake-edge footway, not the lake centroid; provenance is `way/1054466544+shore`. The `lac_path` and `taxi_lac` places were moved to shore-side positions for road clearance.
+
+Mvan:
+
+- Area: Mvan, Yaoundé (`mvan`), bbox `11.5108,3.8170..11.5220,3.8282`.
+- World version: `mvan-2026-10-30-v1`; generator version `1.1.0`.
+- Chunks: 9 (3 × 3, 512 m); 1,248 m × 1,243 m.
+- Features: 102 roads, 1,539 buildings, 20 POIs, 1 water polygon, 29 waterway lines, 24,492 terrain samples.
+- Offline catalog: 55 files, 1,211,978 bytes; initial precache 53 files. On-demand (`precacheOnInstall` off).
+- Projection: EPSG:32632; 1 unit = 1 m; vertical offset 679.2 m.
+
+Mont Febe:
+
+- Area: Mont Febe, Yaoundé (`mont_febe`), bbox `11.4840,3.9050..11.4960,3.9185`.
+- World version: `mont-febe-2026-10-30-v1`; generator version `1.1.0`.
+- Chunks: 9 (3 × 3, 512 m); 1,338 m × 1,498 m.
+- Features: 91 roads, 492 buildings, 12 POIs, 0 water polygons, 2 waterway lines, 31,584 terrain samples.
+- Offline catalog: 55 files, 708,310 bytes; initial precache 53 files. On-demand (`precacheOnInstall` off).
+- Projection: EPSG:32632; 1 unit = 1 m; vertical offset 762.7 m.
+
 Registry and deployment:
 
-- `public/world/registry.json` registers `nlongkak` at `world/v1`, `mvog_mbi` at `world/mvog-mbi/v1`, `mokolo` at `world/mokolo/v1`, and `bastos` at `world/bastos/v1`. Nlongkak and Mvog-Mbi are precached on install; Mokolo and Bastos are available through the Settings download. The registry is deployment metadata outside the pack catalogs.
-- The full deployed `public/world` tree is 249 files, 10,821,387 bytes raw / 1,852,244 bytes gzip.
-- Mvog-Mbi, Mokolo and Bastos have runtime-loader, chunk, manifest and default-spawn clearance evidence only. None has had visual, Android/device/offline or named local cultural review.
+- `public/world/registry.json` registers all nine packs: `nlongkak` at `world/v1`, `mvog_mbi` at `world/mvog-mbi/v1`, `mokolo` at `world/mokolo/v1`, `bastos` at `world/bastos/v1`, `ngoa_ekelle` at `world/ngoa-ekelle/v1`, `boulevard` at `world/boulevard/v1`, `lac_municipal` at `world/lac-municipal/v1`, `mvan` at `world/mvan/v1` and `mont_febe` at `world/mont-febe/v1`. Nlongkak and Mvog-Mbi are precached on install; the other seven are available through the Settings download. The registry is deployment metadata outside the pack catalogs.
+- The full deployed `public/world` tree is 509 files, 17,805,627 bytes raw / 3,241,290 bytes gzip.
+- All nine packs have runtime-loader, chunk, manifest and default-spawn clearance evidence. The other eight packs have not had visual, Android/device/offline or named local cultural review; Nlongkak has only the internal renderer/WebGL review.
 
 ## Verification
 
@@ -78,15 +124,59 @@ Latest results:
 - `typecheck`: pass.
 - `npm test`: 241 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 579,023 B gzip, CSS 8,625 B, HTML 1,816 B,
-  first load 589,464 B, world assets 10,821,387 B raw / 1,852,244 B gzip (249 files).
-- `world:validate`: pass for all four registered packs.
+- `size`: all budgets pass — JS 580,092 B gzip, CSS 8,625 B, HTML 1,815 B,
+  first load 590,532 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
+- `world:validate`: pass for all nine registered packs.
 - Nlongkak production geometry after the road correction: 640,576 building,
   102,550 prop and 157,182 road triangles at high quality across 16 chunks.
-  Mokolo and Bastos pass the production-loader geometry smoke test; neither has
-  had a production visual/performance pass.
+  Every registered pack passes the production-loader geometry smoke test; only
+  Nlongkak has had a renderer/WebGL review, and none has had a production
+  visual/performance pass.
 
-## Latest round: fourth geographic pack (Bastos)
+## Latest round: nine-pack city coverage and Bastos content close-out
+
+Phase 5 district coverage is complete. The five remaining geographic packs are
+now registered, and the Bastos content pass now matches its existing employers:
+
+- Ngoa-Ekelle: `public/world/ngoa-ekelle/v1`, 9 chunks, 198 roads, 2,862
+  buildings, 723 POIs, 25 water polygons and 50 waterway lines.
+- Boulevard du 20 Mai: `public/world/boulevard/v1`, 4 chunks (2 × 2), 229 roads,
+  467 buildings, 250 POIs, 17 water polygons and 7 waterway lines.
+- Lac Municipal: `public/world/lac-municipal/v1`, 9 chunks, 208 roads, 743
+  buildings, 124 POIs, 5 water polygons and 7 waterway lines. The anchor is a
+  shoreline footway point, and `lac_path`/`taxi_lac` are mapped to shore-side
+  road positions instead of the lake centre.
+- Mvan: `public/world/mvan/v1`, 9 chunks, 102 roads, 1,539 buildings, 20 POIs, 1
+  water polygon and 29 waterway lines.
+- Mont Febe: `public/world/mont-febe/v1`, 9 chunks, 91 roads, 492 buildings, 12
+  POIs and 2 waterway lines.
+- Bastos gameplay content: added `hotel_beausejour`, `ministry_public_service`,
+  `sanaga_tech`, `wouri_creative`, `sentinel_security`, `restaurant_bastos` and
+  `bastos_hillside` in `src/data/places.ts`; added reusable `office` and `hotel`
+  interior layouts; added the `business_lunch` activity; and the interior panel
+  now shows the selected place name instead of only the generic interior name.
+- The all-pack checks now require every non-taxi `PLACES` entry to exist on a
+  registered district, stay inside the pack, avoid buildings and sit within
+  3.5 m of a walkable road. Job-district content coverage is also checked, and
+  the production-loader geometry smoke test covers every chunk in all nine
+  packs.
+- The registry and built-in fallback mirror all nine packs. Nlongkak and
+  Mvog-Mbi remain the only install-precached packs; the other seven are
+  on-demand. No existing pack data, gameplay district IDs, save format or place
+  IDs were removed or renamed.
+- The raw world-asset budget was raised from 12 MB to 24 MB for the nine-pack
+  city tree; the gzip budget remains 6 MB. The deployed tree is 509 files /
+  17,805,627 B raw / 3,241,290 B gzip.
+- Browser-based/device/offline/cultural checks remain deferred. The five new
+  packs and the earlier Mvog-Mbi, Mokolo and Bastos packs have not had
+  production visual, Android/device, Settings/offline or named cultural review;
+  do not describe any of them as device-accepted. M8 remains partial.
+
+Verification: typecheck clean, 241/241 tests pass, production build passes, all
+size budgets pass (JS 580,092 B gzip, first load 590,532 B), and
+`world:validate` passes for all nine packs.
+
+## Previous round: fourth geographic pack (Bastos)
 
 Bastos is now a real, separate geographic pack:
 
@@ -100,7 +190,8 @@ Bastos is now a real, separate geographic pack:
 - Generated `public/world/bastos/v1` with 9 chunks (3 x 3), 170 roads, 2,270
   buildings, 352 POIs, 0 water polygons, 11 waterway lines and 29,503 terrain
   samples. Its offline catalog is 55 files / 2,003,437 bytes.
-- The registry now has four packs, and the built-in fallback mirrors all four.
+- At that round the registry had four packs, and the built-in fallback mirrored
+  all four.
   Registry, runtime-loader, manifest, chunk, default-spawn and gameplay-place
   checks iterate every registered pack. The production-loader geometry smoke
   test covers Mokolo and Bastos.
@@ -123,8 +214,8 @@ Mokolo is now a real, separate geographic pack:
 - Generated `public/world/mokolo/v1` with 6 chunks (3 x 2), 100 roads, 1,989
   buildings, 38 POIs, 1 water polygon, 15 waterway lines and 19,032 terrain
   samples. Its offline catalog is 40 files / 1,347,034 bytes.
-- The registry now has three packs, and the built-in fallback mirrors all
-  three. Registry, runtime-loader, manifest, chunk and default-spawn checks now
+- At that round the registry had three packs, and the built-in fallback mirrored
+  all three. Registry, runtime-loader, manifest, chunk and default-spawn checks now
   iterate every registered pack instead of only Mvog-Mbi.
 - Nlongkak and Mvog-Mbi pack data, gameplay district IDs, save format and
   renderer behavior are unchanged. Mokolo has not had visual, Android/device,
@@ -471,12 +562,11 @@ Completed after the offline/streaming round:
 
 ## Commit state
 
-Commit `3b07a69` (2026-11-13) contains the first-load offline shell, fullscreen
-canvas sizing, generated app-shell manifest and the M8 roadside utility
-infrastructure, and is pushed to `origin/main`. The OSM bridge-deck round and
-this M8 frontage round are committed directly after that baseline on `main`;
-they change renderer, tests and documentation only and leave the world pack,
-gameplay IDs and save format untouched.
+The previous pack baseline is `343a0a9` (the four-pack round). The nine-pack
+coverage and Bastos content round is committed directly after it on `main`; it
+adds derived packs, configs, tests and documentation, while gameplay district
+IDs and the save format are unchanged. Earlier M8 rounds remain in the history
+behind that baseline.
 
 ## Known defects and gaps
 
@@ -492,11 +582,11 @@ gameplay IDs and save format untouched.
    no low-end Android numbers are recorded. Chromium + Mesa produced live WebGL
    frames (about 4.0 FPS at 736,857 rendered triangles and 92 draw calls after
    the road fix), but this is software rendering, not device evidence.
-4. **Four districts are geographic; five remain procedural.** Nlongkak,
-   Mvog-Mbi, Mokolo and Bastos have real packs. The Phase 5 registry, loader,
-   generic adapter and multi-pack offline plumbing are implemented and tested,
-   but Mvog-Mbi, Mokolo and Bastos still need visual/device/performance/cultural
-   review, and the other five districts still need verified packs.
+4. **All nine districts have packs; acceptance is incomplete.** The Phase 5
+   registry, loader, generic adapter and multi-pack offline plumbing are
+   implemented and tested. Nlongkak has internal renderer/WebGL review; the
+   other eight packs still need production visual, device/performance, offline
+   and named cultural review. The procedural fallback remains available.
 5. **M8 still needs device and local review.** The renderer-only review
    inspected compound walls/gates, balconies, roadside and market vendors,
    vehicles/utilities and bridge approaches, and found one concrete facade
@@ -541,9 +631,10 @@ deleted. Procedural fallback remains available through Settings,
 1. Browser-based, Android/device and named cultural checks are deferred by
    product direction. Do not schedule browser automation now and do not mark
    M8 complete without later evidence.
-2. Continue Phase 5 with one more verified district pack when needed: use a
-   per-area OSM/DEM config, `npm run world:acquire -- ...`, then
-   `world:validate`; do not regenerate existing packs or invent inputs.
+2. Phase 5 district coverage is complete. Do not regenerate a pack without a
+   concrete reason; if a new area is needed, use a per-area OSM/DEM config,
+   `npm run world:acquire -- ...`, then `world:validate`, and do not invent
+   inputs.
 3. Keep automated pack/runtime/chunk/spawn validation and size budgets green
    for every registered pack. A static renderer-geometry pass is useful; visual
    claims still require later review.

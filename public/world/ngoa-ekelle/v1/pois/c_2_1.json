@@ -1,0 +1,3162 @@
+[
+  {
+    "id": "osm-n1987129879",
+    "sourceId": "n1987129879",
+    "name": "CCA (CREDIT COMMUNAUTAIRE D'AFRIQUE)",
+    "kind": "bank",
+    "pos": [
+      1223.6645300305681,
+      -917.1192997959442
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n1987129879",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2033747985",
+    "sourceId": "n2033747985",
+    "name": "Commissariat 5ième",
+    "kind": "police",
+    "pos": [
+      1198.1225379640236,
+      -820.3103037727997
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2033747985",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2033780266",
+    "sourceId": "n2033780266",
+    "name": "Pharmacy de l'Université",
+    "kind": "pharmacy",
+    "pos": [
+      1231.498396177194,
+      -996.6935779192136
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2033780266",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2276045738",
+    "sourceId": "n2276045738",
+    "name": "Express Union",
+    "kind": "bank",
+    "pos": [
+      1242.6089860990178,
+      -899.4060448757373
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2276045738",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2284209772",
+    "sourceId": "n2284209772",
+    "name": "Ngoa Ekele Château",
+    "kind": "locality",
+    "pos": [
+      1156.1869767296594,
+      -735.3692069566459
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284209772",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2533977184",
+    "sourceId": "n2533977184",
+    "name": "Best Bakery",
+    "kind": "bakery",
+    "pos": [
+      1220.6020910876105,
+      -885.2898008477641
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2533977184",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3131970029",
+    "sourceId": "n3131970029",
+    "name": "fast_food",
+    "kind": "fast_food",
+    "pos": [
+      1256.5667697397294,
+      -925.9347056012484
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3131970029",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3598243425",
+    "sourceId": "n3598243425",
+    "name": "restaurant",
+    "kind": "restaurant",
+    "pos": [
+      1224.8430851195008,
+      -837.6379408806679
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3598243425",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3601917080",
+    "sourceId": "n3601917080",
+    "name": "fast_food",
+    "kind": "fast_food",
+    "pos": [
+      1195.2561041554436,
+      -752.0692931495723
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3601917080",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4211048457",
+    "sourceId": "n4211048457",
+    "name": "memorial",
+    "kind": "memorial",
+    "pos": [
+      1070.784935184638,
+      -692.9747379306937
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4211048457",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4212966082",
+    "sourceId": "n4212966082",
+    "name": "Restaurant sénégalais",
+    "kind": "restaurant",
+    "pos": [
+      1238.4034120424185,
+      -870.8371004421497
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4212966082",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4609397822",
+    "sourceId": "n4609397822",
+    "name": "Gic Audiovisuel Cameroun - Mangola Home Studio",
+    "kind": "studio",
+    "pos": [
+      1177.8666090283077,
+      -879.6098258956918
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4609397822",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5675230211",
+    "sourceId": "n5675230211",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      1266.0953906276263,
+      -1007.3838369719451
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5675230211",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5748864523",
+    "sourceId": "n5748864523",
+    "name": "Institut Supérieur JIMIT",
+    "kind": "school",
+    "pos": [
+      1263.1520239403471,
+      -916.2508336966857
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5748864523",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6270466386",
+    "sourceId": "n6270466386",
+    "name": "Entrepôt FICR",
+    "kind": "ngo",
+    "pos": [
+      1095.3139230730012,
+      -518.3220334848738
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6270466386",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n9991227543",
+    "sourceId": "n9991227543",
+    "name": "Maquis du couloir",
+    "kind": "bar",
+    "pos": [
+      1198.2214357516496,
+      -903.7674358143122
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n9991227543",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n10235824780",
+    "sourceId": "n10235824780",
+    "name": "RESTAURANT LE FOUTA",
+    "kind": "restaurant",
+    "pos": [
+      1227.4813157999888,
+      -609.5140736973844
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n10235824780",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n10235830004",
+    "sourceId": "n10235830004",
+    "name": "Imprimerie GLORY",
+    "kind": "stationery",
+    "pos": [
+      1296.0422306676628,
+      -581.7787889238098
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n10235830004",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n10235838836",
+    "sourceId": "n10235838836",
+    "name": "INSTITUT TYRANUS",
+    "kind": "college",
+    "pos": [
+      1232.3543470718432,
+      -679.4316849735915
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n10235838836",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n10235839373",
+    "sourceId": "n10235839373",
+    "name": "BOBO PAPETERIE",
+    "kind": "stationery",
+    "pos": [
+      1174.2675838493742,
+      -641.078455301933
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n10235839373",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n10235856081",
+    "sourceId": "n10235856081",
+    "name": "CITIS FORMATION",
+    "kind": "training",
+    "pos": [
+      1196.0986775432248,
+      -733.8712554031517
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n10235856081",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752393041",
+    "sourceId": "n11752393041",
+    "name": "money_transfer",
+    "kind": "money_transfer",
+    "pos": [
+      1234.7825459028827,
+      -900.3566517286818
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752393041",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752402725",
+    "sourceId": "n11752402725",
+    "name": "Edmond",
+    "kind": "ice_cream",
+    "pos": [
+      1230.449405678548,
+      -839.6127947185887
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752402725",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752403461",
+    "sourceId": "n11752403461",
+    "name": "alcohol",
+    "kind": "alcohol",
+    "pos": [
+      1229.1418152838014,
+      -853.4391297016409
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752403461",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752404915",
+    "sourceId": "n11752404915",
+    "name": "ÖSD 694973017",
+    "kind": "language_school",
+    "pos": [
+      1246.6472776135197,
+      -913.0710912169889
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752404915",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752405734",
+    "sourceId": "n11752405734",
+    "name": "prep_school",
+    "kind": "prep_school",
+    "pos": [
+      1254.4001479852013,
+      -944.6599311195314
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752405734",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752415534",
+    "sourceId": "n11752415534",
+    "name": "computer",
+    "kind": "computer",
+    "pos": [
+      1228.7685273758834,
+      -836.7864903033478
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752415534",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752419302",
+    "sourceId": "n11752419302",
+    "name": "OrangeMoney",
+    "kind": "telecommunication",
+    "pos": [
+      1243.32890428463,
+      -907.7837240627268
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752419302",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752421049",
+    "sourceId": "n11752421049",
+    "name": "Restaurant Sénégalais Moderne",
+    "kind": "restaurant",
+    "pos": [
+      1242.2525658304803,
+      -888.3519120161654
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752421049",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752425278",
+    "sourceId": "n11752425278",
+    "name": "Chips and chiken",
+    "kind": "restaurant",
+    "pos": [
+      1278.2563934607897,
+      -915.6978380380315
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752425278",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752425941",
+    "sourceId": "n11752425941",
+    "name": "training",
+    "kind": "training",
+    "pos": [
+      1234.22417634679,
+      -893.727583934844
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752425941",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752428138",
+    "sourceId": "n11752428138",
+    "name": "computer",
+    "kind": "computer",
+    "pos": [
+      1203.3974376955302,
+      -772.5176572763594
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752428138",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752430827",
+    "sourceId": "n11752430827",
+    "name": "Boutique brocante",
+    "kind": "general",
+    "pos": [
+      1232.2219518937636,
+      -826.3963560124976
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752430827",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752432070",
+    "sourceId": "n11752432070",
+    "name": "Assurance plus",
+    "kind": "beauty",
+    "pos": [
+      1232.5856755572604,
+      -850.0747009279439
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752432070",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752433673",
+    "sourceId": "n11752433673",
+    "name": "Tchuiss food",
+    "kind": "restaurant",
+    "pos": [
+      1233.0517602625769,
+      -793.6599874917883
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752433673",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752440114",
+    "sourceId": "n11752440114",
+    "name": "money_transfer",
+    "kind": "money_transfer",
+    "pos": [
+      1207.5200808130903,
+      -761.2996807136806
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752440114",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752443590",
+    "sourceId": "n11752443590",
+    "name": "cafe",
+    "kind": "cafe",
+    "pos": [
+      1243.5801145259757,
+      -1003.644242579001
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752443590",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752540131",
+    "sourceId": "n11752540131",
+    "name": "Secrétariat",
+    "kind": "computer",
+    "pos": [
+      1236.9247838838492,
+      -935.2150221848278
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752540131",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752554705",
+    "sourceId": "n11752554705",
+    "name": "CCA",
+    "kind": "atm",
+    "pos": [
+      1227.6009644903243,
+      -889.8798937284737
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752554705",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752559559",
+    "sourceId": "n11752559559",
+    "name": "Point de vente",
+    "kind": "musical_instrument",
+    "pos": [
+      1236.2617470734986,
+      -975.4644390008762
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752559559",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752564718",
+    "sourceId": "n11752564718",
+    "name": "Cetic de ngoa ekele",
+    "kind": "computer",
+    "pos": [
+      1224.1828340718057,
+      -1020.4046343176742
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752564718",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752565785",
+    "sourceId": "n11752565785",
+    "name": "Pharmacie de l université",
+    "kind": "pharmacy",
+    "pos": [
+      1248.0792189538479,
+      -947.6065136299003
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752565785",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752567510",
+    "sourceId": "n11752567510",
+    "name": "Fregate",
+    "kind": "pub",
+    "pos": [
+      1232.269604574074,
+      -938.5758830179693
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752567510",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752573525",
+    "sourceId": "n11752573525",
+    "name": "Groupe prépa",
+    "kind": "prep_school",
+    "pos": [
+      1240.7650391792413,
+      -1008.5926922234939
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752573525",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752574721",
+    "sourceId": "n11752574721",
+    "name": "Mado",
+    "kind": "pub",
+    "pos": [
+      1229.0094987571938,
+      -913.4949290184886
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752574721",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752575106",
+    "sourceId": "n11752575106",
+    "name": "Centre médico social",
+    "kind": "yes",
+    "pos": [
+      1216.1011947899824,
+      -836.2291952403612
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752575106",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752577905",
+    "sourceId": "n11752577905",
+    "name": "Commerce",
+    "kind": "boutique",
+    "pos": [
+      1273.0776158061344,
+      -934.5912238525925
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752577905",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752578435",
+    "sourceId": "n11752578435",
+    "name": "Commerce",
+    "kind": "dry_cleaning",
+    "pos": [
+      1242.7262911298312,
+      -969.0330733304145
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752578435",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752578930",
+    "sourceId": "n11752578930",
+    "name": "Net à nettoyer",
+    "kind": "dry_cleaning",
+    "pos": [
+      1241.2639866955578,
+      -959.9119102032855
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752578930",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752578993",
+    "sourceId": "n11752578993",
+    "name": "Université de Yaoundé 1",
+    "kind": "university",
+    "pos": [
+      1136.1766762442421,
+      -665.83861627226
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752578993",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752581114",
+    "sourceId": "n11752581114",
+    "name": "Hôtel de police ngoa- ekelé",
+    "kind": "government",
+    "pos": [
+      1209.1704070537817,
+      -812.2770526515669
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752581114",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752634076",
+    "sourceId": "n11752634076",
+    "name": "Bureau de Poste",
+    "kind": "newspaper",
+    "pos": [
+      1080.4393390733749,
+      -720.4200529109803
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752634076",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11752638722",
+    "sourceId": "n11752638722",
+    "name": "Boulangerie Alimentation LE Best",
+    "kind": "bakery",
+    "pos": [
+      1221.9708093667869,
+      -880.901363396435
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11752638722",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11882307372",
+    "sourceId": "n11882307372",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1254.4566840521293,
+      -1023.5917364745983
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11882307372",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13241364174",
+    "sourceId": "n13241364174",
+    "name": "Lycee de Ngoa-Ekele",
+    "kind": "school",
+    "pos": [
+      1411.7545132803498,
+      -909.4967318379204
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13241364174",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800637280",
+    "sourceId": "n13800637280",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      1072.4538893939462,
+      -688.5207992490614
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800637280",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800637281",
+    "sourceId": "n13800637281",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      1050.5545629754197,
+      -679.3727558898972
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800637281",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800637282",
+    "sourceId": "n13800637282",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      1053.6365270658862,
+      -644.1204260336235
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800637282",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800694960",
+    "sourceId": "n13800694960",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1141.521374365664,
+      -688.7571036845911
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800694960",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800694962",
+    "sourceId": "n13800694962",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1163.4648002069443,
+      -660.2429681569338
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800694962",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800694963",
+    "sourceId": "n13800694963",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1173.1109640614595,
+      -652.7034666442778
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800694963",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800694964",
+    "sourceId": "n13800694964",
+    "name": "SOKAM SARL",
+    "kind": "stationery",
+    "pos": [
+      1186.0950655979104,
+      -647.5857661259943
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800694964",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800694966",
+    "sourceId": "n13800694966",
+    "name": "Prestige pro",
+    "kind": "copyshop",
+    "pos": [
+      1130.4540870671626,
+      -627.8164705089293
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800694966",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800694967",
+    "sourceId": "n13800694967",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1093.6848861003527,
+      -565.9040920105763
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800694967",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714172",
+    "sourceId": "n13800714172",
+    "name": "Et KEDORO Multiservices",
+    "kind": "wholesale",
+    "pos": [
+      1101.5143527169712,
+      -658.4232890630374
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714172",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714173",
+    "sourceId": "n13800714173",
+    "name": "Ets MABA",
+    "kind": "wholesale",
+    "pos": [
+      1101.5143527169712,
+      -658.4232890630374
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714173",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714174",
+    "sourceId": "n13800714174",
+    "name": "Bobo Papiterie",
+    "kind": "wholesale",
+    "pos": [
+      1101.5143527169712,
+      -658.4232890630374
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714174",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714175",
+    "sourceId": "n13800714175",
+    "name": "Raoul Business Center",
+    "kind": "wholesale",
+    "pos": [
+      1101.5143527169712,
+      -658.4232890630374
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714175",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714176",
+    "sourceId": "n13800714176",
+    "name": "TH",
+    "kind": "wholesale",
+    "pos": [
+      1101.5143527169712,
+      -658.4232890630374
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714176",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714177",
+    "sourceId": "n13800714177",
+    "name": "Micäel Business Center",
+    "kind": "wholesale",
+    "pos": [
+      1101.5143527169712,
+      -658.4232890630374
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714177",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714178",
+    "sourceId": "n13800714178",
+    "name": "Yasmine Computer",
+    "kind": "wholesale",
+    "pos": [
+      1200.7814215983963,
+      -634.2524145619245
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714178",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714179",
+    "sourceId": "n13800714179",
+    "name": "Annie Computer Services",
+    "kind": "wholesale",
+    "pos": [
+      1202.8722558750305,
+      -629.9435483320849
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714179",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714180",
+    "sourceId": "n13800714180",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1210.020983155584,
+      -613.8219886920997
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714180",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714181",
+    "sourceId": "n13800714181",
+    "name": "Dynamik Services Sarl",
+    "kind": "stationery",
+    "pos": [
+      1264.8788250233047,
+      -597.5973561902065
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714181",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714182",
+    "sourceId": "n13800714182",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1261.1846643242752,
+      -599.1575978152687
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714182",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714183",
+    "sourceId": "n13800714183",
+    "name": "Im Buster",
+    "kind": "company",
+    "pos": [
+      1275.2483885049587,
+      -578.3762418530532
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714183",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714184",
+    "sourceId": "n13800714184",
+    "name": "Résilience Sarl",
+    "kind": "company",
+    "pos": [
+      1278.9454376082867,
+      -590.9449279367109
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714184",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800714185",
+    "sourceId": "n13800714185",
+    "name": "Ets Le Processeur",
+    "kind": "company",
+    "pos": [
+      1282.51105979376,
+      -587.746814233542
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800714185",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715154",
+    "sourceId": "n13800715154",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1165.885182706872,
+      -642.1270234151161
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715154",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715155",
+    "sourceId": "n13800715155",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1172.6481363776838,
+      -640.0336629308877
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715155",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715156",
+    "sourceId": "n13800715156",
+    "name": "Grace Divine",
+    "kind": "stationery",
+    "pos": [
+      1201.0444912427338,
+      -627.9355621310533
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715156",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715157",
+    "sourceId": "n13800715157",
+    "name": "Multi Services Center",
+    "kind": "stationery",
+    "pos": [
+      1201.0444912427338,
+      -627.9355621310533
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715157",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715158",
+    "sourceId": "n13800715158",
+    "name": "Finnex Plus (Print &Pack)",
+    "kind": "stationery",
+    "pos": [
+      1262.4249339936068,
+      -600.6549064944847
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715158",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715159",
+    "sourceId": "n13800715159",
+    "name": "LA PLANCHE",
+    "kind": "restaurant",
+    "pos": [
+      1260.729600131046,
+      -595.1842298122356
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715159",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715160",
+    "sourceId": "n13800715160",
+    "name": "Est DEDO",
+    "kind": "stationery",
+    "pos": [
+      1278.7244505684357,
+      -582.9559616369661
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715160",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715161",
+    "sourceId": "n13800715161",
+    "name": "AUTO ÉCOLE FUSTEL",
+    "kind": "driving_school",
+    "pos": [
+      1287.5797652658075,
+      -579.8176661040052
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715161",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800715162",
+    "sourceId": "n13800715162",
+    "name": "Pressing",
+    "kind": "dry_cleaning",
+    "pos": [
+      1287.5457750533242,
+      -580.0388491167105
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800715162",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800749829",
+    "sourceId": "n13800749829",
+    "name": "ROVY INFORMATIQUE",
+    "kind": "stationery",
+    "pos": [
+      1142.1555851500016,
+      -635.5957783479826
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800749829",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800749830",
+    "sourceId": "n13800749830",
+    "name": "YANNICK INFORMATIQUE",
+    "kind": "stationery",
+    "pos": [
+      1141.273373451666,
+      -633.2697146796272
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800749830",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800749831",
+    "sourceId": "n13800749831",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      1128.9867357965559,
+      -620.3991828491562
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800749831",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800749832",
+    "sourceId": "n13800749832",
+    "name": "PRESTIGE PRO",
+    "kind": "stationery",
+    "pos": [
+      1127.2508677744772,
+      -617.3735687194276
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800749832",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800749833",
+    "sourceId": "n13800749833",
+    "name": "CLASSIC PRESSING",
+    "kind": "dry_cleaning",
+    "pos": [
+      1125.0058160672197,
+      -613.6604808996781
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800749833",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776471",
+    "sourceId": "n13800776471",
+    "name": "Rodriguez Business Center",
+    "kind": "stationery",
+    "pos": [
+      1131.8121107448824,
+      -630.8409737923648
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776471",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776472",
+    "sourceId": "n13800776472",
+    "name": "AS Anatole Services Print",
+    "kind": "stationery",
+    "pos": [
+      1131.3023743046215,
+      -630.3415886030416
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776472",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776473",
+    "sourceId": "n13800776473",
+    "name": "Ets James",
+    "kind": "stationery",
+    "pos": [
+      1127.0697644788306,
+      -629.831255932746
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776473",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776474",
+    "sourceId": "n13800776474",
+    "name": "Prestige Pro",
+    "kind": "stationery",
+    "pos": [
+      1127.2679913123138,
+      -626.667495268397
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776474",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776475",
+    "sourceId": "n13800776475",
+    "name": "Raoul Business Center",
+    "kind": "wholesale",
+    "pos": [
+      1116.4991033836268,
+      -611.6328588491306
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776475",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776476",
+    "sourceId": "n13800776476",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1114.6860091250855,
+      -604.6349929511198
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776476",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776477",
+    "sourceId": "n13800776477",
+    "name": "Christ Business Services",
+    "kind": "stationery",
+    "pos": [
+      1114.7410539072007,
+      -604.8121809953009
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776477",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776478",
+    "sourceId": "n13800776478",
+    "name": "Christ Print Services",
+    "kind": "stationery",
+    "pos": [
+      1113.0943822218105,
+      -601.6872526460793
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776478",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776479",
+    "sourceId": "n13800776479",
+    "name": "Maza Services Center",
+    "kind": "wholesale",
+    "pos": [
+      1110.4997498842422,
+      -599.6991433188086
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776479",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776480",
+    "sourceId": "n13800776480",
+    "name": "wholesale",
+    "kind": "wholesale",
+    "pos": [
+      1109.141269203741,
+      -596.8295376729802
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776480",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776481",
+    "sourceId": "n13800776481",
+    "name": "nutrition_supplements",
+    "kind": "nutrition_supplements",
+    "pos": [
+      1104.177204645006,
+      -588.0742748119519
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776481",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776482",
+    "sourceId": "n13800776482",
+    "name": "Sony Beauty and Barber Shop",
+    "kind": "beauty",
+    "pos": [
+      1101.6915554219158,
+      -586.8167195076239
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776482",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776484",
+    "sourceId": "n13800776484",
+    "name": "kiosk",
+    "kind": "kiosk",
+    "pos": [
+      1082.159419336589,
+      -573.8474514427944
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776484",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800776485",
+    "sourceId": "n13800776485",
+    "name": "clothes",
+    "kind": "clothes",
+    "pos": [
+      1081.3190331037622,
+      -568.6337735088891
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800776485",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800778997",
+    "sourceId": "n13800778997",
+    "name": "Le Bon Plan",
+    "kind": "hairdresser",
+    "pos": [
+      1113.5024464672897,
+      -538.4901010902249
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800778997",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800778998",
+    "sourceId": "n13800778998",
+    "name": "health_food",
+    "kind": "health_food",
+    "pos": [
+      1125.9246748867445,
+      -527.9271766609745
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800778998",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800778999",
+    "sourceId": "n13800778999",
+    "name": "ALHADJI VISION",
+    "kind": "hairdresser",
+    "pos": [
+      1147.4664423783543,
+      -518.8515296853147
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800778999",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800779000",
+    "sourceId": "n13800779000",
+    "name": "NKODO LAURENT",
+    "kind": "vacant",
+    "pos": [
+      1159.1211248734035,
+      -519.8815681666019
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800779000",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800789601",
+    "sourceId": "n13800789601",
+    "name": "White star Beauty",
+    "kind": "beauty",
+    "pos": [
+      1165.9135205545463,
+      -519.1159851304255
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800789601",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800810776",
+    "sourceId": "n13800810776",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1049.542983146035,
+      -562.2780687204795
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800810776",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800810778",
+    "sourceId": "n13800810778",
+    "name": "stationery",
+    "kind": "stationery",
+    "pos": [
+      1118.4406675022328,
+      -612.7339173617074
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800810778",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887149",
+    "sourceId": "n13800887149",
+    "name": "clothes",
+    "kind": "clothes",
+    "pos": [
+      1076.6914027183084,
+      -562.6234090898652
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887149",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887150",
+    "sourceId": "n13800887150",
+    "name": "health_food",
+    "kind": "health_food",
+    "pos": [
+      1081.6820015411358,
+      -566.1343460761709
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887150",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887151",
+    "sourceId": "n13800887151",
+    "name": "telecommunication",
+    "kind": "telecommunication",
+    "pos": [
+      1064.4977298788726,
+      -555.9269572471967
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887151",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887152",
+    "sourceId": "n13800887152",
+    "name": "restaurant",
+    "kind": "restaurant",
+    "pos": [
+      1069.8146178240422,
+      -554.2940299807815
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887152",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887153",
+    "sourceId": "n13800887153",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1075.3500369132962,
+      -550.15018680715
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887153",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887154",
+    "sourceId": "n13800887154",
+    "name": "vending_machine",
+    "kind": "vending_machine",
+    "pos": [
+      1080.7841381130274,
+      -546.4486112012528
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887154",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887155",
+    "sourceId": "n13800887155",
+    "name": "beverages",
+    "kind": "beverages",
+    "pos": [
+      1088.2606139276177,
+      -539.7989152309019
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887155",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887183",
+    "sourceId": "n13800887183",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1034.7037443919107,
+      -544.4543943295139
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887183",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887184",
+    "sourceId": "n13800887184",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1037.0110331103206,
+      -545.8995125768124
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887184",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13800887185",
+    "sourceId": "n13800887185",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1044.665400648606,
+      -558.1257468730328
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13800887185",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13802273097",
+    "sourceId": "n13802273097",
+    "name": "waste_basket",
+    "kind": "waste_basket",
+    "pos": [
+      1173.053673874354,
+      -645.7328887426993
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13802273097",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13802283121",
+    "sourceId": "n13802283121",
+    "name": "Cewa",
+    "kind": "bar",
+    "pos": [
+      1041.996348388493,
+      -558.7706857566955
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13802283121",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355032",
+    "sourceId": "n13806355032",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1163.4966585072689,
+      -656.9680760642514
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355032",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355034",
+    "sourceId": "n13806355034",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1226.803411061992,
+      -632.182514673681
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355034",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355041",
+    "sourceId": "n13806355041",
+    "name": "Update Services",
+    "kind": "gift",
+    "pos": [
+      1228.0080481173936,
+      -630.6813344397233
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355041",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355044",
+    "sourceId": "n13806355044",
+    "name": "Prestige Pro",
+    "kind": "copyshop",
+    "pos": [
+      1128.2818118234864,
+      -618.2506671469309
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355044",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355045",
+    "sourceId": "n13806355045",
+    "name": "Black XS",
+    "kind": "clothes",
+    "pos": [
+      1095.6404373822734,
+      -573.5883511648863
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355045",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355046",
+    "sourceId": "n13806355046",
+    "name": "Sanfy Graphic Design",
+    "kind": "copyshop",
+    "pos": [
+      1102.97986860713,
+      -583.313175946998
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355046",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355047",
+    "sourceId": "n13806355047",
+    "name": "Sony Beauty",
+    "kind": "hairdresser",
+    "pos": [
+      1104.7076830966398,
+      -585.2987361823907
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355047",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355048",
+    "sourceId": "n13806355048",
+    "name": "clothes",
+    "kind": "clothes",
+    "pos": [
+      1090.3594467199873,
+      -566.7905109485728
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355048",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355049",
+    "sourceId": "n13806355049",
+    "name": "bar",
+    "kind": "bar",
+    "pos": [
+      1086.7294857003726,
+      -550.2942785608466
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355049",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355050",
+    "sourceId": "n13806355050",
+    "name": "electronics",
+    "kind": "electronics",
+    "pos": [
+      1093.2845963379368,
+      -539.5149519514525
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355050",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355075",
+    "sourceId": "n13806355075",
+    "name": "alternative",
+    "kind": "alternative",
+    "pos": [
+      1063.9231355162337,
+      -554.8077908157138
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355075",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355076",
+    "sourceId": "n13806355076",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1054.8663920983672,
+      -550.8644669444184
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355076",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355077",
+    "sourceId": "n13806355077",
+    "name": "restaurant",
+    "kind": "restaurant",
+    "pos": [
+      1042.6419715565862,
+      -547.0667320510838
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355077",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806355078",
+    "sourceId": "n13806355078",
+    "name": "copyshop",
+    "kind": "copyshop",
+    "pos": [
+      1028.9955922053196,
+      -546.8717268855544
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806355078",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806708791",
+    "sourceId": "n13806708791",
+    "name": "Shell Shop",
+    "kind": "convenience",
+    "pos": [
+      1099.123269818956,
+      -541.8445199184353
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806708791",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806708793",
+    "sourceId": "n13806708793",
+    "name": "Nady's Cosmetic Shop",
+    "kind": "cosmetics",
+    "pos": [
+      1156.0973288852256,
+      -520.2267302587279
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806708793",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806708795",
+    "sourceId": "n13806708795",
+    "name": "Foyer du Combattant",
+    "kind": "bar",
+    "pos": [
+      1073.8382612625137,
+      -527.5970378242782
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806708795",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13806738207",
+    "sourceId": "n13806738207",
+    "name": "bar",
+    "kind": "bar",
+    "pos": [
+      1082.9460715143941,
+      -525.5105592421605
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13806738207",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a376172414",
+    "sourceId": "a376172414",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1304.180656521581,
+      -678.7578957737423
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a376172414",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a382316260",
+    "sourceId": "a382316260",
+    "name": "Lycée Général Leclerc",
+    "kind": "school",
+    "pos": [
+      1292.9418139366899,
+      -600.6119164670818
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a382316260",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a382316622",
+    "sourceId": "a382316622",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1326.8822331365664,
+      -785.3614422556129
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a382316622",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a385694694",
+    "sourceId": "a385694694",
+    "name": "Institut Supérieur JIMIT (ISJ)",
+    "kind": "college",
+    "pos": [
+      1247.6145519790007,
+      -886.4978545889608
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a385694694",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a385707400",
+    "sourceId": "a385707400",
+    "name": "Annexe Facultés Lettres UY",
+    "kind": "school",
+    "pos": [
+      1066.120505741099,
+      -623.8876356597757
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a385707400",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438641906",
+    "sourceId": "a438641906",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1263.7240275955992,
+      -619.9324752915418
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438641906",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438641964",
+    "sourceId": "a438641964",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1269.668834726559,
+      -639.0688147357432
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438641964",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438641970",
+    "sourceId": "a438641970",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1293.53673046513,
+      -670.3620752270799
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438641970",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438641972",
+    "sourceId": "a438641972",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1416.9979291376658,
+      -619.5647769263596
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438641972",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667426",
+    "sourceId": "a439667426",
+    "name": "Lycée de Ngoa-Ekelle",
+    "kind": "school",
+    "pos": [
+      1328.1338490964845,
+      -922.6602173735155
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667426",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667482",
+    "sourceId": "a439667482",
+    "name": "Institut National de la Jeunesse et des Sports",
+    "kind": "college",
+    "pos": [
+      1213.6085714560468,
+      -652.2693807032192
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667482",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667708",
+    "sourceId": "a439667708",
+    "name": "École Publique du Plateau",
+    "kind": "school",
+    "pos": [
+      1206.9143363068579,
+      -721.6661319878185
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667708",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a708059692",
+    "sourceId": "a708059692",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1275.681245069718,
+      -880.6722204362741
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a708059692",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167518896",
+    "sourceId": "a1167518896",
+    "name": "garden",
+    "kind": "garden",
+    "pos": [
+      1288.1632539724233,
+      -1023.4254569276818
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167518896",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1167518898",
+    "sourceId": "a1167518898",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1259.5517896180972,
+      -1021.7922194036655
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1167518898",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

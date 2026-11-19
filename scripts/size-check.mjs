@@ -9,7 +9,7 @@ const BUDGETS = {
   cssGzip: 24 * 1024,
   htmlGzip: 5 * 1024,
   firstLoadGzip: 1024 * 1024,
-  worldRaw: 12 * 1024 * 1024,
+  worldRaw: 24 * 1024 * 1024,
   worldGzip: 6 * 1024 * 1024,
 };
 

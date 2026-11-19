@@ -1,0 +1,159 @@
+{
+  "format": "yaounde-life-world-catalog",
+  "formatVersion": 1,
+  "worldVersion": "boulevard-2026-10-30-v1",
+  "generatedAt": "2026-11-19T07:16:37.126Z",
+  "totalBytes": 1081895,
+  "files": [
+    {
+      "path": "world/boulevard/v1/manifest.json",
+      "bytes": 4600
+    },
+    {
+      "path": "world/boulevard/v1/licenses.json",
+      "bytes": 1418
+    },
+    {
+      "path": "world/boulevard/v1/terrain/heightfield.bin",
+      "bytes": 16676
+    },
+    {
+      "path": "world/boulevard/v1/roads/network.json",
+      "bytes": 238544
+    },
+    {
+      "path": "world/boulevard/v1/pois/pois.json",
+      "bytes": 122825
+    },
+    {
+      "path": "world/boulevard/v1/water/water.json",
+      "bytes": 14106
+    },
+    {
+      "path": "world/boulevard/v1/water/waterways.json",
+      "bytes": 6984
+    },
+    {
+      "path": "world/boulevard/v1/districts/districts.json",
+      "bytes": 32065
+    },
+    {
+      "path": "world/boulevard/v1/terrain/c_0_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/boulevard/v1/roads/c_0_0.json",
+      "bytes": 62264
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_0_0.bin",
+      "bytes": 6264
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_0_0.json",
+      "bytes": 61507
+    },
+    {
+      "path": "world/boulevard/v1/pois/c_0_0.json",
+      "bytes": 17449
+    },
+    {
+      "path": "world/boulevard/v1/terrain/c_1_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/boulevard/v1/roads/c_1_0.json",
+      "bytes": 50523
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_1_0.bin",
+      "bytes": 4764
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_1_0.json",
+      "bytes": 47975
+    },
+    {
+      "path": "world/boulevard/v1/pois/c_1_0.json",
+      "bytes": 22015
+    },
+    {
+      "path": "world/boulevard/v1/terrain/c_0_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/boulevard/v1/roads/c_0_1.json",
+      "bytes": 85098
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_0_1.bin",
+      "bytes": 4276
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_0_1.json",
+      "bytes": 35084
+    },
+    {
+      "path": "world/boulevard/v1/pois/c_0_1.json",
+      "bytes": 43424
+    },
+    {
+      "path": "world/boulevard/v1/terrain/c_1_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/boulevard/v1/roads/c_1_1.json",
+      "bytes": 40668
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_1_1.bin",
+      "bytes": 6484
+    },
+    {
+      "path": "world/boulevard/v1/buildings/c_1_1.json",
+      "bytes": 47519
+    },
+    {
+      "path": "world/boulevard/v1/pois/c_1_1.json",
+      "bytes": 39946
+    },
+    {
+      "path": "world/boulevard/v1/metadata/validation.json",
+      "bytes": 94
+    },
+    {
+      "path": "world/boulevard/v1/metadata/build-report.json",
+      "bytes": 1579
+    }
+  ],
+  "initial": [
+    "world/boulevard/v1/manifest.json",
+    "world/boulevard/v1/licenses.json",
+    "world/boulevard/v1/terrain/heightfield.bin",
+    "world/boulevard/v1/roads/network.json",
+    "world/boulevard/v1/pois/pois.json",
+    "world/boulevard/v1/water/water.json",
+    "world/boulevard/v1/water/waterways.json",
+    "world/boulevard/v1/districts/districts.json",
+    "world/boulevard/v1/terrain/c_0_0.bin",
+    "world/boulevard/v1/roads/c_0_0.json",
+    "world/boulevard/v1/buildings/c_0_0.bin",
+    "world/boulevard/v1/buildings/c_0_0.json",
+    "world/boulevard/v1/pois/c_0_0.json",
+    "world/boulevard/v1/terrain/c_1_0.bin",
+    "world/boulevard/v1/roads/c_1_0.json",
+    "world/boulevard/v1/buildings/c_1_0.bin",
+    "world/boulevard/v1/buildings/c_1_0.json",
+    "world/boulevard/v1/pois/c_1_0.json",
+    "world/boulevard/v1/terrain/c_0_1.bin",
+    "world/boulevard/v1/roads/c_0_1.json",
+    "world/boulevard/v1/buildings/c_0_1.bin",
+    "world/boulevard/v1/buildings/c_0_1.json",
+    "world/boulevard/v1/pois/c_0_1.json",
+    "world/boulevard/v1/terrain/c_1_1.bin",
+    "world/boulevard/v1/roads/c_1_1.json",
+    "world/boulevard/v1/buildings/c_1_1.bin",
+    "world/boulevard/v1/buildings/c_1_1.json",
+    "world/boulevard/v1/pois/c_1_1.json"
+  ]
+}

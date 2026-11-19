@@ -1,9 +1,10 @@
 # Chunk Format and Streaming
 
 The current packs use 512 m chunks: Nlongkak is a 4 × 4 grid (16 chunks),
-Mvog-Mbi is a 3 × 3 grid (9 chunks), Mokolo is a 3 × 2 grid (6 chunks) and
-Bastos is a 3 × 3 grid (9 chunks). Each chunk has five payload files plus a
-manifest reference.
+Mvog-Mbi, Bastos, Ngoa-Ekelle, Lac Municipal, Mvan and Mont Febe are 3 × 3
+grids (9 chunks each), Mokolo is a 3 × 2 grid (6 chunks) and Boulevard du 20 Mai
+is a 2 × 2 grid (4 chunks). Each chunk has five payload files plus a manifest
+reference.
 
 ## Files per chunk
 
@@ -109,15 +110,17 @@ Each chunk build decodes data once and creates:
 Global waterway ribbons are built once from `water/waterways.json` and follow
 their per-point DEM-derived levels. Quality changes remount the geo scene; low
 quality uses only the far building mesh and disables shadows. The pack grid caps
-the high tier (Nlongkak: 4 × 4 = 16 chunks; Mvog-Mbi: 3 × 3 = 9 chunks;
-Mokolo: 3 × 2 = 6 chunks; Bastos: 3 × 3 = 9 chunks); over-cap plans keep a
-stable nearest-first subset instead of reloading chunk sets each tick.
+the high tier (Nlongkak: 4 × 4 = 16 chunks; Boulevard du 20 Mai: 2 × 2 = 4
+chunks; Mokolo: 3 × 2 = 6 chunks; Mvog-Mbi, Bastos, Ngoa-Ekelle, Lac Municipal,
+Mvan and Mont Febe: 3 × 3 = 9 chunks each); over-cap plans keep a stable
+nearest-first subset instead of reloading chunk sets each tick.
 
 ## Caching
 
 - `files.json` is the byte catalog.
-- `precache.json` is the initial offline set (global files + 3 × 3 around spawn
-  for Nlongkak, Mvog-Mbi and Bastos; all 6 chunks for Mokolo).
+- `precache.json` is the initial offline set (global files + up to 3 × 3 around
+  spawn for Nlongkak, Mvog-Mbi, Bastos, Ngoa-Ekelle, Lac Municipal, Mvan and
+  Mont Febe; all 4 chunks for Boulevard du 20 Mai; all 6 chunks for Mokolo).
 - The service worker stores responses in `yaounde-world-<worldVersion>`.
 - Chunk fetches use the cache first and fall back to the network; older world
   caches are consulted if the current bucket misses a file.

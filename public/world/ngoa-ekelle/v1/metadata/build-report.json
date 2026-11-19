@@ -1,0 +1,61 @@
+{
+  "worldVersion": "ngoa-ekelle-2026-10-30-v1",
+  "area": {
+    "id": "ngoa_ekelle",
+    "name": "Ngoa-Ekelle",
+    "description": "Fifth playable geographical slice, covering the Ngoa-Ekelle university area in Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "bbox": {
+    "minLon": 11.4935,
+    "minLat": 3.8505,
+    "maxLon": 11.5065,
+    "maxLat": 3.8625
+  },
+  "origin": {
+    "lon": 11.49346500832696,
+    "lat": 3.8505001026950736,
+    "east": 776925.3066292317,
+    "north": 426007.2273962067
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1448.5913944742642,
+    "minZ": -1331.923927793745,
+    "maxZ": 0,
+    "minEast": 776925.3066292317,
+    "maxEast": 778373.8980237059,
+    "minNorth": 426007.2273962067,
+    "maxNorth": 427339.15132400044
+  },
+  "chunkSize": 512,
+  "chunks": 9,
+  "roads": 198,
+  "buildings": 2862,
+  "pois": 723,
+  "waterPolygons": 25,
+  "waterways": 50,
+  "skippedBuildings": 29,
+  "openBuildings": {
+    "used": false,
+    "reason": "No explicitly enabled Open Buildings export is configured."
+  },
+  "elevation": {
+    "absoluteMin": 711.42724609375,
+    "absoluteMax": 799.3805541992188,
+    "verticalOffset": 711.4,
+    "relativeMin": 0,
+    "relativeMax": 87.98055419921877
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

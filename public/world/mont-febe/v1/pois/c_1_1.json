@@ -1,0 +1,42 @@
+[
+  {
+    "id": "osm-n2307687958",
+    "sourceId": "n2307687958",
+    "name": "Rocher",
+    "kind": "viewpoint",
+    "pos": [
+      688.671421525185,
+      -642.5875897906953
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2307687958",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440250616",
+    "sourceId": "a440250616",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      949.3259754525498,
+      -985.5503048794926
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440250616",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]
