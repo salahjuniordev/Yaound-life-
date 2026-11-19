@@ -1,0 +1,61 @@
+{
+  "worldVersion": "bastos-2026-10-30-v1",
+  "area": {
+    "id": "bastos",
+    "name": "Bastos",
+    "description": "Fourth playable geographical slice, covering central Bastos in Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "bbox": {
+    "minLon": 11.5039,
+    "minLat": 3.8882,
+    "maxLon": 11.5168,
+    "maxLat": 3.8999
+  },
+  "origin": {
+    "lon": 11.503865406020433,
+    "lat": 3.888200102943203,
+    "east": 778068.8031620843,
+    "north": 430181.7603520154
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1437.3816449941369,
+    "minZ": -1298.7687836283003,
+    "maxZ": 0,
+    "minEast": 778068.8031620843,
+    "maxEast": 779506.1848070784,
+    "minNorth": 430181.7603520154,
+    "maxNorth": 431480.5291356437
+  },
+  "chunkSize": 512,
+  "chunks": 9,
+  "roads": 170,
+  "buildings": 2270,
+  "pois": 352,
+  "waterPolygons": 0,
+  "waterways": 11,
+  "skippedBuildings": 16,
+  "openBuildings": {
+    "used": false,
+    "reason": "No explicitly enabled Open Buildings export is configured."
+  },
+  "elevation": {
+    "absoluteMin": 726.618896484375,
+    "absoluteMax": 792.1210327148438,
+    "verticalOffset": 726.6,
+    "relativeMin": 0,
+    "relativeMax": 65.52103271484373
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

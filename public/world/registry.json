@@ -1,8 +1,16 @@
 {
   "format": "yaounde-life-world-registry",
   "formatVersion": 1,
-  "generatedAt": "2026-11-18T22:36:59.925Z",
+  "generatedAt": "2026-11-19T06:22:11.650Z",
   "packs": [
+    {
+      "id": "bastos",
+      "districtId": "bastos",
+      "name": "Bastos",
+      "basePath": "world/bastos/v1",
+      "worldVersion": "bastos-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
     {
       "id": "mokolo",
       "districtId": "mokolo",

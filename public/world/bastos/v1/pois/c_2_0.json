@@ -1,0 +1,624 @@
+[
+  {
+    "id": "osm-n420427576",
+    "sourceId": "n420427576",
+    "name": "Bon Prix",
+    "nameFr": "Bon Prix",
+    "kind": "supermarket",
+    "pos": [
+      1024.8284706965787,
+      -478.3633843479329
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n420427576",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5754140521",
+    "sourceId": "n5754140521",
+    "name": "Lycee technique Charles Atangana",
+    "kind": "school",
+    "pos": [
+      1321.5707486007595,
+      -50.35338053590385
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5754140521",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281650048",
+    "sourceId": "n6281650048",
+    "name": "Ambassade d'Israël",
+    "kind": "diplomatic",
+    "pos": [
+      1294.3467704035575,
+      -467.07357674924424
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281650048",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281654790",
+    "sourceId": "n6281654790",
+    "name": "Ambassade du Tchad",
+    "kind": "diplomatic",
+    "pos": [
+      1290.7793567263288,
+      -336.70395890664076
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281654790",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281654820",
+    "sourceId": "n6281654820",
+    "name": "Ambassade du Nigeria",
+    "nameFr": "Ambassade du Nigéria",
+    "kind": "diplomatic",
+    "pos": [
+      1163.187427095836,
+      -193.25198059086688
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281654820",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337753918",
+    "sourceId": "n6337753918",
+    "name": "Best View",
+    "kind": "optician",
+    "pos": [
+      1032.1193624696461,
+      -440.75566485727904
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337753918",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6339702485",
+    "sourceId": "n6339702485",
+    "name": "Elegance Pressing",
+    "kind": "laundry",
+    "pos": [
+      1243.371723968652,
+      -169.06103135243757
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6339702485",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6352395770",
+    "sourceId": "n6352395770",
+    "name": "Kamay Company Sarl",
+    "kind": "car_repair",
+    "pos": [
+      1086.4407314425334,
+      -343.0543798013241
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6352395770",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6660573910",
+    "sourceId": "n6660573910",
+    "name": "place_of_worship",
+    "kind": "place_of_worship",
+    "pos": [
+      1418.1796706413152,
+      -44.93213775026379
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6660573910",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6661510573",
+    "sourceId": "n6661510573",
+    "name": "Le pied de",
+    "kind": "clothes",
+    "pos": [
+      1234.533991586999,
+      -177.5431016817456
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6661510573",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n7171172686",
+    "sourceId": "n7171172686",
+    "name": "JMN",
+    "kind": "company",
+    "pos": [
+      1272.9548637325643,
+      -444.64893803943414
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7171172686",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n7344355427",
+    "sourceId": "n7344355427",
+    "name": "Dojo JMN",
+    "kind": "dojo",
+    "pos": [
+      1256.4239339324413,
+      -450.46369629574474
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7344355427",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n7899655885",
+    "sourceId": "n7899655885",
+    "name": "ECSS Sarl",
+    "kind": "company",
+    "pos": [
+      1056.3862444848055,
+      -251.64068749116268
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n7899655885",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11365489869",
+    "sourceId": "n11365489869",
+    "name": "Société de Recouvrement des Créances du Cameroun (SRCC)",
+    "kind": "government",
+    "pos": [
+      1229.5276876089629,
+      -209.23830670904135
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11365489869",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13450295071",
+    "sourceId": "n13450295071",
+    "name": "KHPC Kikot-Mbebe Hydropower Company",
+    "kind": "company",
+    "pos": [
+      1051.631185716833,
+      -310.930799006077
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13450295071",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13512434707",
+    "sourceId": "n13512434707",
+    "name": "Programme de Promotion de l’Entreprenariat Agro-pastoral des Jeunes",
+    "kind": "forestry",
+    "pos": [
+      1148.3335944946157,
+      -479.07444026885787
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13512434707",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a390985518",
+    "sourceId": "a390985518",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1340.1477784464369,
+      -405.7039994887309
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a390985518",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438694982",
+    "sourceId": "a438694982",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1429.6686486562248,
+      -418.1527748344233
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438694982",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438695008",
+    "sourceId": "a438695008",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1425.3403300553327,
+      -419.9765288710478
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438695008",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667436",
+    "sourceId": "a439667436",
+    "name": "Collège Charles et Thèrése Mbakop",
+    "kind": "school",
+    "pos": [
+      1209.8704427671619,
+      -29.739860315457918
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667436",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667512",
+    "sourceId": "a439667512",
+    "name": "Saint Vicent Pallotti de Nlongkak",
+    "kind": "school",
+    "pos": [
+      1396.0880353421671,
+      -67.07225398917217
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667512",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264266",
+    "sourceId": "a440264266",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1057.153036713018,
+      -188.20067444368033
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264266",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264326",
+    "sourceId": "a440264326",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1427.9158975969767,
+      -294.1835858745035
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264326",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264332",
+    "sourceId": "a440264332",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1379.935181644396,
+      -490.176553716592
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264332",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264476",
+    "sourceId": "a440264476",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1233.0376733550802,
+      -265.7317309343489
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264476",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264622",
+    "sourceId": "a440264622",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1269.2081628526794,
+      -430.30956568568945
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264622",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264720",
+    "sourceId": "a440264720",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1397.9117987725185,
+      -100.20407286245609
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264720",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264762",
+    "sourceId": "a440264762",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1341.2816030072281,
+      -405.5967384346877
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264762",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264786",
+    "sourceId": "a440264786",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1226.663553554914,
+      -364.8483574427082
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264786",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a884085606",
+    "sourceId": "a884085606",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1157.5748556134058,
+      -282.977296155761
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a884085606",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a3052142774",
+    "sourceId": "a3052142774",
+    "name": "Stade de l'église orthodoxe Bastos",
+    "kind": "pitch",
+    "pos": [
+      1386.7696871535154,
+      -404.4489578374778
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a3052142774",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

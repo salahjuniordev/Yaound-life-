@@ -1,0 +1,878 @@
+[
+  {
+    "id": "osm-w36729227",
+    "sourceId": "w36729227",
+    "name": "Rue 1.792",
+    "roadClass": "residential",
+    "points": [
+      [
+        382.7854557511164,
+        -760.2820220979629
+      ],
+      [
+        386.59715662919916,
+        -763.9998608797323
+      ],
+      [
+        389.564334337716,
+        -767.7041236057994
+      ],
+      [
+        391.48515233944636,
+        -772.002739652351
+      ],
+      [
+        393.85450916853733,
+        -778.6814890807145
+      ],
+      [
+        395.46870404540095,
+        -785.1920295394957
+      ],
+      [
+        399.8743928275071,
+        -809.6348487756914
+      ],
+      [
+        405.13373925269116,
+        -842.223447687109
+      ],
+      [
+        408.2047505680239,
+        -859.5812229553703
+      ],
+      [
+        424.42160477570724,
+        -933.0956575133605
+      ],
+      [
+        432.67598660022486,
+        -956.277562727395
+      ],
+      [
+        443.2908007040387,
+        -977.9285761213978
+      ],
+      [
+        462.04007472947706,
+        -1003.310313355003
+      ],
+      [
+        480.4589800606482,
+        -1023.9445406632731
+      ],
+      [
+        495.7586993853329,
+        -1039.679116936517
+      ],
+      [
+        514.6384013175266,
+        -1054.8379582915804
+      ],
+      [
+        532.7600314687006,
+        -1067.0736028859974
+      ],
+      [
+        569.2699110630201,
+        -1087.8392007399816
+      ],
+      [
+        658.8069845429854,
+        -1135.5050039484631
+      ],
+      [
+        723.3934664778644,
+        -1169.144601760956
+      ],
+      [
+        973.2298211951659,
+        -1298.7687836283003
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w36729227",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w271119752",
+    "sourceId": "w271119752",
+    "name": "Rue 1.800",
+    "roadClass": "residential",
+    "points": [
+      [
+        387.38705127697904,
+        -748.7557700096513
+      ],
+      [
+        262.8675258209696,
+        -667.2076401112135
+      ],
+      [
+        234.17723332101014,
+        -647.6272927910322
+      ],
+      [
+        219.1776244889479,
+        -639.3067145297537
+      ],
+      [
+        198.899736061343,
+        -634.643757535785
+      ],
+      [
+        175.02393824316096,
+        -632.8467976154643
+      ],
+      [
+        144.90662589634303,
+        -633.5096717171837
+      ],
+      [
+        140.31108457955997,
+        -635.5318232629215
+      ],
+      [
+        137.4498309622286,
+        -644.7950889457716
+      ],
+      [
+        133.05159881303553,
+        -692.6123876544298
+      ],
+      [
+        129.85437005746644,
+        -710.2280949306441
+      ],
+      [
+        126.20139421417844,
+        -724.1470177538577
+      ],
+      [
+        122.14304015494417,
+        -736.117443248746
+      ],
+      [
+        113.28918909200002,
+        -757.5666663972661
+      ],
+      [
+        108.6025797064649,
+        -779.0172078479663
+      ],
+      [
+        106.89107493555639,
+        -801.5055568146636
+      ],
+      [
+        107.8828452656744,
+        -819.2775438389508
+      ],
+      [
+        112.3233525439864,
+        -832.0255890511908
+      ],
+      [
+        115.82090553792659,
+        -840.489002666669
+      ],
+      [
+        124.93535441684071,
+        -851.0049182326766
+      ],
+      [
+        132.29629225633107,
+        -857.0125099077704
+      ]
+    ],
+    "nodeIds": [
+      426913444,
+      2316491480,
+      5804461033,
+      2316491482,
+      5804539422,
+      2316491481,
+      2760777285,
+      2760777288,
+      2760777291,
+      2760777292,
+      2939560253,
+      2760777294,
+      2760777295,
+      2760777297,
+      2760777298,
+      2760777299,
+      2760777300,
+      2760777301,
+      5804461034,
+      2760777302,
+      2760777303
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w271119752",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w271119759",
+    "sourceId": "w271119759",
+    "name": "Rue 1.878",
+    "roadClass": "residential",
+    "points": [
+      [
+        417.9632654747693,
+        -690.9589227065444
+      ],
+      [
+        356.24375675211195,
+        -634.790619142761
+      ],
+      [
+        351.2123199146008,
+        -633.9126527205808
+      ],
+      [
+        347.6282434355235,
+        -635.8603552588029
+      ],
+      [
+        338.81186869263183,
+        -644.6854824405164
+      ],
+      [
+        335.2287799521582,
+        -646.3012626765994
+      ],
+      [
+        331.0438417623518,
+        -644.773027587391
+      ],
+      [
+        299.19601968245115,
+        -625.7032842268236
+      ],
+      [
+        235.63462282461114,
+        -583.5147687328863
+      ],
+      [
+        226.88290334457997,
+        -578.067318564048
+      ]
+    ],
+    "nodeIds": [
+      2199676398,
+      2760777286,
+      5804461030,
+      2760777287,
+      5804461031,
+      5804461032,
+      2760777290,
+      2760777284,
+      2760777277,
+      2760777274
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "asphalt",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w271119759",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w290537022",
+    "sourceId": "w290537022",
+    "name": "Rue 1.901",
+    "roadClass": "residential",
+    "points": [
+      [
+        0,
+        -912.43691038098
+      ],
+      [
+        58.52422666770872,
+        -926.4531675330945
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w290537022",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w477862649",
+    "sourceId": "w477862649",
+    "name": "Rue 1.845",
+    "roadClass": "residential",
+    "points": [
+      [
+        171.52293531422038,
+        -576.918112372281
+      ],
+      [
+        173.14834054897074,
+        -602.1049777939916
+      ],
+      [
+        174.61822807660792,
+        -612.3105041633244
+      ],
+      [
+        175.02393824316096,
+        -632.8467976154643
+      ]
+    ],
+    "nodeIds": [
+      4711572411,
+      2760703121,
+      2760703123,
+      2316491481
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "paved",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w477862649",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w603952204",
+    "sourceId": "w603952204",
+    "roadClass": "residential",
+    "points": [
+      [
+        320.1375394175993,
+        -560.398396403587
+      ],
+      [
+        311.79507195029873,
+        -559.3335660055163
+      ],
+      [
+        305.5403285630746,
+        -555.0220749249565
+      ],
+      [
+        289.36201313266065,
+        -535.7333929275628
+      ],
+      [
+        287.2975069374079,
+        -527.4291280413745
+      ]
+    ],
+    "nodeIds": [
+      5731745765,
+      5731745764,
+      5731745763,
+      5731745762,
+      5731745761
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w603952204",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613461315",
+    "sourceId": "w613461315",
+    "name": "Rue 1.899",
+    "roadClass": "residential",
+    "points": [
+      [
+        -6.938893903907228e-18,
+        -583.6760250502188
+      ],
+      [
+        2.650642891298048,
+        -574.5577543450054
+      ],
+      [
+        3.3276590700261295,
+        -548.6475241955486
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613461315",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613466829",
+    "sourceId": "w613466829",
+    "roadClass": "residential",
+    "points": [
+      [
+        361.99079060938675,
+        -518.3240423146635
+      ],
+      [
+        327.7455931744771,
+        -558.0532785264659
+      ],
+      [
+        320.1375394175993,
+        -560.398396403587
+      ]
+    ],
+    "nodeIds": [
+      5731745767,
+      5731745766,
+      5731745765
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613466829",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w613466834",
+    "sourceId": "w613466834",
+    "name": "Rue 1.904",
+    "roadClass": "residential",
+    "points": [
+      [
+        349.7879618911538,
+        -862.4832598731155
+      ],
+      [
+        299.3809403909836,
+        -858.7485223351978
+      ],
+      [
+        259.6245224630693,
+        -857.1808731390629
+      ],
+      [
+        257.6275528696133,
+        -856.0685171849909
+      ],
+      [
+        255.65741483482998,
+        -853.4072572236764
+      ],
+      [
+        254.81388929171953,
+        -849.3220697735087
+      ],
+      [
+        255.9620202993974,
+        -840.6622386247036
+      ],
+      [
+        262.68974116118625,
+        -831.6538822437869
+      ],
+      [
+        271.16386295994744,
+        -814.5960020848433
+      ],
+      [
+        275.78108725172933,
+        -790.3349396021222
+      ],
+      [
+        276.5718870348064,
+        -774.7810654193163
+      ],
+      [
+        273.60474048682954,
+        -771.065744929947
+      ],
+      [
+        267.3446221718332,
+        -768.5687562485109
+      ],
+      [
+        236.96941993793007,
+        -762.5369840062922
+      ],
+      [
+        219.3805001444416,
+        -761.7212651424343
+      ],
+      [
+        202.17884448135737,
+        -761.4709734594799
+      ],
+      [
+        170.3730527892476,
+        -758.1899511357769
+      ],
+      [
+        156.65877503564116,
+        -754.8741967320675
+      ]
+    ],
+    "nodeIds": [
+      428261197,
+      2199677355,
+      2199677363,
+      5806607820,
+      2199677359,
+      2199677356,
+      6346759955,
+      5806607821,
+      2199677361,
+      2501280931,
+      2199677357,
+      5804498899,
+      2199677362,
+      2199677360,
+      5806607822,
+      2199677358,
+      2199677354,
+      9656749609
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w613466834",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w678388316",
+    "sourceId": "w678388316",
+    "name": "Rue 1.906",
+    "roadClass": "residential",
+    "points": [
+      [
+        259.6245224630693,
+        -857.1808731390629
+      ],
+      [
+        249.79487087007146,
+        -859.2206404807512
+      ],
+      [
+        237.27374509826768,
+        -862.0047682701843
+      ],
+      [
+        220.27893454034347,
+        -863.2044823938049
+      ],
+      [
+        182.78922969137784,
+        -865.4718067041831
+      ]
+    ],
+    "nodeIds": [
+      2199677363,
+      6352104401,
+      6352104400,
+      6352104399,
+      6352104398
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w678388316",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w678504799",
+    "sourceId": "w678504799",
+    "name": "Rue 1.903",
+    "roadClass": "residential",
+    "points": [
+      [
+        407.44831257232,
+        -706.6941055937787
+      ],
+      [
+        414.8999962686794,
+        -715.8220929663512
+      ],
+      [
+        423.06981626234483,
+        -726.3573694360675
+      ],
+      [
+        431.0858024514746,
+        -736.305788451049
+      ],
+      [
+        441.7959033950465,
+        -744.6247252873727
+      ],
+      [
+        451.8962451070547,
+        -756.1947208630736
+      ],
+      [
+        454.3959735153476,
+        -767.6093336356571
+      ],
+      [
+        453.1852473592153,
+        -771.157334755233
+      ]
+    ],
+    "nodeIds": [
+      6353186803,
+      6353186802,
+      6353186801,
+      6353186800,
+      6353186799,
+      6353186798,
+      6353186797,
+      6353186796
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w678504799",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w678504800",
+    "sourceId": "w678504800",
+    "name": "Rue 1.905",
+    "roadClass": "residential",
+    "points": [
+      [
+        453.83825423463713,
+        -659.98634329997
+      ],
+      [
+        460.3429693781072,
+        -669.9192032877472
+      ],
+      [
+        471.7562166986754,
+        -692.1589787414414
+      ],
+      [
+        487.59178037534,
+        -729.5145338437869
+      ]
+    ],
+    "nodeIds": [
+      6353186807,
+      6353186806,
+      6353186805,
+      6353186804
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w678504800",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w706965768",
+    "sourceId": "w706965768",
+    "name": "Rue 1.902",
+    "roadClass": "residential",
+    "points": [
+      [
+        0,
+        -650.5143211130044
+      ],
+      [
+        16.404219899210148,
+        -661.9390061758459
+      ]
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "surface": "ground",
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w706965768",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-w1050851538",
+    "sourceId": "w1050851538",
+    "roadClass": "residential",
+    "points": [
+      [
+        173.14834054897074,
+        -602.1049777939916
+      ],
+      [
+        129.40413793246262,
+        -599.9502707874053
+      ]
+    ],
+    "nodeIds": [
+      2760703121,
+      9656749611
+    ],
+    "width": 6.5,
+    "widthStatus": "inferred",
+    "oneway": false,
+    "bridge": false,
+    "tunnel": false,
+    "walkable": true,
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "w1050851538",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

@@ -1,20 +1,21 @@
 # Geographic Data Sources
 
-All runtime geometry comes from committed, registry-selected packs. Three
+All runtime geometry comes from committed, registry-selected packs. Four
 production packs are registered: Nlongkak at `public/world/v1/`, Mvog-Mbi at
-`public/world/mvog-mbi/v1/` and Mokolo at `public/world/mokolo/v1/`.
-`public/world/registry.json` maps each to its gameplay district. The game does
-not query geodata services at play time.
+`public/world/mvog-mbi/v1/`, Mokolo at `public/world/mokolo/v1/` and Bastos at
+`public/world/bastos/v1/`. `public/world/registry.json` maps each to its gameplay
+district. The game does not query geodata services at play time.
 
 ## Sources in the current packs
 
 | Source | Snapshot | Used for | Licence / attribution |
 | --- | --- | --- | --- |
-| OpenStreetMap Cameroon extract (Geofabrik), `cameroon-261030.osm.pbf` | 2026-10-30 | Roads, buildings, water polygons, waterway lines, POIs, Nlongkak, Mvog-Mbi and Mokolo boundaries | ODbL 1.0, © OpenStreetMap contributors |
+| OpenStreetMap Cameroon extract (Geofabrik), `cameroon-261030.osm.pbf` | 2026-10-30 | Roads, buildings, water polygons, waterway lines, POIs, Nlongkak, Mvog-Mbi, Mokolo and Bastos boundaries | ODbL 1.0, © OpenStreetMap contributors |
 | OSM relation `3095854` | 2026-10-30 | Nlongkak boundary anchoring | ODbL 1.0, © OpenStreetMap contributors |
 | OSM relation `3093787` | 2026-10-30 | Mvog-Mbi boundary bbox and anchoring | ODbL 1.0, © OpenStreetMap contributors |
 | OSM relation `2758122` | 2026-10-30 | Mokolo boundary bbox and anchoring | ODbL 1.0, © OpenStreetMap contributors |
-| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 release | Terrain elevation for all three packs | © ESA, Copernicus DEM GLO-30 |
+| OSM relation `3096136` | 2026-10-30 | Bastos boundary reference for the central slice | ODbL 1.0, © OpenStreetMap contributors |
+| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 release | Terrain elevation for all four packs | © ESA, Copernicus DEM GLO-30 |
 
 The exact source URLs, snapshot identifiers and usage notes are stored in each
 pack's `manifest.json` and `licenses.json`:
@@ -23,10 +24,13 @@ pack's `manifest.json` and `licenses.json`:
 - `public/world/mvog-mbi/v1/manifest.json` and
   `public/world/mvog-mbi/v1/licenses.json`;
 - `public/world/mokolo/v1/manifest.json` and
-  `public/world/mokolo/v1/licenses.json`.
+  `public/world/mokolo/v1/licenses.json`;
+- `public/world/bastos/v1/manifest.json` and
+  `public/world/bastos/v1/licenses.json`.
 
 The build configurations are `data/geodata/config/nlongkak.json`,
-`data/geodata/config/mvog_mbi.json` and `data/geodata/config/mokolo.json`.
+`data/geodata/config/mvog_mbi.json`, `data/geodata/config/mokolo.json` and
+`data/geodata/config/bastos.json`.
 
 ## Acquisition and processing
 
@@ -34,19 +38,19 @@ Requirements: Node, `osmium-tool`, Python 3 with Pillow, and `curl`.
 
 ```bash
 # One area at a time; the default is Nlongkak only when no config is passed.
-npm run world:acquire -- data/geodata/config/mokolo.json
-npm run world:inspect -- data/geodata/config/mokolo.json
-npm run world:build -- data/geodata/config/mokolo.json
+npm run world:acquire -- data/geodata/config/bastos.json
+npm run world:inspect -- data/geodata/config/bastos.json
+npm run world:build -- data/geodata/config/bastos.json
 
 # Validates every registered pack by default, or one explicit pack.
 npm run world:validate
-npm run world:validate -- world/mokolo/v1
+npm run world:validate -- world/bastos/v1
 ```
 
-The acquisition script derives the OSM bbox, source/output paths and DEM window
-from the area config. It downloads the pinned raw files only when missing,
-extracts the bbox with `osmium extract --bbox`, exports GeoJSON/OPL, decodes the
-DEM window with Pillow, then runs `world:build` and `world:validate`.
+The acquisition script uses the configured OSM bbox, source/output paths and DEM
+window. It downloads the pinned raw files only when missing, extracts the bbox
+with `osmium extract --bbox`, exports GeoJSON/OPL, decodes the DEM window with
+Pillow, then runs `world:build` and `world:validate`.
 
 Raw and intermediate data stay out of git:
 
@@ -67,6 +71,9 @@ Current packs:
   89 POIs, 5 water polygons, 18 waterway lines; 55-file catalog.
 - Mokolo, `mokolo-2026-10-30-v1`, 6 chunks, 100 roads, 1,989 buildings, 38 POIs,
   1 water polygon, 15 waterway lines; 40-file catalog. Registered for on-demand
+  download.
+- Bastos, `bastos-2026-10-30-v1`, 9 chunks, 170 roads, 2,270 buildings, 352 POIs,
+  0 water polygons, 11 waterway lines; 55-file catalog. Registered for on-demand
   download.
 
 ## Processing rules
@@ -148,10 +155,11 @@ the real export; the synthetic fixtures are never production data.
 
 ### Current decision
 
-The exclusion is recorded in all three configs
+The exclusion is recorded in all four configs
 (`data/geodata/config/nlongkak.json`,
 `data/geodata/config/mvog_mbi.json`,
-`data/geodata/config/mokolo.json`) and in `docs/WORLD.md`. If a local Open
+`data/geodata/config/mokolo.json`,
+`data/geodata/config/bastos.json`) and in `docs/WORLD.md`. If a local Open
 Buildings export is later supplied, it must be added as an explicitly licensed
 source, used only to fill gaps after OSM footprints are accepted, and
 deduplicated against OSM footprints. It must not silently replace OSM geometry.

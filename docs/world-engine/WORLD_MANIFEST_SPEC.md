@@ -13,6 +13,14 @@ geographic world and is fetched and validated before any chunk is used.
   "generatedAt": "...",
   "packs": [
     {
+      "id": "bastos",
+      "districtId": "bastos",
+      "name": "Bastos",
+      "basePath": "world/bastos/v1",
+      "worldVersion": "bastos-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
+    {
       "id": "mokolo",
       "districtId": "mokolo",
       "name": "Mokolo",
@@ -52,8 +60,8 @@ Rules enforced by `src/world/registry.ts`:
 - `manifestFormatVersion` must match the runtime's `WORLD_FORMAT_VERSION`;
   incompatible packs fall back explicitly instead of rendering silently.
 - Unregistered districts keep the legacy procedural world. A missing or invalid
-  registry falls back to the built-in three-pack mapping (Nlongkak, Mvog-Mbi and
-  Mokolo), then to legacy if the selected pack also fails validation.
+  registry falls back to the built-in four-pack mapping (Nlongkak, Mvog-Mbi,
+  Mokolo and Bastos), then to legacy if the selected pack also fails validation.
 - `precacheOnInstall` is opt-in. The service worker precaches only packs that
   set it; other registered packs remain available for explicit download.
 
@@ -68,7 +76,7 @@ registered manifest and validates every registered pack by default.
 | --- | --- |
 | `format` | Must be `yaounde-life-world` |
 | `formatVersion` | Must be `1`; incompatible versions are rejected |
-| `worldVersion` | Versioned pack id, e.g. `nlongkak-2026-10-30-v2`, `mvog-mbi-2026-10-30-v1` or `mokolo-2026-10-30-v1` |
+| `worldVersion` | Versioned pack id, e.g. `nlongkak-2026-10-30-v2`, `mvog-mbi-2026-10-30-v1`, `mokolo-2026-10-30-v1` or `bastos-2026-10-30-v1` |
 | `generatorVersion` | Pipeline version |
 | `generatedAt` | ISO timestamp of the build |
 | `area` | `{ id, name, description }` |

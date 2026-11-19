@@ -1,0 +1,869 @@
+[
+  {
+    "id": "osm-n3649390141",
+    "sourceId": "n3649390141",
+    "name": "Ambassade de Turquie",
+    "nameFr": "Ambassade de Turquie",
+    "kind": "diplomatic",
+    "pos": [
+      1200.0132301008562,
+      -697.1719462987385
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3649390141",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4178557491",
+    "sourceId": "n4178557491",
+    "name": "Priscilla Manor, Bastos",
+    "kind": "guest_house",
+    "pos": [
+      1069.5189641291508,
+      -618.00545324001
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4178557491",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4620216990",
+    "sourceId": "n4620216990",
+    "name": "Goat bar",
+    "kind": "bar",
+    "pos": [
+      1050.529899192159,
+      -762.5030285574612
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4620216990",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4740211421",
+    "sourceId": "n4740211421",
+    "name": "papi et mami",
+    "nameFr": "papi et mami",
+    "kind": "guest_house",
+    "pos": [
+      1317.84302529681,
+      -760.0365150790312
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4740211421",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6130738788",
+    "sourceId": "n6130738788",
+    "name": "bureau UNICEF",
+    "kind": "ngo",
+    "pos": [
+      1046.8959706913447,
+      -736.4359293566085
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6130738788",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281523197",
+    "sourceId": "n6281523197",
+    "name": "Ambassade de la République Démocratique du Congo",
+    "kind": "diplomatic",
+    "pos": [
+      1096.5896517498186,
+      -860.2158658282715
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281523197",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281525686",
+    "sourceId": "n6281525686",
+    "name": "Ambassade de Guinée équatoriale",
+    "kind": "diplomatic",
+    "pos": [
+      1271.7897924418794,
+      -883.5863097248948
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281525686",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281525687",
+    "sourceId": "n6281525687",
+    "name": "Haut-commissariat d'Afrique du Sud",
+    "kind": "diplomatic",
+    "pos": [
+      1223.8999877182068,
+      -948.5785836501746
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281525687",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281529761",
+    "sourceId": "n6281529761",
+    "name": "Ambassade d’Espagne",
+    "nameFr": "Ambassade d'Espagne",
+    "kind": "diplomatic",
+    "pos": [
+      1103.5012844254961,
+      -692.7018313017325
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281529761",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281549302",
+    "sourceId": "n6281549302",
+    "name": "Ambassade du Liberia",
+    "nameFr": "Ambassade du Libéria",
+    "kind": "diplomatic",
+    "pos": [
+      1115.982610140578,
+      -632.4942841852899
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281549302",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6281554167",
+    "sourceId": "n6281554167",
+    "name": "Ambassade de Russie",
+    "nameFr": "Ambassade de Russie",
+    "kind": "diplomatic",
+    "pos": [
+      1250.9601684961235,
+      -698.8507949667983
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281554167",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337722778",
+    "sourceId": "n6337722778",
+    "name": "INNEL",
+    "kind": "doctors",
+    "pos": [
+      1051.1209239390446,
+      -754.3615166246891
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337722778",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6337930605",
+    "sourceId": "n6337930605",
+    "name": "Le Piroguier",
+    "kind": "restaurant",
+    "pos": [
+      1395.180655343458,
+      -587.4326009636279
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6337930605",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6339606660",
+    "sourceId": "n6339606660",
+    "name": "Sky high",
+    "kind": "travel_agent",
+    "pos": [
+      1152.2801674347138,
+      -679.8246848788694
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6339606660",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6339768670",
+    "sourceId": "n6339768670",
+    "name": "École Internationale le Flamboyant",
+    "kind": "school",
+    "pos": [
+      1355.9650626125513,
+      -594.4188331252662
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6339768670",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6344772290",
+    "sourceId": "n6344772290",
+    "name": "Ambassade d'Italie",
+    "nameFr": "Ambassade d'Italie",
+    "kind": "diplomatic",
+    "pos": [
+      1434.5876010403736,
+      -665.2655725888326
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6344772290",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6363288685",
+    "sourceId": "n6363288685",
+    "name": "DRC embassey for visa",
+    "kind": "company",
+    "pos": [
+      1062.3221163576236,
+      -866.2985609791358
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6363288685",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6395686631",
+    "sourceId": "n6395686631",
+    "name": "Topec electroncs+237 22181817",
+    "kind": "clothes",
+    "pos": [
+      1154.8072182298638,
+      -682.0561332661309
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6395686631",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6396093772",
+    "sourceId": "n6396093772",
+    "name": "convenience",
+    "kind": "convenience",
+    "pos": [
+      1174.2286032041302,
+      -914.2418282684521
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6396093772",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8676721940",
+    "sourceId": "n8676721940",
+    "name": "Organisation International de l'Alimentation",
+    "nameFr": "OIA / FAO",
+    "kind": "ngo",
+    "pos": [
+      1106.512049578363,
+      -569.9641836393857
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8676721940",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n9494868409",
+    "sourceId": "n9494868409",
+    "name": "Star Land",
+    "kind": "hotel",
+    "pos": [
+      1060.1520220547682,
+      -673.5531671009958
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n9494868409",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13355388841",
+    "sourceId": "n13355388841",
+    "name": "Conseil d’Appui à la Réalisation des Contrats de Partenariat",
+    "kind": "government",
+    "pos": [
+      1292.738576309057,
+      -704.4301227081451
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13355388841",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13355471066",
+    "sourceId": "n13355471066",
+    "name": "Le Colisée",
+    "kind": "restaurant",
+    "pos": [
+      1351.9663318278035,
+      -653.3793756749365
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13355471066",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a385372958",
+    "sourceId": "a385372958",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1038.8993308944628,
+      -809.4581364650512
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a385372958",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a390985462",
+    "sourceId": "a390985462",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1406.90640022757,
+      -959.0496561191976
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a390985462",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a390985536",
+    "sourceId": "a390985536",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1239.37592445279,
+      -901.5464113687049
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a390985536",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a390985548",
+    "sourceId": "a390985548",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1240.6758636941668,
+      -864.3965527391993
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a390985548",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a390985558",
+    "sourceId": "a390985558",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1402.1610769373365,
+      -895.8585652989568
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a390985558",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438695002",
+    "sourceId": "a438695002",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      1362.971812929376,
+      -748.8967402445851
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438695002",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264228",
+    "sourceId": "a440264228",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1166.6522830441827,
+      -604.1770825076965
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264228",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264246",
+    "sourceId": "a440264246",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1338.9209627441596,
+      -828.0339425264974
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264246",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264282",
+    "sourceId": "a440264282",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1329.0763600874925,
+      -753.1438203672878
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264282",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264304",
+    "sourceId": "a440264304",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1195.4987925628666,
+      -683.1622140019317
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264304",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264306",
+    "sourceId": "a440264306",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1073.5881969149923,
+      -699.3507583495812
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264306",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264314",
+    "sourceId": "a440264314",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1123.6116990052396,
+      -805.7055285897222
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264314",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264334",
+    "sourceId": "a440264334",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1226.4932991688838,
+      -626.9265990098938
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264334",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264384",
+    "sourceId": "a440264384",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1424.7554368876154,
+      -642.0455341328634
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264384",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264412",
+    "sourceId": "a440264412",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1070.4010928967036,
+      -761.9537486454938
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264412",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264490",
+    "sourceId": "a440264490",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1113.9001450628275,
+      -872.4381631223368
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264490",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264544",
+    "sourceId": "a440264544",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1394.1421998509904,
+      -674.7375563330133
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264544",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264648",
+    "sourceId": "a440264648",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1220.4355362836504,
+      -813.6176513711107
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264648",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264772",
+    "sourceId": "a440264772",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1353.3956171377795,
+      -796.289550895046
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264772",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1375069934",
+    "sourceId": "a1375069934",
+    "name": "parking",
+    "kind": "parking",
+    "pos": [
+      1129.2462632547831,
+      -574.5240372992703
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1375069934",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

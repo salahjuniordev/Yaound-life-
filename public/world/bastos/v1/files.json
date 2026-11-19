@@ -1,0 +1,284 @@
+{
+  "format": "yaounde-life-world-catalog",
+  "formatVersion": 1,
+  "worldVersion": "bastos-2026-10-30-v1",
+  "generatedAt": "2026-11-19T06:22:11.650Z",
+  "totalBytes": 2003437,
+  "files": [
+    {
+      "path": "world/bastos/v1/manifest.json",
+      "bytes": 7127
+    },
+    {
+      "path": "world/bastos/v1/licenses.json",
+      "bytes": 1380
+    },
+    {
+      "path": "world/bastos/v1/terrain/heightfield.bin",
+      "bytes": 29884
+    },
+    {
+      "path": "world/bastos/v1/roads/network.json",
+      "bytes": 203631
+    },
+    {
+      "path": "world/bastos/v1/pois/pois.json",
+      "bytes": 175337
+    },
+    {
+      "path": "world/bastos/v1/water/water.json",
+      "bytes": 3
+    },
+    {
+      "path": "world/bastos/v1/water/waterways.json",
+      "bytes": 17723
+    },
+    {
+      "path": "world/bastos/v1/districts/districts.json",
+      "bytes": 31794
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_0_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_0_0.json",
+      "bytes": 29727
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_0_0.bin",
+      "bytes": 14392
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_0_0.json",
+      "bytes": 117991
+    },
+    {
+      "path": "world/bastos/v1/pois/c_0_0.json",
+      "bytes": 11570
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_1_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_1_0.json",
+      "bytes": 30301
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_1_0.bin",
+      "bytes": 8888
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_1_0.json",
+      "bytes": 82281
+    },
+    {
+      "path": "world/bastos/v1/pois/c_1_0.json",
+      "bytes": 28176
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_2_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_2_0.json",
+      "bytes": 20211
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_2_0.bin",
+      "bytes": 12556
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_2_0.json",
+      "bytes": 115864
+    },
+    {
+      "path": "world/bastos/v1/pois/c_2_0.json",
+      "bytes": 15513
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_0_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_0_1.json",
+      "bytes": 17640
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_0_1.bin",
+      "bytes": 13232
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_0_1.json",
+      "bytes": 117393
+    },
+    {
+      "path": "world/bastos/v1/pois/c_0_1.json",
+      "bytes": 30288
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_1_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_1_1.json",
+      "bytes": 29031
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_1_1.bin",
+      "bytes": 19856
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_1_1.json",
+      "bytes": 181725
+    },
+    {
+      "path": "world/bastos/v1/pois/c_1_1.json",
+      "bytes": 28098
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_2_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_2_1.json",
+      "bytes": 30147
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_2_1.bin",
+      "bytes": 12032
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_2_1.json",
+      "bytes": 116533
+    },
+    {
+      "path": "world/bastos/v1/pois/c_2_1.json",
+      "bytes": 21630
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_0_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_0_2.json",
+      "bytes": 31197
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_0_2.bin",
+      "bytes": 4876
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_0_2.json",
+      "bytes": 45562
+    },
+    {
+      "path": "world/bastos/v1/pois/c_0_2.json",
+      "bytes": 18590
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_1_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_1_2.json",
+      "bytes": 3177
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_1_2.bin",
+      "bytes": 7780
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_1_2.json",
+      "bytes": 67881
+    },
+    {
+      "path": "world/bastos/v1/pois/c_1_2.json",
+      "bytes": 16957
+    },
+    {
+      "path": "world/bastos/v1/terrain/c_2_2.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/bastos/v1/roads/c_2_2.json",
+      "bytes": 12224
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_2_2.bin",
+      "bytes": 5348
+    },
+    {
+      "path": "world/bastos/v1/buildings/c_2_2.json",
+      "bytes": 59305
+    },
+    {
+      "path": "world/bastos/v1/pois/c_2_2.json",
+      "bytes": 4539
+    },
+    {
+      "path": "world/bastos/v1/metadata/validation.json",
+      "bytes": 94
+    },
+    {
+      "path": "world/bastos/v1/metadata/build-report.json",
+      "bytes": 1529
+    }
+  ],
+  "initial": [
+    "world/bastos/v1/manifest.json",
+    "world/bastos/v1/licenses.json",
+    "world/bastos/v1/terrain/heightfield.bin",
+    "world/bastos/v1/roads/network.json",
+    "world/bastos/v1/pois/pois.json",
+    "world/bastos/v1/water/water.json",
+    "world/bastos/v1/water/waterways.json",
+    "world/bastos/v1/districts/districts.json",
+    "world/bastos/v1/terrain/c_0_0.bin",
+    "world/bastos/v1/roads/c_0_0.json",
+    "world/bastos/v1/buildings/c_0_0.bin",
+    "world/bastos/v1/buildings/c_0_0.json",
+    "world/bastos/v1/pois/c_0_0.json",
+    "world/bastos/v1/terrain/c_1_0.bin",
+    "world/bastos/v1/roads/c_1_0.json",
+    "world/bastos/v1/buildings/c_1_0.bin",
+    "world/bastos/v1/buildings/c_1_0.json",
+    "world/bastos/v1/pois/c_1_0.json",
+    "world/bastos/v1/terrain/c_2_0.bin",
+    "world/bastos/v1/roads/c_2_0.json",
+    "world/bastos/v1/buildings/c_2_0.bin",
+    "world/bastos/v1/buildings/c_2_0.json",
+    "world/bastos/v1/pois/c_2_0.json",
+    "world/bastos/v1/terrain/c_0_1.bin",
+    "world/bastos/v1/roads/c_0_1.json",
+    "world/bastos/v1/buildings/c_0_1.bin",
+    "world/bastos/v1/buildings/c_0_1.json",
+    "world/bastos/v1/pois/c_0_1.json",
+    "world/bastos/v1/terrain/c_1_1.bin",
+    "world/bastos/v1/roads/c_1_1.json",
+    "world/bastos/v1/buildings/c_1_1.bin",
+    "world/bastos/v1/buildings/c_1_1.json",
+    "world/bastos/v1/pois/c_1_1.json",
+    "world/bastos/v1/terrain/c_2_1.bin",
+    "world/bastos/v1/roads/c_2_1.json",
+    "world/bastos/v1/buildings/c_2_1.bin",
+    "world/bastos/v1/buildings/c_2_1.json",
+    "world/bastos/v1/pois/c_2_1.json",
+    "world/bastos/v1/terrain/c_0_2.bin",
+    "world/bastos/v1/roads/c_0_2.json",
+    "world/bastos/v1/buildings/c_0_2.bin",
+    "world/bastos/v1/buildings/c_0_2.json",
+    "world/bastos/v1/pois/c_0_2.json",
+    "world/bastos/v1/terrain/c_1_2.bin",
+    "world/bastos/v1/roads/c_1_2.json",
+    "world/bastos/v1/buildings/c_1_2.bin",
+    "world/bastos/v1/buildings/c_1_2.json",
+    "world/bastos/v1/pois/c_1_2.json",
+    "world/bastos/v1/terrain/c_2_2.bin",
+    "world/bastos/v1/roads/c_2_2.json",
+    "world/bastos/v1/buildings/c_2_2.bin",
+    "world/bastos/v1/buildings/c_2_2.json",
+    "world/bastos/v1/pois/c_2_2.json"
+  ]
+}

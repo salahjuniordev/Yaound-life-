@@ -1,0 +1,183 @@
+[
+  {
+    "id": "osm-n6281456496",
+    "sourceId": "n6281456496",
+    "name": "Ambassade de Tunisie",
+    "nameFr": "Ambassade de Tunisie",
+    "kind": "diplomatic",
+    "pos": [
+      1106.0384947579587,
+      -1268.7909763153875
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6281456496",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n8683925117",
+    "sourceId": "n8683925117",
+    "name": "Zoological society of London Cameroun (zsl)",
+    "kind": "ngo",
+    "pos": [
+      1280.608386359294,
+      -1261.0695123059559
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n8683925117",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11090171835",
+    "sourceId": "n11090171835",
+    "name": "Ambassade de Tunisie",
+    "kind": "diplomatic",
+    "pos": [
+      1106.7624636999099,
+      -1268.2399261362734
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11090171835",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264360",
+    "sourceId": "a440264360",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1157.6727186060743,
+      -1107.1638368813437
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264360",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264520",
+    "sourceId": "a440264520",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1150.4303902286338,
+      -1117.277060472581
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264520",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264534",
+    "sourceId": "a440264534",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1117.9762741761515,
+      -1096.6338930731872
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264534",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a440264652",
+    "sourceId": "a440264652",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1086.5843485641526,
+      -1166.8976704782108
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a440264652",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1777210792",
+    "sourceId": "a1777210792",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1191.6869467063807,
+      -1256.599475105235
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1777210792",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a1810922256",
+    "sourceId": "a1810922256",
+    "name": "swimming_pool",
+    "kind": "swimming_pool",
+    "pos": [
+      1146.9186928836862,
+      -1065.1872018554714
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a1810922256",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

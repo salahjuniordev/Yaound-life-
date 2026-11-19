@@ -158,7 +158,7 @@ export function assertWorldPackManifest(manifest: WorldManifest, pack: WorldPack
 export const BUILTIN_WORLD_REGISTRY: WorldPackRegistry = {
   format: WORLD_REGISTRY_FORMAT,
   formatVersion: WORLD_REGISTRY_VERSION,
-  generatedAt: '2026-11-18T00:00:00.000Z',
+  generatedAt: '2026-11-19T00:00:00.000Z',
   packs: [
     {
       id: 'nlongkak',
@@ -184,6 +184,14 @@ export const BUILTIN_WORLD_REGISTRY: WorldPackRegistry = {
       name: 'Mokolo',
       basePath: 'world/mokolo/v1',
       worldVersion: 'mokolo-2026-10-30-v1',
+      manifestFormatVersion: WORLD_FORMAT_VERSION,
+    },
+    {
+      id: 'bastos',
+      districtId: 'bastos',
+      name: 'Bastos',
+      basePath: 'world/bastos/v1',
+      worldVersion: 'bastos-2026-10-30-v1',
       manifestFormatVersion: WORLD_FORMAT_VERSION,
     },
   ],

@@ -18,15 +18,16 @@ designed.
 9. Assign the building to the chunk containing its centroid.
 10. Encode geometry as `YLB1` and metadata as JSON.
 
-The current packs contain 8,085 Nlongkak, 2,659 Mvog-Mbi and 1,989 Mokolo
-buildings.
+The current packs contain 8,085 Nlongkak, 2,659 Mvog-Mbi, 1,989 Mokolo and
+2,270 Bastos buildings.
 
 ## Optional Google Open Buildings source
 
 The build supports an opt-in Open Buildings V3 importer contract in
-`src/world/openBuildings.ts`. It is disabled in all three current packs and
+`src/world/openBuildings.ts`. It is disabled in all four current packs and
 there is no production Open Buildings data in `public/world/v1/`,
-`public/world/mvog-mbi/v1/` or `public/world/mokolo/v1/`.
+`public/world/mvog-mbi/v1/`, `public/world/mokolo/v1/` or
+`public/world/bastos/v1/`.
 
 When explicitly enabled with a licensed local CSV export, the pipeline:
 

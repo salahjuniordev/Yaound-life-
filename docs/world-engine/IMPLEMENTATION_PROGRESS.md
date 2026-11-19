@@ -8,14 +8,14 @@ Last updated: 2026-11-19
 | --- | --- | --- |
 | M0 — Baseline and contract | Done | Baseline verified before the slice commit; architecture and decisions documented here and in `WORLD_ENGINE_ARCHITECTURE.md` |
 | M1 — Coordinates and data layer | Done | `src/world/`, manifest/transform/chunk/terrain/road/building tests |
-| M2 — Real Yaoundé data | Done with documented exclusion | Nlongkak, Mvog-Mbi and Mokolo packs from OSM 2026-10-30 + Copernicus GLO-30; Open Buildings excluded with blocker |
-| M3 — Real road network | Done | 426 Nlongkak + 224 Mvog-Mbi + 100 Mokolo clipped roads, classes/widths/roundabouts, graph, spatial index |
-| M4 — Buildings and terrain | Done | 8,085 Nlongkak + 2,659 Mvog-Mbi + 1,989 Mokolo buildings; 16 + 9 + 6 heightfield chunks; water polygons and waterway lines; collision metadata |
+| M2 — Real Yaoundé data | Done with documented exclusion | Nlongkak, Mvog-Mbi, Mokolo and Bastos packs from OSM 2026-10-30 + Copernicus GLO-30; Open Buildings excluded with blocker |
+| M3 — Real road network | Done | 426 Nlongkak + 224 Mvog-Mbi + 100 Mokolo + 170 Bastos clipped roads, classes/widths/roundabouts, graph, spatial index |
+| M4 — Buildings and terrain | Done | 8,085 Nlongkak + 2,659 Mvog-Mbi + 1,989 Mokolo + 2,270 Bastos buildings; 16 + 9 + 6 + 9 heightfield chunks; water polygons and waterway lines; collision metadata |
 | M5 — Chunking and rendering | Done | `ChunkLru` stable over-cap planning, streaming, near/far LOD, disposal, grounding, safe spawn, quality tiers |
 | M6 — Offline packaging | Done | `files.json`, `precache.json`, registry-aware versioned world caches, Settings pack download UI, progress/quota/cancel, multi-pack cleanup, service-worker and cache download tests |
 | M7 — Gameplay/district alignment | Done | Manifest-driven district adapter, safe spawn, NPC placement, POI anchors, travel alignment, save compatibility |
 | M8 — Visual/cultural/legal/perf | Partial | Waterway lines, six OSM bridge decks/parapets, market-stall clustering, painted shop signage, mixed vehicles, drainage/pavement detail, utility poles/cables/street signs, roadside shrubs, compound walls/gates, upper-floor balconies, vendor umbrellas/display tables, bounded parking bays with parked cars, architecture, lighting, attribution and budgets exist; an internal cultural review, a renderer-only geometry review and single-view WebGL frames for spawn, compound, balcony, market, bridge and parking are complete. The cross-chunk spawn road defect and the dark-gate framing finding are resolved. Android Chrome/device performance/offline checks and a named local Cameroonian cultural review remain |
-| Phase 5 — Geographic expansion | Infrastructure done; three packs generated | District-keyed registry, manifest/version/area checks, generic adapter, multi-pack offline UI/cache cleanup, service-worker path-aware caching and save round-trips are tested. Nlongkak (`world/v1`), Mvog-Mbi (`world/mvog-mbi/v1`) and Mokolo (`world/mokolo/v1`) are registered; Mvog-Mbi and Mokolo visual/device/offline/cultural acceptance remains open |
+| Phase 5 — Geographic expansion | Infrastructure done; four packs generated | District-keyed registry, manifest/version/area checks, generic adapter, multi-pack offline UI/cache cleanup, service-worker path-aware caching and save round-trips are tested. Nlongkak (`world/v1`), Mvog-Mbi (`world/mvog-mbi/v1`), Mokolo (`world/mokolo/v1`) and Bastos (`world/bastos/v1`) are registered; Mvog-Mbi, Mokolo and Bastos visual/device/offline/cultural acceptance remains open |
 
 ## Current packs
 
@@ -46,11 +46,20 @@ Mokolo:
 - Offline catalog: 40 files, 1,347,034 bytes; initial precache 38 files (8 global files + all 6 chunks). Registered for on-demand download (`precacheOnInstall` off).
 - Projection: EPSG:32632; 1 unit = 1 m; vertical offset 717.1 m.
 
+Bastos:
+
+- Area: central Bastos, Yaoundé (`bastos`), bbox `11.5039,3.8882..11.5168,3.8999`, a central slice inside OSM relation `3096136`.
+- World version: `bastos-2026-10-30-v1`; generator version `1.1.0`.
+- Chunks: 9 (3 × 3, 512 m); 1,437 m × 1,299 m.
+- Features: 170 roads, 2,270 buildings, 352 POIs, 0 water polygons, 11 waterway lines, 29,503 terrain samples.
+- Offline catalog: 55 files, 2,003,437 bytes; initial precache 53 files (8 global files + 3 × 3 chunks). Registered for on-demand download (`precacheOnInstall` off).
+- Projection: EPSG:32632; 1 unit = 1 m; vertical offset 726.6 m.
+
 Registry and deployment:
 
-- `public/world/registry.json` registers `nlongkak` at `world/v1`, `mvog_mbi` at `world/mvog-mbi/v1`, and `mokolo` at `world/mokolo/v1`. Nlongkak and Mvog-Mbi are precached on install; Mokolo is available through the Settings download. The registry is deployment metadata outside the pack catalogs.
-- The full deployed `public/world` tree is 192 files, 8,808,536 bytes raw / 1,481,539 bytes gzip.
-- Mvog-Mbi and Mokolo have runtime-loader, chunk, manifest and default-spawn clearance evidence only. Neither has had visual, Android/device/offline or named local cultural review.
+- `public/world/registry.json` registers `nlongkak` at `world/v1`, `mvog_mbi` at `world/mvog-mbi/v1`, `mokolo` at `world/mokolo/v1`, and `bastos` at `world/bastos/v1`. Nlongkak and Mvog-Mbi are precached on install; Mokolo and Bastos are available through the Settings download. The registry is deployment metadata outside the pack catalogs.
+- The full deployed `public/world` tree is 249 files, 10,821,387 bytes raw / 1,852,244 bytes gzip.
+- Mvog-Mbi, Mokolo and Bastos have runtime-loader, chunk, manifest and default-spawn clearance evidence only. None has had visual, Android/device/offline or named local cultural review.
 
 ## Verification
 
@@ -69,14 +78,38 @@ Latest results:
 - `typecheck`: pass.
 - `npm test`: 241 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 579,007 B gzip, CSS 8,625 B, HTML 1,815 B,
-  first load 589,447 B, world assets 8,808,536 B raw / 1,481,539 B gzip (192 files).
-- `world:validate`: pass for all three registered packs.
+- `size`: all budgets pass — JS 579,023 B gzip, CSS 8,625 B, HTML 1,816 B,
+  first load 589,464 B, world assets 10,821,387 B raw / 1,852,244 B gzip (249 files).
+- `world:validate`: pass for all four registered packs.
 - Nlongkak production geometry after the road correction: 640,576 building,
   102,550 prop and 157,182 road triangles at high quality across 16 chunks.
-  Mvog-Mbi and Mokolo geometry have not yet had a production visual/performance pass.
+  Mokolo and Bastos pass the production-loader geometry smoke test; neither has
+  had a production visual/performance pass.
 
-## Latest round: third geographic pack (Mokolo)
+## Latest round: fourth geographic pack (Bastos)
+
+Bastos is now a real, separate geographic pack:
+
+- Derived from the pinned OSM Cameroon 2026-10-30 extract and Copernicus DEM
+  tile. OSM relation `3096136` is the reference for the central slice bbox
+  `11.5039,3.8882..11.5168,3.8999`.
+- `data/geodata/config/bastos.json` declares the area, sources, output path and
+  disabled Open Buildings reason. It sets `precacheOnInstall: false`, so the
+  pack is downloaded explicitly from Settings instead of increasing the
+  install precache for every user.
+- Generated `public/world/bastos/v1` with 9 chunks (3 x 3), 170 roads, 2,270
+  buildings, 352 POIs, 0 water polygons, 11 waterway lines and 29,503 terrain
+  samples. Its offline catalog is 55 files / 2,003,437 bytes.
+- The registry now has four packs, and the built-in fallback mirrors all four.
+  Registry, runtime-loader, manifest, chunk, default-spawn and gameplay-place
+  checks iterate every registered pack. The production-loader geometry smoke
+  test covers Mokolo and Bastos.
+- Existing pack data, gameplay district IDs, save format and renderer behavior
+  are unchanged. Bastos has not had visual, Android/device, offline or named
+  local cultural review, so it is not claimed device-playable. Browser-based
+  checks are deferred by product direction for now.
+
+## Previous round: third geographic pack (Mokolo)
 
 Mokolo is now a real, separate geographic pack:
 
@@ -104,7 +137,7 @@ Mokolo is now a real, separate geographic pack:
   six Mokolo chunks and asserts non-empty finite positions. These are static
   code/data checks, not rendered-frame or device evidence.
 
-## Previous round: second geographic pack (Mvog-Mbi)
+## Earlier round: second geographic pack (Mvog-Mbi)
 
 Mvog-Mbi is now a real, separate geographic pack rather than a registry-only
 test fixture:
@@ -459,11 +492,11 @@ gameplay IDs and save format untouched.
    no low-end Android numbers are recorded. Chromium + Mesa produced live WebGL
    frames (about 4.0 FPS at 736,857 rendered triangles and 92 draw calls after
    the road fix), but this is software rendering, not device evidence.
-4. **Three districts are geographic; six remain procedural.** Nlongkak,
-   Mvog-Mbi and Mokolo have real packs. The Phase 5 registry, loader, generic
-   adapter and multi-pack offline plumbing are implemented and tested, but
-   Mvog-Mbi and Mokolo still need visual/device/performance/cultural review,
-   and the other six districts still need verified packs.
+4. **Four districts are geographic; five remain procedural.** Nlongkak,
+   Mvog-Mbi, Mokolo and Bastos have real packs. The Phase 5 registry, loader,
+   generic adapter and multi-pack offline plumbing are implemented and tested,
+   but Mvog-Mbi, Mokolo and Bastos still need visual/device/performance/cultural
+   review, and the other five districts still need verified packs.
 5. **M8 still needs device and local review.** The renderer-only review
    inspected compound walls/gates, balconies, roadside and market vendors,
    vehicles/utilities and bridge approaches, and found one concrete facade

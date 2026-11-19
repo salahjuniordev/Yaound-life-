@@ -2,9 +2,9 @@
 
 Last updated: 2026-11-19
 
-Status: **M0–M7 complete; M8 partial; three geographic packs registered
-(Nlongkak, Mvog-Mbi and Mokolo) with Phase 5 infrastructure. The master brief
-defines no M9.** Browser-based/device/cultural acceptance checks are deferred by
+Status: **M0–M7 complete; M8 partial; four geographic packs registered
+(Nlongkak, Mvog-Mbi, Mokolo and Bastos) with Phase 5 infrastructure. The master
+brief defines no M9.** Browser-based/device/cultural acceptance checks are deferred by
 product direction and remain unverified; they are not the active build goal.
 The remaining active build work is further district packs, per-area static
 review, and the blocked Open Buildings production import. Nothing in this
@@ -111,7 +111,7 @@ solely because the importer contract exists.
 
 ### Phase 5 — Geographic city expansion
 
-Nlongkak, Mvog-Mbi and Mokolo are geographic. Ngoa-Ekelle, Bastos, Mvan, Mont
+Nlongkak, Mvog-Mbi, Mokolo and Bastos are geographic. Ngoa-Ekelle, Mvan, Mont
 Febe, Lac Municipal, Boulevard du 20 Mai and the remaining gameplay areas still
 render the legacy procedural world.
 
@@ -119,21 +119,22 @@ The multi-pack infrastructure is implemented without changing gameplay district
 IDs or the save format:
 
 1. **Area build configuration and reproducible extraction.** Nlongkak,
-   Mvog-Mbi and Mokolo each have an explicit config
+   Mvog-Mbi, Mokolo and Bastos each have an explicit config
    (`data/geodata/config/*.json`). The `world:acquire` script takes an area
    config, derives its bbox and DEM window, and runs `world:build`; the raw
    OSM/DEM inputs remain pinned and gitignored. Mvog-Mbi used OSM relation
-   `3093787`; Mokolo used relation `2758122`; both use the same 2026-10-30
-   OSM/Copernicus inputs as Nlongkak.
+   `3093787`; Mokolo used relation `2758122`; Bastos uses relation `3096136` as
+   a reference for a central slice; all use the same 2026-10-30 OSM/Copernicus
+   inputs as Nlongkak.
 2. **Registry/selector.** `public/world/registry.json` maps gameplay district IDs
    to versioned packs. `src/world/registry.ts` validates unique districts, safe
    site-relative `basePath`s, version tokens and manifest-format compatibility,
-   and provides a built-in three-pack fallback if the registry request fails.
+   and provides a built-in four-pack fallback if the registry request fails.
 3. **Loader and offline support.** `loadWorldRegistry` and `loadManifest` check
    the registered `worldVersion` and `area.id`. Settings selects among
    compatible registered packs, downloads each separately and removes only the
    selected pack; cleanup preserves every registered version. Nlongkak and
-   Mvog-Mbi have `precacheOnInstall: true`; Mokolo is on-demand.
+   Mvog-Mbi have `precacheOnInstall: true`; Mokolo and Bastos are on-demand.
 4. **Adapter and gameplay mapping.** `src/render/geo/adapter.ts` derives its
    district, anchor, place filter, `districtAt` and position mapping from the
    loaded manifest/`WorldDistrictAnchor`. A non-Nlongkak adapter test and
@@ -142,9 +143,9 @@ IDs or the save format:
 5. **Save compatibility.** `test/registry.test.ts` round-trips saves for a
    geographic and a legacy district without changing district IDs or save
    format.
-6. **Per-area review.** Automated pack/runtime review now covers all three
+6. **Per-area review.** Automated pack/runtime review now covers all four
    packs. Visual, Android/offline/Settings and named cultural review remain
-   deferred for Nlongkak, Mvog-Mbi and Mokolo.
+   deferred for Nlongkak, Mvog-Mbi, Mokolo and Bastos.
 
 Remaining Phase 5 work:
 
@@ -156,8 +157,8 @@ Remaining Phase 5 work:
 - keep unaffected districts on the legacy procedural fallback.
 
 Do not generate all of Yaoundé in one operation. Keep the existing Nlongkak,
-Mvog-Mbi and Mokolo `worldVersion`s unchanged unless their inputs or format are
-rebuilt and revalidated.
+Mvog-Mbi, Mokolo and Bastos `worldVersion`s unchanged unless their inputs or
+format are rebuilt and revalidated.
 
 ## Not build work
 
@@ -182,18 +183,21 @@ code alone:
 - Real Mokolo pack: 100 roads, 1,989 buildings, 38 POIs, 1 water polygon, 15
   waterway lines; runtime loader, all 6 chunks and default-spawn clearance
   validated; registered for on-demand download.
+- Real Bastos pack: 170 roads, 2,270 buildings, 352 POIs, 11 waterway lines;
+  runtime loader, all 9 chunks and default-spawn clearance validated;
+  registered for on-demand download.
 - Offline packaging, registry-driven service-worker lifecycle, app-shell
   precache, pack download UI and multi-pack cache cleanup with automated tests.
 - Phase 5 multi-pack infrastructure: district-keyed registry, manifest/version
   validation, generic adapter, path-aware service-worker caching and save
-  compatibility tests. Nlongkak, Mvog-Mbi and Mokolo are registered.
+  compatibility tests. Nlongkak, Mvog-Mbi, Mokolo and Bastos are registered.
 - M8 geometry implementation, attribution/licensing, feature flag/rollback and
   size budgets.
 - Current verification (2026-11-19): typecheck pass, 241/241 tests, build pass,
-  all size budgets pass, `world:validate` pass for all three packs.
+  all size budgets pass, `world:validate` pass for all four packs.
 - Renderer-only visual review and internal cultural plausibility review.
 - Live-app Chromium + Mesa WebGL capture at Nlongkak and the market. No
-  equivalent visual/device review exists yet for Mvog-Mbi or Mokolo.
+  equivalent visual/device review exists yet for Mvog-Mbi, Mokolo or Bastos.
 
 ## Exact next action
 
