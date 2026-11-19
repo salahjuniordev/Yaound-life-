@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync } from 'node:fs';
 import * as THREE from 'three';
 import { createHeightfield } from '../src/world/terrain.ts';
+import { loadChunk, loadManifest, loadWorldData } from '../src/world/loader.ts';
+import { roadsForChunk } from '../src/world/roads.ts';
 import type { BuildingGeometry, Heightfield, Poi, WorldData, WorldManifest, WorldRoad } from '../src/world/types.ts';
 import type { DecodedBuilding } from '../src/world/buildings.ts';
 import { GeoCollisionWorld } from '../src/render/geo/collision.ts';
@@ -529,4 +532,48 @@ test('geo vehicles mix taxis, private cars, buses, trucks and motos by road clas
   }
   assert.deepEqual([...majorKinds].sort(), ['bus', 'moto', 'private', 'taxi', 'truck']);
   assert.deepEqual([...minorKinds].sort(), ['moto', 'private', 'taxi']);
+});
+
+test('Mokolo production pack builds finite geometry for every chunk', async () => {
+  const PUBLIC = new URL('../public/', import.meta.url);
+  const baseUrl = '/app/world/mokolo/v1';
+  const fetchImpl = (async (input: string | URL | Request) => {
+    const url = String(input).replace(/^https?:\/\/[^/]+/, '');
+    return new Response(readFileSync(new URL(url.replace(/^\/app\//, ''), PUBLIC)));
+  }) as typeof fetch;
+  const manifest = await loadManifest(baseUrl, {
+    fetchImpl,
+    expectedWorldVersion: 'mokolo-2026-10-30-v1',
+    expectedAreaId: 'mokolo',
+  });
+  const world = await loadWorldData(baseUrl, manifest, { fetchImpl });
+  assert.equal(manifest.chunks.length, 6);
+
+  const assertFinite = (geometry: THREE.BufferGeometry | null, label: string) => {
+    assert.ok(geometry, `${label} geometry should build`);
+    assert.ok(geometry!.attributes.position.count > 0, `${label} geometry should have positions`);
+    const values = (geometry!.attributes.position as THREE.BufferAttribute).array;
+    for (let index = 0; index < values.length; index++) {
+      assert.ok(Number.isFinite(values[index]), `${label} geometry should contain only finite positions`);
+    }
+  };
+
+  for (const ref of manifest.chunks) {
+    const chunk = await loadChunk(baseUrl, manifest, ref, { fetchImpl });
+    const roads = roadsForChunk(world.roads, ref.bounds);
+    const terrain = buildTerrainGeometry(chunk.terrain, 'high');
+    const roadGeometry = buildRoadGeometry(roads, chunk.terrain, 'high');
+    const buildingGeometry = buildBuildingGeometry(chunk.buildings, chunk.decodedBuildings, chunk.terrain, 'high');
+    const props = buildPropsGeometry(ref.id, roads, chunk.buildings, chunk.terrain, 'high', chunk.pois);
+
+    assertFinite(terrain, `${ref.id} terrain`);
+    assertFinite(roadGeometry, `${ref.id} roads`);
+    assertFinite(buildingGeometry, `${ref.id} buildings`);
+    assertFinite(props.geometry, `${ref.id} props`);
+
+    terrain.dispose();
+    roadGeometry?.dispose();
+    buildingGeometry?.dispose();
+    props.geometry?.dispose();
+  }
 });

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { ZONES } from '../src/data/districts';
+import { PLACES } from '../src/data/places';
 import type { DistrictId } from '../src/sim/types';
 import { exportSaveJSON, importSaveJSON } from '../src/persistence/idb';
 import { createGeoAdapter } from '../src/render/geo/adapter';
@@ -202,6 +203,25 @@ test('every registered pack loads globals and every chunk through the runtime lo
     assert.equal(collision.isInsideBuilding(spawn[0], spawn[1]), false);
     const nearestRoad = roads.nearest(spawn[0], spawn[1], 10);
     assert.ok(nearestRoad && nearestRoad.distance <= 5, `${pack.name} spawn should sit beside a walkable road`);
+
+    const expectedPlaces = PLACES.filter((place) => place.district === pack.districtId);
+    assert.deepEqual(
+      adapter.places.map((place) => place.id).sort(),
+      expectedPlaces.map((place) => place.id).sort(),
+      `${pack.name} should expose every gameplay place in its district`,
+    );
+    for (const place of adapter.places) {
+      const [x, z] = place.worldPos;
+      assert.ok(Number.isFinite(x) && Number.isFinite(z), `${pack.name} place ${place.id} has a finite position`);
+      assert.ok(x >= manifest.bounds.minX && x <= manifest.bounds.maxX, `${pack.name} place ${place.id} is inside X bounds`);
+      assert.ok(z >= manifest.bounds.minZ && z <= manifest.bounds.maxZ, `${pack.name} place ${place.id} is inside Z bounds`);
+      assert.equal(collision.isInsideBuilding(x, z), false, `${pack.name} place ${place.id} is clear of buildings`);
+      const placeRoad = roads.nearest(x, z, 10);
+      assert.ok(
+        placeRoad && placeRoad.distance <= 3.5,
+        `${pack.name} place ${place.id} should sit beside a walkable road (distance ${placeRoad?.distance.toFixed(1) ?? 'none'} m)`,
+      );
+    }
   }
 });
 

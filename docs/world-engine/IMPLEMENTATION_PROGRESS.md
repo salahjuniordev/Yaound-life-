@@ -67,7 +67,7 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 240 pass, 0 fail.
+- `npm test`: 241 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
 - `size`: all budgets pass — JS 579,007 B gzip, CSS 8,625 B, HTML 1,815 B,
   first load 589,447 B, world assets 8,808,536 B raw / 1,481,539 B gzip (192 files).
@@ -97,6 +97,12 @@ Mokolo is now a real, separate geographic pack:
   renderer behavior are unchanged. Mokolo has not had visual, Android/device,
   offline or named local cultural review, so it is not claimed device-playable.
   Browser-based checks are deferred by product direction for now.
+- The all-pack runtime test now checks every gameplay place for each registered
+  pack: it must be exposed, remain inside the pack bounds, stay clear of
+  buildings and sit within 3.5 m of a walkable road. A production-loader
+  geometry smoke test builds terrain, clipped roads, buildings and props for all
+  six Mokolo chunks and asserts non-empty finite positions. These are static
+  code/data checks, not rendered-frame or device evidence.
 
 ## Previous round: second geographic pack (Mvog-Mbi)
 

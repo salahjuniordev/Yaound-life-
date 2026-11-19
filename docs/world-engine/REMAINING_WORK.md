@@ -189,7 +189,7 @@ code alone:
   compatibility tests. Nlongkak, Mvog-Mbi and Mokolo are registered.
 - M8 geometry implementation, attribution/licensing, feature flag/rollback and
   size budgets.
-- Current verification (2026-11-19): typecheck pass, 240/240 tests, build pass,
+- Current verification (2026-11-19): typecheck pass, 241/241 tests, build pass,
   all size budgets pass, `world:validate` pass for all three packs.
 - Renderer-only visual review and internal cultural plausibility review.
 - Live-app Chromium + Mesa WebGL capture at Nlongkak and the market. No
