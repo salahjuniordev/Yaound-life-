@@ -1,0 +1,61 @@
+{
+  "worldVersion": "mokolo-2026-10-30-v1",
+  "area": {
+    "id": "mokolo",
+    "name": "Mokolo",
+    "description": "Third playable geographical slice, covering the Mokolo market neighbourhood of Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "bbox": {
+    "minLon": 11.4929,
+    "minLat": 3.8713,
+    "maxLon": 11.504,
+    "maxLat": 3.88
+  },
+  "origin": {
+    "lon": 11.492874510760704,
+    "lat": 3.871300075166739,
+    "east": 776852.9380641689,
+    "north": 428308.33476156817
+  },
+  "bounds": {
+    "minX": 0,
+    "maxX": 1236.354856576072,
+    "minZ": -966.2063012764556,
+    "maxZ": 0,
+    "minEast": 776852.9380641689,
+    "maxEast": 778089.292920745,
+    "minNorth": 428308.33476156817,
+    "maxNorth": 429274.5410628446
+  },
+  "chunkSize": 512,
+  "chunks": 6,
+  "roads": 100,
+  "buildings": 1989,
+  "pois": 38,
+  "waterPolygons": 1,
+  "waterways": 15,
+  "skippedBuildings": 25,
+  "openBuildings": {
+    "used": false,
+    "reason": "No explicitly enabled Open Buildings export is configured."
+  },
+  "elevation": {
+    "absoluteMin": 717.1708984375,
+    "absoluteMax": 762.0283813476562,
+    "verticalOffset": 717.1,
+    "relativeMin": 0,
+    "relativeMax": 44.92838134765623
+  },
+  "sourceFiles": [
+    {
+      "id": "openstreetmap",
+      "rawFile": "data/geodata/raw/cameroon-261030.osm.pbf",
+      "snapshotDate": "2026-10-30"
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "rawFile": "data/geodata/raw/Copernicus_DSM_COG_10_N03_00_E011_00_DEM.tif",
+      "snapshotDate": "2022-05-09"
+    }
+  ]
+}

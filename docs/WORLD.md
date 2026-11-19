@@ -1,33 +1,34 @@
-# Geographic world: Nlongkak and Mvog-Mbi
+# Geographic world: Nlongkak, Mvog-Mbi and Mokolo
 
-This document describes the real-geography world packs for Yaoundé Life. Two
-districts have geographic packs; the rest of the city is still procedural. Mvog-Mbi
-is validated but not yet device/visual accepted. This is not a claim that the
-whole city is finished.
+This document describes the real-geography world packs for Yaoundé Life. Three
+districts have geographic packs; the rest of the city is still procedural.
+Mvog-Mbi and Mokolo are validated but not yet device/visual accepted. This is
+not a claim that the whole city is finished.
 
 ## Current status
 
-- Geographic areas: Nlongkak and Mvog-Mbi, Yaoundé, Cameroon.
-- Area ids: `nlongkak` and `mvog_mbi`.
-- World packages: `public/world/v1/` (Nlongkak) and `public/world/mvog-mbi/v1/` (Mvog-Mbi); district selector: `public/world/registry.json`.
-- Runtime default: the registry selects the versioned pack registered for the current gameplay district. Mvog-Mbi and Nlongkak have packs; the other seven districts continue to use the legacy procedural world.
+- Geographic areas: Nlongkak, Mvog-Mbi and Mokolo, Yaoundé, Cameroon.
+- Area ids: `nlongkak`, `mvog_mbi` and `mokolo`.
+- World packages: `public/world/v1/` (Nlongkak), `public/world/mvog-mbi/v1/` (Mvog-Mbi) and `public/world/mokolo/v1/` (Mokolo); district selector: `public/world/registry.json`.
+- Runtime default: the registry selects the versioned pack registered for the current gameplay district. Nlongkak, Mvog-Mbi and Mokolo have packs; the other six districts continue to use the legacy procedural world.
 - Rollback: Settings -> geographic-world toggle, `?world=legacy`, or localStorage key `yaounde-world-mode=legacy`.
 - Force preview: `?world=geo`.
 - The world packages are generated at build time and are loaded from the app origin. There is no runtime Overpass, geocoding, or map-tile dependency.
-- Offline: `public/sw.js` resolves `world/registry.json`, precaches the build-generated `app-shell.json` (HTML, hashed JS/CSS, manifest, fonts and icons), `world/registry.json`, and the initial files for registered packs flagged `precacheOnInstall` (both current packs). It then serves world assets cache-first from a versioned `yaounde-world-<version>` cache. Settings → Offline world lets the player choose a registered pack and downloads its full catalog (Nlongkak: 90 files / 5.39 MB; Mvog-Mbi: 55 files / 2.04 MB) with progress, cancel and quota handling. Removing a pack deletes only that pack's cache; cleanup preserves every version still listed in the registry. A completed download or removal invalidates the service worker's memoized world version so the next request uses the new cache immediately.
-- Water: Nlongkak has 2 polygon water features plus 35 real OSM waterway centrelines (5.9 km); Mvog-Mbi has 5 water polygons and 18 waterway centrelines. All are rendered as terrain-following geometry.
+- Offline: `public/sw.js` resolves `world/registry.json`, precaches the build-generated `app-shell.json` (HTML, hashed JS/CSS, manifest, fonts and icons), `world/registry.json`, and the initial files for registered packs flagged `precacheOnInstall` (Nlongkak and Mvog-Mbi). Mokolo is registered for on-demand download. It then serves world assets cache-first from a versioned `yaounde-world-<version>` cache. Settings → Offline world lets the player choose a registered pack and downloads its full catalog (Nlongkak: 90 files / 5.39 MB; Mvog-Mbi: 55 files / 2.04 MB; Mokolo: 40 files / 1.35 MB) with progress, cancel and quota handling. Removing a pack deletes only that pack's cache; cleanup preserves every version still listed in the registry. A completed download or removal invalidates the service worker's memoized world version so the next request uses the new cache immediately.
+- Water: Nlongkak has 2 polygon water features plus 35 real OSM waterway centrelines (5.9 km); Mvog-Mbi has 5 water polygons and 18 waterway centrelines; Mokolo has 1 water polygon and 15 waterway centrelines. All are rendered as terrain-following geometry.
 - Implementation suite: `docs/world-engine/` (architecture, data sources, coordinates, manifest, chunks, roads, terrain, buildings, offline packaging, licensing, budgets, progress, M8 review, remaining work).
 
 ## Source data
 
 | Source | Snapshot | Use | Licence / attribution |
 | --- | --- | --- | --- |
-| OpenStreetMap Cameroon extract, Geofabrik | 2026-10-30 (`cameroon-261030.osm.pbf`) | Roads, buildings, water polygons and waterway lines, POIs, Nlongkak and Mvog-Mbi boundaries | ODbL 1.0, (c) OpenStreetMap contributors |
-| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 | Terrain elevation for both packs | (c) ESA, Copernicus DEM GLO-30 |
+| OpenStreetMap Cameroon extract, Geofabrik | 2026-10-30 (`cameroon-261030.osm.pbf`) | Roads, buildings, water polygons and waterway lines, POIs, Nlongkak, Mvog-Mbi and Mokolo boundaries | ODbL 1.0, (c) OpenStreetMap contributors |
+| Copernicus DEM GLO-30, tile `N03_00_E011_00` | Copernicus DEM GLO-30 | Terrain elevation for all three packs | (c) ESA, Copernicus DEM GLO-30 |
 | OSM relation 3095854 | 2026-10-30 | Nlongkak boundary for district anchoring | ODbL 1.0, (c) OpenStreetMap contributors |
 | OSM relation 3093787 | 2026-10-30 | Mvog-Mbi boundary for district bbox and anchoring | ODbL 1.0, (c) OpenStreetMap contributors |
+| OSM relation 2758122 | 2026-10-30 | Mokolo boundary for district bbox and anchoring | ODbL 1.0, (c) OpenStreetMap contributors |
 
-Google Open Buildings V3 is intentionally not used in either pack. Its licence and attribution obligations therefore do not apply to these packages. An opt-in importer contract exists for a future licensed export but is disabled in `data/geodata/config/nlongkak.json` and `data/geodata/config/mvog_mbi.json`.
+Google Open Buildings V3 is intentionally not used in any pack. Its licence and attribution obligations therefore do not apply to these packages. An opt-in importer contract exists for a future licensed export but is disabled in `data/geodata/config/nlongkak.json`, `data/geodata/config/mvog_mbi.json` and `data/geodata/config/mokolo.json`.
 
 ## Area and coordinates
 
@@ -42,6 +43,12 @@ Mvog-Mbi:
 - Configured bbox: `11.5156,3.8445..11.5258,3.8583`, derived from OSM relation `3093787` and padded for edge geometry.
 - Terrain chunk size: 512 m; 3 x 3 grid of 9 chunks; about 1,138 m x 1,530 m.
 - Vertical offset: 698.9 m.
+
+Mokolo:
+
+- Configured bbox: `11.4929,3.8713..11.5040,3.8800`, derived from OSM relation `2758122` and padded for edge geometry.
+- Terrain chunk size: 512 m; 3 x 2 grid of 6 chunks; about 1,236 m x 966 m.
+- Vertical offset: 717.1 m.
 
 Shared:
 
@@ -58,11 +65,11 @@ Shared:
 Requirements: Node, `osmium-tool`, Python 3 with Pillow, and curl.
 
 ```bash
-npm run world:acquire -- data/geodata/config/mvog_mbi.json   # download, extract, decode DEM, build, validate
-npm run world:inspect -- data/geodata/config/mvog_mbi.json   # source presence, bbox, chunk grid, raw feature counts
-npm run world:build -- data/geodata/config/mvog_mbi.json     # regenerate one pack and upsert its registry entry
-npm run world:validate                                      # verify every registered pack
-npm run world:validate -- world/mvog-mbi/v1                 # verify one pack
+npm run world:acquire -- data/geodata/config/mokolo.json   # download, extract, decode DEM, build, validate
+npm run world:inspect -- data/geodata/config/mokolo.json   # source presence, bbox, chunk grid, raw feature counts
+npm run world:build -- data/geodata/config/mokolo.json     # regenerate one pack and upsert its registry entry
+npm run world:validate                                     # verify every registered pack
+npm run world:validate -- world/mokolo/v1                  # verify one pack
 ```
 
 The default config remains `data/geodata/config/nlongkak.json` when no config is passed. Do not run the Nlongkak build casually: it would rebuild `public/world/v1` and change its generated timestamp.
@@ -81,7 +88,7 @@ Raw and intermediate geodata are intentionally gitignored:
 - `data/geodata/raw/`
 - `data/geodata/processed/`
 
-The shippable derived packages are `public/world/registry.json` plus `public/world/v1/` and `public/world/mvog-mbi/v1/`. Nlongkak includes 16 chunk packs and a 90-file offline catalog; Mvog-Mbi includes 9 chunk packs and a 55-file offline catalog. Each pack has `manifest.json`, `licenses.json`, `files.json`, `precache.json`, global terrain/roads/POIs/water/waterways/districts, and its chunk files. Registry entries are deployment metadata, not part of either pack catalog.
+The shippable derived packages are `public/world/registry.json` plus `public/world/v1/`, `public/world/mvog-mbi/v1/` and `public/world/mokolo/v1/`. Nlongkak includes 16 chunk packs and a 90-file offline catalog; Mvog-Mbi includes 9 chunk packs and a 55-file offline catalog; Mokolo includes 6 chunk packs and a 40-file offline catalog. Each pack has `manifest.json`, `licenses.json`, `files.json`, `precache.json`, global terrain/roads/POIs/water/waterways/districts, and its chunk files. Registry entries are deployment metadata, not part of any pack catalog.
 
 ## Package format
 
@@ -97,7 +104,7 @@ The shippable derived packages are `public/world/registry.json` plus `public/wor
 - `licenses.json`: source attribution and obligations.
 - `metadata/validation.json`, `metadata/build-report.json`: build evidence.
 - `files.json`: versioned offline catalog with every world file and byte size.
-- `precache.json`: initial offline file list used by the service worker (53 files: 8 global files + 3 x 3 chunks around spawn, for each current pack).
+- `precache.json`: initial offline file list used by the service worker (53 files for Nlongkak and Mvog-Mbi: 8 global files + 3 x 3 chunks around spawn; 38 files for Mokolo: 8 global files + all 6 chunks).
 
 Every rendered feature carries provenance. Status values mean:
 
@@ -110,9 +117,9 @@ Every rendered feature carries provenance. Status values mean:
 
 - `src/world/` is the pure data layer: UTM transforms, chunk math, terrain sampling, road graph utilities, building decoding/collision, registry and manifest validation, and async loading.
 - `src/render/geo/` is the Three.js adapter: collision grid, road index, terrain/road/building/prop/water/waterway geometry, runtime adapter, and the streaming `GeoScene`.
-- `src/world/registry.ts` validates the district → pack mapping, rejects duplicate districts/unsafe paths, checks manifest-format compatibility, and provides a built-in two-pack fallback if `world/registry.json` cannot be fetched. The loader also enforces the registry's `worldVersion` and `area.id` against the fetched manifest.
+- `src/world/registry.ts` validates the district → pack mapping, rejects duplicate districts/unsafe paths, checks manifest-format compatibility, and provides a built-in three-pack fallback if `world/registry.json` cannot be fetched. The loader also enforces the registry's `worldVersion` and `area.id` against the fetched manifest.
 - The geographic adapter uses the loaded manifest's `area.id` and `WorldDistrictAnchor`. It does not hard-code a district anchor, place filter or `districtAt` result.
-- Chunk radius: low = current chunk, mid = 3 x 3, high = 5 x 5 (capped by the pack grid: 4 x 4 for Nlongkak, 3 x 3 for Mvog-Mbi). `ChunkLru` caps loaded chunks at 5/10/16, keeps a stable nearest-first subset when the desired radius exceeds the cap, retains keep-ring buffers in spare slots, and disposes geometry on unload.
+- Chunk radius: low = current chunk, mid = 3 x 3, high = 5 x 5 (capped by the pack grid: 4 x 4 for Nlongkak, 3 x 3 for Mvog-Mbi, 3 x 2 for Mokolo). `ChunkLru` caps loaded chunks at 5/10/16, keeps a stable nearest-first subset when the desired radius exceeds the cap, retains keep-ring buffers in spare slots, and disposes geometry on unload.
 - Building LOD: near detail includes windows, doors, awnings, painted shop boards/blade signs, roof details, capped upper-floor balconies, and rooftop props; far detail is a simplified massing mesh. Mid/high use both; low uses the simple mesh.
 - Terrain LOD: chunk meshes are always built from the fine heightfield; quality controls props, building detail, shadows, and draw distance.
 - Street detail: vehicle roads get a shoulder, concrete drainage gutter, curb and (on trunk/primary/secondary/tertiary roads) a pavement strip with periodic gutter crossings. Vehicles mix yellow taxis, private cars, minibuses, trucks and motos by road class.
@@ -127,14 +134,14 @@ Every rendered feature carries provenance. Status values mean:
 
 ## Known limitations
 
-- Nlongkak and Mvog-Mbi are geographic. The other seven districts remain procedural until their own reproducible packs are built and reviewed.
-- Mvog-Mbi has automated pack/runtime validation but has not had a production visual, Android/device, offline/Settings or named local cultural review yet.
+- Nlongkak, Mvog-Mbi and Mokolo are geographic. The other six districts remain procedural until their own reproducible packs are built and reviewed.
+- Mvog-Mbi and Mokolo have automated pack/runtime validation but have not had a production visual, Android/device, offline/Settings or named local cultural review yet. Browser-based checks are deferred for now.
 - Building heights are mostly inferred from footprint area and tags; only tagged heights/levels are real.
 - Waterway ribbons use DEM-derived per-point heights; there is no flow, flooding or channel-carving simulation. OSM bridge decks use a straight grade between endpoints and have no hydraulic, underpass or parapet-collision model.
 - There is no real-time traffic, routing, live closures, or live geocoding. Parked/waiting vehicles, market stalls, vendor umbrellas, produce and signage are deterministic visual dressing, not vendor registries, real shop names or traffic data.
 - Compound walls/gates and balcony slabs are bounded visual accents without collision volumes or enterable floors.
 - Drainage gutters, pavements and curbs are inferred from road class for visual detail; they are not mapped infrastructure and do not simulate flow or flooding.
-- Nlongkak has a boundary polygon from OSM; Mvog-Mbi uses relation `3093787` to define its bbox but its runtime district anchor is still a point. Other district anchors are points, not official boundaries.
+- Nlongkak has a boundary polygon from OSM; Mvog-Mbi and Mokolo use relations `3093787` and `2758122` to define their bboxes but their runtime district anchors are still points. Other district anchors are points, not official boundaries.
 - Fictional businesses and NPC schedules are designed gameplay content mapped into the real slice, not statements about real establishments.
 - The slice is not a photoreal or Google-Maps-like replica. It is a low-poly, deterministic interpretation of OSM geometry and Copernicus terrain.
 - Device performance on low-end Android still needs a real-device pass.
@@ -146,4 +153,4 @@ When showing a geographic district in the product, display or link the attributi
 - `Map data (c) OpenStreetMap contributors, ODbL 1.0`
 - `Elevation (c) ESA, Copernicus DEM GLO-30`
 
-The machine-readable copies are in `public/world/v1/licenses.json` and `public/world/mvog-mbi/v1/licenses.json`.
+The machine-readable copies are in `public/world/v1/licenses.json`, `public/world/mvog-mbi/v1/licenses.json` and `public/world/mokolo/v1/licenses.json`.

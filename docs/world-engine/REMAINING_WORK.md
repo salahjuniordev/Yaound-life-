@@ -1,18 +1,21 @@
 # Remaining World-Engine Work
 
-Last updated: 2026-11-18
+Last updated: 2026-11-19
 
-Status: **M0–M7 complete; M8 partial; two geographic packs registered
-(Nlongkak and Mvog-Mbi) with Phase 5 infrastructure. The master brief defines no
-M9.** The remaining items are M8 acceptance gates, the blocked Open Buildings
-production import, review of the Mvog-Mbi pack, further district packs and
-per-area review. Nothing in this document is a claim that an unperformed check
-has passed.
+Status: **M0–M7 complete; M8 partial; three geographic packs registered
+(Nlongkak, Mvog-Mbi and Mokolo) with Phase 5 infrastructure. The master brief
+defines no M9.** Browser-based/device/cultural acceptance checks are deferred by
+product direction and remain unverified; they are not the active build goal.
+The remaining active build work is further district packs, per-area static
+review, and the blocked Open Buildings production import. Nothing in this
+document is a claim that an unperformed check has passed.
 
 ## M8 acceptance work — status
 
 These were the live-review/device/culture items parked while the remaining
-master-brief build audit proceeded.
+master-brief build audit proceeded. **Browser-based checks are now explicitly
+deferred by product direction.** The recorded gaps still prevent an M8-complete
+claim, but they should not be scheduled as the next build task.
 
 1. **Done 2026-11-16 — single-view WebGL frames.** A committed harness at
    `review/m8-single-view.html` / `review/m8-single-view.ts` renders the
@@ -35,11 +38,11 @@ master-brief build audit proceeded.
    geometry is 640,576 building + 102,550 prop + 157,182 road triangles at high
    quality. `M8_VISUAL_CULTURAL_REVIEW.md` records the frames, root causes and
    limits. The world pack, gameplay IDs and saves were not changed.
-4. **Open — external gates.** Actual Android Chrome on the SM-A716U:
+4. **Deferred — external gates.** Actual Android Chrome on the SM-A716U:
    screenshots, input, real-device low/mid/high FPS, Settings
    download/cancel/remove and offline reload. Named local Cameroonian cultural
    review of gates, balconies, market dressing, vendor tables, signage,
-   vehicles and bridge parapets.
+   vehicles and bridge parapets. Do them later; do not claim them done.
 
 The Mesa run is real WebGL evidence, but it is **not** Android Chrome or
 real-device performance evidence.
@@ -69,7 +72,8 @@ explicit missing asset category:
 | Parking areas / roadside transport | Built 2026-11-16 | 18 bays and 36 parked vehicles after the road correction; single-view WebGL parking frame reviewed; device appearance untested |
 
 M8 is still **partial** because the live/device/offline/cultural acceptance
-gates are not complete. See `M8_VISUAL_CULTURAL_REVIEW.md`.
+gates are not complete. See `M8_VISUAL_CULTURAL_REVIEW.md`. Browser-based
+checks are deferred and should not block continued pack work.
 
 The renderer now clips the global road network per chunk instead of trusting
 the pack's midpoint ownership. This fixed the missing/buried spawn road and
@@ -107,53 +111,53 @@ solely because the importer contract exists.
 
 ### Phase 5 — Geographic city expansion
 
-Nlongkak and Mvog-Mbi are geographic. Mokolo, Ngoa-Ekelle, Bastos, Mvan, Mont
+Nlongkak, Mvog-Mbi and Mokolo are geographic. Ngoa-Ekelle, Bastos, Mvan, Mont
 Febe, Lac Municipal, Boulevard du 20 Mai and the remaining gameplay areas still
 render the legacy procedural world.
 
 The multi-pack infrastructure is implemented without changing gameplay district
 IDs or the save format:
 
-1. **Area build configuration and reproducible extraction.** Nlongkak and
-   Mvog-Mbi each have an explicit config (`data/geodata/config/*.json`). The
-   `world:acquire` script takes an area config, derives its bbox and DEM window,
-   and runs `world:build`; the raw OSM/DEM inputs remain pinned and gitignored.
-   Mvog-Mbi used OSM relation `3093787` and the same 2026-10-30 OSM/Copernicus
-   inputs as Nlongkak.
+1. **Area build configuration and reproducible extraction.** Nlongkak,
+   Mvog-Mbi and Mokolo each have an explicit config
+   (`data/geodata/config/*.json`). The `world:acquire` script takes an area
+   config, derives its bbox and DEM window, and runs `world:build`; the raw
+   OSM/DEM inputs remain pinned and gitignored. Mvog-Mbi used OSM relation
+   `3093787`; Mokolo used relation `2758122`; both use the same 2026-10-30
+   OSM/Copernicus inputs as Nlongkak.
 2. **Registry/selector.** `public/world/registry.json` maps gameplay district IDs
    to versioned packs. `src/world/registry.ts` validates unique districts, safe
    site-relative `basePath`s, version tokens and manifest-format compatibility,
-   and provides a built-in two-pack fallback if the registry request fails.
+   and provides a built-in three-pack fallback if the registry request fails.
 3. **Loader and offline support.** `loadWorldRegistry` and `loadManifest` check
    the registered `worldVersion` and `area.id`. Settings selects among
    compatible registered packs, downloads each separately and removes only the
-   selected pack; cleanup preserves every registered version. Both packs have
-   `precacheOnInstall: true`.
+   selected pack; cleanup preserves every registered version. Nlongkak and
+   Mvog-Mbi have `precacheOnInstall: true`; Mokolo is on-demand.
 4. **Adapter and gameplay mapping.** `src/render/geo/adapter.ts` derives its
    district, anchor, place filter, `districtAt` and position mapping from the
-   loaded manifest/`WorldDistrictAnchor`. A non-Nlongkak adapter test and a
-   runtime-loader test over every Mvog-Mbi chunk cover the path.
+   loaded manifest/`WorldDistrictAnchor`. A non-Nlongkak adapter test and
+   runtime-loader, chunk and default-spawn checks over every registered pack
+   cover the path.
 5. **Save compatibility.** `test/registry.test.ts` round-trips saves for a
    geographic and a legacy district without changing district IDs or save
    format.
-6. **Per-area review.** Open for Mvog-Mbi: production visual review,
-   performance measurements, Android/offline/Settings checks and named local
-   cultural review. The Nlongkak M8 device/offline/cultural gates also remain
-   open.
+6. **Per-area review.** Automated pack/runtime review now covers all three
+   packs. Visual, Android/offline/Settings and named cultural review remain
+   deferred for Nlongkak, Mvog-Mbi and Mokolo.
 
 Remaining Phase 5 work:
 
-- review Mvog-Mbi as its own area and record visual/performance/device/cultural
-  evidence before calling it device-playable;
-- acquire and process one more verified district's OSM/DEM data when needed;
-- generate one coherent pack at a time and register it, keeping all other
-  districts on the legacy fallback;
-- run per-area validation, offline/device checks, performance measurements and
-  named local cultural review before claiming it playable.
+- add one more verified district pack when needed, one coherent pack at a time;
+- keep automated manifest/runtime/chunk/spawn validation and size budgets green
+  for every pack;
+- record visual/device/offline/cultural evidence later, when browser and local
+  review work is resumed, before claiming any new area device-playable;
+- keep unaffected districts on the legacy procedural fallback.
 
-Do not generate all of Yaoundé in one operation. Keep the existing Nlongkak and
-Mvog-Mbi `worldVersion`s unchanged unless their inputs or format are rebuilt and
-revalidated.
+Do not generate all of Yaoundé in one operation. Keep the existing Nlongkak,
+Mvog-Mbi and Mokolo `worldVersion`s unchanged unless their inputs or format are
+rebuilt and revalidated.
 
 ## Not build work
 
@@ -173,31 +177,35 @@ code alone:
 - Real Nlongkak pack: 426 roads, 8,085 buildings, 409 POIs, 2 water polygons,
   35 waterway lines.
 - Real Mvog-Mbi pack: 224 roads, 2,659 buildings, 89 POIs, 5 water polygons,
-  18 waterway lines; runtime loader, all 9 chunks and default-spawn clearance validated.
+  18 waterway lines; runtime loader, all 9 chunks and default-spawn clearance
+  validated.
+- Real Mokolo pack: 100 roads, 1,989 buildings, 38 POIs, 1 water polygon, 15
+  waterway lines; runtime loader, all 6 chunks and default-spawn clearance
+  validated; registered for on-demand download.
 - Offline packaging, registry-driven service-worker lifecycle, app-shell
   precache, pack download UI and multi-pack cache cleanup with automated tests.
 - Phase 5 multi-pack infrastructure: district-keyed registry, manifest/version
   validation, generic adapter, path-aware service-worker caching and save
-  compatibility tests. Nlongkak and Mvog-Mbi are registered.
+  compatibility tests. Nlongkak, Mvog-Mbi and Mokolo are registered.
 - M8 geometry implementation, attribution/licensing, feature flag/rollback and
   size budgets.
-- Current verification (2026-11-18): typecheck pass, 240/240 tests, build pass,
-  all size budgets pass, `world:validate` pass for both packs.
+- Current verification (2026-11-19): typecheck pass, 240/240 tests, build pass,
+  all size budgets pass, `world:validate` pass for all three packs.
 - Renderer-only visual review and internal cultural plausibility review.
 - Live-app Chromium + Mesa WebGL capture at Nlongkak and the market. No
-  equivalent visual/device review exists yet for Mvog-Mbi.
+  equivalent visual/device review exists yet for Mvog-Mbi or Mokolo.
 
 ## Exact next action
 
-1. Return to the open external M8 acceptance gates above: Android Chrome,
-   real-device FPS and offline/Settings checks, and the named local cultural
-   review; do not mark M8 complete until they have actual evidence.
-2. Review Mvog-Mbi as a new geographic area: production visual/performance
-   pass, Android/offline/Settings checks, then named local cultural review. Its
-   automated validation is not visual or cultural approval.
-3. For the next district, use a verified per-area OSM/DEM extraction and
-   `npm run world:acquire -- data/geodata/config/<area>.json`, then
+1. Browser-based, Android/device and named cultural checks are deferred by
+   product direction. Do not schedule browser automation now and do not mark
+   M8 complete without later evidence.
+2. Continue Phase 5 with one more verified district pack when needed: use a
+   per-area OSM/DEM config, `npm run world:acquire -- ...`, then
    `world:validate`; do not regenerate existing packs or invent inputs.
+3. Keep automated pack/runtime/chunk/spawn validation and size budgets green
+   for every registered pack. A static renderer-geometry pass is useful; visual
+   claims still require later review.
 4. Use the Open Buildings importer only when a licensed export and licence
    review exist.
 5. Update `IMPLEMENTATION_PROGRESS.md` and `IMPLEMENTATION_CHECKLIST.md` after

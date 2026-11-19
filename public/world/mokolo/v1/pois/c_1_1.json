@@ -1,0 +1,42 @@
+[
+  {
+    "id": "osm-n4795265406",
+    "sourceId": "n4795265406",
+    "name": "place_of_worship",
+    "kind": "place_of_worship",
+    "pos": [
+      982.5827728162985,
+      -815.5119676771574
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4795265406",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820971876",
+    "sourceId": "a820971876",
+    "name": "TRADEX TSINGA",
+    "kind": "fuel",
+    "pos": [
+      989.4131941180676,
+      -937.1601235255948
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820971876",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

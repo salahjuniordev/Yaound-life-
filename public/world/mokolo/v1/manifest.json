@@ -1,0 +1,195 @@
+{
+  "format": "yaounde-life-world",
+  "formatVersion": 1,
+  "worldVersion": "mokolo-2026-10-30-v1",
+  "generatorVersion": "1.1.0",
+  "generatedAt": "2026-11-18T22:36:59.925Z",
+  "area": {
+    "id": "mokolo",
+    "name": "Mokolo",
+    "description": "Third playable geographical slice, covering the Mokolo market neighbourhood of Yaoundé with real OSM geometry and Copernicus terrain."
+  },
+  "projection": {
+    "id": "EPSG:32632",
+    "name": "WGS 84 / UTM zone 32N",
+    "zone": 32,
+    "hemisphere": "N",
+    "datum": "WGS84",
+    "centralMeridian": 9
+  },
+  "origin": {
+    "lon": 11.492874510760704,
+    "lat": 3.871300075166739,
+    "east": 776852.9380641689,
+    "north": 428308.33476156817
+  },
+  "unitsPerMetre": 1,
+  "verticalScale": 1,
+  "verticalOffset": 717.1,
+  "elevationDatum": "Copernicus DEM GLO-30 (EGM2008), local offset",
+  "terrainCellSize": 8,
+  "coarseTerrainCellSize": 16,
+  "chunkSize": 512,
+  "bounds": {
+    "minX": 0,
+    "maxX": 1236.354856576072,
+    "minZ": -966.2063012764556,
+    "maxZ": 0,
+    "minEast": 776852.9380641689,
+    "maxEast": 778089.292920745,
+    "minNorth": 428308.33476156817,
+    "maxNorth": 429274.5410628446
+  },
+  "waterLevel": 0.05240598693290402,
+  "sources": [
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap Cameroon extract",
+      "url": "https://download.geofabrik.de/africa/cameroon.html",
+      "license": "ODbL-1.0",
+      "attribution": "(c) OpenStreetMap contributors",
+      "snapshotDate": "2026-10-30",
+      "usage": "Roads, building footprints, water polygons and waterway lines, POIs and neighbourhood boundaries for Mokolo."
+    },
+    {
+      "id": "copernicus_dem_glo30",
+      "name": "Copernicus DEM GLO-30",
+      "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "license": "Copernicus DEM licence (free, attribution required)",
+      "attribution": "(c) ESA, Copernicus DEM GLO-30",
+      "snapshotDate": "2022-05-09",
+      "usage": "Terrain elevation for the Mokolo slice."
+    }
+  ],
+  "featureCounts": {
+    "chunks": 6,
+    "roads": 100,
+    "buildings": 1989,
+    "pois": 38,
+    "waterPolygons": 1,
+    "waterways": 15,
+    "terrainSamples": 19032
+  },
+  "chunks": [
+    {
+      "id": "c_0_0",
+      "ix": 0,
+      "iz": 0,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_0_0.bin",
+      "roadsFile": "roads/c_0_0.json",
+      "buildingsFile": "buildings/c_0_0.bin",
+      "buildingsMetaFile": "buildings/c_0_0.json",
+      "poisFile": "pois/c_0_0.json",
+      "buildingCount": 393,
+      "roadCount": 13,
+      "hash": "c1a8e549d5a714f9aa075ce576b7bd47487a68722d130008fe63bd7491b7be2a"
+    },
+    {
+      "id": "c_1_0",
+      "ix": 1,
+      "iz": 0,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_1_0.bin",
+      "roadsFile": "roads/c_1_0.json",
+      "buildingsFile": "buildings/c_1_0.bin",
+      "buildingsMetaFile": "buildings/c_1_0.json",
+      "poisFile": "pois/c_1_0.json",
+      "buildingCount": 375,
+      "roadCount": 33,
+      "hash": "afbcc38f43080df27e742a8f3d18e4231ff0764eb2751936f906ee0bb5e6ef8d"
+    },
+    {
+      "id": "c_2_0",
+      "ix": 2,
+      "iz": 0,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -512,
+        "maxZ": 0
+      },
+      "terrainFile": "terrain/c_2_0.bin",
+      "roadsFile": "roads/c_2_0.json",
+      "buildingsFile": "buildings/c_2_0.bin",
+      "buildingsMetaFile": "buildings/c_2_0.json",
+      "poisFile": "pois/c_2_0.json",
+      "buildingCount": 149,
+      "roadCount": 19,
+      "hash": "142227bcf5e21be12e475e7bad4a06ad7edc167dac4c742c114a8f7f0021f637"
+    },
+    {
+      "id": "c_0_1",
+      "ix": 0,
+      "iz": 1,
+      "bounds": {
+        "minX": 0,
+        "maxX": 512,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_0_1.bin",
+      "roadsFile": "roads/c_0_1.json",
+      "buildingsFile": "buildings/c_0_1.bin",
+      "buildingsMetaFile": "buildings/c_0_1.json",
+      "poisFile": "pois/c_0_1.json",
+      "buildingCount": 516,
+      "roadCount": 7,
+      "hash": "da5dca55febe40abb89761ace28455c0e1dfb9826ee771bf8eade133d124a1a3"
+    },
+    {
+      "id": "c_1_1",
+      "ix": 1,
+      "iz": 1,
+      "bounds": {
+        "minX": 512,
+        "maxX": 1024,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_1_1.bin",
+      "roadsFile": "roads/c_1_1.json",
+      "buildingsFile": "buildings/c_1_1.bin",
+      "buildingsMetaFile": "buildings/c_1_1.json",
+      "poisFile": "pois/c_1_1.json",
+      "buildingCount": 396,
+      "roadCount": 16,
+      "hash": "55061838a997831f696a8bf1fad0b733c5743d242d1d85c077a22091f5402e94"
+    },
+    {
+      "id": "c_2_1",
+      "ix": 2,
+      "iz": 1,
+      "bounds": {
+        "minX": 1024,
+        "maxX": 1536,
+        "minZ": -1024,
+        "maxZ": -512
+      },
+      "terrainFile": "terrain/c_2_1.bin",
+      "roadsFile": "roads/c_2_1.json",
+      "buildingsFile": "buildings/c_2_1.bin",
+      "buildingsMetaFile": "buildings/c_2_1.json",
+      "poisFile": "pois/c_2_1.json",
+      "buildingCount": 160,
+      "roadCount": 12,
+      "hash": "1954146ed768039d5a79d4c7694a61b78832dbcbec0ed390645fa2fbb46bc504"
+    }
+  ],
+  "contentHash": "ae76c37007eb35ef3c299c051be35410cf74d570fa23212fb44f3847843aaee2",
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+}

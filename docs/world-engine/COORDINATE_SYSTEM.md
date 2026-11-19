@@ -44,14 +44,16 @@ north 429056.09154497687
 The Nlongkak bbox is `11.5126,3.8780,11.5305,3.8960`; the generated slice is
 `1995.14 m × 1997.49 m`, split into 512 m chunks (4 × 4 = 16 chunks). Mvog-Mbi
 uses bbox `11.5156,3.8445..11.5258,3.8583`, about `1,138 m × 1,530 m`, split into
-3 × 3 chunks. Every pack stores its own origin and bounds in its manifest.
+3 × 3 chunks. Mokolo uses bbox `11.4929,3.8713..11.5040,3.8800`, about
+`1,236 m × 966 m`, split into 3 × 2 chunks. Every pack stores its own origin and
+bounds in its manifest.
 
 ## Elevation
 
 - Source: Copernicus DEM GLO-30.
 - The pipeline samples elevation in projected space, smooths it once, and
   subtracts each pack's local vertical offset (Nlongkak `713.3 m`; Mvog-Mbi
-  `698.9 m`).
+  `698.9 m`; Mokolo `717.1 m`).
 - `localHeight = max(0, elevation - verticalOffset)`.
 - `verticalScale` is `1`; `verticalOffset` is stored in the manifest so absolute
   elevation can be reconstructed.

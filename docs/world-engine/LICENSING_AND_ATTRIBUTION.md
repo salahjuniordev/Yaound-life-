@@ -2,7 +2,8 @@
 
 This file is a practical summary, not legal advice. The machine-readable source
 records are `public/world/v1/licenses.json`,
-`public/world/mvog-mbi/v1/licenses.json`, and each pack's `manifest.sources`.
+`public/world/mvog-mbi/v1/licenses.json`,
+`public/world/mokolo/v1/licenses.json`, and each pack's `manifest.sources`.
 
 ## OpenStreetMap
 
@@ -10,8 +11,8 @@ records are `public/world/v1/licenses.json`,
 - Licence: ODbL 1.0.
 - Attribution: `Map data © OpenStreetMap contributors, ODbL 1.0`.
 - Derived data (clipped roads, buildings, water polygons, waterway lines, POIs,
-  boundaries) in both packs is distributed under the same obligations. Keep
-  attribution visible in the product and in redistributed data.
+  boundaries) in all three packs is distributed under the same obligations.
+  Keep attribution visible in the product and in redistributed data.
 - Do not imply OSM endorses Yaoundé Life.
 
 ## Copernicus DEM GLO-30
@@ -23,9 +24,9 @@ records are `public/world/v1/licenses.json`,
 
 ## Google Open Buildings V3
 
-Not used in either current pack. Neither pack contains Open Buildings geometry,
-so its licence and attribution terms do not apply to the shipped Nlongkak or
-Mvog-Mbi packages.
+Not used in any current pack. None of the shipped packs contains Open Buildings
+geometry, so its licence and attribution terms do not apply to the Nlongkak,
+Mvog-Mbi or Mokolo packages.
 See `GEOGRAPHIC_DATA_SOURCES.md` for the blocker and the opt-in import contract.
 
 If an export is added later, the importer accepts either licence Google

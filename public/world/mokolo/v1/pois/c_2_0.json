@@ -1,0 +1,142 @@
+[
+  {
+    "id": "osm-n2303494207",
+    "sourceId": "n2303494207",
+    "name": "Texaco Messa",
+    "kind": "fuel",
+    "pos": [
+      1077.0151251927018,
+      -128.6530336526921
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2303494207",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057848",
+    "sourceId": "n5777057848",
+    "name": "Poste de Messa",
+    "kind": "post_office",
+    "pos": [
+      1145.944788002409,
+      -178.88855674746446
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057848",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057853",
+    "sourceId": "n5777057853",
+    "name": "Pharmacie la Providence",
+    "kind": "pharmacy",
+    "pos": [
+      1144.158657307038,
+      -230.54174741066527
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057853",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081605",
+    "sourceId": "n6316081605",
+    "name": "Native Baptist Church",
+    "kind": "place_of_worship",
+    "pos": [
+      1225.8110292146448,
+      -439.2314157144283
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081605",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081606",
+    "sourceId": "n6316081606",
+    "name": "place_of_worship",
+    "kind": "place_of_worship",
+    "pos": [
+      1191.736614603782,
+      -470.0771252086852
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081606",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542034",
+    "sourceId": "a820542034",
+    "name": "MRS Messa 2",
+    "kind": "fuel",
+    "pos": [
+      1060.3030259234365,
+      -154.41632641578326
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542034",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542040",
+    "sourceId": "a820542040",
+    "name": "Oilibya New Messa",
+    "kind": "fuel",
+    "pos": [
+      1078.7928390642628,
+      -151.36188351467717
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542040",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

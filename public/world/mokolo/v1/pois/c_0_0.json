@@ -1,0 +1,182 @@
+[
+  {
+    "id": "osm-n2284209759",
+    "sourceId": "n2284209759",
+    "name": "Mission Catholique Mokolo",
+    "kind": "locality",
+    "pos": [
+      232.2980293885339,
+      -439.39832410076633
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284209759",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057774",
+    "sourceId": "n5777057774",
+    "name": "MRS MOKOLO",
+    "kind": "fuel",
+    "pos": [
+      435.8215607376769,
+      -117.7232331323321
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057774",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057775",
+    "sourceId": "n5777057775",
+    "name": "Gare Routière Yaoundé Ouest",
+    "kind": "bus_station",
+    "pos": [
+      480.30099870217964,
+      -145.9791407523444
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057775",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11190127838",
+    "sourceId": "n11190127838",
+    "name": "Menuisier Salon + salle à manger",
+    "kind": "apartment",
+    "pos": [
+      150.19082016474567,
+      -25.90273913065903
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11190127838",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11422663031",
+    "sourceId": "n11422663031",
+    "name": "Felix",
+    "kind": "bakery",
+    "pos": [
+      203.4033266766928,
+      -9.407841842854396
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11422663031",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664238",
+    "sourceId": "a438664238",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      170.22247302369215,
+      -314.58990912424633
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664238",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438826256",
+    "sourceId": "a438826256",
+    "name": "bus_station",
+    "kind": "bus_station",
+    "pos": [
+      433.81332993344404,
+      -161.91833691723878
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438826256",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667716",
+    "sourceId": "a439667716",
+    "name": "École Sacré-Coeur",
+    "kind": "school",
+    "pos": [
+      114.6020021517761,
+      -326.1651812729542
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667716",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820531240",
+    "sourceId": "a820531240",
+    "name": "fuel",
+    "kind": "fuel",
+    "pos": [
+      412.19070458668284,
+      -126.9253481925698
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820531240",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

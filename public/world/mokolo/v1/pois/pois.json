@@ -1,0 +1,763 @@
+[
+  {
+    "id": "osm-n2284209759",
+    "sourceId": "n2284209759",
+    "name": "Mission Catholique Mokolo",
+    "kind": "locality",
+    "pos": [
+      232.2980293885339,
+      -439.39832410076633
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2284209759",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n2303494207",
+    "sourceId": "n2303494207",
+    "name": "Texaco Messa",
+    "kind": "fuel",
+    "pos": [
+      1077.0151251927018,
+      -128.6530336526921
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n2303494207",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3615210616",
+    "sourceId": "n3615210616",
+    "name": "Laboratoire d'analyse médicale Owonto de Mokolo",
+    "kind": "laboratory",
+    "pos": [
+      354.7134577985853,
+      -595.2202865715954
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3615210616",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3615214649",
+    "sourceId": "n3615214649",
+    "name": "Pharmacie Lyonnaise",
+    "kind": "pharmacy",
+    "pos": [
+      458.190688320552,
+      -529.1961155075114
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3615214649",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3615215095",
+    "sourceId": "n3615215095",
+    "name": "Les sources",
+    "kind": "bakery",
+    "pos": [
+      469.0931851794012,
+      -521.3838173269178
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3615215095",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4010722854",
+    "sourceId": "n4010722854",
+    "name": "Dovv",
+    "kind": "supermarket",
+    "pos": [
+      983.5676187591162,
+      -229.95699493429856
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4010722854",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4795265406",
+    "sourceId": "n4795265406",
+    "name": "place_of_worship",
+    "kind": "place_of_worship",
+    "pos": [
+      982.5827728162985,
+      -815.5119676771574
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4795265406",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n4795272824",
+    "sourceId": "n4795272824",
+    "name": "Mosquée de la guidance",
+    "kind": "place_of_worship",
+    "pos": [
+      1163.3763238331303,
+      -785.9188129181857
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4795272824",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057774",
+    "sourceId": "n5777057774",
+    "name": "MRS MOKOLO",
+    "kind": "fuel",
+    "pos": [
+      435.8215607376769,
+      -117.7232331323321
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057774",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057775",
+    "sourceId": "n5777057775",
+    "name": "Gare Routière Yaoundé Ouest",
+    "kind": "bus_station",
+    "pos": [
+      480.30099870217964,
+      -145.9791407523444
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057775",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057805",
+    "sourceId": "n5777057805",
+    "name": "SCB Cameroun",
+    "kind": "bank",
+    "pos": [
+      878.967047604965,
+      -149.07941937242867
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057805",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057821",
+    "sourceId": "n5777057821",
+    "name": "Niki Mokolo",
+    "kind": "supermarket",
+    "pos": [
+      726.3810660731979,
+      -343.23603037017165
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057821",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057822",
+    "sourceId": "n5777057822",
+    "name": "Santa Lucia",
+    "kind": "bakery",
+    "pos": [
+      724.8169427335961,
+      -315.9141362736118
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057822",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057823",
+    "sourceId": "n5777057823",
+    "name": "Commissariat du 2éme Arrondissement",
+    "kind": "police",
+    "pos": [
+      834.2240577943157,
+      -285.522887799365
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057823",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057848",
+    "sourceId": "n5777057848",
+    "name": "Poste de Messa",
+    "kind": "post_office",
+    "pos": [
+      1145.944788002409,
+      -178.88855674746446
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057848",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057853",
+    "sourceId": "n5777057853",
+    "name": "Pharmacie la Providence",
+    "kind": "pharmacy",
+    "pos": [
+      1144.158657307038,
+      -230.54174741066527
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057853",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081605",
+    "sourceId": "n6316081605",
+    "name": "Native Baptist Church",
+    "kind": "place_of_worship",
+    "pos": [
+      1225.8110292146448,
+      -439.2314157144283
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081605",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081606",
+    "sourceId": "n6316081606",
+    "name": "place_of_worship",
+    "kind": "place_of_worship",
+    "pos": [
+      1191.736614603782,
+      -470.0771252086852
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081606",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081607",
+    "sourceId": "n6316081607",
+    "name": "place_of_worship",
+    "kind": "place_of_worship",
+    "pos": [
+      1144.5931792126503,
+      -538.6239934609621
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081607",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081608",
+    "sourceId": "n6316081608",
+    "name": "Dentiste",
+    "kind": "dentist",
+    "pos": [
+      1177.518852337962,
+      -591.8734439432155
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081608",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11190127838",
+    "sourceId": "n11190127838",
+    "name": "Menuisier Salon + salle à manger",
+    "kind": "apartment",
+    "pos": [
+      150.19082016474567,
+      -25.90273913065903
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11190127838",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11422663031",
+    "sourceId": "n11422663031",
+    "name": "Felix",
+    "kind": "bakery",
+    "pos": [
+      203.4033266766928,
+      -9.407841842854396
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11422663031",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11434888817",
+    "sourceId": "n11434888817",
+    "name": "Clem’s ustensiles cuisine",
+    "kind": "kitchen",
+    "pos": [
+      713.8335311491974,
+      -162.71025809890125
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11434888817",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13731998666",
+    "sourceId": "n13731998666",
+    "name": "La paroisse de la mode",
+    "kind": "supermarket",
+    "pos": [
+      982.1104629787151,
+      -253.0103341921349
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13731998666",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13958188501",
+    "sourceId": "n13958188501",
+    "name": "CCA Messa",
+    "nameFr": "CCA Messa",
+    "kind": "bank",
+    "pos": [
+      957.2189847561531,
+      -143.31352139398223
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13958188501",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a437079004",
+    "sourceId": "a437079004",
+    "name": "Marché Mokolo",
+    "kind": "marketplace",
+    "pos": [
+      598.5311869932339,
+      -458.81077022012323
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a437079004",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438664238",
+    "sourceId": "a438664238",
+    "name": "pitch",
+    "kind": "pitch",
+    "pos": [
+      170.22247302369215,
+      -314.58990912424633
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438664238",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a438826256",
+    "sourceId": "a438826256",
+    "name": "bus_station",
+    "kind": "bus_station",
+    "pos": [
+      433.81332993344404,
+      -161.91833691723878
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a438826256",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a439667716",
+    "sourceId": "a439667716",
+    "name": "École Sacré-Coeur",
+    "kind": "school",
+    "pos": [
+      114.6020021517761,
+      -326.1651812729542
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a439667716",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a444115512",
+    "sourceId": "a444115512",
+    "name": "OILIBYA",
+    "kind": "fuel",
+    "pos": [
+      208.33506560674869,
+      -716.0622390841017
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a444115512",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820531240",
+    "sourceId": "a820531240",
+    "name": "fuel",
+    "kind": "fuel",
+    "pos": [
+      412.19070458668284,
+      -126.9253481925698
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820531240",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542034",
+    "sourceId": "a820542034",
+    "name": "MRS Messa 2",
+    "kind": "fuel",
+    "pos": [
+      1060.3030259234365,
+      -154.41632641578326
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542034",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542036",
+    "sourceId": "a820542036",
+    "name": "MRS Mokolo 1",
+    "kind": "fuel",
+    "pos": [
+      753.2715217542136,
+      -197.2027205733466
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542036",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542040",
+    "sourceId": "a820542040",
+    "name": "Oilibya New Messa",
+    "kind": "fuel",
+    "pos": [
+      1078.7928390642628,
+      -151.36188351467717
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542040",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542046",
+    "sourceId": "a820542046",
+    "name": "Total Messa",
+    "kind": "fuel",
+    "pos": [
+      857.1357890970539,
+      -177.3170358221396
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542046",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820906080",
+    "sourceId": "a820906080",
+    "name": "MRS",
+    "kind": "fuel",
+    "pos": [
+      321.6616717595607,
+      -622.3847656935686
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820906080",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820971876",
+    "sourceId": "a820971876",
+    "name": "TRADEX TSINGA",
+    "kind": "fuel",
+    "pos": [
+      989.4131941180676,
+      -937.1601235255948
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820971876",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2947636600",
+    "sourceId": "a2947636600",
+    "name": "mokolo en bas",
+    "kind": "marketplace",
+    "pos": [
+      526.8391698733903,
+      -192.12072451401036
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2947636600",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

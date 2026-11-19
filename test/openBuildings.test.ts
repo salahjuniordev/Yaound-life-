@@ -91,7 +91,7 @@ test('Open Buildings import is opt-in through the world config', () => {
 });
 
 test('checked-in world configs keep Open Buildings production ingestion disabled', () => {
-  for (const name of ['nlongkak', 'mvog_mbi']) {
+  for (const name of ['nlongkak', 'mvog_mbi', 'mokolo']) {
     const config = JSON.parse(readFileSync(new URL(`../data/geodata/config/${name}.json`, import.meta.url), 'utf8'));
     assert.equal(enabledOpenBuildingsSourceConfig(config), null);
     assert.ok(config.notUsed?.some((item: { id: string }) => item.id === OPEN_BUILDINGS_SOURCE_ID));

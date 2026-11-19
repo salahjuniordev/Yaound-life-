@@ -178,5 +178,13 @@ export const BUILTIN_WORLD_REGISTRY: WorldPackRegistry = {
       manifestFormatVersion: WORLD_FORMAT_VERSION,
       precacheOnInstall: true,
     },
+    {
+      id: 'mokolo',
+      districtId: 'mokolo',
+      name: 'Mokolo',
+      basePath: 'world/mokolo/v1',
+      worldVersion: 'mokolo-2026-10-30-v1',
+      manifestFormatVersion: WORLD_FORMAT_VERSION,
+    },
   ],
 };

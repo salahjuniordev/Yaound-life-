@@ -1,0 +1,62 @@
+[
+  {
+    "id": "osm-n4795272824",
+    "sourceId": "n4795272824",
+    "name": "Mosquée de la guidance",
+    "kind": "place_of_worship",
+    "pos": [
+      1163.3763238331303,
+      -785.9188129181857
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4795272824",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081607",
+    "sourceId": "n6316081607",
+    "name": "place_of_worship",
+    "kind": "place_of_worship",
+    "pos": [
+      1144.5931792126503,
+      -538.6239934609621
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081607",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n6316081608",
+    "sourceId": "n6316081608",
+    "name": "Dentiste",
+    "kind": "dentist",
+    "pos": [
+      1177.518852337962,
+      -591.8734439432155
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n6316081608",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

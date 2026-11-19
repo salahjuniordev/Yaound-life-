@@ -4,8 +4,8 @@ A playable 3D browser life simulator set in Yaoundé, Cameroon. Built from the
 requirements in `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 
 - Day/night cycle (1 in-game day ≈ 12 real minutes), needs, FCFA economy (cash / MoMo / bank / debt)
-- 9 districts; Nlongkak and Mvog-Mbi are real-geography slices (OSM roads, buildings, water and waterway lines + Copernicus terrain), the other seven use the procedural world
-- Offline world packs: download the full Nlongkak or Mvog-Mbi area from Settings; versioned caches survive app updates and removing one pack preserves the other
+- 9 districts; Nlongkak, Mvog-Mbi and Mokolo are real-geography slices (OSM roads, buildings, water and waterway lines + Copernicus terrain), the other six use the procedural world
+- Offline world packs: download the full Nlongkak, Mvog-Mbi or Mokolo area from Settings; versioned caches survive app updates and removing one pack preserves the others
 - Walk / shared taxi / moto with real cost, time and risk
 - 8 starting backgrounds, 10 jobs, 30+ events, 13 goals, 11 achievements
 - Njangi/tontine system (reliable group + fraudulent "Fast Pot" to learn from)
@@ -32,10 +32,10 @@ npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env
 npm run deploy:cf      # build + deploy dist/ to Cloudflare Pages
 npm run export:character # bake idle/walk/run/sit/phone clips → art/player_rig.glb
 npm run review:packet  # generate the cultural review packet → art/cultural_review_packet.md
-npm run world:inspect -- data/geodata/config/mvog_mbi.json  # inspect one area config
-npm run world:build -- data/geodata/config/mvog_mbi.json    # rebuild one pack and upsert its registry entry
+npm run world:inspect -- data/geodata/config/mokolo.json    # inspect one area config
+npm run world:build -- data/geodata/config/mokolo.json      # rebuild one pack and upsert its registry entry
 npm run world:validate # validate every registered pack, manifest, hashes and chunk payloads
-npm run world:validate -- world/mvog-mbi/v1                 # validate one pack
+npm run world:validate -- world/mokolo/v1                   # validate one pack
 npm run preview        # serve the production build
 ```
 

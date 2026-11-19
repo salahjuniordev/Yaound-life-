@@ -1,0 +1,102 @@
+[
+  {
+    "id": "osm-n3615210616",
+    "sourceId": "n3615210616",
+    "name": "Laboratoire d'analyse médicale Owonto de Mokolo",
+    "kind": "laboratory",
+    "pos": [
+      354.7134577985853,
+      -595.2202865715954
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3615210616",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3615214649",
+    "sourceId": "n3615214649",
+    "name": "Pharmacie Lyonnaise",
+    "kind": "pharmacy",
+    "pos": [
+      458.190688320552,
+      -529.1961155075114
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3615214649",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n3615215095",
+    "sourceId": "n3615215095",
+    "name": "Les sources",
+    "kind": "bakery",
+    "pos": [
+      469.0931851794012,
+      -521.3838173269178
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n3615215095",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a444115512",
+    "sourceId": "a444115512",
+    "name": "OILIBYA",
+    "kind": "fuel",
+    "pos": [
+      208.33506560674869,
+      -716.0622390841017
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a444115512",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820906080",
+    "sourceId": "a820906080",
+    "name": "MRS",
+    "kind": "fuel",
+    "pos": [
+      321.6616717595607,
+      -622.3847656935686
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820906080",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]

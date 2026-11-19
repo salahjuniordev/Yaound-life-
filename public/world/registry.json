@@ -1,8 +1,16 @@
 {
   "format": "yaounde-life-world-registry",
   "formatVersion": 1,
-  "generatedAt": "2026-11-18T18:26:38.070Z",
+  "generatedAt": "2026-11-18T22:36:59.925Z",
   "packs": [
+    {
+      "id": "mokolo",
+      "districtId": "mokolo",
+      "name": "Mokolo",
+      "basePath": "world/mokolo/v1",
+      "worldVersion": "mokolo-2026-10-30-v1",
+      "manifestFormatVersion": 1
+    },
     {
       "id": "mvog_mbi",
       "districtId": "mvog_mbi",

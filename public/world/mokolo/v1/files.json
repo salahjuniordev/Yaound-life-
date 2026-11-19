@@ -1,0 +1,209 @@
+{
+  "format": "yaounde-life-world-catalog",
+  "formatVersion": 1,
+  "worldVersion": "mokolo-2026-10-30-v1",
+  "generatedAt": "2026-11-18T22:36:59.925Z",
+  "totalBytes": 1347034,
+  "files": [
+    {
+      "path": "world/mokolo/v1/manifest.json",
+      "bytes": 5564
+    },
+    {
+      "path": "world/mokolo/v1/licenses.json",
+      "bytes": 1364
+    },
+    {
+      "path": "world/mokolo/v1/terrain/heightfield.bin",
+      "bytes": 19068
+    },
+    {
+      "path": "world/mokolo/v1/roads/network.json",
+      "bytes": 117545
+    },
+    {
+      "path": "world/mokolo/v1/pois/pois.json",
+      "bytes": 18801
+    },
+    {
+      "path": "world/mokolo/v1/water/water.json",
+      "bytes": 1459
+    },
+    {
+      "path": "world/mokolo/v1/water/waterways.json",
+      "bytes": 29225
+    },
+    {
+      "path": "world/mokolo/v1/districts/districts.json",
+      "bytes": 32052
+    },
+    {
+      "path": "world/mokolo/v1/terrain/c_0_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/mokolo/v1/roads/c_0_0.json",
+      "bytes": 21196
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_0_0.bin",
+      "bytes": 17428
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_0_0.json",
+      "bytes": 155274
+    },
+    {
+      "path": "world/mokolo/v1/pois/c_0_0.json",
+      "bytes": 4440
+    },
+    {
+      "path": "world/mokolo/v1/terrain/c_1_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/mokolo/v1/roads/c_1_0.json",
+      "bytes": 38310
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_1_0.bin",
+      "bytes": 16424
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_1_0.json",
+      "bytes": 148694
+    },
+    {
+      "path": "world/mokolo/v1/pois/c_1_0.json",
+      "bytes": 5947
+    },
+    {
+      "path": "world/mokolo/v1/terrain/c_2_0.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/mokolo/v1/roads/c_2_0.json",
+      "bytes": 17822
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_2_0.bin",
+      "bytes": 7252
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_2_0.json",
+      "bytes": 59180
+    },
+    {
+      "path": "world/mokolo/v1/pois/c_2_0.json",
+      "bytes": 3472
+    },
+    {
+      "path": "world/mokolo/v1/terrain/c_0_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/mokolo/v1/roads/c_0_1.json",
+      "bytes": 7187
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_0_1.bin",
+      "bytes": 23784
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_0_1.json",
+      "bytes": 204127
+    },
+    {
+      "path": "world/mokolo/v1/pois/c_0_1.json",
+      "bytes": 2467
+    },
+    {
+      "path": "world/mokolo/v1/terrain/c_1_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/mokolo/v1/roads/c_1_1.json",
+      "bytes": 19674
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_1_1.bin",
+      "bytes": 18404
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_1_1.json",
+      "bytes": 156456
+    },
+    {
+      "path": "world/mokolo/v1/pois/c_1_1.json",
+      "bytes": 989
+    },
+    {
+      "path": "world/mokolo/v1/terrain/c_2_1.bin",
+      "bytes": 16936
+    },
+    {
+      "path": "world/mokolo/v1/roads/c_2_1.json",
+      "bytes": 13371
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_2_1.bin",
+      "bytes": 12096
+    },
+    {
+      "path": "world/mokolo/v1/buildings/c_2_1.json",
+      "bytes": 63213
+    },
+    {
+      "path": "world/mokolo/v1/pois/c_2_1.json",
+      "bytes": 1501
+    },
+    {
+      "path": "world/mokolo/v1/metadata/validation.json",
+      "bytes": 94
+    },
+    {
+      "path": "world/mokolo/v1/metadata/build-report.json",
+      "bytes": 1538
+    }
+  ],
+  "initial": [
+    "world/mokolo/v1/manifest.json",
+    "world/mokolo/v1/licenses.json",
+    "world/mokolo/v1/terrain/heightfield.bin",
+    "world/mokolo/v1/roads/network.json",
+    "world/mokolo/v1/pois/pois.json",
+    "world/mokolo/v1/water/water.json",
+    "world/mokolo/v1/water/waterways.json",
+    "world/mokolo/v1/districts/districts.json",
+    "world/mokolo/v1/terrain/c_0_0.bin",
+    "world/mokolo/v1/roads/c_0_0.json",
+    "world/mokolo/v1/buildings/c_0_0.bin",
+    "world/mokolo/v1/buildings/c_0_0.json",
+    "world/mokolo/v1/pois/c_0_0.json",
+    "world/mokolo/v1/terrain/c_1_0.bin",
+    "world/mokolo/v1/roads/c_1_0.json",
+    "world/mokolo/v1/buildings/c_1_0.bin",
+    "world/mokolo/v1/buildings/c_1_0.json",
+    "world/mokolo/v1/pois/c_1_0.json",
+    "world/mokolo/v1/terrain/c_2_0.bin",
+    "world/mokolo/v1/roads/c_2_0.json",
+    "world/mokolo/v1/buildings/c_2_0.bin",
+    "world/mokolo/v1/buildings/c_2_0.json",
+    "world/mokolo/v1/pois/c_2_0.json",
+    "world/mokolo/v1/terrain/c_0_1.bin",
+    "world/mokolo/v1/roads/c_0_1.json",
+    "world/mokolo/v1/buildings/c_0_1.bin",
+    "world/mokolo/v1/buildings/c_0_1.json",
+    "world/mokolo/v1/pois/c_0_1.json",
+    "world/mokolo/v1/terrain/c_1_1.bin",
+    "world/mokolo/v1/roads/c_1_1.json",
+    "world/mokolo/v1/buildings/c_1_1.bin",
+    "world/mokolo/v1/buildings/c_1_1.json",
+    "world/mokolo/v1/pois/c_1_1.json",
+    "world/mokolo/v1/terrain/c_2_1.bin",
+    "world/mokolo/v1/roads/c_2_1.json",
+    "world/mokolo/v1/buildings/c_2_1.bin",
+    "world/mokolo/v1/buildings/c_2_1.json",
+    "world/mokolo/v1/pois/c_2_1.json"
+  ]
+}

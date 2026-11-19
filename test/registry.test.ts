@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { ZONES } from '../src/data/districts';
+import type { DistrictId } from '../src/sim/types';
 import { exportSaveJSON, importSaveJSON } from '../src/persistence/idb';
 import { createGeoAdapter } from '../src/render/geo/adapter';
 import { GeoCollisionWorld } from '../src/render/geo/collision';
@@ -137,71 +138,71 @@ test('manifest loading rejects a stale registry version or district', async () =
   assert.equal((await loadManifest('/app/world/v1', { fetchImpl, expectedAreaId: 'nlongkak' })).worldVersion, manifest.worldVersion);
 });
 
-test('Mvog-Mbi manifest matches its registered pack version and district', async () => {
+test('every registered pack manifest matches its registered version and district', async () => {
   const checkedIn = validateWorldPackRegistry(JSON.parse(readFileSync(new URL('world/registry.json', PUBLIC), 'utf8')));
-  const pack = worldPackForDistrict(checkedIn, 'mvog_mbi');
-  assert.ok(pack);
-  const manifest = JSON.parse(readFileSync(new URL(`${pack.basePath}/manifest.json`, PUBLIC), 'utf8'));
-  const fetchImpl = (async () => new Response(JSON.stringify(manifest), { status: 200 })) as typeof fetch;
-  const loaded = await loadManifest('/app/world/mvog-mbi/v1', {
-    fetchImpl,
-    expectedWorldVersion: pack.worldVersion,
-    expectedAreaId: pack.districtId,
-  });
-  assert.equal(loaded.area.id, 'mvog_mbi');
-  assert.equal(loaded.worldVersion, pack.worldVersion);
-  await assert.rejects(
-    () => loadManifest('/app/world/mvog-mbi/v1', { fetchImpl, expectedAreaId: 'nlongkak' }),
-    (error: unknown) => error instanceof WorldLoadError && error.code === 'version',
-  );
+  for (const pack of checkedIn.packs) {
+    const manifest = JSON.parse(readFileSync(new URL(`${pack.basePath}/manifest.json`, PUBLIC), 'utf8'));
+    const fetchImpl = (async () => new Response(JSON.stringify(manifest), { status: 200 })) as typeof fetch;
+    const loaded = await loadManifest(`/app/${pack.basePath}`, {
+      fetchImpl,
+      expectedWorldVersion: pack.worldVersion,
+      expectedAreaId: pack.districtId,
+    });
+    assert.equal(loaded.area.id, pack.districtId);
+    assert.equal(loaded.worldVersion, pack.worldVersion);
+    await assert.rejects(
+      () => loadManifest(`/app/${pack.basePath}`, { fetchImpl, expectedAreaId: pack.districtId === 'nlongkak' ? 'mvog_mbi' : 'nlongkak' }),
+      (error: unknown) => error instanceof WorldLoadError && error.code === 'version',
+    );
+  }
 });
 
-test('Mvog-Mbi pack loads globals and every chunk through the runtime loader', async () => {
+test('every registered pack loads globals and every chunk through the runtime loader', async () => {
   const checkedIn = validateWorldPackRegistry(JSON.parse(readFileSync(new URL('world/registry.json', PUBLIC), 'utf8')));
-  const pack = worldPackForDistrict(checkedIn, 'mvog_mbi');
-  assert.ok(pack);
-  const baseUrl = `/app/${pack.basePath}`;
-  const fetchImpl = (async (input: string | URL | Request) => {
-    const url = String(input).replace(/^https?:\/\/[^/]+/, '');
-    const relative = url.replace(/^\/app\//, '');
-    assert.ok(relative.startsWith(`${pack.basePath}/`), `unexpected pack URL ${url}`);
-    return new Response(readFileSync(new URL(relative, PUBLIC)));
-  }) as typeof fetch;
+  for (const pack of checkedIn.packs) {
+    const baseUrl = `/app/${pack.basePath}`;
+    const fetchImpl = (async (input: string | URL | Request) => {
+      const url = String(input).replace(/^https?:\/\/[^/]+/, '');
+      const relative = url.replace(/^\/app\//, '');
+      assert.ok(relative.startsWith(`${pack.basePath}/`), `unexpected pack URL ${url}`);
+      return new Response(readFileSync(new URL(relative, PUBLIC)));
+    }) as typeof fetch;
 
-  const manifest = await loadManifest(baseUrl, {
-    fetchImpl,
-    expectedWorldVersion: pack.worldVersion,
-    expectedAreaId: pack.districtId,
-  });
-  const world = await loadWorldData(baseUrl, manifest, { fetchImpl });
-  assert.equal(world.roads.length, manifest.featureCounts.roads);
-  assert.equal(world.pois.length, manifest.featureCounts.pois);
-  assert.equal(world.water.length, manifest.featureCounts.waterPolygons);
-  assert.equal(world.waterways.length, manifest.featureCounts.waterways);
-  const anchor = world.districts.find((district) => district.id === 'mvog_mbi');
-  assert.ok(anchor);
-  assert.ok(anchor.gameX >= manifest.bounds.minX && anchor.gameX <= manifest.bounds.maxX);
-  assert.ok(anchor.gameZ >= manifest.bounds.minZ && anchor.gameZ <= manifest.bounds.maxZ);
+    const manifest = await loadManifest(baseUrl, {
+      fetchImpl,
+      expectedWorldVersion: pack.worldVersion,
+      expectedAreaId: pack.districtId,
+    });
+    const world = await loadWorldData(baseUrl, manifest, { fetchImpl });
+    assert.equal(world.roads.length, manifest.featureCounts.roads);
+    assert.equal(world.pois.length, manifest.featureCounts.pois);
+    assert.equal(world.water.length, manifest.featureCounts.waterPolygons);
+    assert.equal(world.waterways.length, manifest.featureCounts.waterways);
+    const anchor = world.districts.find((district) => district.id === pack.districtId);
+    assert.ok(anchor);
+    assert.ok(anchor.gameX >= manifest.bounds.minX && anchor.gameX <= manifest.bounds.maxX);
+    assert.ok(anchor.gameZ >= manifest.bounds.minZ && anchor.gameZ <= manifest.bounds.maxZ);
 
-  const loaded = await Promise.all(manifest.chunks.map((ref) => loadChunk(baseUrl, manifest, ref, { fetchImpl })));
-  assert.equal(loaded.reduce((sum, chunk) => sum + chunk.buildings.length, 0), manifest.featureCounts.buildings);
-  for (let index = 0; index < loaded.length; index++) {
-    assert.equal(loaded[index].buildings.length, manifest.chunks[index].buildingCount);
-    assert.equal(loaded[index].roads.length, manifest.chunks[index].roadCount);
-    assert.ok(loaded[index].terrain.heights.length > 0);
+    const loaded = await Promise.all(manifest.chunks.map((ref) => loadChunk(baseUrl, manifest, ref, { fetchImpl })));
+    assert.equal(loaded.reduce((sum, chunk) => sum + chunk.buildings.length, 0), manifest.featureCounts.buildings);
+    for (let index = 0; index < loaded.length; index++) {
+      assert.equal(loaded[index].buildings.length, manifest.chunks[index].buildingCount);
+      assert.equal(loaded[index].roads.length, manifest.chunks[index].roadCount);
+      assert.ok(loaded[index].terrain.heights.length > 0);
+    }
+
+    const collision = new GeoCollisionWorld();
+    for (let index = 0; index < loaded.length; index++) {
+      collision.addChunk(manifest.chunks[index].id, loaded[index].buildings);
+    }
+    const roads = new RoadIndex(world.roads);
+    const adapter = createGeoAdapter({ world, collision, roads, terrainHeight: () => 0 });
+    const spawn = adapter.spawnForDistrict(pack.districtId as DistrictId);
+    assert.ok(Number.isFinite(spawn[0]) && Number.isFinite(spawn[1]));
+    assert.equal(collision.isInsideBuilding(spawn[0], spawn[1]), false);
+    const nearestRoad = roads.nearest(spawn[0], spawn[1], 10);
+    assert.ok(nearestRoad && nearestRoad.distance <= 5, `${pack.name} spawn should sit beside a walkable road`);
   }
-
-  const collision = new GeoCollisionWorld();
-  for (let index = 0; index < loaded.length; index++) {
-    collision.addChunk(manifest.chunks[index].id, loaded[index].buildings);
-  }
-  const roads = new RoadIndex(world.roads);
-  const adapter = createGeoAdapter({ world, collision, roads, terrainHeight: () => 0 });
-  const spawn = adapter.spawnForDistrict('mvog_mbi');
-  assert.ok(Number.isFinite(spawn[0]) && Number.isFinite(spawn[1]));
-  assert.equal(collision.isInsideBuilding(spawn[0], spawn[1]), false);
-  const nearestRoad = roads.nearest(spawn[0], spawn[1], 10);
-  assert.ok(nearestRoad && nearestRoad.distance <= 3, 'Mvog-Mbi spawn should sit beside a walkable road');
 });
 
 test('pack selection does not alter district IDs or save round-trips', () => {

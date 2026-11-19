@@ -6,7 +6,7 @@ the game systems, not a second game.
 
 ## Goals
 
-- Load real Nlongkak and Mvog-Mbi slices from versioned local data.
+- Load real Nlongkak, Mvog-Mbi and Mokolo slices from versioned local data.
 - Keep the first playable load small and stream the rest on demand.
 - Work offline after the app shell and initial world pack are cached.
 - Preserve gameplay, saves and the procedural fallback.
@@ -24,6 +24,7 @@ public/world/registry.json ──► district → versioned pack selector
         ▼
 public/world/v1/            Nlongkak manifest + chunks + catalog
 public/world/mvog-mbi/v1/   Mvog-Mbi manifest + chunks + catalog
+public/world/mokolo/v1/     Mokolo manifest + chunks + catalog
         │
         ├── fetch/cache ──► src/world/loader.ts ──► decoded chunks
         │                                           │
@@ -49,13 +50,14 @@ simulation remains authoritative for player state, saves and time.
 1. `GameCanvas` loads `world/registry.json` once, validates the registry, and
    selects the versioned pack registered for the current gameplay district. A
    missing, incompatible or unmapped pack keeps the legacy procedural fallback;
-   the checked-in Nlongkak and Mvog-Mbi entries are also mirrored as a built-in
-   compatibility fallback when the registry request fails.
+   the checked-in Nlongkak, Mvog-Mbi and Mokolo entries are also mirrored as a
+   built-in compatibility fallback when the registry request fails.
 2. `GeoScene` receives that pack entry, fetches its manifest, and enforces the
    registered `worldVersion`, manifest format and `area.id` before loading data.
 3. `ChunkLru` plans loads and evictions. The visible radius is 1×1 (low),
    3×3 (mid) or 5×5 (high), capped by the pack grid: Nlongkak has 16 chunks in a
-   4×4 grid; Mvog-Mbi has 9 chunks in a 3×3 grid.
+   4×4 grid; Mvog-Mbi has 9 chunks in a 3×3 grid; Mokolo has 6 chunks in a 3×2
+   grid.
 4. Each chunk loads terrain, roads, building metadata, buildings and POIs.
 5. Chunk groups are built once and cached in memory. Quality changes rebuild
    geometry; distance decides near/far building LOD.
@@ -83,6 +85,7 @@ simulation remains authoritative for player state, saves and time.
 | `public/world/registry.json` | Committed district → versioned pack registry |
 | `public/world/v1/` | Generated, committed Nlongkak world data |
 | `public/world/mvog-mbi/v1/` | Generated, committed Mvog-Mbi world data |
+| `public/world/mokolo/v1/` | Generated, committed Mokolo world data |
 | `public/sw.js` | Versioned app-shell and world caches |
 | `docs/world-engine/` | This documentation suite |
 

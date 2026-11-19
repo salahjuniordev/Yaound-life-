@@ -1,0 +1,243 @@
+[
+  {
+    "id": "osm-n4010722854",
+    "sourceId": "n4010722854",
+    "name": "Dovv",
+    "kind": "supermarket",
+    "pos": [
+      983.5676187591162,
+      -229.95699493429856
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n4010722854",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057805",
+    "sourceId": "n5777057805",
+    "name": "SCB Cameroun",
+    "kind": "bank",
+    "pos": [
+      878.967047604965,
+      -149.07941937242867
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057805",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057821",
+    "sourceId": "n5777057821",
+    "name": "Niki Mokolo",
+    "kind": "supermarket",
+    "pos": [
+      726.3810660731979,
+      -343.23603037017165
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057821",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057822",
+    "sourceId": "n5777057822",
+    "name": "Santa Lucia",
+    "kind": "bakery",
+    "pos": [
+      724.8169427335961,
+      -315.9141362736118
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057822",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n5777057823",
+    "sourceId": "n5777057823",
+    "name": "Commissariat du 2éme Arrondissement",
+    "kind": "police",
+    "pos": [
+      834.2240577943157,
+      -285.522887799365
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n5777057823",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n11434888817",
+    "sourceId": "n11434888817",
+    "name": "Clem’s ustensiles cuisine",
+    "kind": "kitchen",
+    "pos": [
+      713.8335311491974,
+      -162.71025809890125
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n11434888817",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13731998666",
+    "sourceId": "n13731998666",
+    "name": "La paroisse de la mode",
+    "kind": "supermarket",
+    "pos": [
+      982.1104629787151,
+      -253.0103341921349
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13731998666",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-n13958188501",
+    "sourceId": "n13958188501",
+    "name": "CCA Messa",
+    "nameFr": "CCA Messa",
+    "kind": "bank",
+    "pos": [
+      957.2189847561531,
+      -143.31352139398223
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "n13958188501",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a437079004",
+    "sourceId": "a437079004",
+    "name": "Marché Mokolo",
+    "kind": "marketplace",
+    "pos": [
+      598.5311869932339,
+      -458.81077022012323
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a437079004",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542036",
+    "sourceId": "a820542036",
+    "name": "MRS Mokolo 1",
+    "kind": "fuel",
+    "pos": [
+      753.2715217542136,
+      -197.2027205733466
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542036",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a820542046",
+    "sourceId": "a820542046",
+    "name": "Total Messa",
+    "kind": "fuel",
+    "pos": [
+      857.1357890970539,
+      -177.3170358221396
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a820542046",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  },
+  {
+    "id": "osm-a2947636600",
+    "sourceId": "a2947636600",
+    "name": "mokolo en bas",
+    "kind": "marketplace",
+    "pos": [
+      526.8391698733903,
+      -192.12072451401036
+    ],
+    "provenance": {
+      "source": "openstreetmap",
+      "sourceId": "a2947636600",
+      "sourceVersion": "2026-10-30",
+      "license": "ODbL-1.0",
+      "geometryStatus": "real",
+      "heightStatus": "inferred",
+      "architectureStatus": "designed",
+      "gameplayStatus": "designed"
+    }
+  }
+]
