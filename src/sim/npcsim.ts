@@ -1,4 +1,5 @@
 import type { DistrictId, GameState, NPCState, ScheduleSlot } from './types';
+import { DISTRICT_MAP } from '../data/districts';
 import { npcSchedulePosition } from '../data/places';
 import { RNG, seedFromString } from './rng';
 
@@ -16,8 +17,9 @@ export function currentScheduleSlot(npc: NPCState, minute: number): ScheduleSlot
 
 export function npcPositionFor(npc: NPCState, minute: number): { district: DistrictId; pos: [number, number] } {
   const slot = currentScheduleSlot(npc, minute);
-  const place = slot?.place ?? npc.homeDistrict;
-  const base = npcSchedulePosition(place);
+  const base = slot
+    ? npcSchedulePosition(slot.place)
+    : { district: npc.homeDistrict, pos: DISTRICT_MAP[npc.homeDistrict].center };
   const rng = new RNG(seedFromString(npc.id));
   const ox = rng.range(-3.5, 3.5);
   const oz = rng.range(-3.5, 3.5);
@@ -65,6 +67,14 @@ export function npcActivityText(npc: NPCState, minute: number, fr: boolean): str
     training: { en: 'Training', fr: 'S\'entraîne' },
     teaching: { en: 'Teaching', fr: 'Enseigne' },
     job_hunting: { en: 'Job hunting', fr: 'Cherche du travail' },
+    guiding_visitors: { en: 'Guiding visitors', fr: 'Guide les visiteurs' },
+    closing_rounds: { en: 'Closing rounds', fr: 'Fait le tour de fermeture' },
+    opening_cafe: { en: 'Opening the cafe', fr: 'Ouvre le café' },
+    walking_lakeside: { en: 'Walking by the lake', fr: 'Se promène au bord du lac' },
+    running_cafe: { en: 'Running the cafe', fr: 'Gère le café' },
+    closing_kiosk: { en: 'Closing the kiosk', fr: 'Ferme le kiosque' },
+    guiding_walks: { en: 'Guiding walks', fr: 'Guide les promenades' },
+    viewpoint_tour: { en: 'Giving a viewpoint tour', fr: 'Fait la visite du point de vue' },
   };
   const entry = map[slot.activity];
   if (!entry) return fr ? 'Occupé' : 'Busy';

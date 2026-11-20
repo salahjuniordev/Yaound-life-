@@ -7,7 +7,7 @@ requirements in `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 - 9 districts; all nine are real-geography slices with OSM roads, buildings, water and waterway lines plus Copernicus terrain
 - Offline world packs: download any district pack from Settings; Nlongkak and Mvog-Mbi are precached on install, while the other seven stay on-demand; versioned caches survive app updates and removing one pack preserves the others
 - Walk / shared taxi / moto with real cost, time and risk
-- 8 starting backgrounds, 10 jobs, 30+ events, 13 goals, 11 achievements
+- 8 starting backgrounds, 31 jobs, 30+ events, 13 goals, 11 achievements
 - Njangi/tontine system (reliable group + fraudulent "Fast Pot" to learn from)
 - Businesses with stock, pricing, staff and daily demand; delestage (power cuts) and generator economy
 - Phone UI: Journal, Messages, Wallet, Jobs, Business, Njangi, News, Social, Contacts, Glossary, Stats, Settings
@@ -25,7 +25,7 @@ React 19 · TypeScript · Vite 7 · three.js + @react-three/fiber · zustand · 
 npm install            # on Termux see SETUP.md for flags
 npm run dev            # dev server at http://localhost:5173
 npm run typecheck      # tsc --noEmit (includes tests)
-npm test               # 241 tests (node --test)
+npm test               # 243 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)

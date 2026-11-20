@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Last updated: 2026-11-19
+Last updated: 2026-11-20
 
 ## Milestones
 
@@ -122,10 +122,10 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 241 pass, 0 fail.
+- `npm test`: 243 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 580,092 B gzip, CSS 8,625 B, HTML 1,815 B,
-  first load 590,532 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
+- `size`: all budgets pass — JS 582,809 B gzip, CSS 8,625 B, HTML 1,815 B,
+  first load 593,249 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
 - `world:validate`: pass for all nine registered packs.
 - Nlongkak production geometry after the road correction: 640,576 building,
   102,550 prop and 157,182 road triangles at high quality across 16 chunks.
@@ -133,7 +133,38 @@ Latest results:
   Nlongkak has had a renderer/WebGL review, and none has had a production
   visual/performance pass.
 
-## Latest round: nine-pack city coverage and Bastos content close-out
+## Latest round: gameplay content parity for three districts
+
+Boulevard du 20 Mai, Lac Municipal and Mont Febe now have designed gameplay
+content mapped near their real road slices:
+
+- Boulevard du 20 Mai: `boulevard_events_office`, `museum_garden_cafe` and
+  `boulevard_kiosk`; jobs `museum_guide` and `civic_events_assistant`; NPC
+  Clarisse (museum guide).
+- Lac Municipal: `lac_cafe`, `lac_snack_kiosk` and `lac_shore_garden`; jobs
+  `lakeside_server` and `lake_groundskeeper`; NPC Mireille (lakeside cafe
+  manager).
+- Mont Febe: `febe_guesthouse`, `febe_trailhead` and `febe_view_kiosk`; jobs
+  `mountain_trail_guide` and `guesthouse_receptionist`; NPC Tsala (trail guide).
+- The places reuse the existing `office`, `restaurant`, `hotel`, vendor and
+  activity content. No new interior layout, world-pack geometry, district ID,
+  existing place ID or save field was introduced.
+- Off-schedule named NPCs now rest at their home district centre instead of
+  falling back to the Mvog-Mbi default; a test covers this path for the new
+  partial schedules.
+- Tests now reject unknown activity references on places and enforce the three
+  districts' minimum non-taxi place, taxi and job coverage. The named-NPC
+  schedule test also covers Clarisse, Mireille and Tsala.
+- These are fictional gameplay locations mapped near real roads, not claims
+  about real business names or addresses. Production visual, Android/device,
+  offline/Settings and named cultural review remain deferred for all three.
+
+Verification: typecheck clean, 243/243 tests pass, production build passes, all
+size budgets pass (JS 582,809 B gzip, first load 593,249 B, world assets
+17,805,627 B raw / 3,241,290 B gzip across 509 files), and `world:validate`
+passes for all nine packs.
+
+## Earlier round: nine-pack city coverage and Bastos content close-out
 
 Phase 5 district coverage is complete. The five remaining geographic packs are
 now registered, and the Bastos content pass now matches its existing employers:

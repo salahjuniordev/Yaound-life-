@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { NAMED_NPCS } from '../src/data/npcs';
 import { CAST_LOOKS, CAST_NPC_IDS, CAST_REFERENCE_IMAGES } from '../src/data/castLooks';
-import { npcActivityText } from '../src/sim/npcsim';
+import { currentScheduleSlot, npcActivityText, npcPositionFor } from '../src/sim/npcsim';
 import { NPC_PLACE_ALIASES, PLACE_POSITIONS } from '../src/data/places';
 import type { NPCState } from '../src/sim/types';
 
@@ -50,4 +50,18 @@ test('all named NPC schedules resolve to real places and labelled activities', (
       assert.notEqual(label, 'Busy', `${seed.id} unlabelled activity ${slot.activity}`);
     }
   }
+});
+
+test('named NPCs without an active schedule rest in their home district', () => {
+  let covered = 0;
+  for (const seed of NAMED_NPCS) {
+    const npc: NPCState = { ...seed, district: seed.homeDistrict };
+    const minute = Array.from({ length: 1440 }, (_, index) => index).find((value) => !currentScheduleSlot(npc, value));
+    if (minute === undefined) continue;
+    covered += 1;
+    const pos = npcPositionFor(npc, minute);
+    assert.equal(pos.district, seed.homeDistrict, `${seed.id} should rest at home at ${minute}`);
+    assert.ok(Number.isFinite(pos.pos[0]) && Number.isFinite(pos.pos[1]), `${seed.id} rest position`);
+  }
+  assert.ok(covered >= 3, 'the three new partial schedules exercise the home-district fallback');
 });

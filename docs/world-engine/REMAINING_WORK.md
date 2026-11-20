@@ -1,11 +1,12 @@
 # Remaining World-Engine Work
 
-Last updated: 2026-11-19
+Last updated: 2026-11-20
 
 Status: **M0–M7 complete; M8 partial; nine geographic packs registered
 (Nlongkak, Mvog-Mbi, Mokolo, Bastos, Ngoa-Ekelle, Boulevard du 20 Mai, Lac
-Municipal, Mvan and Mont Febe) with Phase 5 district coverage complete. The
-master brief defines no M9.** Browser-based/device/cultural acceptance checks are
+Municipal, Mvan and Mont Febe) with Phase 5 district coverage complete. Gameplay
+content parity for the last three sparse districts is also complete.** The
+master brief defines no M9. Browser-based/device/cultural acceptance checks are
 deferred by product direction and remain unverified; they are not the active
 build goal. The remaining active build work is acceptance evidence, any future
 content polish, and the blocked Open Buildings production import. Nothing in
@@ -150,6 +151,12 @@ IDs or the save format:
    nine packs. Production visual, Android/device/offline/Settings and named
    cultural review remain unperformed for every pack; only Nlongkak has the
    internal renderer-only and Chromium + Mesa WebGL review.
+7. **Gameplay content parity.** Boulevard du 20 Mai, Lac Municipal and Mont
+   Febe now have designed places, jobs and scheduled NPCs mapped near real
+   roads: an events office, museum cafe and corner kiosk; a lakeside cafe,
+   snack kiosk and garden steps; and a guesthouse, trailhead and viewpoint
+   kiosk. Six jobs and three NPCs cover the three districts. These are fictional
+   gameplay locations, not claims about real businesses or addresses.
 
 Remaining Phase 5 work:
 
@@ -205,10 +212,13 @@ code alone:
 - Phase 5 multi-pack infrastructure: district-keyed registry, manifest/version
   validation, generic adapter, path-aware service-worker caching and save
   compatibility tests. All nine district packs are registered.
+- Gameplay content parity for Boulevard du 20 Mai, Lac Municipal and Mont Febe:
+  nine designed places, six jobs and three scheduled NPCs, with place-activity
+  integrity and district-coverage tests.
 - M8 geometry implementation, attribution/licensing, feature flag/rollback and
   size budgets.
-- Current verification (2026-11-19): typecheck pass, 241/241 tests, build pass,
-  all size budgets pass — JS 580,092 B gzip, first load 590,532 B, world assets
+- Current verification (2026-11-20): typecheck pass, 243/243 tests, build pass,
+  all size budgets pass — JS 582,809 B gzip, first load 593,249 B, world assets
   17,805,627 B raw / 3,241,290 B gzip across 509 files — and `world:validate`
   passes for all nine packs.
 - Renderer-only visual review and internal cultural plausibility review.
@@ -220,10 +230,11 @@ code alone:
 1. Browser-based, Android/device and named cultural checks are deferred by
    product direction. Do not schedule browser automation now and do not mark
    M8 complete without later evidence.
-2. Phase 5 district coverage is complete. Do not add or regenerate a pack
-   without a concrete reason; if a new area is needed, use a per-area OSM/DEM
-   config, `npm run world:acquire -- ...`, then `world:validate`, and do not
-   invent inputs.
+2. Phase 5 district coverage and the three-district content parity pass are
+   complete. Do not add or regenerate a pack without a concrete reason; if a new
+   area is needed, use a per-area OSM/DEM config, `npm run world:acquire --
+   ...`, then `world:validate`, and do not invent inputs. Do not pad places or
+   jobs without a scoped design pass.
 3. Keep automated pack/runtime/chunk/spawn validation and size budgets green
    for every registered pack. A static renderer-geometry pass is useful; visual
    claims still require later review.

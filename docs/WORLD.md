@@ -160,7 +160,7 @@ Every rendered feature carries provenance. Status values mean:
 - Compound walls/gates and balcony slabs are bounded visual accents without collision volumes or enterable floors.
 - Drainage gutters, pavements and curbs are inferred from road class for visual detail; they are not mapped infrastructure and do not simulate flow or flooding.
 - Nlongkak has a boundary polygon from OSM; Mvog-Mbi, Mokolo, Bastos and Mvan use OSM relations to define their slices; Ngoa-Ekelle, Lac Municipal, Boulevard du 20 Mai and Mont Febe use point anchors. Their runtime district anchors are points, not official boundaries.
-- Fictional businesses and NPC schedules are designed gameplay content mapped into the real slice, not statements about real establishments.
+- Fictional businesses and NPC schedules are designed gameplay content mapped into the real slice, not statements about real establishments. Boulevard du 20 Mai, Lac Municipal and Mont Febe now include designed civic, cafe/kiosk, lakeside and guesthouse/trail places and NPCs; these are gameplay locations, not real addresses.
 - The slices are not a photoreal or Google-Maps-like replica. They are a low-poly, deterministic interpretation of OSM geometry and Copernicus terrain.
 - Device performance on low-end Android still needs a real-device pass.
 

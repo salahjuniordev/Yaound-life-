@@ -35,6 +35,26 @@ test('career job data is consistent', () => {
   }
   for (const id of SENIOR_JOB_IDS) assert.ok(JOB_MAP[id], `senior job ${id} exists`);
   for (const a of ACTIVITIES) assert.ok(ACTIVITY_MAP[a.id], `${a.id} in ACTIVITY_MAP`);
+  for (const place of PLACES) {
+    for (const activityId of place.activities ?? []) {
+      assert.ok(ACTIVITY_MAP[activityId], `${place.id} references unknown activity ${activityId}`);
+    }
+  }
+});
+
+test('Boulevard, Lac Municipal and Mont Febe have playable content parity', () => {
+  const districts = ['boulevard', 'lac_municipal', 'mont_febe'] as const;
+  for (const district of districts) {
+    const places = PLACES.filter((place) => place.district === district);
+    const jobs = JOBS.filter((job) => job.district === district);
+    assert.ok(places.filter((place) => place.kind !== 'taxi').length >= 4, `${district} needs at least four non-taxi places`);
+    assert.ok(places.some((place) => place.kind === 'taxi'), `${district} needs a taxi point`);
+    assert.ok(jobs.length >= 2, `${district} needs at least two jobs`);
+    assert.ok(
+      places.some((place) => place.interior || place.vendor || (place.activities?.length ?? 0) > 0),
+      `${district} needs at least one enterable, vendor or activity place`,
+    );
+  }
 });
 
 test('working a shift trains the job skill', () => {
