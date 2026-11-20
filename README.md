@@ -13,6 +13,7 @@ requirements in `Yaounde_Life_Ultimate_PRD_v1.1.txt`.
 - Phone UI: Journal, Messages, Wallet, Jobs, Business, Njangi, News, Social, Contacts, Glossary, Stats, Settings
 - English + French UI, optional Camfranglais flavor, low/mid/high quality tiers
 - Local-first IndexedDB saves (with backup slot) + optional Supabase cloud sync (anonymous auth first)
+- Optional shared daily city state from Supabase (weather, fuel, strike, delestage, headlines); offline play keeps the local simulation
 
 ## Stack
 
@@ -25,7 +26,7 @@ React 19 · TypeScript · Vite 7 · three.js + @react-three/fiber · zustand · 
 npm install            # on Termux see SETUP.md for flags
 npm run dev            # dev server at http://localhost:5173
 npm run typecheck      # tsc --noEmit (includes tests)
-npm test               # 243 tests (node --test)
+npm test               # 248 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)
@@ -40,8 +41,9 @@ npm run preview        # serve the production build
 ```
 
 Cloud sync is optional: copy `.env.example` to `.env` and fill in your Supabase
-URLs, then apply `supabase/migrations/0001_init.sql`. Without it the game runs
-fully offline. See `SETUP.md`.
+URLs, then apply `supabase/migrations/0001_init.sql` and
+`supabase/migrations/0002_world_state_cron.sql` in order. Without it the game
+runs fully offline. See `SETUP.md` and `docs/BACKEND.md`.
 
 CI runs typecheck, tests, build and size budgets on every push
 (`.github/workflows/ci.yml`). Cloudflare Pages config lives in `wrangler.toml`

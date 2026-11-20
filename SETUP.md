@@ -56,9 +56,14 @@ extensionless imports used across `src/` resolve under plain Node.
 
 1. Create a project at supabase.com (region: Paris `eu-west-3` or Frankfurt —
    closest to Cameroon).
-2. In the SQL editor, run `supabase/migrations/0001_init.sql` (or
-   `supabase db push` with the CLI). It creates all tables and row-level
-   security policies.
+2. In the SQL editor, run `supabase/migrations/0001_init.sql` and then
+   `supabase/migrations/0002_world_state_cron.sql` (or `supabase db push` with
+   the CLI). The first creates the tables and row-level security policies; the
+   second enables `pg_cron`, creates the shared city-state generator and
+   schedules it for 00:05 UTC every day. It also generates the current row
+   immediately. For a manual backfill, run
+   `select public.generate_world_state();` or pass a day explicitly:
+   `select public.generate_world_state(42);`.
 3. Enable **anonymous sign-ins**: Authentication → Providers → Anonymous.
 4. For email upgrades, configure SMTP under Authentication → Email.
 5. Copy the env file and fill in your keys (anonymous/public key only — never
@@ -75,8 +80,10 @@ extensionless imports used across `src/` resolve under plain Node.
    npm run db:verify
    ```
    It signs in two anonymous users, checks the profile trigger, character/save
-   isolation, read-only content tables and report ownership, then deletes its
-   probe rows. `SUPABASE_URL` / `SUPABASE_ANON_KEY` are also accepted for CI.
+   isolation, read-only content/world-state tables, the latest city-state shape
+   and report ownership, then deletes its probe rows. If no world-state row
+   exists yet it prints a skip; apply migration `0002` first to exercise the
+   shape check. `SUPABASE_URL` / `SUPABASE_ANON_KEY` are also accepted for CI.
 
 Without env vars the game runs in offline mode: IndexedDB only, no network
 calls, and the Supabase code is eliminated from the bundle.

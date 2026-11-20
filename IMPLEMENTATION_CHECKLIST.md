@@ -11,7 +11,7 @@ Last updated: 2026-11-20
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, build-generated app-shell precache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 243/243 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 248/248 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -61,7 +61,7 @@ Last updated: 2026-11-20
 - [~] Sim runs on main thread inside rAF (PRD suggests Web Worker) — acceptable for v1, worker split pending
 - [x] Quality tiers low/mid/high with settings override (`src/render/controls.ts`)
 - [x] GPU benchmark auto-detect (1.2s FPS probe + memory/cores/saveData/battery signals, `src/render/perf.ts`), first-run apply, "Detect now", battery/data-saver auto mode
-- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently 582,809 B JS and 593,249 B first load; world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files)
+- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently 583,587 B JS and 594,026 B first load; world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files)
 
 ## Characters & assets status (concept references)
 - [x] Real 3D, playable: Amina, Brice, Marie presets via the modular part builder (`src/render/characters.ts`) — editable in the creator, never shown as billboards
@@ -77,13 +77,13 @@ Last updated: 2026-11-20
 
 ## Persistence & Backend (PRD §8.6, §9)
 - [x] Local-first IndexedDB saves with backup slot, list/delete, JSON export/import
-- [x] Supabase anonymous auth, push/pull cloud save, world_state fetch, cloud delete — offline-safe no-env mode
+- [x] Supabase anonymous auth, push/pull cloud save, shared `world_state` fetch and client apply, cloud delete — offline-safe no-env mode
 - [x] Email/password registration and sign-in, anonymous-account upgrade, sign-out, password reset, resend confirmation, display-name profile, auth-aware cloud panel (Main Menu + Settings) and `yaounde-auth-optout` so signed-out users are not silently re-anonymised
 - [x] Mini/no cloud mode degrades cleanly without env vars (dead-code eliminated from bundle)
 - [x] Migration SQL with RLS: `supabase/migrations/0001_init.sql` (profiles, characters, saves, ledger, businesses, njangi_*, world_state, content_*, purchases, achievements, reports)
-- [x] Applied `0001_init.sql` to the live "mboa life" project (`euiagjlekpyipbdwotsg`, eu-west-1), enabled anonymous sign-ins, configured auth redirects (`localhost:5173`, `yaounde-life.pages.dev`), configured local env and verified all RLS checks (`npm run db:verify`: 14/14 PASS)
+- [x] Applied `0001_init.sql` to the live "mboa life" project (`euiagjlekpyipbdwotsg`, eu-west-1), enabled anonymous sign-ins, configured auth redirects (`localhost:5173`, `yaounde-life.pages.dev`), configured local env and verified the live RLS checks (`npm run db:verify`: 15 PASS, 1 SKIP — the world-state shape check waits for `0002` to be applied)
 - [ ] Custom SMTP + re-enable email confirmation before public launch — currently `mailer_autoconfirm` is on so registration works without SMTP; anonymous email upgrade also needs autoconfirm until supabase/auth#2847 is fixed
-- [ ] pg_cron daily world_state generator (fuel, strike, delestage, weather, headlines)
+- [~] pg_cron daily world_state generator (fuel, strike, delestage, weather, headlines) — deterministic migration, 00:05 UTC schedule and client consumption implemented; the hosted Supabase project still needs `0002_world_state_cron.sql` applied and `db:verify` rerun
 - [ ] Edge Functions: payment webhooks, economy validation, moderation
 
 ## P0 — MVP backlog (PRD §14)
@@ -169,7 +169,7 @@ Last updated: 2026-11-20
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 243 tests
+npm test                 # node --test, 248 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -184,6 +184,7 @@ npm run world:validate -- world/bastos/v1  # validate one pack
 ```
 
 ## Changelog
+- 2026-11-20: Shared city-state pipeline — added `supabase/migrations/0002_world_state_cron.sql`, which enables `pg_cron`, creates a deterministic daily generator for weather, fuel, taxi strikes, per-district delestage and bilingual headlines, schedules it at 00:05 UTC and seeds the current row. Added validated `SharedWorldState` parsing and client consumption on load and each local day; the local save calendar is unchanged and offline play keeps the existing simulation. Added parser/engine tests and a `db:verify` shape/write-denial check. The migration is committed but has **not** been applied to the hosted Supabase project; the checklist item remains partial until that is done and verified. Verification: typecheck clean, 248/248 tests pass, build passes, all size budgets pass (JS 583,587 B gzip, first load 594,026 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files). No world-pack, district ID or save-format changes.
 - 2026-11-20: Gameplay content parity for Boulevard du 20 Mai, Lac Municipal and Mont Febe — added nine designed places: Boulevard Events Office, Museum Garden Café and Boulevard corner kiosk; Rive Café, Lakeside snack kiosk and Lakeside garden steps; Mont Febe Guesthouse, Mont Febe trailhead and Viewpoint kiosk. Added six jobs: museum guide, civic events assistant, lakeside server, lakeside groundskeeper, mountain trail guide and guesthouse receptionist. Added three scheduled NPCs (Clarisse, Mireille and Tsala) with EN/FR activity labels and a home-district fallback when they are off schedule, and extended tests to reject unknown place activities and enforce the three districts' place/job/taxi coverage. Reused the existing office, restaurant, hotel, vendor and activity content; these are designed gameplay places mapped near real roads, not real business addresses. No gameplay district IDs, save format, existing place IDs, pack data or renderer behavior changed; visual/device/offline/cultural acceptance remains deferred. Verification: typecheck clean, 243/243 tests pass, build passes, all size budgets pass (JS 582,809 B gzip, first load 593,249 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files), and `world:validate` passes for all nine packs.
 - 2026-11-19: Bastos gameplay content close-out — added seven designed places aligned with Bastos's existing employers and landmarks: Hotel Beausejour, Ministry of Public Service, Sanaga Tech Group, Wouri Creative Agency, Sentinel Security, Le Baobab dining room and the Bastos hillside walk. Added reusable `office` and `hotel` interior types/prop layouts, the `business_lunch` activity (5,000 FCFA, charisma gain), and a place-name title in the interior panel instead of only the generic interior name. Added all-pack non-taxi place coverage and job-district place coverage tests. No gameplay district IDs, save format or existing pack geometry changed; visual/device/cultural review remains deferred.
 - 2026-11-19: Phase 5 remaining five district packs — Ngoa-Ekelle (`world/ngoa-ekelle/v1`, 9 chunks, 198 roads, 2,862 buildings, 723 POIs, 25 water polygons, 50 waterway lines), Boulevard du 20 Mai (`world/boulevard/v1`, 4 chunks, 229 roads, 467 buildings, 250 POIs, 17 water polygons, 7 waterway lines), Lac Municipal (`world/lac-municipal/v1`, 9 chunks, 208 roads, 743 buildings, 124 POIs, 5 water polygons, 7 waterway lines), Mvan (`world/mvan/v1`, 9 chunks, 102 roads, 1,539 buildings, 20 POIs, 1 water polygon, 29 waterway lines) and Mont Febe (`world/mont-febe/v1`, 9 chunks, 91 roads, 492 buildings, 12 POIs, 0 water polygons, 2 waterway lines) are now real geographic packs. Lac Municipal uses a shoreline footway anchor (`11.5115261,3.8654830`, provenance `way/1054466544+shore`) instead of the lake centroid; `lac_path` and `taxi_lac` moved to shore-side positions. The registry and built-in fallback now cover all nine packs; only Nlongkak and Mvog-Mbi remain install-precached, while the other seven are on-demand. The raw world-asset budget was raised from 12 MB to 24 MB for the nine-pack tree (gzip remains 6 MB). No existing pack data, gameplay district IDs or save format changed. All nine packs pass runtime-loader, all-chunk, default-spawn and production-geometry checks, but none of the eight non-Nlongkak packs has had production visual, Android/device, offline or named cultural review; browser-based checks remain deferred and M8 remains partial. Verification: typecheck clean, 241/241 tests pass, build passes, all size budgets pass (JS 580,092 B gzip, first load 590,532 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files), and `world:validate` passes for all nine packs.

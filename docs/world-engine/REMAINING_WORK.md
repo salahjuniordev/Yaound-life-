@@ -217,8 +217,8 @@ code alone:
   integrity and district-coverage tests.
 - M8 geometry implementation, attribution/licensing, feature flag/rollback and
   size budgets.
-- Current verification (2026-11-20): typecheck pass, 243/243 tests, build pass,
-  all size budgets pass — JS 582,809 B gzip, first load 593,249 B, world assets
+- Current verification (2026-11-20): typecheck pass, 248/248 tests, build pass,
+  all size budgets pass — JS 583,587 B gzip, first load 594,026 B, world assets
   17,805,627 B raw / 3,241,290 B gzip across 509 files — and `world:validate`
   passes for all nine packs.
 - Renderer-only visual review and internal cultural plausibility review.

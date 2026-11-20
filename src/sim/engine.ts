@@ -4,6 +4,7 @@ import type {
   GameSettings,
   GameState,
   PendingEvent,
+  SharedWorldState,
   SkillKey,
   TravelMode,
   VehicleKind,
@@ -378,6 +379,7 @@ export class GameEngine {
   private toasts: Toast[] = [];
   private rng: RNG;
   private minutesSinceEventRoll = 0;
+  private lastSharedWorldDay = 0;
 
   constructor(state: GameState) {
     this.state = state;
@@ -405,6 +407,70 @@ export class GameEngine {
     const t = this.toasts;
     this.toasts = [];
     return t;
+  }
+
+  /**
+   * Apply the latest server-published city state. The local save calendar is
+   * untouched; this only refreshes shared ambient state. Returns whether
+   * anything changed so callers can persist the refreshed snapshot.
+   */
+  applySharedWorldState(remote: SharedWorldState): boolean {
+    if (remote.gameDay < this.lastSharedWorldDay) return false;
+    const isNewSharedDay = remote.gameDay > this.lastSharedWorldDay;
+    this.lastSharedWorldDay = remote.gameDay;
+    const s = this.state;
+    let changed = false;
+
+    if (remote.weather && remote.weather !== s.world.weather) {
+      s.world.weather = remote.weather;
+      changed = true;
+    }
+    if (remote.fuelPrice !== undefined) {
+      const nextFuel = clamp(Math.round(remote.fuelPrice), 700, 1000);
+      if (nextFuel !== s.world.fuelPrice) {
+        s.world.fuelPrice = nextFuel;
+        changed = true;
+      }
+    }
+    if (remote.strike !== undefined) {
+      if (remote.strike && !s.world.strike && isNewSharedDay) {
+        this.notifyApp('maps', 'Traffic alert', 'Taxi strike today. Motos are the only vehicles moving.');
+      }
+      if (remote.strike !== s.world.strike) {
+        s.world.strike = remote.strike;
+        changed = true;
+      }
+    }
+    if (remote.outages) {
+      const outages: typeof s.world.outages = {};
+      for (const [district, outage] of Object.entries(remote.outages)) {
+        if (!DISTRICT_MAP[district as DistrictId] || !outage) continue;
+        const start = Math.round(outage.start);
+        const end = Math.round(outage.end);
+        if (!Number.isFinite(start) || !Number.isFinite(end)) continue;
+        if (start < 0 || start >= 1440 || end <= start || end > 2880) continue;
+        outages[district as DistrictId] = { start, end };
+      }
+      if (JSON.stringify(outages) !== JSON.stringify(s.world.outages)) {
+        s.world.outages = outages;
+        changed = true;
+      }
+    }
+    const headlines =
+      s.settings.language === 'fr' ? remote.headlinesFr ?? remote.headlines : remote.headlines;
+    if (headlines && headlines.length > 0) {
+      const next = headlines.slice(0, 8);
+      if (JSON.stringify(next) !== JSON.stringify(s.world.headlines)) {
+        s.world.headlines = next;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      s.updatedAt = Date.now();
+      this.notify();
+    }
+    return changed;
   }
 
   tick(realDtSec: number) {

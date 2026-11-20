@@ -322,6 +322,17 @@ export interface WorldStateData {
   headlines: string[];
 }
 
+/** A server-published city state. It is ambient: the local save keeps its own day. */
+export interface SharedWorldState {
+  gameDay: number;
+  weather?: WorldStateData['weather'];
+  fuelPrice?: number;
+  strike?: boolean;
+  outages?: WorldStateData['outages'];
+  headlines?: string[];
+  headlinesFr?: string[];
+}
+
 export interface PlayerState {
   id: string;
   name: string;

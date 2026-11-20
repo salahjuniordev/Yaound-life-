@@ -73,8 +73,36 @@ try {
   const { data: profiles, error: profilesError } = await owner.from('profiles').select('id').eq('id', ownerId);
   report(!profilesError && profiles?.length === 1, 'handle_new_user trigger creates a profile', profilesError?.message);
 
-  const { error: worldError } = await owner.from('world_state').select('game_day').limit(1);
+  const { data: worldRows, error: worldError } = await owner
+    .from('world_state')
+    .select('game_day, weather, fuel_price, strike, delestage, events')
+    .order('game_day', { ascending: false })
+    .limit(1);
   report(!worldError, 'world_state is readable by clients', worldError?.message);
+  const world = worldRows?.[0];
+  if (world) {
+    const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
+    const weatherOk = ['sun', 'cloud', 'rain'].includes(world.weather);
+    const fuelOk = Number.isInteger(world.fuel_price) && world.fuel_price >= 700 && world.fuel_price <= 1000;
+    const strikeOk = isObject(world.strike) && typeof world.strike.active === 'boolean';
+    const outagesOk = isObject(world.delestage);
+    const newsOk =
+      isObject(world.events) &&
+      Array.isArray(world.events.headlines) &&
+      Array.isArray(world.events.headlinesFr);
+    report(weatherOk && fuelOk && strikeOk && outagesOk && newsOk, 'latest world_state row has the expected shape');
+  } else {
+    console.log('SKIP  latest world_state row shape — apply supabase/migrations/0002_world_state_cron.sql');
+  }
+  const { error: worldWriteError } = await owner.from('world_state').insert({
+    game_day: -1,
+    fuel_price: 0,
+    weather: 'sun',
+    strike: {},
+    delestage: {},
+    events: {},
+  });
+  report(Boolean(worldWriteError), 'world_state is read-only for clients', worldWriteError ? 'insert denied' : 'INSERT SUCCEEDED');
 
   const { error: contentWriteError } = await owner.from('content_versions').insert({ pack: 'verify', version: '0' });
   report(Boolean(contentWriteError), 'content_versions is read-only for clients', contentWriteError ? 'insert denied' : 'INSERT SUCCEEDED');
@@ -163,6 +191,7 @@ try {
     }
     await owner.from('saves').delete().eq('character_id', characterId);
     await owner.from('characters').delete().eq('id', characterId);
+    await owner.from('world_state').delete().eq('game_day', -1);
     await owner.auth.signOut();
     await intruder.auth.signOut();
   } catch {

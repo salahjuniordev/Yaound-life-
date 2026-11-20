@@ -1,5 +1,6 @@
 import { createClient, type SupabaseClient, type User } from '@supabase/supabase-js';
-import type { GameState } from '../sim/types';
+import type { GameState, SharedWorldState } from '../sim/types';
+import { parseSharedWorldState } from './worldState';
 
 const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim();
 const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim();
@@ -299,14 +300,13 @@ export async function pullCloudSave(characterId?: string): Promise<{ state: Game
   }
 }
 
-export async function fetchWorldState(): Promise<{ weather?: string; fuelPrice?: number; headlines?: string[] } | null> {
+export async function fetchWorldState(): Promise<SharedWorldState | null> {
   const sb = getSupabase();
   if (!sb) return null;
   try {
     const { data, error } = await sb.from('world_state').select('*').order('game_day', { ascending: false }).limit(1);
     if (error || !data || data.length === 0) return null;
-    const row = data[0] as { weather?: string; fuel_price?: number; events?: { headlines?: string[] } };
-    return { weather: row.weather, fuelPrice: row.fuel_price, headlines: row.events?.headlines };
+    return parseSharedWorldState(data[0]);
   } catch {
     return null;
   }

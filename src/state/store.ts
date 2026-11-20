@@ -6,6 +6,7 @@ import { saveLocal, loadLocal, listLocalSaves, deleteLocal, exportSaveJSON, impo
 import {
   deleteCloudData,
   ensureSession,
+  fetchWorldState,
   pushCloudSave,
   pullCloudSave,
   requestPasswordReset,
@@ -81,6 +82,7 @@ interface StoreShape {
   importFromJSON: (text: string) => boolean;
   saveNow: () => Promise<void>;
   syncCloud: () => Promise<void>;
+  syncSharedWorld: () => Promise<void>;
   loadCloudLast: () => Promise<boolean>;
   connectCloud: () => Promise<void>;
   setCloud: (cloud: CloudStatus) => void;
@@ -107,7 +109,12 @@ let detachEngine: (() => void) | null = null;
 let lastVersionBump = 0;
 let lastSavedDay = -1;
 
-function attachEngine(engine: GameEngine, bump: () => void, pushToast: StoreShape['pushToast']) {
+function attachEngine(
+  engine: GameEngine,
+  bump: () => void,
+  pushToast: StoreShape['pushToast'],
+  onDayChange: () => void,
+) {
   detachEngine?.();
   lastSavedDay = engine.state.world.day;
   detachEngine = engine.subscribe(() => {
@@ -122,6 +129,7 @@ function attachEngine(engine: GameEngine, bump: () => void, pushToast: StoreShap
       lastSavedDay = engine.state.world.day;
       void saveLocal(engine.state);
       void pushCloudSave(engine.state);
+      onDayChange();
     }
   });
 }
@@ -173,10 +181,11 @@ export const useGame = create<StoreShape>((set, get) => ({
   newGame: async (opts) => {
     const state = createGameState(opts);
     const engine = new GameEngine(state);
-    attachEngine(engine, get().bump, get().pushToast);
+    attachEngine(engine, get().bump, get().pushToast, () => void get().syncSharedWorld());
     set({ engine, screen: 'game', modal: { kind: 'none' }, panel: 'none', phoneApp: null });
     await saveLocal(state);
     void pushCloudSave(state);
+    void get().syncSharedWorld();
   },
 
   continueGame: async (characterId) => {
@@ -188,8 +197,9 @@ export const useGame = create<StoreShape>((set, get) => ({
 
   loadFromState: (state) => {
     const engine = new GameEngine(state);
-    attachEngine(engine, get().bump, get().pushToast);
+    attachEngine(engine, get().bump, get().pushToast, () => void get().syncSharedWorld());
     set({ engine, screen: 'game', modal: { kind: 'none' }, panel: 'none', phoneApp: null });
+    void get().syncSharedWorld();
   },
 
   deleteSave: async (characterId) => {
@@ -224,6 +234,14 @@ export const useGame = create<StoreShape>((set, get) => ({
     const res = await pushCloudSave(engine.state);
     set({ cloudMessage: res.message });
     get().pushToast(res.message, res.ok ? 'success' : 'info');
+  },
+
+  syncSharedWorld: async () => {
+    const engine = get().engine;
+    if (!engine) return;
+    const remote = await fetchWorldState();
+    if (!remote || get().engine !== engine) return;
+    if (engine.applySharedWorldState(remote)) await saveLocal(engine.state);
   },
 
   loadCloudLast: async () => {
