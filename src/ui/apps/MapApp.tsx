@@ -3,6 +3,7 @@ import { useGame } from '../../state/store';
 import { PLACES } from '../../data/places';
 import { DISTRICT_MAP, ZONES } from '../../data/districts';
 import { getTravelPlan } from '../../sim/engine';
+import { formatClock } from '../../sim/needs';
 import { openNearby } from '../interactions';
 import { Icon, type IconName } from '../icons';
 import type { DistrictId, TravelMode } from '../../sim/types';
@@ -44,12 +45,43 @@ export function MapApp() {
   const plan = selected === s.player.district ? null : getTravelPlan(s, s.player.district, selected);
   const places = PLACES.filter((p) => p.district === selected);
   const strike = s.world.strike;
+  const outage = s.world.outages[selected];
+  const inOutage = outage !== undefined && s.world.minute >= outage.start && s.world.minute < outage.end;
+  const weatherIcon: IconName = s.world.weather === 'rain' ? 'rain' : s.world.weather === 'cloud' ? 'cloudSun' : 'sun';
+  const weatherLabel = fr
+    ? { sun: 'Soleil', cloud: 'Nuages', rain: 'Pluie' }[s.world.weather]
+    : { sun: 'Sun', cloud: 'Clouds', rain: 'Rain' }[s.world.weather];
 
   return (
     <div>
       <div className="map-hint">
         <Icon name="map" size={14} />
         {fr ? 'Choisis un quartier, compare les trajets, puis bouge.' : 'Pick a quartier, compare routes, then move.'}
+      </div>
+
+      <div className="map-city-state">
+        <span className="map-state-chip">
+          <Icon name={weatherIcon} size={12} /> {weatherLabel}
+        </span>
+        <span className="map-state-chip">
+          <Icon name="cash" size={12} /> {s.world.fuelPrice} F/L
+        </span>
+        {strike && (
+          <span className="map-state-chip map-state-warn">
+            <Icon name="taxi" size={12} /> {fr ? 'Grève des taxis' : 'Taxi strike'}
+          </span>
+        )}
+        {outage ? (
+          <span className={`map-state-chip${inOutage ? ' map-state-warn' : ''}`}>
+            <Icon name="power" size={12} />{' '}
+            {fr ? 'Délestage' : 'Power cut'} {formatClock(outage.start)}–{formatClock(outage.end)}
+            {inOutage ? (fr ? ' (maintenant)' : ' (now)') : ''}
+          </span>
+        ) : (
+          <span className="map-state-chip">
+            <Icon name="power" size={12} /> {fr ? 'Pas de délestage publié' : 'No published outage'}
+          </span>
+        )}
       </div>
 
       <div className="map-hero">

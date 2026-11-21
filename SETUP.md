@@ -69,10 +69,14 @@ extensionless imports used across `src/` resolve under plain Node.
 5. Copy the env file and fill in your keys (anonymous/public key only — never
    the service role key in the client):
    ```bash
-   cp .env.example .env
+   cp .env.example .env.local
    # VITE_SUPABASE_URL=https://xxxx.supabase.co
-   # VITE_SUPABASE_ANON_KEY=eyJ...
+   # VITE_SUPABASE_ANON_KEY=eyJ... or sb_publishable_...
    ```
+   `.env.local` is gitignored. If you use the Management API for migrations or
+   live checks, keep `SUPABASE_ACCESS_TOKEN` and `SUPABASE_PROJECT_ID` in the
+   same local file with no `VITE_` prefix; those are local-only and must never
+   be committed or bundled.
 6. Rebuild/restart. The Settings app in the Phone shows cloud status; saves
    push at day change and on tab close, and can be pushed/pulled manually.
 7. Verify the live schema and policies:

@@ -122,10 +122,10 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 248 pass, 0 fail.
+- `npm test`: 250 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 583,587 B gzip, CSS 8,625 B, HTML 1,814 B,
-  first load 594,026 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
+- `size`: all budgets pass — JS 583,787 B gzip, CSS 8,671 B, HTML 1,813 B,
+  first load 594,271 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
 - `world:validate`: pass for all nine registered packs.
 - Nlongkak production geometry after the road correction: 640,576 building,
   102,550 prop and 157,182 road triangles at high quality across 16 chunks.
@@ -168,7 +168,10 @@ In parallel, the backend gained the shared city-state migration and client
 consumption described in `docs/BACKEND.md`. The migration was applied to the
 hosted project on 2026-11-21; the daily cron job, generated row, client read
 access, write denial and service-only generator access all pass verification
-(`npm run db:verify`: 17/17 PASS).
+(`npm run db:verify`: 17/17 PASS). The phone now surfaces the state: News
+renders the published bulletin with a local fallback, and Map shows weather,
+fuel, taxi strike and the selected quartier's delestage window. Verification:
+250/250 tests; JS 583,787 B gzip; first load 594,271 B.
 
 ## Earlier round: nine-pack city coverage and Bastos content close-out
 

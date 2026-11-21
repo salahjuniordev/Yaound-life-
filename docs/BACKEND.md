@@ -41,6 +41,10 @@ day. The client applies the latest published state without changing
   districts and drops out-of-range outages.
 - It applies weather, fuel, strike, outages and headlines, then saves the
   refreshed local snapshot.
+- The phone surfaces it: News uses the latest published headlines with a local
+  fallback, and Map shows weather, fuel, strike and the selected quartier's
+  published delestage window. Switching language refetches the bulletin so the
+  EN/FR headlines follow the UI.
 - Offline, unconfigured or failed requests are no-ops. Local weather, fuel,
   strikes, outages and headlines continue to work as before.
 - Older rows are ignored if a newer row was already applied in the same

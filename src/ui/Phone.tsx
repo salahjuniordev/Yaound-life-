@@ -14,7 +14,7 @@ import { JOBS } from '../data/jobs';
 import { getVendorStock, qualificationReport, sellPriceFor } from '../sim/engine';
 import { detectAndApply } from '../render/perf';
 import { BUDGET_CATEGORIES, budgetCategoryLabel, weeklyBudgetView } from '../sim/budget';
-import { generateCityNews, npcActivityText } from '../sim/npcsim';
+import { cityNewsFor, npcActivityText } from '../sim/npcsim';
 import { NEED_KEYS, NEED_LABELS, formatClock } from '../sim/needs';
 import { RELATION_STAGE_LABELS, relationshipSummary } from '../sim/relationships';
 import { DISTRICT_MAP, ZONES } from '../data/districts';
@@ -1194,12 +1194,21 @@ function NewsApp() {
   const engine = useGame((s) => s.engine)!;
   const s = engine.state;
   const fr = s.settings.language === 'fr';
-  const news = useMemo(() => generateCityNews(s), [s.world.day, s.world.minute]);
+  const hasBulletin = s.world.headlines.length > 0;
+  const news = useMemo(
+    () => cityNewsFor(s),
+    [s.world.day, s.world.minute, s.world.headlines],
+  );
   return (
     <div>
       <h3>
         <Icon name="news" size={16} /> {fr ? 'Yaoundé aujourd’hui' : 'Yaounde today'}
       </h3>
+      {hasBulletin && (
+        <div className="muted small">
+          {fr ? 'Bulletin de la ville' : 'City bulletin'}
+        </div>
+      )}
       {news.map((n, i) => (
         <div key={i} className="card">
           <div className="muted small">
@@ -1412,6 +1421,7 @@ function SettingsApp() {
             const lang = e.target.value as 'en' | 'fr';
             set('language', lang);
             setLanguage(lang);
+            void useGame.getState().syncSharedWorld();
           }}
         >
           <option value="en">English</option>

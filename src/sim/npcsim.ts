@@ -155,3 +155,19 @@ export function generateCityNews(state: GameState): CityNewsItem[] {
   }
   return items;
 }
+
+/**
+ * Prefer the published city bulletin when it exists; otherwise fall back to
+ * the deterministic local newsroom. Published headlines have already been
+ * localized by the engine, so both fields carry the visible text.
+ */
+export function cityNewsFor(state: GameState): CityNewsItem[] {
+  if (state.world.headlines.length > 0) {
+    return state.world.headlines.map((text) => ({
+      day: state.world.day,
+      text,
+      textFr: text,
+    }));
+  }
+  return generateCityNews(state);
+}

@@ -11,7 +11,7 @@ Last updated: 2026-11-21
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, build-generated app-shell precache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 248/248 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 250/250 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -61,7 +61,7 @@ Last updated: 2026-11-21
 - [~] Sim runs on main thread inside rAF (PRD suggests Web Worker) — acceptable for v1, worker split pending
 - [x] Quality tiers low/mid/high with settings override (`src/render/controls.ts`)
 - [x] GPU benchmark auto-detect (1.2s FPS probe + memory/cores/saveData/battery signals, `src/render/perf.ts`), first-run apply, "Detect now", battery/data-saver auto mode
-- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently 583,587 B JS and 594,026 B first load; world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files)
+- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently 583,787 B JS and 594,271 B first load; world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files)
 
 ## Characters & assets status (concept references)
 - [x] Real 3D, playable: Amina, Brice, Marie presets via the modular part builder (`src/render/characters.ts`) — editable in the creator, never shown as billboards
@@ -84,6 +84,7 @@ Last updated: 2026-11-21
 - [x] Applied `0001_init.sql` and `0002_world_state_cron.sql` to the live "mboa life" project (`euiagjlekpyipbdwotsg`, eu-west-1), enabled anonymous sign-ins, configured auth redirects (`localhost:5173`, `yaounde-life.pages.dev`), configured local env and verified the live checks (`npm run db:verify`: 17/17 PASS, including the generated world-state shape and service-only generator check)
 - [ ] Custom SMTP + re-enable email confirmation before public launch — currently `mailer_autoconfirm` is on so registration works without SMTP; anonymous email upgrade also needs autoconfirm until supabase/auth#2847 is fixed
 - [x] pg_cron daily world_state generator (fuel, strike, delestage, weather, headlines) — migration applied to the hosted project, `yaounde-world-state-daily` active at 00:05 UTC, current row generated (server day 325), anon/authenticated execution denied, client consumption wired; `db:verify` 17/17 PASS
+- [x] Shared city state surfaced in the phone: News prefers the published EN/FR headlines with a deterministic local fallback, and Map shows weather, fuel, taxi strike and the selected quartier's delestage window; language changes refresh the published bulletin
 - [ ] Edge Functions: payment webhooks, economy validation, moderation
 
 ## P0 — MVP backlog (PRD §14)
@@ -169,7 +170,7 @@ Last updated: 2026-11-21
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 248 tests
+npm test                 # node --test, 250 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -184,6 +185,7 @@ npm run world:validate -- world/bastos/v1  # validate one pack
 ```
 
 ## Changelog
+- 2026-11-21: Shared city-state UI pass — News now renders the latest published bulletin instead of ignoring it, with a deterministic local fallback when offline or unconfigured; the Map app shows weather, fuel price, taxi strike and the selected quartier's published delestage window (highlighted while active). Switching language refetches the bulletin so EN/FR headlines follow the UI. Added `cityNewsFor` coverage. Verification: typecheck clean, 250/250 tests, build passes, all size budgets pass (JS 583,787 B gzip, first load 594,271 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files), and live `db:verify` 17/17 PASS. No world-pack, district ID or save-format changes.
 - 2026-11-21: Applied the shared city-state migration to the live "mboa life" project (`euiagjlekpyipbdwotsg`) through the Supabase Management API, then reran it to prove idempotence. Fixed two issues found only against the hosted database: `CREATE EXTENSION pg_cron` is not idempotent on Supabase and now runs only when the extension is absent, and Supabase's default EXECUTE grants to `anon`/`authenticated` are now explicitly revoked (the generator remains callable by `service_role` and the scheduler). Verified: `yaounde-world-state-daily` is active at 00:05 UTC, the current row is server day 325 with valid weather/fuel/strike/delestage/bilingual headlines, clients can read but cannot write `world_state`, clients cannot execute the generator, and `npm run db:verify` reports 17/17 PASS. No client code, world-pack, district ID or save-format changes.
 - 2026-11-20: Shared city-state pipeline — added `supabase/migrations/0002_world_state_cron.sql`, which enables `pg_cron`, creates a deterministic daily generator for weather, fuel, taxi strikes, per-district delestage and bilingual headlines, schedules it at 00:05 UTC and seeds the current row. Added validated `SharedWorldState` parsing and client consumption on load and each local day; the local save calendar is unchanged and offline play keeps the existing simulation. Added parser/engine tests and a `db:verify` shape/write-denial check. Verification: typecheck clean, 248/248 tests pass, build passes, all size budgets pass (JS 583,587 B gzip, first load 594,026 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files). No world-pack, district ID or save-format changes.
 - 2026-11-20: Gameplay content parity for Boulevard du 20 Mai, Lac Municipal and Mont Febe — added nine designed places: Boulevard Events Office, Museum Garden Café and Boulevard corner kiosk; Rive Café, Lakeside snack kiosk and Lakeside garden steps; Mont Febe Guesthouse, Mont Febe trailhead and Viewpoint kiosk. Added six jobs: museum guide, civic events assistant, lakeside server, lakeside groundskeeper, mountain trail guide and guesthouse receptionist. Added three scheduled NPCs (Clarisse, Mireille and Tsala) with EN/FR activity labels and a home-district fallback when they are off schedule, and extended tests to reject unknown place activities and enforce the three districts' place/job/taxi coverage. Reused the existing office, restaurant, hotel, vendor and activity content; these are designed gameplay places mapped near real roads, not real business addresses. No gameplay district IDs, save format, existing place IDs, pack data or renderer behavior changed; visual/device/offline/cultural acceptance remains deferred. Verification: typecheck clean, 243/243 tests pass, build passes, all size budgets pass (JS 582,809 B gzip, first load 593,249 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files), and `world:validate` passes for all nine packs.
