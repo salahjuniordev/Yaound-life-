@@ -86,6 +86,11 @@ The hosted "mboa life" project has migration `0002` applied (2026-11-21):
 
 ## Still deferred
 
-- Custom SMTP and re-enabled email confirmation for public launch.
+- Custom SMTP and re-enabled email confirmation for public launch. The hosted
+  project currently has anonymous sign-ins enabled, `mailer_autoconfirm` on and
+  no custom SMTP; its site URL and allow-list cover `localhost:5173` and
+  `yaounde-life.pages.dev`. Before launch, add an SMTP host/port/user/password
+  and sender, turn autoconfirm off, then test signup, confirmation, reset and
+  anonymous-account upgrade end to end.
 - Payment webhooks, economy validation and moderation Edge Functions.
 - Real MoMo/Orange payments.
