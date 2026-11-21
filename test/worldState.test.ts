@@ -94,6 +94,7 @@ test('engine clamps shared fuel and drops invalid outage entries', () => {
 
 test('engine ignores an older shared row but accepts same-day updates', () => {
   const state = makeState();
+  state.world.weather = 'sun';
   const engine = new GameEngine(state);
 
   assert.equal(engine.applySharedWorldState({ gameDay: 20, weather: 'rain' }), true);
