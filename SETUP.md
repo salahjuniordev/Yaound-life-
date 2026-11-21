@@ -80,10 +80,11 @@ extensionless imports used across `src/` resolve under plain Node.
    npm run db:verify
    ```
    It signs in two anonymous users, checks the profile trigger, character/save
-   isolation, read-only content/world-state tables, the latest city-state shape
-   and report ownership, then deletes its probe rows. If no world-state row
-   exists yet it prints a skip; apply migration `0002` first to exercise the
-   shape check. `SUPABASE_URL` / `SUPABASE_ANON_KEY` are also accepted for CI.
+   isolation, read-only content/world-state tables, the latest city-state shape,
+   service-only generator access and report ownership, then deletes its probe
+   rows. If migration `0002` has not been applied it skips the shape and
+   generator checks. `SUPABASE_URL` / `SUPABASE_ANON_KEY` are also accepted for
+   CI.
 
 Without env vars the game runs in offline mode: IndexedDB only, no network
 calls, and the Supabase code is eliminated from the bundle.

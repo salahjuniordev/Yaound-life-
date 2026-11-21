@@ -104,6 +104,15 @@ try {
   });
   report(Boolean(worldWriteError), 'world_state is read-only for clients', worldWriteError ? 'insert denied' : 'INSERT SUCCEEDED');
 
+  const { error: generatorError } = await owner.rpc('generate_world_state');
+  const generatorMissing =
+    generatorError?.code === 'PGRST202' || /could not find the function/i.test(generatorError?.message ?? '');
+  if (generatorMissing) {
+    console.log('SKIP  world_state generator is service-only — apply supabase/migrations/0002_world_state_cron.sql');
+  } else {
+    report(Boolean(generatorError), 'world_state generator is service-only', generatorError ? 'RPC denied' : 'RPC SUCCEEDED');
+  }
+
   const { error: contentWriteError } = await owner.from('content_versions').insert({ pack: 'verify', version: '0' });
   report(Boolean(contentWriteError), 'content_versions is read-only for clients', contentWriteError ? 'insert denied' : 'INSERT SUCCEEDED');
 

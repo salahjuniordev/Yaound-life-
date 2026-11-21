@@ -3,7 +3,15 @@
 -- pg_cron runs in UTC. Clients apply the latest row; offline clients keep the
 -- local simulation instead.
 
-create extension if not exists pg_cron with schema pg_catalog;
+do $$
+begin
+  -- CREATE EXTENSION is not idempotent on hosted Supabase when the extension
+  -- is already enabled, so only run it when pg_cron is genuinely absent.
+  if not exists (select 1 from pg_extension where extname = 'pg_cron') then
+    execute 'create extension pg_cron with schema pg_catalog';
+  end if;
+end;
+$$;
 grant usage on schema cron to postgres;
 grant all privileges on all tables in schema cron to postgres;
 
@@ -139,7 +147,11 @@ end;
 $$;
 
 -- Only the scheduler/owner may generate rows; clients have SELECT through RLS.
+-- Supabase grants EXECUTE on new functions to anon/authenticated by default, so
+-- revoke those explicit grants as well as the implicit PUBLIC grant.
 revoke all on function public.generate_world_state(integer) from public;
+revoke all on function public.generate_world_state(integer) from anon, authenticated;
+grant execute on function public.generate_world_state(integer) to service_role;
 
 do $$
 begin

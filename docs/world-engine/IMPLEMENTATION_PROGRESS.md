@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Last updated: 2026-11-20
+Last updated: 2026-11-21
 
 ## Milestones
 
@@ -165,8 +165,10 @@ size budgets pass (JS 583,587 B gzip, first load 594,026 B, world assets
 passes for all nine packs.
 
 In parallel, the backend gained the shared city-state migration and client
-consumption described in `docs/BACKEND.md`; the hosted migration application and
-live cron verification are still pending.
+consumption described in `docs/BACKEND.md`. The migration was applied to the
+hosted project on 2026-11-21; the daily cron job, generated row, client read
+access, write denial and service-only generator access all pass verification
+(`npm run db:verify`: 17/17 PASS).
 
 ## Earlier round: nine-pack city coverage and Bastos content close-out
 

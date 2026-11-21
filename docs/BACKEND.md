@@ -50,8 +50,9 @@ day. The client applies the latest published state without changing
 
 - Clients may `SELECT` from `public.world_state`.
 - Clients may not insert, update or delete rows.
-- `generate_world_state(integer)` is revoked from `PUBLIC`; the migration owner
-  and the cron scheduler can run it.
+- `generate_world_state(integer)` is revoked from `PUBLIC`, `anon` and
+  `authenticated`; the migration owner, `service_role` and the cron scheduler
+  can run it. The hosted project is verified this way.
 
 ### Verification
 
@@ -62,8 +63,9 @@ npm run db:verify
 ```
 
 The verifier checks that `world_state` is readable, that the latest row has the
-expected shape when one exists, that clients cannot write it, and then cleans
-up its probes. It prints a skip for the shape check when no row exists.
+expected shape when one exists, that clients cannot write it, that clients
+cannot execute the generator, and then cleans up its probes. It prints skips
+for the shape and generator checks when migration `0002` has not been applied.
 
 ## Migration order
 
@@ -71,8 +73,12 @@ up its probes. It prints a skip for the shape check when no row exists.
 2. `supabase/migrations/0002_world_state_cron.sql`
 
 `pg_cron` must be available on the Postgres instance. On Supabase it is a
-supported extension; the migration enables it with
-`create extension if not exists pg_cron`.
+supported extension; the migration installs it only when it is not already
+present, then creates/replaces the generator and schedule. Applying the
+migration again is safe and refreshes the current row.
+
+The hosted "mboa life" project has migration `0002` applied (2026-11-21):
+`yaounde-world-state-daily` is active and `npm run db:verify` passes 17/17.
 
 ## Still deferred
 
