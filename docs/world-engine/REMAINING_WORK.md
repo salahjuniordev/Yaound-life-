@@ -1,11 +1,12 @@
 # Remaining World-Engine Work
 
-Last updated: 2026-11-20
+Last updated: 2026-11-21
 
 Status: **M0–M7 complete; M8 partial; nine geographic packs registered
 (Nlongkak, Mvog-Mbi, Mokolo, Bastos, Ngoa-Ekelle, Boulevard du 20 Mai, Lac
 Municipal, Mvan and Mont Febe) with Phase 5 district coverage complete. Gameplay
-content parity for the last three sparse districts is also complete.** The
+content parity for all nine districts is complete, including the Mvan transport
+hub close-out.** The
 master brief defines no M9. Browser-based/device/cultural acceptance checks are
 deferred by product direction and remain unverified; they are not the active
 build goal. The remaining active build work is acceptance evidence, any future
@@ -152,11 +153,12 @@ IDs or the save format:
    cultural review remain unperformed for every pack; only Nlongkak has the
    internal renderer-only and Chromium + Mesa WebGL review.
 7. **Gameplay content parity.** Boulevard du 20 Mai, Lac Municipal and Mont
-   Febe now have designed places, jobs and scheduled NPCs mapped near real
-   roads: an events office, museum cafe and corner kiosk; a lakeside cafe,
-   snack kiosk and garden steps; and a guesthouse, trailhead and viewpoint
-   kiosk. Six jobs and three NPCs cover the three districts. These are fictional
-   gameplay locations, not claims about real businesses or addresses.
+   Febe have designed places, jobs and scheduled NPCs mapped near real roads:
+   an events office, museum cafe and corner kiosk; a lakeside cafe, snack kiosk
+   and garden steps; and a guesthouse, trailhead and viewpoint kiosk. Mvan now
+   adds a freight office, junction grill and produce stall, plus garage-assistant
+   and freight-clerk jobs, around its transport hub and workshop. All are
+   fictional gameplay locations, not claims about real businesses or addresses.
 
 Remaining Phase 5 work:
 
@@ -218,7 +220,7 @@ code alone:
 - M8 geometry implementation, attribution/licensing, feature flag/rollback and
   size budgets.
 - Current verification (2026-11-21): typecheck pass, 250/250 tests, build pass,
-  all size budgets pass — JS 583,787 B gzip, first load 594,271 B, world assets
+  all size budgets pass — JS 584,132 B gzip, first load 594,616 B, world assets
   17,805,627 B raw / 3,241,290 B gzip across 509 files — and `world:validate`
   passes for all nine packs.
 - Renderer-only visual review and internal cultural plausibility review.
@@ -230,7 +232,7 @@ code alone:
 1. Browser-based, Android/device and named cultural checks are deferred by
    product direction. Do not schedule browser automation now and do not mark
    M8 complete without later evidence.
-2. Phase 5 district coverage and the three-district content parity pass are
+2. Phase 5 district coverage and the nine-district content parity pass are
    complete. Do not add or regenerate a pack without a concrete reason; if a new
    area is needed, use a per-area OSM/DEM config, `npm run world:acquire --
    ...`, then `world:validate`, and do not invent inputs. Do not pad places or

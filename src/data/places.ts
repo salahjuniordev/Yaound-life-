@@ -22,6 +22,9 @@ export const PLACES: PlaceDef[] = [
   { id: 'home_mokolo', name: "Cousin's place (Mokolo)", nameFr: 'Chez le cousin (Mokolo)', kind: 'home', district: 'mokolo', pos: [112, -2], interior: 'home_room', icon: 'home' },
   { id: 'home_nlongkak', name: 'Your flat (Nlongkak)', nameFr: 'Ton appart (Nlongkak)', kind: 'home', district: 'nlongkak', pos: [-84, -12], interior: 'home_room', icon: 'home' },
   { id: 'home_mvan', name: 'Rented room (Mvan)', nameFr: 'Chambre louée (Mvan)', kind: 'home', district: 'mvan', pos: [200, 55], interior: 'home_room', icon: 'home' },
+  { id: 'mvan_freight_office', name: 'Mvan freight office', nameFr: 'Bureau de fret Mvan', kind: 'interior', district: 'mvan', pos: [196, 58], interior: 'office', activities: ['interview_prep', 'networking'], icon: 'laptop' },
+  { id: 'mvan_junction_grill', name: 'Mvan junction grill', nameFr: 'Grill du carrefour Mvan', kind: 'vendor', district: 'mvan', pos: [214, 62], vendor: 'street_food', activities: ['eat_beignets', 'buy_water'], icon: 'food' },
+  { id: 'mvan_produce_stall', name: 'Mvan produce stall', nameFr: 'Étal de produits frais Mvan', kind: 'vendor', district: 'mvan', pos: [206, 74], vendor: 'market_food', activities: ['market_browse', 'bargain_practice'], icon: 'market' },
 
   { id: 'beignet_stand', name: 'Beignet stand', nameFr: 'Stand de beignets', kind: 'vendor', district: 'mvog_mbi', pos: [12, 66], vendor: 'street_food', activities: ['eat_beignets', 'buy_water'], icon: 'food' },
   { id: 'soya_stand', name: 'Evening soya grill', nameFr: 'Grill de soya', kind: 'vendor', district: 'nlongkak', pos: [-90, -45], vendor: 'soya', activities: ['eat_soya', 'buy_water'], icon: 'food' },

@@ -124,8 +124,8 @@ Latest results:
 - `typecheck`: pass.
 - `npm test`: 250 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 583,787 B gzip, CSS 8,671 B, HTML 1,813 B,
-  first load 594,271 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
+- `size`: all budgets pass — JS 584,132 B gzip, CSS 8,671 B, HTML 1,813 B,
+  first load 594,616 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
 - `world:validate`: pass for all nine registered packs.
 - Nlongkak production geometry after the road correction: 640,576 building,
   102,550 prop and 157,182 road triangles at high quality across 16 chunks.
@@ -133,7 +133,31 @@ Latest results:
   Nlongkak has had a renderer/WebGL review, and none has had a production
   visual/performance pass.
 
-## Latest round: gameplay content parity for three districts
+## Latest round: Mvan content close-out
+
+Mvan now has a transport-hub content pass to match its workshop and bus-hub
+character:
+
+- Places: `mvan_freight_office` (office interior, interview prep and
+  networking), `mvan_junction_grill` (street-food vendor) and
+  `mvan_produce_stall` (market-food vendor).
+- Jobs: `mvan_garage_assistant` (tech 1) and `mvan_freight_clerk`
+  (management 1).
+- The career parity test now includes Mvan, so every district has at least four
+  non-taxi places, a taxi point, two jobs and an enterable/vendor/activity
+  place.
+- These are fictional gameplay locations mapped near the existing Mvan roads,
+  not claims about real businesses or addresses. No world-pack geometry,
+  district ID, existing place ID or save-format change was made.
+- Production visual, Android/device, offline/Settings and named cultural review
+  remain deferred for Mvan and the other eight districts.
+
+Verification: typecheck clean, 250/250 tests, build passes, all size budgets pass
+(JS 584,132 B gzip, first load 594,616 B, world assets 17,805,627 B raw /
+3,241,290 B gzip across 509 files), and `world:validate` passes for all nine
+packs.
+
+## Earlier round: gameplay content parity for three districts
 
 Boulevard du 20 Mai, Lac Municipal and Mont Febe now have designed gameplay
 content mapped near their real road slices:
@@ -171,7 +195,7 @@ access, write denial and service-only generator access all pass verification
 (`npm run db:verify`: 17/17 PASS). The phone now surfaces the state: News
 renders the published bulletin with a local fallback, and Map shows weather,
 fuel, taxi strike and the selected quartier's delestage window. Verification:
-250/250 tests; JS 583,787 B gzip; first load 594,271 B.
+250/250 tests; JS 584,132 B gzip; first load 594,616 B.
 
 ## Earlier round: nine-pack city coverage and Bastos content close-out
 

@@ -42,8 +42,8 @@ test('career job data is consistent', () => {
   }
 });
 
-test('Boulevard, Lac Municipal and Mont Febe have playable content parity', () => {
-  const districts = ['boulevard', 'lac_municipal', 'mont_febe'] as const;
+test('Boulevard, Lac Municipal, Mont Febe and Mvan have playable content parity', () => {
+  const districts = ['boulevard', 'lac_municipal', 'mont_febe', 'mvan'] as const;
   for (const district of districts) {
     const places = PLACES.filter((place) => place.district === district);
     const jobs = JOBS.filter((job) => job.district === district);
