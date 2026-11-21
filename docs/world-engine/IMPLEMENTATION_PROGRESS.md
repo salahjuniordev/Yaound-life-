@@ -143,9 +143,9 @@ character:
   `mvan_produce_stall` (market-food vendor).
 - Jobs: `mvan_garage_assistant` (tech 1) and `mvan_freight_clerk`
   (management 1).
-- The career parity test now includes Mvan, so every district has at least four
-  non-taxi places, a taxi point, two jobs and an enterable/vendor/activity
-  place.
+- The career parity test now covers Boulevard du 20 Mai, Lac Municipal, Mont
+  Febe and Mvan; each has at least four non-taxi places, a taxi point, two jobs
+  and an enterable/vendor/activity place.
 - These are fictional gameplay locations mapped near the existing Mvan roads,
   not claims about real businesses or addresses. No world-pack geometry,
   district ID, existing place ID or save-format change was made.

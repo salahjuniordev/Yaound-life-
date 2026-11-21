@@ -4,9 +4,9 @@ Last updated: 2026-11-21
 
 Status: **M0–M7 complete; M8 partial; nine geographic packs registered
 (Nlongkak, Mvog-Mbi, Mokolo, Bastos, Ngoa-Ekelle, Boulevard du 20 Mai, Lac
-Municipal, Mvan and Mont Febe) with Phase 5 district coverage complete. Gameplay
-content parity for all nine districts is complete, including the Mvan transport
-hub close-out.** The
+Municipal, Mvan and Mont Febe) with Phase 5 district coverage complete. The
+tracked sparse-district content passes and the Mvan transport-hub close-out are
+complete.** The
 master brief defines no M9. Browser-based/device/cultural acceptance checks are
 deferred by product direction and remain unverified; they are not the active
 build goal. The remaining active build work is acceptance evidence, any future
@@ -232,7 +232,7 @@ code alone:
 1. Browser-based, Android/device and named cultural checks are deferred by
    product direction. Do not schedule browser automation now and do not mark
    M8 complete without later evidence.
-2. Phase 5 district coverage and the nine-district content parity pass are
+2. Phase 5 district coverage and the tracked content close-out passes are
    complete. Do not add or regenerate a pack without a concrete reason; if a new
    area is needed, use a per-area OSM/DEM config, `npm run world:acquire --
    ...`, then `world:validate`, and do not invent inputs. Do not pad places or
