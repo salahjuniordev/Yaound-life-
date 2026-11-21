@@ -14,6 +14,7 @@
     "export:character": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/export-character.mjs",
     "review:packet": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/cultural-review-packet.mjs",
     "db:verify": "node scripts/verify-supabase.mjs",
+    "reports": "node scripts/moderate-reports.mjs",
     "deploy:cf": "npm run build && npx --yes wrangler pages deploy dist --project-name yaounde-life",
     "world:inspect": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-inspect.mjs",
     "world:build": "NODE_OPTIONS='--import ./scripts/test-register.mjs' node scripts/world-build.mjs",

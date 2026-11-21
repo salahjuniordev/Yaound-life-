@@ -71,18 +71,55 @@ expected shape when one exists, that clients cannot write it, that clients
 cannot execute the generator, and then cleans up its probes. It prints skips
 for the shape and generator checks when migration `0002` has not been applied.
 
+## Content reports and moderation
+
+The in-app “report inaccurate content” button stores a local report and makes a
+best-effort insert into `public.reports`. Migration `0003_moderation.sql` adds
+the review fields and queue:
+
+- `status` (`open`, `reviewing`, `resolved`, `dismissed`; default `open`)
+- `reviewed_at`, `reviewed_by` and `resolution`
+- a status/created-at index
+- `reports_delete_own_open`, so a reporter can withdraw an open report while
+  resolved and dismissed reports remain for the audit trail
+
+Clients can insert their own reports and read their own rows (including the
+status), but cannot update statuses or read another user's reports. Two
+service-role-only functions expose the queue without opening the table:
+
+- `list_content_reports(p_status text default 'open', p_limit integer default 50)`
+- `resolve_content_report(p_report_id bigint, p_status text, p_resolution text default null)`
+
+Both functions are revoked from `PUBLIC`, `anon` and `authenticated`, and granted
+only to `service_role`. The local moderation CLI uses the server-side Management
+API token, never the browser key:
+
+```bash
+npm run reports -- list open
+npm run reports -- resolve 42 resolved "Place name corrected in the next content pass"
+```
+
+`SUPABASE_ACCESS_TOKEN` and `SUPABASE_PROJECT_ID` come from `.env.local` and must
+never use a `VITE_` prefix or be committed. The hosted project has migration
+`0003` applied; the queue and resolve path were exercised live, and
+`npm run db:verify` now reports 21/21 PASS.
+
 ## Migration order
 
 1. `supabase/migrations/0001_init.sql`
 2. `supabase/migrations/0002_world_state_cron.sql`
+3. `supabase/migrations/0003_moderation.sql`
 
 `pg_cron` must be available on the Postgres instance. On Supabase it is a
 supported extension; the migration installs it only when it is not already
 present, then creates/replaces the generator and schedule. Applying the
-migration again is safe and refreshes the current row.
+migration again is safe and refreshes the current row. `0003` is also
+idempotent: it adds columns with `if not exists`, replaces the functions,
+recreates the delete policy, and reapplies the grants.
 
-The hosted "mboa life" project has migration `0002` applied (2026-11-21):
-`yaounde-world-state-daily` is active and `npm run db:verify` passes 17/17.
+The hosted "mboa life" project has migrations `0002` and `0003` applied
+(2026-11-21): `yaounde-world-state-daily` is active and `npm run db:verify`
+passes 21/21.
 
 ## Still deferred
 
@@ -92,5 +129,7 @@ The hosted "mboa life" project has migration `0002` applied (2026-11-21):
   `yaounde-life.pages.dev`. Before launch, add an SMTP host/port/user/password
   and sender, turn autoconfirm off, then test signup, confirmation, reset and
   anonymous-account upgrade end to end.
-- Payment webhooks, economy validation and moderation Edge Functions.
+- Payment webhooks and economy validation Edge Functions, plus a hosted
+  moderation dashboard. The service-only report queue and local CLI are in
+  place.
 - Real MoMo/Orange payments.

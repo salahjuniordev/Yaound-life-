@@ -30,6 +30,7 @@ npm test               # 250 tests (node --test)
 npm run build          # production build → dist/
 npm run size           # gzip size budgets (after build)
 npm run db:verify      # verify live Supabase schema + RLS (optional, needs .env)
+npm run reports -- list open  # review the content-report queue (local Management API token)
 npm run deploy:cf      # build + deploy dist/ to Cloudflare Pages
 npm run export:character # bake idle/walk/run/sit/phone clips → art/player_rig.glb
 npm run review:packet  # generate the cultural review packet → art/cultural_review_packet.md

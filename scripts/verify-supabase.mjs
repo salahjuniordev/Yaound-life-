@@ -51,6 +51,17 @@ function makeClient() {
   });
 }
 
+async function checkServiceOnlyRpc(client, label, rpc, args) {
+  const { error } = await client.rpc(rpc, args);
+  const missing = error?.code === 'PGRST202' || /could not find the function/i.test(error?.message ?? '');
+  if (missing) {
+    console.log(`SKIP  ${label} — apply supabase/migrations/0003_moderation.sql`);
+    return;
+  }
+  const denied = Boolean(error) && (error.code === '42501' || /permission denied/i.test(error.message));
+  report(denied, label, denied ? 'RPC denied' : error ? `unexpected: ${error.message}` : 'RPC SUCCEEDED');
+}
+
 async function signInAnonymously(client, label) {
   const { data, error } = await client.auth.signInAnonymously();
   if (error) {
@@ -182,6 +193,46 @@ try {
     .eq('kind', 'verify')
     .eq('user_id', ownerId);
   report(!ownReportsError && (ownReports?.length ?? 0) >= 1, 'owner can read own report', ownReportsError?.message);
+
+  const { data: ownReportStatuses, error: ownReportStatusesError } = await owner
+    .from('reports')
+    .select('id, status')
+    .eq('kind', 'verify')
+    .eq('user_id', ownerId);
+  const statusColumnMissing =
+    ownReportStatusesError?.code === '42703' ||
+    /column .*status.* does not exist/i.test(ownReportStatusesError?.message ?? '');
+  if (statusColumnMissing) {
+    console.log('SKIP  report status column — apply supabase/migrations/0003_moderation.sql');
+  } else {
+    report(
+      !ownReportStatusesError && ownReportStatuses?.[0]?.status === 'open',
+      'owner can read own report status',
+      ownReportStatusesError?.message,
+    );
+
+    const { data: updatedReports, error: updateReportError } = await owner
+      .from('reports')
+      .update({ status: 'resolved' })
+      .eq('kind', 'verify')
+      .eq('user_id', ownerId)
+      .select('id');
+    report(
+      Boolean(updateReportError) || (updatedReports?.length ?? 0) === 0,
+      'report status is read-only for clients',
+      updateReportError?.message ?? (updatedReports?.length ? 'UPDATE SUCCEEDED' : 'update denied'),
+    );
+  }
+
+  await checkServiceOnlyRpc(owner, 'report moderation list is service-only', 'list_content_reports', {
+    p_status: 'open',
+    p_limit: 1,
+  });
+  await checkServiceOnlyRpc(owner, 'report moderation resolve is service-only', 'resolve_content_report', {
+    p_report_id: 0,
+    p_status: 'resolved',
+    p_resolution: 'verify',
+  });
 
   const { data: foreignReports, error: foreignReportsError } = await intruder
     .from('reports')

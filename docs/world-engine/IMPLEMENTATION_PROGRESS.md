@@ -188,14 +188,17 @@ size budgets pass (JS 583,587 B gzip, first load 594,026 B, world assets
 17,805,627 B raw / 3,241,290 B gzip across 509 files), and `world:validate`
 passes for all nine packs.
 
-In parallel, the backend gained the shared city-state migration and client
-consumption described in `docs/BACKEND.md`. The migration was applied to the
-hosted project on 2026-11-21; the daily cron job, generated row, client read
-access, write denial and service-only generator access all pass verification
-(`npm run db:verify`: 17/17 PASS). The phone now surfaces the state: News
-renders the published bulletin with a local fallback, and Map shows weather,
-fuel, taxi strike and the selected quartier's delestage window. Verification:
-250/250 tests; JS 584,132 B gzip; first load 594,616 B.
+In parallel, the backend gained the shared city-state migration, client
+consumption and the content-report moderation queue described in
+`docs/BACKEND.md`. The migrations were applied to the hosted project on
+2026-11-21; the daily cron job, generated row, client read access, write denial,
+service-only generator access and report moderation permissions all pass
+verification (`npm run db:verify`: 21/21 PASS). The phone now surfaces the
+state: News renders the published bulletin with a local fallback, and Map shows
+weather, fuel, taxi strike and the selected quartier's delestage window.
+Reports can be reviewed from the local CLI with
+`npm run reports -- list open` / `resolve`. Verification: 250/250 tests;
+JS 584,132 B gzip; first load 594,616 B.
 
 ## Earlier round: nine-pack city coverage and Bastos content close-out
 

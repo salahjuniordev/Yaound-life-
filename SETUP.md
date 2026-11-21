@@ -46,6 +46,7 @@ No other special steps are needed on Android: use `npm run dev`, `npm test`,
 | `npm run typecheck` | `tsc --noEmit` (src, test, vite config) |
 | `npm test` | Node test runner on `test/*.test.ts` (sim core) |
 | `npm run db:verify` | Verify live Supabase schema + RLS (needs env; see below) |
+| `npm run reports -- list open` | List the content-report moderation queue (needs the local Management API token) |
 | `npm run deploy:cf` | Build and deploy `dist/` to Cloudflare Pages (needs wrangler auth) |
 | `npm run size` | gzip size budgets (run after build) |
 
@@ -56,12 +57,14 @@ extensionless imports used across `src/` resolve under plain Node.
 
 1. Create a project at supabase.com (region: Paris `eu-west-3` or Frankfurt —
    closest to Cameroon).
-2. In the SQL editor, run `supabase/migrations/0001_init.sql` and then
-   `supabase/migrations/0002_world_state_cron.sql` (or `supabase db push` with
-   the CLI). The first creates the tables and row-level security policies; the
+2. In the SQL editor, run `supabase/migrations/0001_init.sql`,
+   `supabase/migrations/0002_world_state_cron.sql` and
+   `supabase/migrations/0003_moderation.sql` (or `supabase db push` with the
+   CLI). The first creates the tables and row-level security policies; the
    second enables `pg_cron`, creates the shared city-state generator and
    schedules it for 00:05 UTC every day. It also generates the current row
-   immediately. For a manual backfill, run
+   immediately. The third adds the report review queue and service-only
+   moderation functions. For a manual backfill, run
    `select public.generate_world_state();` or pass a day explicitly:
    `select public.generate_world_state(42);`.
 3. Enable **anonymous sign-ins**: Authentication → Providers → Anonymous.
@@ -85,10 +88,18 @@ extensionless imports used across `src/` resolve under plain Node.
    ```
    It signs in two anonymous users, checks the profile trigger, character/save
    isolation, read-only content/world-state tables, the latest city-state shape,
-   service-only generator access and report ownership, then deletes its probe
-   rows. If migration `0002` has not been applied it skips the shape and
-   generator checks. `SUPABASE_URL` / `SUPABASE_ANON_KEY` are also accepted for
-   CI.
+   service-only generator access, report ownership/status and the
+   service-only moderation RPCs, then deletes its probe rows. If migration
+   `0002` or `0003` has not been applied it skips the related checks.
+   `SUPABASE_URL` / `SUPABASE_ANON_KEY` are also accepted for CI.
+
+   To review content reports from the local machine:
+   ```bash
+   npm run reports -- list open
+   npm run reports -- resolve 42 resolved "Place name corrected in the next content pass"
+   ```
+   This CLI reads `SUPABASE_ACCESS_TOKEN` and `SUPABASE_PROJECT_ID` from
+   `.env.local`; keep both server-side and never commit them.
 
 Without env vars the game runs in offline mode: IndexedDB only, no network
 calls, and the Supabase code is eliminated from the bundle.
