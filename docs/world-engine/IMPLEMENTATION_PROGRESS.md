@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Last updated: 2026-11-21
+Last updated: 2026-11-22
 
 ## Milestones
 
@@ -124,8 +124,8 @@ Latest results:
 - `typecheck`: pass.
 - `npm test`: 250 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 584,132 B gzip, CSS 8,671 B, HTML 1,813 B,
-  first load 594,616 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
+- `size`: all budgets pass — JS 584,369 B gzip, CSS 8,671 B, HTML 1,814 B,
+  first load 594,854 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
 - `world:validate`: pass for all nine registered packs.
 - Nlongkak production geometry after the road correction: 640,576 building,
   102,550 prop and 157,182 road triangles at high quality across 16 chunks.
@@ -133,7 +133,7 @@ Latest results:
   Nlongkak has had a renderer/WebGL review, and none has had a production
   visual/performance pass.
 
-## Latest round: Mvan content close-out
+## Latest round: all-nine content parity
 
 Mvan now has a transport-hub content pass to match its workshop and bus-hub
 character:
@@ -143,17 +143,22 @@ character:
   `mvan_produce_stall` (market-food vendor).
 - Jobs: `mvan_garage_assistant` (tech 1) and `mvan_freight_clerk`
   (management 1).
-- The career parity test now covers Boulevard du 20 Mai, Lac Municipal, Mont
-  Febe and Mvan; each has at least four non-taxi places, a taxi point, two jobs
-  and an enterable/vendor/activity place.
-- These are fictional gameplay locations mapped near the existing Mvan roads,
-  not claims about real businesses or addresses. No world-pack geometry,
-  district ID, existing place ID or save-format change was made.
-- Production visual, Android/device, offline/Settings and named cultural review
-  remain deferred for Mvan and the other eight districts.
+
+A final parity pass added the two remaining thin job markets:
+
+- `wholesale_assistant` at Papa Ngassa Wholesale, Mokolo (negotiation 1)
+- `library_assistant` at the University Library, Ngoa-Ekelle (academics 1)
+
+The career parity test now covers all nine districts; each has at least four
+non-taxi places, a taxi point, two jobs and an enterable/vendor/activity place.
+These are fictional gameplay locations mapped near existing roads, not claims
+about real businesses or addresses. No world-pack geometry, district ID,
+existing place ID or save-format change was made. Production visual,
+Android/device, offline/Settings and named cultural review remain deferred for
+all nine districts.
 
 Verification: typecheck clean, 250/250 tests, build passes, all size budgets pass
-(JS 584,132 B gzip, first load 594,616 B, world assets 17,805,627 B raw /
+(JS 584,369 B gzip, first load 594,854 B, world assets 17,805,627 B raw /
 3,241,290 B gzip across 509 files), and `world:validate` passes for all nine
 packs.
 
@@ -198,7 +203,7 @@ state: News renders the published bulletin with a local fallback, and Map shows
 weather, fuel, taxi strike and the selected quartier's delestage window.
 Reports can be reviewed from the local CLI with
 `npm run reports -- list open` / `resolve`. Verification: 250/250 tests;
-JS 584,132 B gzip; first load 594,616 B.
+JS 584,369 B gzip; first load 594,854 B.
 
 ## Earlier round: nine-pack city coverage and Bastos content close-out
 
