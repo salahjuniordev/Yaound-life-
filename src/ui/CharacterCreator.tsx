@@ -4,11 +4,12 @@ import { BACKGROUNDS } from '../data/backgrounds';
 import { HAIR_STYLES, SHIRT_COLORS, SKIN_TONES, PANTS_COLORS } from '../data/backgrounds';
 import { NEED_LABELS } from '../sim/needs';
 import { DISTRICT_MAP } from '../data/districts';
-import { CHARACTER_PRESETS } from '../data/characterPresets';
+import { CHARACTER_PRESETS, type CharacterPreset } from '../data/characterPresets';
 import { animateCharacter, buildCharacter } from '../render/characters';
+import { canWearBottom, normalizeAppearanceForSex } from '../sim/appearance';
 import { useGame } from '../state/store';
 import { Icon } from './icons';
-import type { Appearance, BackgroundId, NeedsState, SkillKey } from '../sim/types';
+import type { Appearance, BackgroundId, CharacterSex, NeedsState, SkillKey } from '../sim/types';
 
 const SKILL_LABELS_FR: Record<string, string> = {
   academics: 'Études',
@@ -52,7 +53,7 @@ const SKILL_LABELS: Record<string, string> = {
   creativity: 'Creativity',
 };
 
-function PreviewCharacter({ appearance, sex }: { appearance: Appearance; sex: 'm' | 'f' | 'x' }) {
+function PreviewCharacter({ appearance, sex }: { appearance: Appearance; sex: CharacterSex }) {
   const appearanceKey = JSON.stringify(appearance);
   const parts = useMemo(() => buildCharacter(appearance, sex), [appearanceKey, sex]);
   useFrame(({ clock }, dt) => {
@@ -77,7 +78,7 @@ export function CharacterCreator() {
   const t = (en: string, frText: string) => (fr ? frText : en);
   const [step, setStep] = useState(0);
   const [name, setName] = useState('');
-  const [gender, setGender] = useState<'m' | 'f' | 'x'>('m');
+  const [gender, setGender] = useState<CharacterSex>('m');
   const [background, setBackground] = useState<BackgroundId>(BACKGROUNDS[0].id);
   const [appearance, setAppearance] = useState<Appearance>({
     skinTone: 2,
@@ -98,10 +99,28 @@ export function CharacterCreator() {
   const skillLabel = (key: string) => (fr ? SKILL_LABELS_FR[key] : SKILL_LABELS[key]) ?? key;
   const district = fr ? DISTRICT_MAP[bg.district].nameFr : DISTRICT_MAP[bg.district].name;
 
+  const applyGender = (next: CharacterSex) => {
+    setGender(next);
+    setAppearance((current) => normalizeAppearanceForSex(current, next));
+  };
+
+  const applyPreset = (preset: CharacterPreset) => {
+    setGender(preset.sex);
+    setAppearance(normalizeAppearanceForSex({ ...preset.appearance }, preset.sex));
+  };
+
   const surprise = () => {
     const preset = CHARACTER_PRESETS[Math.floor(Math.random() * CHARACTER_PRESETS.length)];
-    setAppearance({ ...preset.appearance });
+    applyPreset(preset);
   };
+
+  const genderLabel = gender === 'm' ? t('Man', 'Homme') : gender === 'f' ? t('Woman', 'Femme') : t('Other', 'Autre');
+  const bodyLabel =
+    appearance.bodyType === 'slim'
+      ? t('Slim', 'Fin')
+      : appearance.bodyType === 'tall'
+        ? t('Tall', 'Grand')
+        : t('Medium', 'Moyen');
 
   const canNext = step > 0 || name.trim().length > 0;
   const steps = [
@@ -134,7 +153,7 @@ export function CharacterCreator() {
           </div>
           <div className="creator-gender">
             {(['m', 'f', 'x'] as const).map((g) => (
-              <button key={g} className={gender === g ? 'selected' : ''} onClick={() => setGender(g)}>
+              <button key={g} className={gender === g ? 'selected' : ''} onClick={() => applyGender(g)}>
                 {g === 'm' ? t('Man', 'Homme') : g === 'f' ? t('Woman', 'Femme') : t('Other', 'Autre')}
               </button>
             ))}
@@ -178,11 +197,17 @@ export function CharacterCreator() {
                 <h3>{t('Gender', 'Genre')}</h3>
                 <div className="creator-gender" style={{ padding: 0 }}>
                   {(['m', 'f', 'x'] as const).map((g) => (
-                    <button key={g} className={gender === g ? 'selected' : ''} onClick={() => setGender(g)}>
+                    <button key={g} className={gender === g ? 'selected' : ''} onClick={() => applyGender(g)}>
                       {g === 'm' ? t('Man', 'Homme') : g === 'f' ? t('Woman', 'Femme') : t('Other', 'Autre')}
                     </button>
                   ))}
                 </div>
+                <p className="creator-note">
+                  {t(
+                    'Body shape follows this choice. Trousers are available to every build; skirts and dresses are available to female and other builds.',
+                    'La silhouette suit ce choix. Le pantalon est disponible pour toutes les silhouettes ; jupes et robes sont disponibles pour les silhouettes féminines et autres.',
+                  )}
+                </p>
               </div>
             </div>
           )}
@@ -254,8 +279,8 @@ export function CharacterCreator() {
                     <button
                       key={p.id}
                       title={fr ? p.subtitleFr : p.subtitle}
-                      className={JSON.stringify(p.appearance) === JSON.stringify(appearance) ? 'selected' : ''}
-                      onClick={() => setAppearance({ ...p.appearance })}
+                      className={JSON.stringify(p.appearance) === JSON.stringify(appearance) && gender === p.sex ? 'selected' : ''}
+                      onClick={() => applyPreset(p)}
                     >
                       {fr ? p.nameFr : p.name}
                     </button>
@@ -317,7 +342,7 @@ export function CharacterCreator() {
               </div>
 
               <div className="creator-section">
-                <h3>{t('Body', 'Corpulence')}</h3>
+                <h3>{t('Build & silhouette', 'Silhouette et corpulence')}</h3>
                 <div className="chip-row">
                   {(['slim', 'medium', 'tall'] as const).map((b) => (
                     <button key={b} className={appearance.bodyType === b ? 'selected' : ''} onClick={() => setAppearance({ ...appearance, bodyType: b })}>
@@ -325,6 +350,12 @@ export function CharacterCreator() {
                     </button>
                   ))}
                 </div>
+                <p className="creator-note">
+                  {t(
+                    'The body model changes shoulders, waist, hips, chest, arm and leg thickness, neck and height with the selected build.',
+                    'Le modèle change les épaules, la taille, les hanches, la poitrine, l’épaisseur des bras et jambes, le cou et la hauteur selon la silhouette choisie.',
+                  )}
+                </p>
               </div>
 
               <div className="creator-section">
@@ -363,15 +394,22 @@ export function CharacterCreator() {
                   ))}
                 </div>
                 <div className="chip-row">
-                  {(['pants', 'skirt'] as const).map((b) => (
-                    <button
-                      key={b}
-                      className={(appearance.bottomStyle ?? 'pants') === b ? 'selected' : ''}
-                      onClick={() => setAppearance({ ...appearance, bottomStyle: b })}
-                    >
-                      {b === 'pants' ? t('Trousers', 'Pantalon') : t('Skirt', 'Jupe')}
-                    </button>
-                  ))}
+                  {(['pants', 'skirt', 'dress'] as const).map((b) => {
+                    const allowed = canWearBottom(gender, b);
+                    return (
+                      <button
+                        key={b}
+                        className={(appearance.bottomStyle ?? 'pants') === b ? 'selected' : ''}
+                        disabled={!allowed}
+                        title={!allowed ? t('Not available for the male build', 'Non disponible pour la silhouette masculine') : undefined}
+                        onClick={() => {
+                          if (allowed) setAppearance({ ...appearance, bottomStyle: b });
+                        }}
+                      >
+                        {b === 'pants' ? t('Trousers', 'Pantalon') : b === 'skirt' ? t('Skirt', 'Jupe') : t('Dress', 'Robe')}
+                      </button>
+                    );
+                  })}
                   {(['none', 'headwrap'] as const).map((h) => (
                     <button
                       key={h}
@@ -391,6 +429,17 @@ export function CharacterCreator() {
                     </button>
                   )}
                 </div>
+                <p className="creator-note">
+                  {gender === 'm'
+                    ? t(
+                        'The male build wears trousers. Skirts and dresses are disabled for this build.',
+                        'La silhouette masculine porte un pantalon. Les jupes et robes sont désactivées pour cette silhouette.',
+                      )
+                    : t(
+                        'Skirts and dresses are enabled for this build.',
+                        'Les jupes et robes sont activées pour cette silhouette.',
+                      )}
+                </p>
                 <div className="chip-row">
                   {(['none', 'crossbody', 'sling', 'tote'] as const).map((b) => (
                     <button
@@ -430,6 +479,10 @@ export function CharacterCreator() {
                 <div className="summary-row">
                   <span>{t('Starting story', 'Origine')}</span>
                   <strong>{fr ? bg.nameFr : bg.name}</strong>
+                </div>
+                <div className="summary-row">
+                  <span>{t('Build', 'Silhouette')}</span>
+                  <strong>{genderLabel} · {bodyLabel}</strong>
                 </div>
                 <div className="summary-row">
                   <span>{t('Quartier', 'Quartier')}</span>
@@ -474,7 +527,12 @@ export function CharacterCreator() {
               disabled={!name.trim() || creating}
               onClick={async () => {
                 setCreating(true);
-                await newGame({ name: name.trim(), gender, background, appearance });
+                await newGame({
+                  name: name.trim(),
+                  gender,
+                  background,
+                  appearance: normalizeAppearanceForSex(appearance, gender),
+                });
               }}
             >
               {creating ? t('Opening the city…', 'Ouverture de la ville…') : t('Arrive in Yaoundé', 'Arriver à Yaoundé')}

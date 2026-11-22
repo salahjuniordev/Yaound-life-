@@ -66,16 +66,18 @@ export interface NeedsState {
   social: number;
 }
 
+export type CharacterSex = 'm' | 'f' | 'x';
 export type HairStyle = 'fade' | 'braids' | 'natural' | 'bald' | 'locks' | 'wig' | 'twists';
 export type HeadwearStyle = 'none' | 'headwrap';
-export type BottomStyle = 'pants' | 'skirt';
+export type BodyType = 'slim' | 'medium' | 'tall';
+export type BottomStyle = 'pants' | 'skirt' | 'dress';
 export type BagStyle = 'none' | 'crossbody' | 'sling' | 'tote';
 export type ClothPattern = 'none' | 'weave' | 'geo' | 'stripe';
 
 export interface Appearance {
   skinTone: number;
   hair: HairStyle;
-  bodyType: 'slim' | 'medium' | 'tall';
+  bodyType: BodyType;
   faceShape?: 'oval' | 'round' | 'square';
   facialHair?: 'none' | 'stubble' | 'goatee' | 'beard';
   pattern?: ClothPattern;
@@ -336,7 +338,7 @@ export interface SharedWorldState {
 export interface PlayerState {
   id: string;
   name: string;
-  gender: 'm' | 'f' | 'x';
+  gender: CharacterSex;
   background: BackgroundId;
   appearance: Appearance;
   needs: NeedsState;

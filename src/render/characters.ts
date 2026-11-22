@@ -1,10 +1,19 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-import type { Appearance, BagStyle, BottomStyle, ClothPattern, DistrictId } from '../sim/types';
+import type {
+  Appearance,
+  BagStyle,
+  BodyType,
+  BottomStyle,
+  CharacterSex,
+  ClothPattern,
+  DistrictId,
+} from '../sim/types';
+import { canWearBottom } from '../sim/appearance';
 import { HAIR_STYLES, SKIN_TONES } from '../data/backgrounds';
 
 export type CharacterClip = 'idle' | 'walk' | 'run' | 'sit' | 'phone';
-export type CharacterSex = 'm' | 'f' | 'x';
+export type { CharacterSex } from '../sim/types';
 
 export type CharacterJointName =
   | 'hips'
@@ -162,7 +171,6 @@ export function hairColorFor(hair: Appearance['hair']): string {
 const HIP_Y = 1.02;
 const HEAD_PIVOT_Y = 0.555;
 const HEAD_CENTER_Y = 0.2;
-const SHOULDER_X = 0.155;
 const SHOULDER_Y = 0.55;
 const UPPER_ARM = 0.3;
 const FOREARM = 0.26;
@@ -192,42 +200,42 @@ const HEAD_PROFILE: [number, number][] = [
 ];
 
 const TORSO_PROFILE: [number, number][] = [
-  [0.142, 0.02],
-  [0.137, 0.1],
-  [0.142, 0.18],
-  [0.155, 0.3],
-  [0.165, 0.42],
-  [0.166, 0.5],
-  [0.16, 0.53],
-  [0.135, 0.555],
-  [0.09, 0.575],
-  [0.062, 0.59],
+  [0.148, 0.02],
+  [0.138, 0.1],
+  [0.136, 0.18],
+  [0.151, 0.3],
+  [0.163, 0.42],
+  [0.161, 0.5],
+  [0.155, 0.53],
+  [0.131, 0.555],
+  [0.088, 0.575],
+  [0.061, 0.59],
 ];
 
 const TORSO_PROFILE_M: [number, number][] = [
-  [0.14, 0.02],
-  [0.135, 0.1],
-  [0.141, 0.18],
-  [0.16, 0.3],
-  [0.176, 0.42],
-  [0.178, 0.5],
-  [0.17, 0.53],
-  [0.143, 0.555],
-  [0.094, 0.575],
+  [0.136, 0.02],
+  [0.14, 0.1],
+  [0.15, 0.18],
+  [0.17, 0.3],
+  [0.183, 0.42],
+  [0.179, 0.5],
+  [0.168, 0.53],
+  [0.141, 0.555],
+  [0.093, 0.575],
   [0.065, 0.59],
 ];
 
 const TORSO_PROFILE_F: [number, number][] = [
-  [0.147, 0.02],
-  [0.139, 0.1],
-  [0.134, 0.18],
-  [0.138, 0.28],
-  [0.145, 0.38],
-  [0.151, 0.47],
-  [0.148, 0.52],
-  [0.13, 0.55],
-  [0.087, 0.575],
-  [0.06, 0.59],
+  [0.154, 0.02],
+  [0.137, 0.1],
+  [0.118, 0.18],
+  [0.125, 0.28],
+  [0.137, 0.38],
+  [0.145, 0.47],
+  [0.142, 0.52],
+  [0.121, 0.55],
+  [0.082, 0.575],
+  [0.058, 0.59],
 ];
 
 interface BodyShape {
@@ -239,50 +247,54 @@ interface BodyShape {
   legRadius: number;
   shoeScale: number;
   headScale: number;
+  neckRadius: number;
   torsoDepth: number;
   profile: [number, number][];
-  bust: boolean;
+  chest: 'none' | 'bust' | 'pecs';
 }
 
 const BODY_SHAPES: Record<CharacterSex, BodyShape> = {
   x: {
-    shoulderX: SHOULDER_X,
-    hipX: 0.072,
-    pelvisX: 0.15,
-    pelvisY: 0.105,
+    shoulderX: 0.153,
+    hipX: 0.073,
+    pelvisX: 0.154,
+    pelvisY: 0.108,
     armRadius: 1,
     legRadius: 1,
     shoeScale: 1,
     headScale: 1,
-    torsoDepth: 0.64,
+    neckRadius: 0.061,
+    torsoDepth: 0.65,
     profile: TORSO_PROFILE,
-    bust: false,
+    chest: 'none',
   },
   m: {
-    shoulderX: 0.168,
-    hipX: 0.069,
-    pelvisX: 0.141,
-    pelvisY: 0.1,
-    armRadius: 1.07,
-    legRadius: 1.06,
-    shoeScale: 1.04,
-    headScale: 1.015,
-    torsoDepth: 0.65,
+    shoulderX: 0.178,
+    hipX: 0.064,
+    pelvisX: 0.132,
+    pelvisY: 0.098,
+    armRadius: 1.12,
+    legRadius: 1.1,
+    shoeScale: 1.06,
+    headScale: 1.02,
+    neckRadius: 0.067,
+    torsoDepth: 0.68,
     profile: TORSO_PROFILE_M,
-    bust: false,
+    chest: 'pecs',
   },
   f: {
-    shoulderX: 0.143,
-    hipX: 0.08,
-    pelvisX: 0.164,
-    pelvisY: 0.112,
-    armRadius: 0.91,
-    legRadius: 0.94,
-    shoeScale: 0.95,
-    headScale: 0.97,
-    torsoDepth: 0.67,
+    shoulderX: 0.132,
+    hipX: 0.082,
+    pelvisX: 0.176,
+    pelvisY: 0.118,
+    armRadius: 0.84,
+    legRadius: 0.9,
+    shoeScale: 0.94,
+    headScale: 0.95,
+    neckRadius: 0.054,
+    torsoDepth: 0.63,
     profile: TORSO_PROFILE_F,
-    bust: true,
+    chest: 'bust',
   },
 };
 
@@ -298,12 +310,13 @@ function headScaleFor(face: Appearance['faceShape']): [number, number, number] {
   }
 }
 
-const bodyScaleFor = (bodyType: Appearance['bodyType'], sex: CharacterSex): THREE.Vector3 => {
-  const width = bodyType === 'slim' ? 0.93 : 1;
-  const height = bodyType === 'tall' ? 1.06 : 1;
-  const sexWidth = sex === 'f' ? 0.985 : sex === 'm' ? 1.005 : 1;
-  const sexHeight = sex === 'f' ? 0.972 : sex === 'm' ? 1.012 : 1;
-  return new THREE.Vector3(width * sexWidth, height * sexHeight, width * sexWidth);
+const bodyScaleFor = (bodyType: BodyType, sex: CharacterSex): THREE.Vector3 => {
+  const width = bodyType === 'slim' ? 0.9 : bodyType === 'tall' ? 0.985 : 1;
+  const depth = bodyType === 'slim' ? 0.94 : 1;
+  const height = bodyType === 'tall' ? 1.065 : 1;
+  const sexWidth = sex === 'f' ? 0.99 : sex === 'm' ? 1.01 : 1;
+  const sexHeight = sex === 'f' ? 0.975 : sex === 'm' ? 1.01 : 1;
+  return new THREE.Vector3(width * sexWidth, height * sexHeight, width * depth * sexWidth);
 };
 
 function ellipsoid(
@@ -347,11 +360,18 @@ interface FaceParts {
   mouth: THREE.Group;
 }
 
-function buildFace(app: Appearance, skinMat: THREE.Material, hairMat: THREE.Material): FaceParts {
+function buildFace(
+  app: Appearance,
+  skinMat: THREE.Material,
+  hairMat: THREE.Material,
+  sex: CharacterSex,
+): FaceParts {
   const out: THREE.Object3D[] = [];
   const eyeL = new THREE.Group();
   const eyeR = new THREE.Group();
   const mouth = new THREE.Group();
+  const browWidth = sex === 'm' ? 0.049 : sex === 'f' ? 0.039 : 0.043;
+  const browHeight = sex === 'm' ? 0.009 : sex === 'f' ? 0.0065 : 0.0075;
   for (const side of [-1, 1]) {
     const eye = side > 0 ? eyeL : eyeR;
     eye.position.set(side * 0.042, 0.032, -0.113);
@@ -364,9 +384,9 @@ function buildFace(app: Appearance, skinMat: THREE.Material, hairMat: THREE.Mate
     glint.position.set(-0.0035, 0.003, -0.013);
     eye.add(white, iris, pupil, glint);
     out.push(eye);
-    const brow = roundedBox(0.043, 0.007, 0.012, 0.0035, hairMat);
+    const brow = roundedBox(browWidth, browHeight, 0.012, browHeight * 0.5, hairMat);
     brow.position.set(side * 0.042, 0.063, -0.116);
-    brow.rotation.z = -side * 0.12;
+    brow.rotation.z = -side * (sex === 'f' ? 0.16 : 0.1);
     const ear = ellipsoid(0.013, 0.024, 0.016, skinMat);
     ear.position.set(side * 0.1, 0, 0);
     ear.rotation.z = side * 0.12;
@@ -741,10 +761,16 @@ export function buildCharacter(app: Appearance, sex: CharacterSex = 'x'): Charac
   const shirtMat = clothMaterial(app.shirtColor, pattern);
   const pantsMat = clothMaterial(app.pantsColor);
   const hairMat = hairMaterial(hairColorFor(app.hair));
-  const bottom: BottomStyle = app.bottomStyle ?? 'pants';
+  const requestedBottom: BottomStyle = app.bottomStyle ?? 'pants';
+  const bottom: BottomStyle = canWearBottom(sex, requestedBottom) ? requestedBottom : 'pants';
+  const dressMat = bottom === 'dress' ? shirtMat : null;
+  const torsoMat = dressMat ?? shirtMat;
+  const skirtLike = bottom === 'skirt' || bottom === 'dress';
   const bag = app.bag ?? 'none';
   const overMat = app.overShirtColor ? clothMaterial(app.overShirtColor) : null;
-  const sleeveMat = overMat ?? shirtMat;
+  const sleeveMat = overMat ?? torsoMat;
+  group.userData.sex = sex;
+  group.userData.bottomStyle = bottom;
 
   const offsetRoot = new THREE.Group();
   offsetRoot.name = 'offsetRoot';
@@ -759,11 +785,15 @@ export function buildCharacter(app: Appearance, sex: CharacterSex = 'x'): Charac
   spine.name = 'spine';
   hips.add(spine);
 
-  const pelvis = ellipsoid(shape.pelvisX, shape.pelvisY, 0.108, pantsMat);
+  const pelvis = ellipsoid(shape.pelvisX, shape.pelvisY, 0.11, dressMat ?? pantsMat);
+  pelvis.name = 'pelvis';
+  pelvis.userData.bodyFeature = 'pelvis';
   pelvis.position.y = -0.005;
   hips.add(pelvis);
 
-  const shirtHem = new THREE.Mesh(new THREE.CylinderGeometry(0.142, 0.142, 0.025, 20), shirtMat);
+  const hemRadius = shape.pelvisX * 0.92;
+  const shirtHem = new THREE.Mesh(new THREE.CylinderGeometry(hemRadius, hemRadius, 0.025, 20), torsoMat);
+  shirtHem.name = 'shirtHem';
   shirtHem.position.y = 0.04;
   shirtHem.scale.z = 0.64;
   spine.add(shirtHem);
@@ -773,25 +803,43 @@ export function buildCharacter(app: Appearance, sex: CharacterSex = 'x'): Charac
       shape.profile.map(([r, y]) => new THREE.Vector2(r, y)),
       24,
     ),
-    shirtMat,
+    torsoMat,
   );
+  torso.name = 'torso';
   torso.scale.z = shape.torsoDepth;
   spine.add(torso);
 
-  if (shape.bust) {
+  if (shape.chest === 'bust') {
     for (const side of [-1, 1]) {
-      const chest = ellipsoid(0.058, 0.052, 0.045, shirtMat);
-      chest.position.set(side * 0.061, 0.392, -0.073);
+      const chest = ellipsoid(0.06, 0.052, 0.045, torsoMat);
+      chest.name = side > 0 ? 'bustL' : 'bustR';
+      chest.userData.bodyFeature = 'bust';
+      chest.position.set(side * 0.055, 0.402, -0.078);
       spine.add(chest);
+    }
+  } else if (shape.chest === 'pecs') {
+    for (const side of [-1, 1]) {
+      const pec = ellipsoid(0.072, 0.042, 0.026, torsoMat);
+      pec.name = side > 0 ? 'pecL' : 'pecR';
+      pec.userData.bodyFeature = 'pecs';
+      pec.position.set(side * 0.062, 0.43, -0.099);
+      spine.add(pec);
     }
   }
 
-  const collar = new THREE.Mesh(new THREE.TorusGeometry(0.078, 0.01, 8, 20), shirtMat);
+  const collar = new THREE.Mesh(
+    new THREE.TorusGeometry(shape.neckRadius + 0.017, 0.01, 8, 20),
+    torsoMat,
+  );
   collar.rotation.x = Math.PI / 2;
   collar.position.y = 0.585;
   spine.add(collar);
 
-  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.07, 0.11, 14), skinMat);
+  const neck = new THREE.Mesh(
+    new THREE.CylinderGeometry(shape.neckRadius * 0.88, shape.neckRadius, 0.11, 14),
+    skinMat,
+  );
+  neck.name = 'neck';
   neck.position.y = 0.555;
   spine.add(neck);
 
@@ -815,7 +863,7 @@ export function buildCharacter(app: Appearance, sex: CharacterSex = 'x'): Charac
   head.scale.z = 1.14;
   headGroup.add(head);
 
-  const face = buildFace(app, skinMat, hairMat);
+  const face = buildFace(app, skinMat, hairMat, sex);
   for (const feature of face.meshes) headGroup.add(feature);
 
   if ((app.headwear ?? 'none') === 'headwrap') {
@@ -829,20 +877,33 @@ export function buildCharacter(app: Appearance, sex: CharacterSex = 'x'): Charac
   const right = armFor(-1, skinMat, sleeveMat, shape);
   spine.add(left.shoulder, right.shoulder);
 
-  const legMat = bottom === 'skirt' ? skinMat : pantsMat;
+  const legMat = skirtLike ? skinMat : pantsMat;
   const leftLeg = legFor(1, legMat, shape, app.shoeColor);
   const rightLeg = legFor(-1, legMat, shape, app.shoeColor);
   hips.add(leftLeg.hip, rightLeg.hip);
 
-  if (bottom === 'skirt') {
+  if (skirtLike) {
+    const isDress = bottom === 'dress';
+    const skirtMat = isDress ? torsoMat : clothMaterial(app.pantsColor, pattern);
+    const hemMat = clothMaterial(app.pantsColor);
+    // Start at the actual pelvis width so wide female/neutral hips never poke
+    // through the top of the skirt.
+    const skirtTop = shape.pelvisX * (isDress ? 1.01 : 0.99);
     const skirt = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.15, 0.235, 0.38, 16, 1, true),
-      clothMaterial(app.pantsColor, pattern),
+      new THREE.CylinderGeometry(skirtTop, isDress ? 0.252 : 0.235, isDress ? 0.43 : 0.38, 16, 1, true),
+      skirtMat,
     );
-    skirt.position.y = -0.16;
-    const hem = new THREE.Mesh(new THREE.TorusGeometry(0.235, 0.008, 6, 24), clothMaterial(app.pantsColor));
+    skirt.name = 'skirt';
+    skirt.userData.outfit = bottom;
+    skirt.position.y = isDress ? -0.18 : -0.16;
+    const hem = new THREE.Mesh(
+      new THREE.TorusGeometry(isDress ? 0.252 : 0.235, 0.008, 6, 24),
+      hemMat,
+    );
+    hem.name = 'skirtHem';
+    hem.userData.outfit = bottom;
     hem.rotation.x = Math.PI / 2;
-    hem.position.y = -0.35;
+    hem.position.y = isDress ? -0.392 : -0.35;
     hips.add(skirt, hem);
   }
 

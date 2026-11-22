@@ -11,7 +11,7 @@ Last updated: 2026-11-22
 - [x] Android FUSE fix: dev runs from an internal-storage mirror with live sync (`scripts/vite.mjs`); build/preview run in place
 - [x] `npm test` runs on Node 26 native TS stripping (`scripts/test-register.mjs` + resolve hooks)
 - [x] PWA: manifest, icon, `public/sw.js` runtime cache, build-generated app-shell precache, PROD-only registration
-- [x] Typecheck clean: `npm run typecheck` · Tests green: 250/250 (`npm test`)
+- [x] Typecheck clean: `npm run typecheck` · Tests green: 254/254 (`npm test`)
 - [x] CI sizes/perf budgets (PRD §8.1/8.3) — `.github/workflows/ci.yml` runs typecheck, tests, build and `npm run size` on pushes/PRs
 - [~] Cloudflare Pages CDN deploy + Sentry + PostHog (PRD §8.8) — `wrangler.toml`, `public/_headers`, `npm run deploy:cf` and env-gated lazy Sentry/PostHog ready; live deploy needs the Cloudflare account + DSNs
 
@@ -61,18 +61,19 @@ Last updated: 2026-11-22
 - [~] Sim runs on main thread inside rAF (PRD suggests Web Worker) — acceptable for v1, worker split pending
 - [x] Quality tiers low/mid/high with settings override (`src/render/controls.ts`)
 - [x] GPU benchmark auto-detect (1.2s FPS probe + memory/cores/saveData/battery signals, `src/render/perf.ts`), first-run apply, "Detect now", battery/data-saver auto mode
-- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently 584,369 B JS and 594,854 B first load; world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files)
+- [x] Load-size budgets enforced (`npm run size`: JS gzip ≤ 620 KB, CSS ≤ 24 KB, first load ≤ 1 MB; currently 585,379 B JS and 595,892 B first load; world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files)
 
 ## Characters & assets status (concept references)
-- [x] Real 3D, playable: Amina, Brice, Marie presets via the modular part builder (`src/render/characters.ts`) — editable in the creator, never shown as billboards
+- [x] Real 3D, playable: Amina, Brice, Marie presets via the modular part builder (`src/render/characters.ts`) — each carries its intended sex, is editable in the creator and is never shown as a billboard
 - [x] Real 3D, in-world: Michel, Sandra, Pauline, Serge, Esther, Jean-Claude render as world NPCs with signature colours from the concept art (`src/data/castLooks.ts` through the instanced crowd in `src/render/Crowd.tsx`; headwear colours the hair block)
 - [x] NPC data validated: every schedule slot resolves to a real place and an EN/FR activity label (`test/cast.test.ts`)
-- [~] Still primitive-based (boxes, 6-segment skirt), no morph-target rig; procedural fabric patterns (`pattern`: weave/geo/stripe via `clothMaterial` canvas textures, Node-safe fallback) and face polish (3 face shapes, eyes/brows/nose/ears, optional stubble/goatee/beard, procedural blink + smile) added; concept PNGs removed from `public/` (32 MB of unused build bloat) but archived in git history (initial commit `daefdae`, mapped in `character-references.txt`)
+- [~] Still primitive-based, no morph-target rig; male/female/neutral builds now have distinct shoulder width, waist, pelvis/hip spacing, chest treatment (pecs vs bust), arm/leg thickness, neck width and height, with sex-specific brow weight. Procedural fabric patterns (`pattern`: weave/geo/stripe via `clothMaterial` canvas textures, Node-safe fallback) and face polish (3 face shapes, eyes/brows/nose/ears, optional stubble/goatee/beard, procedural blink + smile) remain. Concept PNGs removed from `public/` (32 MB of unused build bloat) but archived in git history (initial commit `daefdae`, mapped in `character-references.txt`)
 - [x] Shared named skeleton (`CharacterParts.joints`: hips/spine/head/shoulders/elbows/wrists/hips/knees/ankles) with segmented limbs; blended procedural clips idle/walk/run/sit/phone (`src/render/characters.ts`)
 - [x] Clips wired in world (walk/run/idle/phone), interiors (sit/idle) and creator preview; feet stay grounded when seated
 - [x] Two LODs + distant impostors (full → simple → billboard) with tier thresholds (`src/render/lod.ts`, `src/render/Crowd.tsx`)
-- [x] Outfit clipping checks across all presets and clips (bag pouches vs arms/thighs, phone vs head) in `test/animation.test.ts`
-- [x] GLTF export: `npm run export:character` → `art/player_rig.glb` — skinned, 15-bone skeleton, 9 skinned meshes sharing one skeleton, 5 clips (idle/walk/run/sit/phone)
+- [x] Outfit clipping checks across all presets and clips (bag pouches vs arms/thighs, phone vs head) in `test/animation.test.ts`; male and female seated foot grounding also covered
+- [x] Outfit rules: trousers for every build, skirts and a one-piece dress for female/other builds only. Enforced in the creator, model builder, new-game state and save migration; male skirt/dress legacy saves normalize to trousers
+- [x] GLTF export: `npm run export:character` → `art/player_rig.glb` — skinned, 15-bone skeleton, 13 skinned meshes sharing one skeleton plus the phone prop, 5 clips (idle/walk/run/sit/phone); non-indexed primitives are indexed before merge so no material group is silently dropped
 - [ ] Cultural review of cast outfits, routines, and dialogue with Cameroonian reviewers before launch — review packet generated by `npm run review:packet` (`art/cultural_review_packet.md`); awaiting named reviewers
 
 ## Persistence & Backend (PRD §8.6, §9)
@@ -90,7 +91,7 @@ Last updated: 2026-11-22
 
 ## P0 — MVP backlog (PRD §14)
 - [x] 3D character walking, tap-to-move, joystick, orbit camera, collision, interiors
-- [x] Character creator with live 3D preview; 8 backgrounds incl. PRD five + village arrival / trader's child / moto driver; Amina/Brice/Marie editable presets
+- [x] Character creator with live 3D preview; 8 backgrounds incl. PRD five + village arrival / trader's child / moto driver; Amina/Brice/Marie editable presets; male/female/neutral silhouettes with bust/pecs, waist/hip shaping and sex-aware outfit gating
 - [x] Needs + day/night cycle (12-min days), FCFA wallets (cash/MoMo/bank/debt) + ledger
 - [x] Rent + utilities billing with warnings, no eviction soft-lock; late-rent recovery path
 - [x] Work paths: market trader (buy/sell, street stall), moto-taxi runs, shop/business owner, student part-time; 10 job definitions
@@ -171,7 +172,7 @@ Last updated: 2026-11-22
 ## Verification commands
 ```
 npm run typecheck        # tsc --noEmit, includes test/
-npm test                 # node --test, 250 tests
+npm test                 # node --test, 254 tests
 npm run build            # vite build → dist/
 npm run size             # gzip size budgets (run after build)
 npm run export:character # bake rig clips → art/player_rig.glb
@@ -186,6 +187,7 @@ npm run world:validate -- world/bastos/v1  # validate one pack
 ```
 
 ## Changelog
+- 2026-11-22: Character body and outfit pass — rebuilt male/female/neutral silhouettes with distinct shoulder width, waist, pelvis/hip spacing, chest (pecs vs bust), arm/leg thickness, neck width and height; added sex-specific brow weight and a one-piece dress outfit. Trousers remain available to every build, while skirts/dresses are disabled for male builds in the creator, rejected by the model builder, normalized in `createGameState` and normalized again in `migrateState` so old male skirt/dress saves become trousers. Presets now carry their intended sex and switch the build; “Surprise me” follows the preset. Regenerated `art/player_rig.glb` from Amina’s female build and fixed the exporter to index non-indexed primitives before merge, so all material groups survive instead of being silently dropped. No save-version bump, world-pack, district ID or place ID changed. Verification: typecheck clean, 254/254 tests, build passes, all size budgets pass (JS 585,379 B gzip, first load 595,892 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files), and the skinned GLB export completes. Geometry/model tests only; no browser visual, Android/device or named cultural review was performed.
 - 2026-11-22: All-nine content parity — added a Mokolo wholesale assistant (negotiation 1) at Papa Ngassa Wholesale and an Ngoa-Ekelle library assistant (academics 1) at the University Library. The career parity test now runs against all nine districts and requires at least four non-taxi places, a taxi point, two jobs and an enterable/vendor/activity place in each. Both are fictional jobs at existing places; no world-pack geometry, district ID, existing place ID, renderer behavior or save-format change was made. Verification: typecheck clean, 250/250 tests, build passes, all size budgets pass (JS 584,369 B gzip, first load 594,854 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files), `world:validate` passes all nine packs, and live `db:verify` remains 21/21 PASS.
 - 2026-11-21: Content-report moderation — added `supabase/migrations/0003_moderation.sql` (idempotent) with `reports.status` (`open`/`reviewing`/`resolved`/`dismissed`), `reviewed_at`, `reviewed_by`, `resolution` and a status index. Reporters can withdraw their own open reports; resolved/dismissed rows stay for audit. Added service-role-only `list_content_reports` and `resolve_content_report` RPCs with explicit revokes from `PUBLIC`, `anon` and `authenticated`, plus `npm run reports -- list|resolve` using the local Management API token. Applied the migration twice to the hosted project, exercised list and resolve live, and extended `db:verify` with report-status read, update-denial and service-only RPC checks; live result is 21/21 PASS. No client bundle, world-pack, district ID or save-format changes.
 - 2026-11-21: Mvan content close-out — added three designed places around the transport hub and workshop: Mvan freight office (office interior, interview/networking), Mvan junction grill (street-food vendor, beignets/water) and Mvan produce stall (market vendor, browse/bargain). Added two jobs: garage assistant (tech 1) and freight office clerk (management 1). Extended the career parity test to include Mvan, so Boulevard du 20 Mai, Lac Municipal, Mont Febe and Mvan each meet the non-taxi place, taxi, job and activity coverage checks. These are fictional gameplay locations mapped near the existing Mvan roads, not real business addresses; no district IDs, existing place IDs, pack data, renderer behavior or save format changed. Verification: typecheck clean, 250/250 tests, build passes, all size budgets pass (JS 584,132 B gzip, first load 594,616 B, world assets 17,805,627 B raw / 3,241,290 B gzip across 509 files), and live `db:verify` 17/17 PASS.

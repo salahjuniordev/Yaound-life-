@@ -965,6 +965,14 @@ textarea::placeholder {
   color: var(--ink-soft);
 }
 
+.creator-note {
+  margin: 6px 0 0;
+  max-width: 62ch;
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 .creator-actions {
   display: flex;
   gap: 8px;
@@ -1085,6 +1093,16 @@ textarea::placeholder {
   padding: 7px 12px;
   background: var(--paper);
   box-shadow: none;
+}
+
+.chip-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.chip-row button:disabled:hover {
+  border-color: var(--line);
 }
 
 .swatch {

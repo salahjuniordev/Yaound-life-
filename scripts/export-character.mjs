@@ -61,6 +61,13 @@ function buildSkinnedParts(parts) {
     const geometry = object.geometry.clone();
     geometry.applyMatrix4(object.matrixWorld);
     const count = geometry.attributes.position.count;
+    // Some primitives (rounded brows, hair shells, bag straps) are not indexed.
+    // Give them a sequential index so every material group can merge cleanly.
+    if (!geometry.index) {
+      const index = new Uint32Array(count);
+      for (let i = 0; i < count; i++) index[i] = i;
+      geometry.setIndex(new THREE.BufferAttribute(index, 1));
+    }
     const skinIndex = new Uint16Array(count * 4);
     const skinWeight = new Float32Array(count * 4);
     for (let i = 0; i < count; i++) {
@@ -93,7 +100,7 @@ function buildSkinnedParts(parts) {
 }
 
 const appearance = { ...CHARACTER_PRESETS[0].appearance, facialHair: 'none' };
-const parts = buildCharacter(appearance);
+const parts = buildCharacter(appearance, CHARACTER_PRESETS[0].sex);
 parts.group.name = 'yaounde_character';
 const { bones, skeleton, skinnedMeshes } = buildSkinnedParts(parts);
 parts.group.updateMatrixWorld(true);

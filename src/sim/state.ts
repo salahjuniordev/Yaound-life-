@@ -1,6 +1,7 @@
 import type {
   Appearance,
   BackgroundId,
+  CharacterSex,
   GameSettings,
   GameState,
   InventoryItem,
@@ -12,6 +13,7 @@ import type {
   WorldStateData,
   NjangiGroup,
 } from './types';
+import { normalizeAppearanceForSex } from './appearance';
 import { BACKGROUND_MAP } from '../data/backgrounds';
 import { NAMED_NPCS } from '../data/npcs';
 import { VEHICLE_MAP } from '../data/vehicles';
@@ -24,7 +26,7 @@ const ALL_SKILLS: SkillKey[] = ['cooking', 'driving', 'sales', 'negotiation', 'm
 
 export interface NewGameOptions {
   name: string;
-  gender: 'm' | 'f' | 'x';
+  gender: CharacterSex;
   background: BackgroundId;
   appearance: Appearance;
   settings?: Partial<GameSettings>;
@@ -123,6 +125,7 @@ export function createGameState(opts: NewGameOptions): GameState {
   const characterId = `char_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e6).toString(36)}`;
   const rng = new RNG(seedFromString(characterId));
   const bg = BACKGROUND_MAP[opts.background];
+  const appearance = normalizeAppearanceForSex(opts.appearance, opts.gender);
 
   const skills: Record<SkillKey, number> = Object.fromEntries(ALL_SKILLS.map((s) => [s, 0])) as Record<SkillKey, number>;
   for (const [k, v] of Object.entries(bg.skills)) {
@@ -199,7 +202,7 @@ export function createGameState(opts: NewGameOptions): GameState {
       name: opts.name || 'Ngu',
       gender: opts.gender,
       background: opts.background,
-      appearance: opts.appearance,
+      appearance,
       needs,
       skills,
       traits: [...bg.traits],
@@ -258,11 +261,16 @@ export function migrateState(raw: unknown): GameState | null {
   if (!raw || typeof raw !== 'object') return null;
   const s = raw as Partial<GameState>;
   if (s.version !== 1 || !s.world || !s.player || !s.wallet) return null;
+  const gender = s.player.gender ?? 'x';
+  const appearance = normalizeAppearanceForSex(
+    s.player.appearance ?? { skinTone: 3, hair: 'fade', bodyType: 'medium', shirtColor: '#e0532f', pantsColor: '#2c3e50' },
+    gender,
+  );
   const base = createGameState({
     name: s.player.name ?? 'Ngu',
-    gender: s.player.gender ?? 'x',
+    gender,
     background: s.player.background ?? 'hustler',
-    appearance: s.player.appearance ?? { skinTone: 3, hair: 'fade', bodyType: 'medium', shirtColor: '#e0532f', pantsColor: '#2c3e50' },
+    appearance,
     settings: s.settings,
   });
   const merged: GameState = {
@@ -270,7 +278,7 @@ export function migrateState(raw: unknown): GameState | null {
     ...s,
     version: 1,
     world: { ...base.world, ...s.world },
-    player: { ...base.player, ...s.player, needs: { ...base.player.needs, ...s.player.needs }, skills: { ...base.player.skills, ...s.player.skills }, hobbies: { ...base.player.hobbies, ...(s.player.hobbies ?? {}) }, properties: s.player.properties ?? [], education: { ...base.player.education, ...(s.player.education ?? {}) } },
+    player: { ...base.player, ...s.player, appearance, needs: { ...base.player.needs, ...s.player.needs }, skills: { ...base.player.skills, ...s.player.skills }, hobbies: { ...base.player.hobbies, ...(s.player.hobbies ?? {}) }, properties: s.player.properties ?? [], education: { ...base.player.education, ...(s.player.education ?? {}) } },
     wallet: { ...base.wallet, ...s.wallet },
     npcs: { ...base.npcs, ...(s.npcs ?? {}) },
     relationships: { ...base.relationships, ...(s.relationships ?? {}) },

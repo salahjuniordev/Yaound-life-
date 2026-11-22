@@ -122,10 +122,10 @@ npm run world:validate
 Latest results:
 
 - `typecheck`: pass.
-- `npm test`: 250 pass, 0 fail.
+- `npm test`: 254 pass, 0 fail.
 - `build`: pass; generated `dist/app-shell.json` with 16 entries.
-- `size`: all budgets pass — JS 584,369 B gzip, CSS 8,671 B, HTML 1,814 B,
-  first load 594,854 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
+- `size`: all budgets pass — JS 585,379 B gzip, CSS 8,701 B, HTML 1,812 B,
+  first load 595,892 B, world assets 17,805,627 B raw / 3,241,290 B gzip (509 files).
 - `world:validate`: pass for all nine registered packs.
 - Nlongkak production geometry after the road correction: 640,576 building,
   102,550 prop and 157,182 road triangles at high quality across 16 chunks.
@@ -133,7 +133,33 @@ Latest results:
   Nlongkak has had a renderer/WebGL review, and none has had a production
   visual/performance pass.
 
-## Latest round: all-nine content parity
+## Latest round: character body and outfit pass
+
+The character creator now produces visibly different builds instead of applying
+a small uniform scale:
+
+- Male, female and neutral silhouettes have separate shoulder width, waist,
+  pelvis, hip spacing, chest treatment, arm/leg thickness, neck width and height.
+- Male builds use subtle pectoral volume; female builds use a defined bust,
+  wider pelvis and narrower waist. Both keep the same named skeleton and clips.
+- The face adds sex-specific brow weight, and the selected body type still
+  controls slim/medium/tall scaling.
+- Added a one-piece `dress` outfit option alongside trousers and skirt.
+- Trousers are available to every build. Skirts and dresses are disabled for
+  the male build in the creator, rejected by the model builder, normalized at
+  game creation, and normalized again when old saves are migrated.
+- Amina, Brice and Marie presets now carry their intended sex and switch the
+  build when selected; “Surprise me” follows the preset.
+- The GLTF export now uses Amina’s female build and indexes non-indexed
+  primitives before merging, so every material group survives. The refreshed
+  `art/player_rig.glb` contains the 15-bone skeleton, all skinned material
+  groups plus the phone prop, and the five clips.
+- Verification: 254/254 tests, including shoulder/hip ratio, bust/pectoral
+  presence, male skirt/dress rejection, legacy-save normalization and seated
+  foot grounding for male and female builds. This is geometry/model evidence
+  only; no browser visual or device acceptance is claimed.
+
+## Previous round: all-nine content parity
 
 Mvan now has a transport-hub content pass to match its workshop and bus-hub
 character:
@@ -202,8 +228,8 @@ verification (`npm run db:verify`: 21/21 PASS). The phone now surfaces the
 state: News renders the published bulletin with a local fallback, and Map shows
 weather, fuel, taxi strike and the selected quartier's delestage window.
 Reports can be reviewed from the local CLI with
-`npm run reports -- list open` / `resolve`. Verification: 250/250 tests;
-JS 584,369 B gzip; first load 594,854 B.
+`npm run reports -- list open` / `resolve`. Verification: 254/254 tests;
+JS 585,379 B gzip; first load 595,892 B.
 
 ## Earlier round: nine-pack city coverage and Bastos content close-out
 

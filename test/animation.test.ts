@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { animateCharacter, buildCharacter, type CharacterClip, type CharacterParts } from '../src/render/characters';
 import { CHARACTER_PRESETS } from '../src/data/characterPresets';
-import type { Appearance } from '../src/sim/types';
+import type { Appearance, CharacterSex } from '../src/sim/types';
 
 const LEGACY: Appearance = {
   skinTone: 3,
@@ -15,8 +15,8 @@ const LEGACY: Appearance = {
 
 const CLIPS: CharacterClip[] = ['idle', 'walk', 'run', 'sit', 'phone'];
 
-function poseClip(appearance: Appearance, clip: CharacterClip, t = 1.2): CharacterParts {
-  const parts = buildCharacter(appearance);
+function poseClip(appearance: Appearance, clip: CharacterClip, t = 1.2, sex: CharacterSex = 'x'): CharacterParts {
+  const parts = buildCharacter(appearance, sex);
   for (let i = 0; i < 60; i++) {
     animateCharacter(parts, t, clip === 'walk' || clip === 'run', 1, clip, 1 / 60);
   }
@@ -77,6 +77,16 @@ test('phone clip raises the hand to the head and keeps the device out of the fac
   const phoneBox = worldBox(parts.phone);
   const headBox = worldBox(parts.head);
   assert.equal(phoneBox.intersectsBox(headBox), false, 'phone does not clip through the head');
+});
+
+test('male and female builds keep their feet grounded when seated', () => {
+  for (const sex of ['m', 'f'] as const) {
+    const parts = poseClip(LEGACY, 'sit', 1.2, sex);
+    for (const foot of [parts.footL, parts.footR]) {
+      const box = worldBox(foot);
+      assert.ok(box.min.y > -0.04 && box.min.y < 0.07, `${sex} foot grounded (min y ${box.min.y.toFixed(3)})`);
+    }
+  }
 });
 
 test('idle clip blinks and phone use smiles wider than walking', () => {

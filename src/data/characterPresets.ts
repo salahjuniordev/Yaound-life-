@@ -1,7 +1,8 @@
-import type { Appearance } from '../sim/types';
+import type { Appearance, CharacterSex } from '../sim/types';
 
 export interface CharacterPreset {
   id: 'amina' | 'brice' | 'marie';
+  sex: CharacterSex;
   name: string;
   nameFr: string;
   subtitle: string;
@@ -13,6 +14,7 @@ export interface CharacterPreset {
 export const CHARACTER_PRESETS: CharacterPreset[] = [
   {
     id: 'amina',
+    sex: 'f',
     name: 'Amina',
     nameFr: 'Amina',
     subtitle: 'Student',
@@ -33,6 +35,7 @@ export const CHARACTER_PRESETS: CharacterPreset[] = [
   },
   {
     id: 'brice',
+    sex: 'm',
     name: 'Brice',
     nameFr: 'Brice',
     subtitle: 'Creative Hustler',
@@ -54,6 +57,7 @@ export const CHARACTER_PRESETS: CharacterPreset[] = [
   },
   {
     id: 'marie',
+    sex: 'f',
     name: 'Marie',
     nameFr: 'Marie',
     subtitle: 'Market Trader',

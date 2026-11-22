@@ -115,6 +115,27 @@ test('createGameState produces a valid fresh day-one state', () => {
   assert.ok(state.wallet.cash >= 0);
 });
 
+test('male character creation and migration normalize skirts and dresses to trousers', () => {
+  const skirt = {
+    skinTone: 3,
+    hair: 'fade' as const,
+    bodyType: 'medium' as const,
+    shirtColor: '#e0532f',
+    pantsColor: '#2c3e50',
+    bottomStyle: 'dress' as const,
+  };
+  const male = makeState({ gender: 'm', appearance: skirt });
+  assert.equal(male.player.appearance.bottomStyle, 'pants');
+  const female = makeState({ gender: 'f', appearance: skirt });
+  assert.equal(female.player.appearance.bottomStyle, 'dress');
+
+  const raw = JSON.parse(JSON.stringify(female)) as typeof female;
+  raw.player.gender = 'm';
+  const migrated = migrateState(raw);
+  assert.ok(migrated);
+  assert.equal(migrated!.player.appearance.bottomStyle, 'pants');
+});
+
 test('migrateState rejects garbage and restores missing NPCs', () => {
   assert.equal(migrateState(null), null);
   assert.equal(migrateState({}), null);
