@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import * as THREE from 'three';
-import { createHeightfield } from '../src/world/terrain.ts';
+import { createHeightfield, heightAt } from '../src/world/terrain.ts';
 import { loadChunk, loadManifest, loadWorldData } from '../src/world/loader.ts';
 import { roadsForChunk } from '../src/world/roads.ts';
 import type { BuildingGeometry, Heightfield, Poi, WorldData, WorldManifest, WorldRoad } from '../src/world/types.ts';
@@ -103,6 +103,104 @@ test('geo terrain geometry samples the heightfield and has upward-facing indices
   assert.ok(geo.attributes.position.count >= 9);
   assert.ok(geo.index && geo.index.count > 0);
   geo.dispose();
+});
+
+test('geo terrain geometry adds a finite vertical skirt around each streaming chunk', () => {
+  const hf = createHeightfield(
+    3,
+    3,
+    10,
+    0,
+    -20,
+    Float32Array.from([5, 5, 5, 5, 6, 5, 5, 5, 5]),
+    0,
+    0,
+  );
+  const geo = buildTerrainGeometry(hf, 'high');
+  geo.computeBoundingBox();
+  assert.ok(geo.boundingBox);
+  assert.ok(geo.boundingBox!.min.y < 5 - 12, 'chunk edge should extend below the terrain surface');
+  const positions = geo.attributes.position as THREE.BufferAttribute;
+  for (let i = 0; i < positions.count; i++) {
+    assert.ok(Number.isFinite(positions.getX(i)));
+    assert.ok(Number.isFinite(positions.getY(i)));
+    assert.ok(Number.isFinite(positions.getZ(i)));
+  }
+  geo.dispose();
+});
+
+test('geo terrain skirt faces outward on every chunk edge', () => {
+  const hf = flatField();
+  const geo = buildTerrainGeometry(hf, 'low');
+  const positions = geo.attributes.position as THREE.BufferAttribute;
+  const index = geo.index!;
+  const triangles = index.count / 3;
+  const a = new THREE.Vector3();
+  const b = new THREE.Vector3();
+  const c = new THREE.Vector3();
+  const ab = new THREE.Vector3();
+  const ac = new THREE.Vector3();
+  const normal = new THREE.Vector3();
+  const hits = { south: 0, north: 0, west: 0, east: 0 };
+  const minX = hf.originX;
+  const minZ = hf.originZ;
+  const maxX = minX + (hf.width - 1) * hf.cellSize;
+  const maxZ = minZ + (hf.height - 1) * hf.cellSize;
+  for (let triangle = 0; triangle < triangles; triangle++) {
+    const ia = index.getX(triangle * 3);
+    const ib = index.getX(triangle * 3 + 1);
+    const ic = index.getX(triangle * 3 + 2);
+    a.fromBufferAttribute(positions, ia);
+    b.fromBufferAttribute(positions, ib);
+    c.fromBufferAttribute(positions, ic);
+    const vertical = Math.max(a.y, b.y, c.y) - Math.min(a.y, b.y, c.y) > 1;
+    if (!vertical) continue;
+    ab.subVectors(b, a);
+    ac.subVectors(c, a);
+    normal.crossVectors(ab, ac).normalize();
+    if (a.z === minZ && b.z === minZ && c.z === minZ) {
+      assert.ok(normal.z < -0.9, `south skirt normal ${normal.z.toFixed(2)}`);
+      hits.south++;
+    } else if (a.z === maxZ && b.z === maxZ && c.z === maxZ) {
+      assert.ok(normal.z > 0.9, `north skirt normal ${normal.z.toFixed(2)}`);
+      hits.north++;
+    } else if (a.x === minX && b.x === minX && c.x === minX) {
+      assert.ok(normal.x < -0.9, `west skirt normal ${normal.x.toFixed(2)}`);
+      hits.west++;
+    } else if (a.x === maxX && b.x === maxX && c.x === maxX) {
+      assert.ok(normal.x > 0.9, `east skirt normal ${normal.x.toFixed(2)}`);
+      hits.east++;
+    }
+  }
+  assert.ok(hits.south > 0 && hits.north > 0 && hits.west > 0 && hits.east > 0, JSON.stringify(hits));
+  geo.dispose();
+});
+
+test('heightAt substitutes corrupt height samples without losing the terrain surface', () => {
+  const corrupt = createHeightfield(
+    2,
+    2,
+    10,
+    0,
+    0,
+    Float32Array.from([0, 10, Number.NaN, 20]),
+    0,
+    0,
+  );
+  const value = heightAt(corrupt, 5, 5);
+  assert.ok(Number.isFinite(value));
+  assert.ok(Math.abs(value - 10) < 1e-6, `expected 10 m, received ${value}`);
+  const allBad = createHeightfield(
+    2,
+    2,
+    10,
+    0,
+    0,
+    Float32Array.from([Number.NaN, Number.NaN, Number.NaN, Number.POSITIVE_INFINITY]),
+    0,
+    0,
+  );
+  assert.equal(heightAt(allBad, 5, 5), 0);
 });
 
 test('geo road geometry creates a surface above terrain', () => {
@@ -219,6 +317,39 @@ test('geo water geometry triangulates a polygon', () => {
   geo!.dispose();
 });
 
+test('geo water geometry keeps each feature level instead of the manifest fallback', () => {
+  const geo = buildWaterGeometry([
+    {
+      id: 'low-pond',
+      points: [[0, -5], [10, -5], [10, -15], [0, -15]],
+      level: 27.06,
+      provenance: {
+        source: 'openstreetmap',
+        sourceVersion: 'test',
+        license: 'ODbL-1.0',
+        geometryStatus: 'real',
+      },
+    },
+    {
+      id: 'high-pond',
+      points: [[20, -5], [30, -5], [30, -15], [20, -15]],
+      level: 50.25,
+      provenance: {
+        source: 'openstreetmap',
+        sourceVersion: 'test',
+        license: 'ODbL-1.0',
+        geometryStatus: 'real',
+      },
+    },
+  ], 27.06);
+  assert.ok(geo);
+  const positions = geo!.attributes.position as THREE.BufferAttribute;
+  const levels = new Set<number>();
+  for (let i = 0; i < positions.count; i++) levels.add(Number(positions.getY(i).toFixed(2)));
+  assert.deepEqual([...levels].sort((a, b) => a - b), [27.06, 50.25]);
+  geo!.dispose();
+});
+
 test('geo waterway geometry follows per-point levels and uses a continuous ribbon', () => {
   const geo = buildWaterwaysGeometry([
     {
@@ -274,11 +405,32 @@ test('geo collision pushes a player out of a building footprint', () => {
   assert.ok(x < 0 || x > 10 || z > -10 || z < -20);
 });
 
+test('geo camera obstruction stops at building walls and clears above roofs', () => {
+  const collision = new GeoCollisionWorld();
+  collision.addChunk('c', [building()]);
+  const ground = () => 0;
+  const blocked = collision.cameraBlockFraction(5, -5, 3, 5, -25, 3, ground, 0.32);
+  assert.ok(blocked !== null);
+  assert.ok(blocked! > 0 && blocked! < 1);
+  const clear = collision.cameraBlockFraction(5, -5, 12, 5, -25, 12, ground, 0.32);
+  assert.equal(clear, null);
+});
+
 test('geo road index finds the nearest walkable segment', () => {
   const index = new RoadIndex([road()]);
   const hit = index.nearest(100, -95, 20);
   assert.ok(hit);
   assert.ok(hit!.distance <= 5.01);
+});
+
+test('geo road index can prefer a narrower spawning street', () => {
+  const wide = road({ id: 'wide', width: 20, points: [[0, -99], [200, -99]] });
+  const narrow = road({ id: 'narrow', width: 6.5, points: [[0, -120], [200, -120]] });
+  const index = new RoadIndex([wide, narrow]);
+  const nearest = index.nearest(100, -100, 40);
+  assert.equal(nearest?.road.id, 'wide');
+  const preferred = index.nearest(100, -100, 40, (candidate) => candidate.width <= 8);
+  assert.equal(preferred?.road.id, 'narrow');
 });
 
 test('geo adapter maps Nlongkak gameplay positions into the real slice', () => {
@@ -341,8 +493,85 @@ test('geo adapter maps Nlongkak gameplay positions into the real slice', () => {
   }
   const spawn = adapter.spawnForDistrict('nlongkak');
   assert.ok(Number.isFinite(spawn[0]) && Number.isFinite(spawn[1]));
+  assert.ok(Math.abs(adapter.terrainHeight(100, -100) - 0.095) < 1e-9, 'carriageway surface should lift the feet');
+  assert.ok(Math.abs(adapter.terrainHeight(100, -100 + 3.25 + 0.9) - 0.142) < 1e-9, 'pavement surface should lift the feet');
+  assert.equal(adapter.terrainHeight(100, -80), 0, 'open terrain keeps the heightfield height');
   const mapped = adapter.toWorldPosition('nlongkak', [-95, -25]);
   assert.ok(Number.isFinite(mapped[0]) && Number.isFinite(mapped[1]));
+
+  const placed = adapter.placePedestrian(100, -100);
+  assert.equal(collision.nearBuilding(placed[0], placed[1], 0.25), false);
+  const route = adapter.sidewalkRoute?.(placed[0], placed[1], 2.4) ?? null;
+  assert.ok(route, 'sidewalk route should exist on an open road');
+  assert.equal(collision.nearBuilding(route!.ax, route!.az, 0.2), false);
+  assert.equal(collision.nearBuilding(route!.bx, route!.bz, 0.2), false);
+  assert.ok(Math.hypot(route!.bx - route!.ax, route!.bz - route!.az) >= 0.7);
+
+  const camera = adapter.resolveCamera?.([5, 3, -5], [5, 3, -25]);
+  assert.ok(camera);
+  assert.ok(camera![2] > -25, 'camera should shorten before the building wall');
+  assert.ok(camera![2] < -5);
+});
+
+test('geo pedestrians stay on narrow footway surfaces instead of beside them', () => {
+  const hf = flatField();
+  const manifest: WorldManifest = {
+    format: 'yaounde-life-world',
+    formatVersion: 1,
+    worldVersion: 'footway-test-v1',
+    generatorVersion: 'test',
+    generatedAt: new Date(0).toISOString(),
+    area: { id: 'nlongkak', name: 'Nlongkak', description: 'test' },
+    projection: { id: 'EPSG:32632', name: 'UTM 32N', zone: 32, hemisphere: 'N', datum: 'WGS84', centralMeridian: 9 },
+    origin: { lon: 11.5, lat: 3.87, east: 0, north: 0 },
+    unitsPerMetre: 1,
+    verticalScale: 1,
+    verticalOffset: 0,
+    elevationDatum: 'test',
+    terrainCellSize: 8,
+    coarseTerrainCellSize: 16,
+    chunkSize: 512,
+    bounds: { minX: 0, maxX: 512, minZ: -512, maxZ: 0, minEast: 0, maxEast: 512, minNorth: 0, maxNorth: 512 },
+    waterLevel: null,
+    sources: [],
+    featureCounts: { chunks: 1, roads: 1, buildings: 0, pois: 0, waterPolygons: 0, waterways: 0, terrainSamples: 9 },
+    chunks: [],
+    contentHash: '',
+    validation: { ok: true, errors: [], warnings: [] },
+  };
+  const data: WorldData = {
+    manifest,
+    roads: [road({ id: 'foot', roadClass: 'footway', width: 2.2, points: [[0, -100], [200, -100]] })],
+    pois: [],
+    water: [],
+    waterways: [],
+    districts: [{
+      id: 'nlongkak',
+      name: 'Nlongkak',
+      nameFr: 'Nlongkak',
+      lon: 11.5,
+      lat: 3.88,
+      gameX: 100,
+      gameZ: -100,
+      provenance: { source: 'openstreetmap', sourceVersion: 'test', license: 'ODbL-1.0', geometryStatus: 'real' },
+    }],
+    coarseTerrain: hf,
+  };
+  const adapter = createGeoAdapter({
+    world: data,
+    collision: new GeoCollisionWorld(),
+    roads: new RoadIndex(data.roads),
+    terrainHeight: () => 0,
+  });
+  const placed = adapter.placePedestrian(100, -100);
+  assert.ok(Math.abs(placed[1] + 100) <= 1.1, 'footway pedestrian should stay on the path');
+  assert.ok(Math.abs(adapter.terrainHeight(100, -100) - 0.075) < 1e-9, 'footway surface should lift the feet');
+  const route = adapter.sidewalkRoute?.(placed[0], placed[1], 2.4) ?? null;
+  assert.ok(route, 'footway route should exist');
+  assert.ok(Math.abs(route!.az + 100) <= 1.1);
+  assert.ok(Math.abs(route!.bz + 100) <= 1.1);
+  const spawn = adapter.spawnForDistrict('nlongkak');
+  assert.ok(Math.abs(spawn[1] + 100) <= 1.1, 'footway spawn should stay on the path');
 });
 
 test('geo adapter follows the pack district instead of a hard-coded Nlongkak anchor', () => {
@@ -473,6 +702,7 @@ test('geo roadside props add utility poles, cable spans and street signs', () =>
   assert.equal(props.counts.utilityPoles, 2);
   assert.equal(props.counts.streetSigns, 1);
   assert.equal(props.counts.utilityWires, 6);
+  assert.ok(props.counts.streetlights >= 1);
   assert.ok(props.obstacles.length >= 2);
 });
 
@@ -523,6 +753,59 @@ test('geo shop fronts add painted sign boards', () => {
   assert.ok(shop!.attributes.position.count > house!.attributes.position.count);
 });
 
+test('geo kerb faces point toward the carriageway on both pavement edges', () => {
+  const hf = flatField();
+  const street = road({ width: 6.5, points: [[0, -100], [200, -100]] });
+  const geo = buildRoadGeometry([street], hf, 'mid');
+  assert.ok(geo);
+  const positions = geo!.attributes.position as THREE.BufferAttribute;
+  const half = street.width / 2;
+  const curb = -100 + half + 0.64;
+  const outer = -100 + half + 1.78;
+  const leftCurb = -100 - half - 0.64;
+  const leftOuter = -100 - half - 1.78;
+  const near = (value: number, target: number) => Math.abs(value - target) < 0.01;
+  const a = new THREE.Vector3();
+  const b = new THREE.Vector3();
+  const c = new THREE.Vector3();
+  const ab = new THREE.Vector3();
+  const ac = new THREE.Vector3();
+  const normal = new THREE.Vector3();
+  const seen = { rightCurb: 0, rightOuter: 0, leftCurb: 0, leftOuter: 0 };
+  for (let triangle = 0; triangle < positions.count / 3; triangle++) {
+    const ia = triangle * 3;
+    const ib = ia + 1;
+    const ic = ia + 2;
+    a.fromBufferAttribute(positions, ia);
+    b.fromBufferAttribute(positions, ib);
+    c.fromBufferAttribute(positions, ic);
+    if (Math.max(a.y, b.y, c.y) - Math.min(a.y, b.y, c.y) < 0.01) continue;
+    ab.subVectors(b, a);
+    ac.subVectors(c, a);
+    normal.crossVectors(ab, ac).normalize();
+    const constantZ = near(a.z, b.z) && near(a.z, c.z);
+    if (!constantZ) continue;
+    if (near(a.z, curb)) {
+      assert.ok(normal.z < -0.9, `right kerb should face the road, received ${normal.z.toFixed(2)}`);
+      seen.rightCurb++;
+    } else if (near(a.z, outer)) {
+      assert.ok(normal.z > 0.9, `right outer kerb should face away, received ${normal.z.toFixed(2)}`);
+      seen.rightOuter++;
+    } else if (near(a.z, leftCurb)) {
+      assert.ok(normal.z > 0.9, `left kerb should face the road, received ${normal.z.toFixed(2)}`);
+      seen.leftCurb++;
+    } else if (near(a.z, leftOuter)) {
+      assert.ok(normal.z < -0.9, `left outer kerb should face away, received ${normal.z.toFixed(2)}`);
+      seen.leftOuter++;
+    }
+  }
+  assert.ok(
+    seen.rightCurb > 0 && seen.rightOuter > 0 && seen.leftCurb > 0 && seen.leftOuter > 0,
+    JSON.stringify(seen),
+  );
+  geo!.dispose();
+});
+
 test('geo vehicles mix taxis, private cars, buses, trucks and motos by road class', () => {
   const majorKinds = new Set<string>();
   const minorKinds = new Set<string>();
@@ -549,6 +832,11 @@ test('every production pack builds finite geometry for every chunk', async () =>
       assert.ok(Number.isFinite(values[index]), `${label} geometry should contain only finite positions`);
     }
   };
+  const geometryTriangles = (geometry: THREE.BufferGeometry | null): number => {
+    if (!geometry) return 0;
+    return geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3;
+  };
+  const budget = { terrain: 0, roads: 0, buildings: 0, props: 0 };
 
   const packs = [
     { id: 'nlongkak', basePath: 'world/v1', version: 'nlongkak-2026-10-30-v2', chunks: 16 },
@@ -584,6 +872,12 @@ test('every production pack builds finite geometry for every chunk', async () =>
       assertFinite(roadGeometry, `${pack.id} ${ref.id} roads`);
       assertFinite(buildingGeometry, `${pack.id} ${ref.id} buildings`);
       assertFinite(props.geometry, `${pack.id} ${ref.id} props`);
+      if (pack.id === 'nlongkak') {
+        budget.terrain += geometryTriangles(terrain);
+        budget.roads += geometryTriangles(roadGeometry);
+        budget.buildings += geometryTriangles(buildingGeometry);
+        budget.props += geometryTriangles(props.geometry);
+      }
 
       terrain.dispose();
       roadGeometry?.dispose();
@@ -591,4 +885,13 @@ test('every production pack builds finite geometry for every chunk', async () =>
       props.geometry?.dispose();
     }
   }
+
+  // Regression guard for the mobile-oriented detail pass. These totals cover
+  // every Nlongkak chunk at the highest tier, which is intentionally above the
+  // runtime 560 m near LOD, so they catch accidental geometry explosions while
+  // leaving room for small visual additions.
+  assert.ok(budget.terrain < 155_000, `Nlongkak terrain triangles ${budget.terrain}`);
+  assert.ok(budget.roads < 280_000, `Nlongkak road triangles ${budget.roads}`);
+  assert.ok(budget.buildings < 1_350_000, `Nlongkak near building triangles ${budget.buildings}`);
+  assert.ok(budget.props < 150_000, `Nlongkak prop triangles ${budget.props}`);
 });

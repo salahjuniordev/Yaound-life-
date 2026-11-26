@@ -49,13 +49,33 @@ export function heightAt(hf: Heightfield, x: number, z: number): number {
   const z1 = Math.min(hf.height - 1, z0 + 1);
   const tx = cx - x0;
   const tz = cz - z0;
-  const h00 = hf.heights[z0 * hf.width + x0];
-  const h10 = hf.heights[z0 * hf.width + x1];
-  const h01 = hf.heights[z1 * hf.width + x0];
-  const h11 = hf.heights[z1 * hf.width + x1];
+  let h00 = hf.heights[z0 * hf.width + x0];
+  let h10 = hf.heights[z0 * hf.width + x1];
+  let h01 = hf.heights[z1 * hf.width + x0];
+  let h11 = hf.heights[z1 * hf.width + x1];
+
+  // A corrupt or partially written heightfield must not make the player
+  // disappear or fall forever. Replace only the non-finite corners with the
+  // average of the valid neighbours; valid production data is untouched.
+  if (!Number.isFinite(h00) || !Number.isFinite(h10) || !Number.isFinite(h01) || !Number.isFinite(h11)) {
+    let total = 0;
+    let count = 0;
+    if (Number.isFinite(h00)) { total += h00; count++; }
+    if (Number.isFinite(h10)) { total += h10; count++; }
+    if (Number.isFinite(h01)) { total += h01; count++; }
+    if (Number.isFinite(h11)) { total += h11; count++; }
+    if (count === 0) return 0;
+    const fallback = total / count;
+    if (!Number.isFinite(h00)) h00 = fallback;
+    if (!Number.isFinite(h10)) h10 = fallback;
+    if (!Number.isFinite(h01)) h01 = fallback;
+    if (!Number.isFinite(h11)) h11 = fallback;
+  }
+
   const a = h00 + (h10 - h00) * tx;
   const b = h01 + (h11 - h01) * tx;
-  return a + (b - a) * tz;
+  const value = a + (b - a) * tz;
+  return Number.isFinite(value) ? value : 0;
 }
 
 export function sampleChunkHeightfield(

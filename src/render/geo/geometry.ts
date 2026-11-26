@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import type { DecodedBuilding } from '../../world/buildings';
 import { hashString, polygonArea, polygonCentroid, seededUnit } from '../../world/buildings';
 import type { BuildingGeometry, Heightfield, Poi, WaterFeature, WaterwayFeature, WorldRoad } from '../../world/types';
@@ -62,6 +63,26 @@ class MeshBuilder {
   ): void {
     this.triangle(a, b, c, color);
     this.triangle(a, c, d, color);
+  }
+
+  quadGradient(
+    a: [number, number, number],
+    b: [number, number, number],
+    c: [number, number, number],
+    d: [number, number, number],
+    ca: RGB,
+    cb: RGB,
+    cc: RGB,
+    cd: RGB,
+  ): void {
+    this.positions.push(
+      a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2],
+      a[0], a[1], a[2], c[0], c[1], c[2], d[0], d[1], d[2],
+    );
+    this.colors.push(
+      ca[0], ca[1], ca[2], cb[0], cb[1], cb[2], cc[0], cc[1], cc[2],
+      ca[0], ca[1], ca[2], cc[0], cc[1], cc[2], cd[0], cd[1], cd[2],
+    );
   }
 
   box(cx: number, baseY: number, cz: number, width: number, height: number, depth: number, color: RGB, rotY = 0): void {
@@ -151,20 +172,89 @@ class MeshBuilder {
   }
 }
 
-function gridStep(quality: QualityTier): number {
-  return quality === 'low' ? 16 : quality === 'mid' ? 8 : 4;
+/**
+ * Vertical soil wall around a chunk heightfield. Chunks stream in
+ * asynchronously, so without this the player sees a hollow cut-away edge for a
+ * frame or two at every boundary (and a permanent cliff at the pack edge).
+ */
+function buildTerrainSkirt(hf: Heightfield, depth: number): THREE.BufferGeometry | null {
+  const positions: number[] = [];
+  const colors: number[] = [];
+  const indices: number[] = [];
+  const soil = rgb('#6f6756');
+  const rock = rgb('#7b7263');
+
+  const addEdge = (points: Array<[number, number]>, outX: number, outZ: number) => {
+    const base = positions.length / 3;
+    for (const [x, z] of points) {
+      const y = heightAt(hf, x, z);
+      const shade = hash2(x * 0.19 + 4.1, z * 0.23 - 8.7);
+      const top = shade > 0.55 ? rock : soil;
+      const factor = 0.82 + shade * 0.14;
+      positions.push(x, y + 0.02, z, x, y - depth, z);
+      colors.push(top[0], top[1], top[2], top[0] * factor, top[1] * factor, top[2] * factor);
+    }
+    for (let i = 0; i < points.length - 1; i++) {
+      const t0 = base + i * 2;
+      const b0 = t0 + 1;
+      const t1 = t0 + 2;
+      const b1 = t0 + 3;
+      const [x0, z0] = points[i];
+      const [x1, z1] = points[i + 1];
+      const dx = x1 - x0;
+      const dz = z1 - z0;
+      // Winding A (t0,b1,t1 / t0,b0,b1) has normal (-dz, 0, dx); winding B
+      // has the opposite normal. Pick the one facing out of the chunk.
+      if (-dz * outX + dx * outZ >= 0) {
+        indices.push(t0, b1, t1, t0, b0, b1);
+      } else {
+        indices.push(t0, t1, b1, t0, b1, b0);
+      }
+    }
+  };
+
+  const minX = hf.originX;
+  const minZ = hf.originZ;
+  const maxX = minX + (hf.width - 1) * hf.cellSize;
+  const maxZ = minZ + (hf.height - 1) * hf.cellSize;
+  const south: Array<[number, number]> = [];
+  const north: Array<[number, number]> = [];
+  for (let ix = 0; ix < hf.width; ix++) {
+    const x = minX + ix * hf.cellSize;
+    south.push([x, minZ]);
+    north.push([x, maxZ]);
+  }
+  const west: Array<[number, number]> = [];
+  const east: Array<[number, number]> = [];
+  for (let iz = 0; iz < hf.height; iz++) {
+    const z = minZ + iz * hf.cellSize;
+    west.push([minX, z]);
+    east.push([maxX, z]);
+  }
+  addEdge(south, 0, -1);
+  addEdge(north, 0, 1);
+  addEdge(west, -1, 0);
+  addEdge(east, 1, 0);
+  if (indices.length === 0) return null;
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  geo.computeBoundingSphere();
+  return geo;
 }
 
 export function buildTerrainGeometry(hf: Heightfield, quality: QualityTier): THREE.BufferGeometry {
-  const step = gridStep(quality);
   const width = hf.width;
   const height = hf.height;
   const positions = new Float32Array(width * height * 3);
   const colors = new Float32Array(width * height * 3);
-  const green = rgb('#728052');
-  const dry = rgb('#95875a');
-  const rock = rgb('#857b6c');
-  const soil = rgb('#7f7358');
+  const green = rgb('#6b7b4d');
+  const dry = rgb('#9b8a5d');
+  const moss = rgb('#596b43');
+  const rock = rgb('#7f7668');
+  const soil = rgb('#75664e');
   const c = new THREE.Color();
   const base = new THREE.Color();
   const target = new THREE.Color();
@@ -179,9 +269,12 @@ export function buildTerrainGeometry(hf: Heightfield, quality: QualityTier): THR
       positions[i * 3 + 2] = z;
       const slope = Math.hypot(heightAt(hf, x + 3, z) - heightAt(hf, x - 3, z), heightAt(hf, x, z + 3) - heightAt(hf, x, z - 3)) / 6;
       const variation = hash2(x * 0.13, z * 0.17);
+      const macro = hash2(x * 0.027 + 11.7, z * 0.031 - 4.2);
       base.setRGB(green[0], green[1], green[2]);
       target.setRGB(dry[0], dry[1], dry[2]);
       c.copy(base).lerp(target, variation * 0.5);
+      target.setRGB(moss[0], moss[1], moss[2]);
+      c.lerp(target, macro * 0.28);
       if (slope > 0.22) {
         target.setRGB(rock[0], rock[1], rock[2]);
         c.lerp(target, Math.min(0.8, (slope - 0.18) * 2.2));
@@ -210,7 +303,14 @@ export function buildTerrainGeometry(hf: Heightfield, quality: QualityTier): THR
   geo.setIndex(indices);
   geo.computeVertexNormals();
   geo.computeBoundingSphere();
-  return geo;
+
+  const skirt = buildTerrainSkirt(hf, quality === 'low' ? 14 : quality === 'mid' ? 18 : 22);
+  if (!skirt) return geo;
+  const merged = mergeGeometries([geo, skirt], false);
+  skirt.dispose();
+  if (!merged) return geo;
+  geo.dispose();
+  return merged;
 }
 
 const ROAD_COLORS: Record<string, string> = {
@@ -323,6 +423,47 @@ function addRoadStrip(
   const pd = point(ax, az, offB);
   if (offB > offA) builder.quad(pd, pc, pb, pa, color);
   else builder.quad(pa, pb, pc, pd, color);
+}
+
+/**
+ * Vertical kerb face at the road-facing edge of a pavement ribbon. Without it
+ * the pavement is only a lighter stripe on the ground; the small lip gives the
+ * street a readable kerb line at player height.
+ */
+function addCurbFace(
+  builder: MeshBuilder,
+  hf: Heightfield,
+  ax: number,
+  az: number,
+  bx: number,
+  bz: number,
+  offset: number,
+  topOffset: number,
+  bottomOffset: number,
+  color: RGB,
+  flip = false,
+): void {
+  const dx = bx - ax;
+  const dz = bz - az;
+  const len = Math.hypot(dx, dz) || 1;
+  const nx = -dz / len;
+  const nz = dx / len;
+  const point = (x: number, z: number, yOffset: number): [number, number, number] => [
+    x + nx * offset,
+    heightAt(hf, x + nx * offset, z + nz * offset) + yOffset,
+    z + nz * offset,
+  ];
+  const bottomA = point(ax, az, bottomOffset);
+  const bottomB = point(bx, bz, bottomOffset);
+  const topA = point(ax, az, topOffset);
+  const topB = point(bx, bz, topOffset);
+  // The road-facing side of a kerb is the opposite side from its outward
+  // normal. A positive offset is on the +normal side of the centreline, so its
+  // road-facing vertex order has a negative normal, and vice versa.
+  const towardRoad = offset >= 0 ? -1 : 1;
+  const normalSign = flip ? -towardRoad : towardRoad;
+  if (normalSign > 0) builder.quad(bottomA, bottomB, topB, topA, color);
+  else builder.quad(bottomB, bottomA, topA, topB, color);
 }
 
 function addBridgeRamp(
@@ -496,14 +637,26 @@ export function buildRoadGeometry(roads: WorldRoad[], hf: Heightfield, quality: 
           addRoadQuad(builder, hf, sax, saz, sbx, sbz, half, 0.075, path);
           continue;
         }
-        addRoadQuad(builder, hf, sax, saz, sbx, sbz, half + 2.05, 0.045, shoulder, surfaceSegments);
+        const pavementOuter = half + (major ? 2.05 : 1.78);
+        addRoadQuad(builder, hf, sax, saz, sbx, sbz, half + 2.18, 0.038, shoulder, surfaceSegments);
         addRoadQuad(builder, hf, sax, saz, sbx, sbz, half, 0.095, baseColor, surfaceSegments);
         for (const side of [1, -1]) {
-          // Open concrete drainage channel along the carriageway.
-          addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.26), side * (half + 0.64), 0.072, gutter);
-          if (major) {
-            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.66), side * (half + 0.8), 0.085, curb);
-            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.82), side * (half + 1.98), 0.058, surface);
+          if (quality !== 'low') {
+            // Open concrete drainage channel along the carriageway.
+            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.26), side * (half + 0.64), 0.072, gutter);
+            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.64), side * (half + 0.79), 0.142, curb);
+            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.79), side * pavementOuter, 0.142, surface);
+            addCurbFace(builder, hf, sax, saz, sbx, sbz, side * (half + 0.64), 0.142, 0.072, curb);
+            addCurbFace(builder, hf, sax, saz, sbx, sbz, side * pavementOuter, 0.142, 0.038, shoulder, true);
+          } else {
+            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half + 0.58), side * pavementOuter, 0.118, surface);
+            addCurbFace(builder, hf, sax, saz, sbx, sbz, side * (half + 0.58), 0.118, 0.038, curb);
+            addCurbFace(builder, hf, sax, saz, sbx, sbz, side * pavementOuter, 0.118, 0.035, shoulder, true);
+          }
+        }
+        if (major && quality !== 'low') {
+          for (const side of [1, -1]) {
+            addRoadStrip(builder, hf, sax, saz, sbx, sbz, side * (half - 0.34), side * (half - 0.25), 0.108, white);
           }
         }
       }
@@ -708,6 +861,10 @@ export function buildBuildingGeometry(
 ): THREE.BufferGeometry | null {
   const builder = new MeshBuilder();
   const near = quality !== 'low';
+  const glassTop = rgb('#607b91');
+  const glassBottom = rgb('#26333d');
+  const doorColor = rgb('#3a3029');
+  const doorStep = rgb('#9c9486');
   const balconyLimit = BALCONY_LIMITS[quality];
   const balconyIndices = new Set<number>();
   if (near && balconyLimit > 0) {
@@ -742,6 +899,11 @@ export function buildBuildingGeometry(
     const topY = baseY + height;
     const wall = rgb255(visual.wall[0], visual.wall[1], visual.wall[2]);
     const roof = rgb255(visual.roof[0], visual.roof[1], visual.roof[2]);
+    const trim = rgb255(
+      Math.min(255, visual.wall[0] + 28),
+      Math.min(255, visual.wall[1] + 26),
+      Math.min(255, visual.wall[2] + 22),
+    );
     const darkWall = rgb255(
       Math.max(0, visual.wall[0] - 24),
       Math.max(0, visual.wall[1] - 24),
@@ -786,27 +948,59 @@ export function buildBuildingGeometry(
           if (seededUnit(building.meta.id, floor * 13 + w) < 0.22) continue;
           const start = frac * edgeLength - 0.45;
           if (start < 0.4 || start + 0.9 > edgeLength - 0.4) continue;
-          const x0 = a[0] + dx * start + nx * 0.035;
-          const z0 = a[1] + dz * start + nz * 0.035;
+          const frameX0 = a[0] + dx * (start - 0.09) + nx * 0.045;
+          const frameZ0 = a[1] + dz * (start - 0.09) + nz * 0.045;
+          builder.quad(
+            [frameX0, wy - 0.08, frameZ0],
+            [frameX0, wy + 1.23, frameZ0],
+            [frameX0 + dx * 1.08, wy + 1.23, frameZ0 + dz * 1.08],
+            [frameX0 + dx * 1.08, wy - 0.08, frameZ0 + dz * 1.08],
+            trim,
+          );
+          const x0 = a[0] + dx * start + nx * 0.06;
+          const z0 = a[1] + dz * start + nz * 0.06;
           const p0: [number, number, number] = [x0, wy, z0];
           const p1: [number, number, number] = [x0, wy + 1.15, z0];
           const p2: [number, number, number] = [x0 + dx * 0.9, wy + 1.15, z0 + dz * 0.9];
           const p3: [number, number, number] = [x0 + dx * 0.9, wy, z0 + dz * 0.9];
-          builder.quad(p0, p1, p2, p3, rgb('#33414c'));
+          builder.quadGradient(p0, p1, p2, p3, glassBottom, glassTop, glassTop, glassBottom);
+          const sillX = a[0] + dx * (start - 0.13) + nx * 0.075;
+          const sillZ = a[1] + dz * (start - 0.13) + nz * 0.075;
+          builder.quad(
+            [sillX, wy - 0.1, sillZ],
+            [sillX, wy - 0.02, sillZ],
+            [sillX + dx * 1.16, wy - 0.02, sillZ + dz * 1.16],
+            [sillX + dx * 1.16, wy - 0.1, sillZ + dz * 1.16],
+            trim,
+          );
         }
       }
-      if (edgeLength > 5 && seededUnit(building.meta.id, 21) > 0.35) {
+      if (i === shopEdge && edgeLength > 5 && seededUnit(building.meta.id, 21) > 0.35) {
         const frac = 0.5;
         const start = frac * edgeLength - 0.65;
-        const x0 = a[0] + dx * start + nx * 0.05;
-        const z0 = a[1] + dz * start + nz * 0.05;
+        const frameX = a[0] + dx * (start - 0.1) + nx * 0.04;
+        const frameZ = a[1] + dz * (start - 0.1) + nz * 0.04;
         builder.quad(
-          [x0, baseY, z0],
-          [x0, baseY + 2.15, z0],
-          [x0 + dx * 1.3, baseY + 2.15, z0 + dz * 1.3],
-          [x0 + dx * 1.3, baseY, z0 + dz * 1.3],
-          rgb('#3b3029'),
+          [frameX, baseY + 0.25, frameZ],
+          [frameX, baseY + 2.3, frameZ],
+          [frameX + dx * 1.5, baseY + 2.3, frameZ + dz * 1.5],
+          [frameX + dx * 1.5, baseY + 0.25, frameZ + dz * 1.5],
+          trim,
         );
+        const x0 = a[0] + dx * start + nx * 0.06;
+        const z0 = a[1] + dz * start + nz * 0.06;
+        builder.quad(
+          [x0, baseY + 0.32, z0],
+          [x0, baseY + 2.22, z0],
+          [x0 + dx * 1.3, baseY + 2.22, z0 + dz * 1.3],
+          [x0 + dx * 1.3, baseY + 0.32, z0 + dz * 1.3],
+          doorColor,
+        );
+        if (quality === 'high') {
+          const stepCx = a[0] + dx * (start + 0.65) + nx * 0.26;
+          const stepCz = a[1] + dz * (start + 0.65) + nz * 0.26;
+          builder.box(stepCx, baseY + 0.32, stepCz, 1.55, 0.12, 0.5, doorStep, Math.atan2(-dz, dx));
+        }
       }
       if (i === shopEdge && (building.meta.classification === 'shop' || building.meta.classification === 'restaurant' || building.meta.classification === 'market')) {
         const style = SIGN_STYLES[hashString(building.meta.id) % SIGN_STYLES.length];
@@ -843,6 +1037,43 @@ export function buildBuildingGeometry(
           const awx = a[0] + dx * start + nx * 0.85;
           const awz = a[1] + dz * start + nz * 0.85;
           builder.box(awx, signBottom - 0.4, awz, 2.4, 0.12, 1.4, awningColor, rotY);
+        }
+        if (near && edgeLength > 3.6) {
+          const frontStart = Math.max(0.5, edgeLength * 0.2);
+          const doorStart = edgeLength * 0.5 - 0.65;
+          const frontWidth = Math.min(2.25, doorStart - frontStart - 0.2);
+          if (frontWidth > 1.15) {
+            const frameX = a[0] + dx * frontStart + nx * 0.043;
+            const frameZ = a[1] + dz * frontStart + nz * 0.043;
+            builder.quad(
+              [frameX, baseY + 0.55, frameZ],
+              [frameX, baseY + 1.82, frameZ],
+              [frameX + dx * frontWidth, baseY + 1.82, frameZ + dz * frontWidth],
+              [frameX + dx * frontWidth, baseY + 0.55, frameZ + dz * frontWidth],
+              trim,
+            );
+            const glassX = a[0] + dx * frontStart + nx * 0.058;
+            const glassZ = a[1] + dz * frontStart + nz * 0.058;
+            builder.quadGradient(
+              [glassX, baseY + 0.63, glassZ],
+              [glassX, baseY + 1.74, glassZ],
+              [glassX + dx * frontWidth, baseY + 1.74, glassZ + dz * frontWidth],
+              [glassX + dx * frontWidth, baseY + 0.63, glassZ + dz * frontWidth],
+              glassBottom,
+              glassTop,
+              glassTop,
+              glassBottom,
+            );
+            const midX = a[0] + dx * (frontStart + frontWidth * 0.5) + nx * 0.066;
+            const midZ = a[1] + dz * (frontStart + frontWidth * 0.5) + nz * 0.066;
+            builder.quad(
+              [midX, baseY + 0.63, midZ],
+              [midX, baseY + 1.74, midZ],
+              [midX + dx * 0.055, baseY + 1.74, midZ + dz * 0.055],
+              [midX + dx * 0.055, baseY + 0.63, midZ + dz * 0.055],
+              trim,
+            );
+          }
         }
       }
       if (addBalconyHere && i === shopEdge) {
@@ -888,6 +1119,21 @@ export function buildBuildingGeometry(
       const tris = triangulateRing(roofRing);
       for (let i = 0; i < tris.length; i += 3) {
         builder.triangle([tris[i][0], topY + 0.18, tris[i][1]], [tris[i + 2][0], topY + 0.18, tris[i + 2][1]], [tris[i + 1][0], topY + 0.18, tris[i + 1][1]], roof);
+      }
+      if (near && seededUnit(building.meta.id, 68) > 0.55) {
+        for (let i = 0; i < roofRing.length; i++) {
+          const a = roofRing[i];
+          const b = roofRing[(i + 1) % roofRing.length];
+          const [nx, nz] = outwardNormal(a, b, cx, cz);
+          const bottomA: [number, number, number] = [a[0], topY + 0.18, a[1]];
+          const bottomB: [number, number, number] = [b[0], topY + 0.18, b[1]];
+          const topA: [number, number, number] = [a[0], topY + 0.44, a[1]];
+          const topB: [number, number, number] = [b[0], topY + 0.44, b[1]];
+          const innerA: [number, number, number] = [a[0] - nx * 0.2, topY + 0.44, a[1] - nz * 0.2];
+          const innerB: [number, number, number] = [b[0] - nx * 0.2, topY + 0.44, b[1] - nz * 0.2];
+          builder.quad(bottomA, bottomB, topB, topA, darkWall);
+          builder.quad(topA, topB, innerB, innerA, trim);
+        }
       }
       if (seededUnit(building.meta.id, 51) > 0.55) {
         for (let i = 0; i < roofRing.length; i += Math.max(1, Math.floor(roofRing.length / 4))) {
@@ -965,6 +1211,7 @@ export interface PropBuild {
     utilityPoles: number;
     utilityWires: number;
     streetSigns: number;
+    streetlights: number;
     bushes: number;
     compoundWalls: number;
     compoundGates: number;
@@ -1005,6 +1252,7 @@ export function buildPropsGeometry(
     utilityPoles: 0,
     utilityWires: 0,
     streetSigns: 0,
+    streetlights: 0,
     bushes: 0,
     compoundWalls: 0,
     compoundGates: 0,
@@ -1058,19 +1306,27 @@ export function buildPropsGeometry(
       builder.cylinder(x, y, z, 0.24, 2.5, trunk, 5);
       builder.cone(x, y + 2.2, z, 1.6, 3.1, leaf, 7);
       builder.cone(x, y + 3.5, z, 1.1, 1.8, leaf, 6);
+      // A third offset crown breaks the symmetric "stack of cones" silhouette
+      // and reads as a broadleaf tree from the pavement.
+      builder.cone(x + 0.38, y + 2.35, z - 0.2, 1.05, 2.2, leaf, 6);
     }
     obstacles.push({ x, z, r: 0.45 });
     count++;
   };
-  const addLamp = (x: number, z: number) => {
-    if (count >= limit) return;
-    if (isBlocked(x, z, rings, 0.6)) return;
+  const addLamp = (x: number, z: number, rotY = 0, consumeBudget = true): boolean => {
+    if (consumeBudget && count >= limit) return false;
+    if (isBlocked(x, z, rings, 0.6)) return false;
     const y = heightAt(hf, x, z);
+    const ax = Math.cos(rotY);
+    const az = -Math.sin(rotY);
     builder.box(x, y, z, 0.16, 5.6, 0.16, pole);
-    builder.box(x + 0.55, y + 5.5, z, 1.3, 0.12, 0.16, pole);
-    builder.box(x + 1.1, y + 5.35, z, 0.45, 0.16, 0.28, lamp);
+    builder.box(x + ax * 0.55, y + 5.5, z + az * 0.55, 1.3, 0.12, 0.16, pole, rotY);
+    builder.box(x + ax * 1.1, y + 5.35, z + az * 1.1, 0.45, 0.16, 0.28, lamp, rotY);
+    builder.box(x + ax * 1.1, y + 5.28, z + az * 1.1, 0.34, 0.05, 0.2, rgb('#fff0c4'), rotY);
     obstacles.push({ x, z, r: 0.25 });
-    count++;
+    counts.streetlights++;
+    if (consumeBudget) count++;
+    return true;
   };
   const addStall = (x: number, z: number, rotY = 0, clothColor?: RGB): boolean => {
     if (count >= limit) return false;
@@ -1625,7 +1881,11 @@ export function buildPropsGeometry(
         if (roll < 0.33) {
           addTree(x + nx * side * (half + 2.5 + rng() * 2.5), z + nz * side * (half + 2.5 + rng() * 2.5), rng() > 0.75);
         } else if (roll < 0.47) {
-          addLamp(x + nx * side * (half + 0.9), z + nz * side * (half + 0.9));
+          const lx = x + nx * side * (half + 0.9);
+          const lz = z + nz * side * (half + 0.9);
+          const toRoadX = -nx * side;
+          const toRoadZ = -nz * side;
+          addLamp(lx, lz, Math.atan2(-toRoadZ, toRoadX));
         } else if (roll < 0.54 && isVehicleRoad(road)) {
           addStall(x + nx * side * (half + 2.2), z + nz * side * (half + 2.2));
         } else if (roll < 0.60 && isVehicleRoad(road)) {
@@ -1662,6 +1922,33 @@ export function buildPropsGeometry(
       const z = hf.originZ + rng() * (hf.height - 1) * hf.cellSize;
       if (isBlocked(x, z, rings, 2.2)) continue;
       addTree(x, z, rng() > 0.8);
+    }
+  }
+
+  // Street lighting is a separate, small pass so dark stretches of the longest
+  // roads always receive lamps even when the generic prop budget is consumed
+  // by market stalls or trees. Lamps are collision obstacles but not budgeted
+  // against stalls because they are part of the road furniture contract.
+  const lampLimit = quality === 'low' ? 2 : quality === 'mid' ? 4 : 6;
+  if (lampLimit > 0) {
+    let lampsAdded = 0;
+    for (const { road } of utilityRoads) {
+      if (lampsAdded >= lampLimit) break;
+      const samples = quality === 'high' ? 2 : 1;
+      for (let i = 0; i < samples && lampsAdded < lampLimit; i++) {
+        const jitter = (seededUnit(`${chunkId}:${road.id}:lamp:${i}`, 701) - 0.5) * 0.08;
+        const t = 0.2 + ((i + 0.5) / samples) * 0.6 + jitter;
+        const point = sampleRoadPoint(road, t);
+        if (!point) continue;
+        const side = hashString(`${road.id}:${i}`) % 2 === 0 ? 1 : -1;
+        const offset = road.width / 2 + 1.6;
+        const x = point.x + point.nx * side * offset;
+        const z = point.z + point.nz * side * offset;
+        if (obstacles.some((obstacle) => Math.hypot(obstacle.x - x, obstacle.z - z) < 1.6)) continue;
+        const toRoadX = -point.nx * side;
+        const toRoadZ = -point.nz * side;
+        if (addLamp(x, z, Math.atan2(-toRoadZ, toRoadX), false)) lampsAdded++;
+      }
     }
   }
 
@@ -1708,12 +1995,16 @@ export function buildWaterGeometry(features: WaterFeature[], level: number): THR
   const shallow = rgb('#4d8196');
   for (const feature of features) {
     if (feature.points.length < 3) continue;
+    // Each OSM water body carries its own inferred surface level. Falling back
+    // to the manifest level for every feature can bury a pond dozens of metres
+    // underground when a pack contains water at different elevations.
+    const surfaceLevel = Number.isFinite(feature.level) ? feature.level : level;
     const tris = triangulateRing(feature.points);
     for (let i = 0; i < tris.length; i += 3) {
       builder.triangle(
-        [tris[i][0], level, tris[i][1]],
-        [tris[i + 2][0], level, tris[i + 2][1]],
-        [tris[i + 1][0], level, tris[i + 1][1]],
+        [tris[i][0], surfaceLevel, tris[i][1]],
+        [tris[i + 2][0], surfaceLevel, tris[i + 2][1]],
+        [tris[i + 1][0], surfaceLevel, tris[i + 1][1]],
         i % 6 === 0 ? shallow : water,
       );
     }

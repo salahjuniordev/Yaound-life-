@@ -32,6 +32,12 @@ export interface GeoStatus {
   message: string;
 }
 
+const LOD_RANGES: Record<QualityTier, { building: number; props: number }> = {
+  low: { building: 210, props: 190 },
+  mid: { building: 340, props: 330 },
+  high: { building: 560, props: 520 },
+};
+
 interface GeoSceneProps {
   pack: WorldPackEntry;
   quality: QualityTier;
@@ -74,6 +80,17 @@ function chunkAt(manifest: WorldManifest, x: number, z: number): WorldManifest['
 
 function chunkCenter(chunk: WorldManifest['chunks'][number]): [number, number] {
   return [(chunk.bounds.minX + chunk.bounds.maxX) / 2, (chunk.bounds.minZ + chunk.bounds.maxZ) / 2];
+}
+
+/**
+ * Distance from a point to the chunk rectangle, not to its centre. Chunks are
+ * 512 m across, so centre-based LOD could hide street furniture for most of the
+ * chunk the player is standing in.
+ */
+function distanceToChunk(chunk: WorldManifest['chunks'][number], x: number, z: number): number {
+  const dx = Math.max(chunk.bounds.minX - x, 0, x - chunk.bounds.maxX);
+  const dz = Math.max(chunk.bounds.minZ - z, 0, z - chunk.bounds.maxZ);
+  return Math.hypot(dx, dz);
 }
 
 function triangleCount(geometry: THREE.BufferGeometry | undefined): number {
@@ -172,13 +189,19 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
       const farMaterial = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, flatShading: true });
       const buildingsNear = nearGeometry ? new THREE.Mesh(nearGeometry, nearMaterial) : null;
       const buildingsFar = farGeometry && farGeometry !== nearGeometry ? new THREE.Mesh(farGeometry, farMaterial) : buildingsNear;
+      const player = useGame.getState().player;
+      const chunkDistance = distanceToChunk(chunk.ref, player.x, player.z);
+      const ranges = LOD_RANGES[qualityRef.current];
+      const nearVisible = chunkDistance < ranges.building;
       if (buildingsNear) {
         buildingsNear.name = `buildings-near-${chunk.ref.id}`;
         buildingsNear.castShadow = qualityRef.current === 'high';
+        buildingsNear.visible = nearVisible;
         group.add(buildingsNear);
       }
       if (buildingsFar && buildingsFar !== buildingsNear) {
         buildingsFar.name = `buildings-far-${chunk.ref.id}`;
+        buildingsFar.visible = !nearVisible;
         group.add(buildingsFar);
       }
 
@@ -189,6 +212,7 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
       if (propsMesh) {
         propsMesh.name = `props-${chunk.ref.id}`;
         propsMesh.castShadow = qualityRef.current === 'high';
+        propsMesh.visible = chunkDistance < ranges.props;
         group.add(propsMesh);
       }
 
@@ -232,7 +256,7 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
     const ensure = (x: number, z: number) => {
       const world = worldRef.current;
       if (!world) return;
-      const radius = qualityRef.current === 'low' ? 0 : qualityRef.current === 'mid' ? 1 : 2;
+      const radius = qualityRef.current === 'low' ? 1 : qualityRef.current === 'mid' ? 1 : 2;
       const keepRadius = radius + 1;
       chunkLru.current.maxLoaded = qualityRef.current === 'low' ? 5 : qualityRef.current === 'mid' ? 10 : 16;
       const current = chunkAt(world.manifest, x, z);
@@ -286,8 +310,10 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
           const hf = chunk ? chunkTerrains.current.get(chunk.id) : undefined;
           return heightAt(hf ?? coarse, x, z);
         };
-        const terrainHeight = (x: number, z: number): number =>
-          bridgeSurfaceAt(bridgeRoads, x, z, baseTerrainHeight) ?? baseTerrainHeight(x, z);
+        const terrainHeight = (x: number, z: number): number => {
+          const value = bridgeSurfaceAt(bridgeRoads, x, z, baseTerrainHeight) ?? baseTerrainHeight(x, z);
+          return Number.isFinite(value) ? value : baseTerrainHeight(x, z);
+        };
         const geoAdapter = createGeoAdapter({ world: data, collision, roads, terrainHeight });
         const spawnPoint = geoAdapter.spawnForDistrict(pack.districtId as DistrictId);
         worldRef.current = { baseUrl, manifest, data, roads };
@@ -349,13 +375,15 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
     lodTimer.current += Math.min(dt, 0.1);
     if (lodTimer.current > 0.6) {
       lodTimer.current = 0;
+      const ranges = LOD_RANGES[qualityRef.current];
+      const nearRange = ranges.building;
+      const propRange = ranges.props;
       for (const visual of chunkVisuals.current.values()) {
-        const [cx, cz] = chunkCenter(visual.ref);
-        const distance = Math.hypot(px - cx, pz - cz);
-        const near = distance < 560;
+        const distance = distanceToChunk(visual.ref, px, pz);
+        const near = distance < nearRange;
         if (visual.buildingsNear) visual.buildingsNear.visible = near;
         if (visual.buildingsFar && visual.buildingsFar !== visual.buildingsNear) visual.buildingsFar.visible = !near;
-        if (visual.props) visual.props.visible = distance < 760;
+        if (visual.props) visual.props.visible = distance < propRange;
       }
     }
     metricFrames.current += 1;

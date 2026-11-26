@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
+import * as THREE from 'three';
 import { useGame, type NearbyInfo } from '../state/store';
 import { loadWorldRegistry } from '../world/loader';
 import {
@@ -93,10 +94,13 @@ export function GameCanvas({ onInteract }: { onInteract: (n: NearbyInfo) => void
       <Canvas
         dpr={tier.dpr}
         shadows={tier.shadows}
-        gl={{ antialias: quality !== 'low', powerPreference: 'high-performance' }}
+        gl={{ antialias: quality !== 'low', powerPreference: 'high-performance', alpha: false, stencil: false }}
         camera={{ fov: 55, near: 0.25, far: 900, position: [18, 12, 97] }}
         onCreated={({ gl }) => {
           gl.setClearColor('#cfe3f0');
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.04;
+          gl.shadowMap.type = THREE.PCFSoftShadowMap;
         }}
       >
         {modal.kind === 'interior' ? (

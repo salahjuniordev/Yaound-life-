@@ -71,12 +71,56 @@ export class RoadIndex {
     }
   }
 
-  nearest(x: number, z: number, maxDistance = Infinity): NearestRoadPoint | null {
+  /**
+   * Cell-local nearest query for per-frame height sampling. Unlike `nearest`,
+   * this never falls back to scanning every segment, so an off-road query is
+   * bounded even when the player is far from the network.
+   */
+  nearestLocal(
+    x: number,
+    z: number,
+    maxDistance = Infinity,
+    accept?: (road: WorldRoad) => boolean,
+  ): NearestRoadPoint | null {
+    return this.cellNearest(x, z, maxDistance, accept);
+  }
+
+  nearest(
+    x: number,
+    z: number,
+    maxDistance = Infinity,
+    accept?: (road: WorldRoad) => boolean,
+  ): NearestRoadPoint | null {
+    const local = this.cellNearest(x, z, maxDistance, accept);
+    if (local) return local;
+    if (!Number.isFinite(maxDistance)) return null;
+    // Fallback for the rare case where a segment's indexed cells do not cover
+    // a finite query radius. Per-frame height sampling uses nearestLocal so it
+    // never pays for this whole-network scan.
+    let best: NearestRoadPoint | null = null;
+    for (const segment of this.segments) {
+      if (accept && !accept(segment.road)) continue;
+      const hit = this.closestOnSegment(x, z, segment);
+      if (hit.distance > maxDistance) continue;
+      if (!best || hit.distance < best.distance) best = hit;
+    }
+    return best;
+  }
+
+  private cellNearest(
+    x: number,
+    z: number,
+    maxDistance: number,
+    accept?: (road: WorldRoad) => boolean,
+  ): NearestRoadPoint | null {
     let best: NearestRoadPoint | null = null;
     const seen = new Set<RoadSegment>();
     const ix = Math.floor(x / CELL);
     const iz = Math.floor(z / CELL);
-    const cellRadius = Number.isFinite(maxDistance) ? Math.ceil(maxDistance / CELL) + 1 : 1;
+    // A segment with a point within maxDistance must touch a cell within
+    // ceil(maxDistance / CELL) of the query cell; the extra ring would make
+    // every per-frame ground sample scan nearly three times as many buckets.
+    const cellRadius = Number.isFinite(maxDistance) ? Math.max(1, Math.ceil(maxDistance / CELL)) : 1;
     for (let dx = -cellRadius; dx <= cellRadius; dx++) {
       for (let dz = -cellRadius; dz <= cellRadius; dz++) {
         const bucket = this.cells.get(key(ix + dx, iz + dz));
@@ -84,18 +128,12 @@ export class RoadIndex {
         for (const segment of bucket) {
           if (seen.has(segment)) continue;
           seen.add(segment);
+          if (accept && !accept(segment.road)) continue;
           const hit = this.closestOnSegment(x, z, segment);
           if (hit.distance > maxDistance) continue;
           if (!best || hit.distance < best.distance) best = hit;
         }
       }
-    }
-    if (best) return best;
-    if (!Number.isFinite(maxDistance)) return null;
-    for (const segment of this.segments) {
-      const hit = this.closestOnSegment(x, z, segment);
-      if (hit.distance > maxDistance) continue;
-      if (!best || hit.distance < best.distance) best = hit;
     }
     return best;
   }

@@ -46,6 +46,7 @@ export function PlayerRig({ quality, onInteract, terrain, world, spawn }: Player
   const tapMarkerRef = useRef<THREE.Mesh>(null);
   const markerGroupRef = useRef<THREE.Group>(null);
   const posRef = useRef({ x: spawn[0], z: spawn[1] });
+  const groundRef = useRef(0);
   const yawRef = useRef(Math.PI);
   const keysRef = useRef<Set<string>>(new Set());
   const lastDistrictRef = useRef<string>('');
@@ -53,6 +54,8 @@ export function PlayerRig({ quality, onInteract, terrain, world, spawn }: Player
   const proximityTimer = useRef(0);
   const arrivedTarget = useRef(true);
   const cameraSnapRef = useRef(true);
+  const cameraTargetRef = useRef(new THREE.Vector3());
+  const eyeRef = useRef(new THREE.Vector3());
   const pointerDownRef = useRef<{ x: number; y: number; t: number } | null>(null);
 
   const appearance = engine?.state.player.appearance;
@@ -124,8 +127,9 @@ export function PlayerRig({ quality, onInteract, terrain, world, spawn }: Player
         const raycaster = new THREE.Raycaster();
         raycaster.setFromCamera(ndc, camera);
         const hits = raycaster.intersectObject(terrain, true);
-        if (hits.length > 0) {
-          tapState.target = { x: hits[0].point.x, z: hits[0].point.z };
+        const hit = hits.find((entry) => entry.object.userData.walkable !== false);
+        if (hit) {
+          tapState.target = { x: hit.point.x, z: hit.point.z };
           arrivedTarget.current = false;
         }
       }
@@ -150,8 +154,16 @@ export function PlayerRig({ quality, onInteract, terrain, world, spawn }: Player
   );
 
   useEffect(() => {
-    if (!markerGroupRef.current) return;
-    for (const m of markers) markerGroupRef.current.add(m.sprite);
+    const group = markerGroupRef.current;
+    if (!group) return;
+    for (const m of markers) group.add(m.sprite);
+    return () => {
+      for (const m of markers) {
+        group.remove(m.sprite);
+        m.sprite.material.map?.dispose();
+        m.sprite.material.dispose();
+      }
+    };
   }, [markers]);
 
   useFrame(({ clock }, dt) => {
@@ -211,8 +223,28 @@ export function PlayerRig({ quality, onInteract, terrain, world, spawn }: Player
       while (dy > Math.PI) dy -= Math.PI * 2;
       while (dy < -Math.PI) dy += Math.PI * 2;
       yawRef.current += dy * Math.min(1, dtc * 10);
-      posRef.current.x += dirX * speed * dtc;
-      posRef.current.z += dirZ * speed * dtc;
+
+      // Sweep movement in short substeps. A single 7.4 m/s frame step can
+      // otherwise jump across a thin wall before the footprint solver sees it.
+      const distance = speed * dtc;
+      const steps = Math.max(1, Math.ceil(distance / 0.28));
+      const stepX = (dirX * distance) / steps;
+      const stepZ = (dirZ * distance) / steps;
+      for (let step = 0; step < steps; step++) {
+        posRef.current.x += stepX;
+        posRef.current.z += stepZ;
+        const [cx, cz] = world.collide(posRef.current.x, posRef.current.z, 0.42);
+        posRef.current.x = cx;
+        posRef.current.z = cz;
+        const [clx, clz] = world.clamp(posRef.current.x, posRef.current.z);
+        posRef.current.x = clx;
+        posRef.current.z = clz;
+      }
+    }
+
+    if (!Number.isFinite(posRef.current.x) || !Number.isFinite(posRef.current.z)) {
+      posRef.current = { x: spawn[0], z: spawn[1] };
+      cameraSnapRef.current = true;
     }
 
     const [collidedX, collidedZ] = world.collide(posRef.current.x, posRef.current.z, 0.42);
@@ -222,7 +254,13 @@ export function PlayerRig({ quality, onInteract, terrain, world, spawn }: Player
     posRef.current.x = clampedX;
     posRef.current.z = clampedZ;
 
-    const groundY = world.terrainHeight(posRef.current.x, posRef.current.z);
+    const sampledGround = world.terrainHeight(posRef.current.x, posRef.current.z);
+    const groundY = Number.isFinite(sampledGround)
+      ? sampledGround
+      : Number.isFinite(groundRef.current)
+        ? groundRef.current
+        : 0;
+    groundRef.current = groundY;
     group.position.set(posRef.current.x, groundY, posRef.current.z);
     group.rotation.y = yawRef.current;
     const phoneOpen = useGame.getState().panel === 'phone';
@@ -254,15 +292,36 @@ export function PlayerRig({ quality, onInteract, terrain, world, spawn }: Player
     const camTargetX = posRef.current.x + offX;
     const camTargetZ = posRef.current.z + offZ;
     const camFloor = world.terrainHeight(camTargetX, camTargetZ) + 1.1;
-    const camTargetY = Math.max(groundY + offY, camFloor);
-    const camTarget = new THREE.Vector3(camTargetX, camTargetY, camTargetZ);
-    if (cameraSnapRef.current) {
-      camera.position.copy(camTarget);
+    const camTargetY = Math.max(groundY + offY, Number.isFinite(camFloor) ? camFloor : groundY + offY);
+    const lookY = groundY + 1.35 + (cameraState.pitch < 0.3 ? -0.4 : 0);
+    eyeRef.current.set(posRef.current.x, lookY, posRef.current.z);
+    const resolved = world.resolveCamera
+      ? world.resolveCamera(
+          [eyeRef.current.x, eyeRef.current.y, eyeRef.current.z],
+          [camTargetX, camTargetY, camTargetZ],
+        )
+      : [camTargetX, camTargetY, camTargetZ];
+    const safeFloor = world.terrainHeight(resolved[0], resolved[2]) + 0.72;
+    if (!Number.isFinite(resolved[1]) || !Number.isFinite(resolved[0]) || !Number.isFinite(resolved[2])) {
+      resolved[0] = camTargetX;
+      resolved[1] = camTargetY;
+      resolved[2] = camTargetZ;
+    } else if (resolved[1] < safeFloor) {
+      resolved[1] = safeFloor;
+    }
+    cameraTargetRef.current.set(resolved[0], resolved[1], resolved[2]);
+    const targetDistance = cameraTargetRef.current.distanceTo(eyeRef.current);
+    const currentDistance = camera.position.distanceTo(eyeRef.current);
+    if (cameraSnapRef.current || targetDistance + 0.9 < currentDistance) {
+      camera.position.copy(cameraTargetRef.current);
       cameraSnapRef.current = false;
     } else {
-      camera.position.lerp(camTarget, Math.min(1, dtc * 7));
+      camera.position.lerp(cameraTargetRef.current, Math.min(1, dtc * 9));
+      const groundUnderCamera = world.terrainHeight(camera.position.x, camera.position.z);
+      if (Number.isFinite(groundUnderCamera)) {
+        camera.position.y = Math.max(camera.position.y, groundUnderCamera + 0.72);
+      }
     }
-    const lookY = groundY + 1.35 + (cameraState.pitch < 0.3 ? -0.4 : 0);
     camera.lookAt(posRef.current.x, lookY, posRef.current.z);
 
     publishTimer.current += dtc;

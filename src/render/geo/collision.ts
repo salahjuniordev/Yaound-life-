@@ -14,6 +14,7 @@ interface BuildingCollider {
   maxX: number;
   minZ: number;
   maxZ: number;
+  height: number;
 }
 
 interface ChunkColliders {
@@ -48,7 +49,15 @@ export class GeoCollisionWorld {
         if (z < minZ) minZ = z;
         if (z > maxZ) maxZ = z;
       }
-      const collider: BuildingCollider = { id: building.meta.id, ring, minX, maxX, minZ, maxZ };
+      const collider: BuildingCollider = {
+        id: building.meta.id,
+        ring,
+        minX,
+        maxX,
+        minZ,
+        maxZ,
+        height: Number.isFinite(building.meta.height) ? Math.max(2.8, building.meta.height) : 6,
+      };
       colliders.push(collider);
       const minIx = Math.floor(minX / CELL);
       const maxIx = Math.floor(maxX / CELL);
@@ -171,6 +180,51 @@ export class GeoCollisionWorld {
       }
     }
     return false;
+  }
+
+  /**
+   * Returns the fraction along a camera ray at which it first enters a building
+   * that is tall enough to block the view, or null when the ray is clear. The
+   * caller supplies terrain height so the check remains correct on slopes.
+   */
+  cameraBlockFraction(
+    ax: number,
+    az: number,
+    ay: number,
+    bx: number,
+    bz: number,
+    by: number,
+    groundAt: (x: number, z: number) => number,
+    margin = 0.3,
+  ): number | null {
+    const distance = Math.hypot(bx - ax, bz - az);
+    if (!(distance > 0.01)) return null;
+    const steps = Math.max(2, Math.ceil(distance / 0.8));
+    for (let step = 1; step <= steps; step++) {
+      const t = step / steps;
+      const x = ax + (bx - ax) * t;
+      const z = az + (bz - az) * t;
+      const y = ay + (by - ay) * t;
+      const ix = Math.floor(x / CELL);
+      const iz = Math.floor(z / CELL);
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          const bucket = this.buildings.get(cellKey(ix + dx, iz + dz));
+          if (!bucket) continue;
+          for (const collider of bucket) {
+            if (x < collider.minX - margin || x > collider.maxX + margin) continue;
+            if (z < collider.minZ - margin || z > collider.maxZ + margin) continue;
+            const g = groundAt(x, z);
+            if (Number.isFinite(g) && y > g + collider.height + 0.45) continue;
+            if (pointInPolygon(x, z, collider.ring)) return Math.max(0, (step - 1) / steps);
+            if (closestPointOnPolygon(x, z, collider.ring).distance < margin) {
+              return Math.max(0, (step - 1) / steps);
+            }
+          }
+        }
+      }
+    }
+    return null;
   }
 
   clear(): void {

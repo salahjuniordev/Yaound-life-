@@ -13,7 +13,7 @@ import { qualityTiers, type QualityTier } from './controls';
 import { crowdLodFor } from './lod';
 import { crowdBuildFor, type CrowdBuild } from './crowdLooks';
 import type { DistrictId } from '../sim/types';
-import type { WorldAdapter } from './geo/types';
+import type { PedestrianRoute, WorldAdapter } from './geo/types';
 
 interface BodyMetrics {
   legLen: number;
@@ -43,6 +43,8 @@ interface Person {
   speed: number;
   phase: number;
   moving: boolean;
+  heading: number;
+  route: PedestrianRoute | null;
   named?: boolean;
 }
 
@@ -230,6 +232,19 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
   const labelsRef = useRef<Map<string, THREE.Sprite>>(new Map());
   const smoothPosRef = useRef<Map<string, { x: number; z: number }>>(new Map());
 
+  useEffect(() => {
+    return () => {
+      for (const sprite of labelsRef.current.values()) {
+        sprite.parent?.remove(sprite);
+        sprite.material.map?.dispose();
+        sprite.material.dispose();
+      }
+      labelsRef.current.clear();
+      smoothPosRef.current.clear();
+      peopleRef.current = [];
+    };
+  }, []);
+
   const tmp = useMemo(
     () => ({
       pos: new THREE.Vector3(),
@@ -282,12 +297,15 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
           speed: 0.8,
           phase: Math.random() * 6.28,
           moving: false,
+          heading: 0,
+          route: null,
           named: true,
         });
       }
       for (const m of crowd) {
         const build = crowdBuildFor(m.id);
         const placed = world.placePedestrian(m.pos[0], m.pos[1]);
+        const route = world.sidewalkRoute ? world.sidewalkRoute(placed[0], placed[1], 2.4) : null;
         persons.push({
           id: m.id,
           baseX: placed[0],
@@ -301,10 +319,21 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
           metrics: metricsFor(build),
           speed: m.speed,
           phase: m.phase,
-          moving: m.moving,
+          moving: Boolean(route) && m.moving,
+          heading: 0,
+          route,
         });
       }
       peopleRef.current = persons.slice(0, capacity);
+      const liveIds = new Set(peopleRef.current.map((person) => person.id));
+      for (const [id, sprite] of labelsRef.current) {
+        if (liveIds.has(id)) continue;
+        sprite.parent?.remove(sprite);
+        sprite.material.map?.dispose();
+        sprite.material.dispose();
+        labelsRef.current.delete(id);
+        smoothPosRef.current.delete(id);
+      }
       const { body, pelvis, head, hair, armL, armR, legL, legR, shoeL, shoeR, impostorTorso, impostorLegs, impostorHead, impostorHair } = meshes;
       peopleRef.current.forEach((p, i) => {
         body.setColorAt(i, p.shirt);
@@ -329,11 +358,14 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
       }
     }
 
-    const people = peopleRef.current;
-    if (people.length === 0) return;
+    const players = peopleRef.current;
+    if (players.length === 0) return;
     const t = performance.now() / 1000;
+    const dtc = Math.min(dt, 0.05);
     const playerX = useGame.getState().player.x;
     const playerZ = useGame.getState().player.z;
+    const playerGroundSample = world.terrainHeight(playerX, playerZ);
+    const fallbackGround = Number.isFinite(playerGroundSample) ? playerGroundSample : 0;
     const camX = camera.position.x;
     const camZ = camera.position.z;
     const { body, pelvis, head, hair, armL, armR, legL, legR, shoeL, shoeR, impostorTorso, impostorLegs, impostorHead, impostorHair } = meshes;
@@ -373,8 +405,8 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
       mesh.setMatrixAt(i, tmp.m);
     };
 
-    for (let i = 0; i < people.length; i++) {
-      const p = people[i];
+    for (let i = 0; i < players.length; i++) {
+      const p = players[i];
       let x = p.baseX;
       let z = p.baseZ;
       let hidden = false;
@@ -388,10 +420,29 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
           const dx = mapped[0] - smooth.x;
           const dz = mapped[1] - smooth.z;
           const d = Math.hypot(dx, dz);
-          if (d > 0.4) {
-            const step = Math.min(d, 4.5 * Math.min(dt, 0.05));
-            smooth.x += (dx / d) * step;
-            smooth.z += (dz / d) * step;
+          if (d > 14) {
+            // A schedule change across the district should not teleport the
+            // visible body through every wall in between.
+            smooth.x = mapped[0];
+            smooth.z = mapped[1];
+            p.moving = false;
+          } else if (d > 0.35) {
+            const step = Math.min(d, 4.5 * dtc);
+            const nx = smooth.x + (dx / d) * step;
+            const nz = smooth.z + (dz / d) * step;
+            const [rx, rz] = world.collide(nx, nz, 0.36);
+            if (Math.hypot(rx - nx, rz - nz) > 0.28) {
+              smooth.x = mapped[0];
+              smooth.z = mapped[1];
+              p.moving = false;
+            } else {
+              smooth.x = rx;
+              smooth.z = rz;
+              p.moving = true;
+              p.heading = Math.atan2(-dx, -dz);
+            }
+          } else {
+            p.moving = false;
           }
           smoothPosRef.current.set(p.id, smooth);
           x = smooth.x;
@@ -399,10 +450,20 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
           if (hidden) delete npcRuntime[p.id];
           else npcRuntime[p.id] = { x, z };
         }
-      } else if (p.moving) {
-        const a = p.phase + t * p.speed * 0.25;
-        x = p.baseX + Math.cos(a) * 2.6;
-        z = p.baseZ + Math.sin(a) * 2.6;
+      } else if (p.moving && p.route) {
+        const dx = p.route.bx - p.route.ax;
+        const dz = p.route.bz - p.route.az;
+        const span = Math.hypot(dx, dz);
+        if (span < 0.7) {
+          p.moving = false;
+        } else {
+          const wave = Math.sin(p.phase + t * p.speed * 0.38);
+          const s = wave * 0.5 + 0.5;
+          x = p.route.ax + dx * s;
+          z = p.route.az + dz * s;
+          const direction = Math.cos(p.phase + t * p.speed * 0.38) >= 0 ? 1 : -1;
+          p.heading = Math.atan2(-dx * direction, -dz * direction);
+        }
       }
       const distToPlayer = Math.hypot(x - playerX, z - playerZ);
       const visible = !hidden && distToPlayer < tier.viewDistance * 0.55;
@@ -411,10 +472,13 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
         for (const mesh of [body, pelvis, head, hair, armL, armR, legL, legR, shoeL, shoeR, impostorTorso, impostorLegs, impostorHead, impostorHair]) {
           zero(mesh, i);
         }
+        const label = labelsRef.current.get(p.id);
+        if (label) label.visible = false;
         continue;
       }
 
-      const groundY = world.terrainHeight(x, z);
+      const sampledGround = world.terrainHeight(x, z);
+      const groundY = Number.isFinite(sampledGround) ? sampledGround : fallbackGround;
       const lod = crowdLodFor(Math.hypot(x - camX, z - camZ), quality);
       const m = p.metrics;
 
@@ -434,12 +498,10 @@ export function Crowd({ quality, world }: { quality: QualityTier; world: WorldAd
         zero(impostorHead, i);
         zero(impostorHair, i);
         const walkPhase = t * p.speed * 6 + p.phase;
-        const isMoving = p.named ? false : p.moving;
+        const isMoving = p.moving;
         const swing = isMoving ? Math.sin(walkPhase) * 0.42 : Math.sin(t * 1.4 + p.phase) * 0.04;
         const bob = isMoving ? Math.abs(Math.sin(walkPhase)) * 0.05 : 0;
-        const yaw = isMoving
-          ? Math.atan2(Math.cos(p.phase + t * p.speed * 0.25), -Math.sin(p.phase + t * p.speed * 0.25))
-          : Math.sin(t * 0.3 + p.phase) * 0.4;
+        const yaw = isMoving ? p.heading : Math.sin(t * 0.3 + p.phase) * 0.4;
         tmp.euler.set(0, yaw, 0);
         tmp.quat.setFromEuler(tmp.euler);
         tmp.bodyQuat.copy(tmp.quat);
