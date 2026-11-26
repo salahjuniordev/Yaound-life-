@@ -26,17 +26,12 @@ import {
   buildWaterwaysGeometry,
 } from './geometry';
 import { publishWorldMetrics } from './metrics';
+import { GEO_LOD_POLICY, shouldBuildNear, shouldRetainNear } from './lodPolicy';
 
 export interface GeoStatus {
   phase: 'loading' | 'ready' | 'error';
   message: string;
 }
-
-const LOD_RANGES: Record<QualityTier, { building: number; props: number }> = {
-  low: { building: 210, props: 190 },
-  mid: { building: 340, props: 330 },
-  high: { building: 560, props: 520 },
-};
 
 interface GeoSceneProps {
   pack: WorldPackEntry;
@@ -54,6 +49,11 @@ interface ChunkVisual {
   roads: THREE.Mesh | null;
   buildingsNear: THREE.Mesh | null;
   buildingsFar: THREE.Mesh | null;
+  /** Whether the near detail tier has already been built, even if empty. */
+  nearBuilt: boolean;
+  /** Retained source data for a lazy near-detail upgrade. */
+  buildings: LoadedChunk['buildings'];
+  decodedBuildings: LoadedChunk['decodedBuildings'];
   props: THREE.Mesh | null;
   heightfield: Heightfield;
 }
@@ -98,6 +98,32 @@ function triangleCount(geometry: THREE.BufferGeometry | undefined): number {
   return geometry.index ? geometry.index.count / 3 : geometry.attributes.position.count / 3;
 }
 
+function addNearBuildings(visual: ChunkVisual, quality: QualityTier, distance: number): void {
+  if (visual.nearBuilt || quality === 'low') return;
+  visual.nearBuilt = true;
+  const geometry = buildBuildingGeometry(visual.buildings, visual.decodedBuildings, visual.heightfield, quality);
+  if (!geometry) return;
+  const material = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, flatShading: true });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.name = `buildings-near-${visual.id}`;
+  mesh.castShadow = quality === 'high' && distance < GEO_LOD_POLICY[quality].shadowCasters;
+  mesh.visible = true;
+  visual.group.add(mesh);
+  visual.buildingsNear = mesh;
+  if (visual.buildingsFar && visual.buildingsFar !== mesh) visual.buildingsFar.visible = false;
+}
+
+function dropNearBuildings(visual: ChunkVisual): void {
+  if (!visual.nearBuilt) return;
+  if (visual.buildingsNear) {
+    visual.group.remove(visual.buildingsNear);
+    disposeObject(visual.buildingsNear);
+    visual.buildingsNear = null;
+  }
+  visual.nearBuilt = false;
+  if (visual.buildingsFar) visual.buildingsFar.visible = true;
+}
+
 export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }: GeoSceneProps) {
   const { gl } = useThree();
   const collision = useMemo(() => new GeoCollisionWorld(), []);
@@ -110,7 +136,8 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
   const chunkVisuals = useRef(new Map<string, ChunkVisual>());
   const chunkTerrains = useRef(new Map<string, Heightfield>());
   const loading = useRef(new Set<string>());
-  const chunkLru = useRef(new ChunkLru(16));
+  const chunkLru = useRef(new ChunkLru(10));
+  const focusRef = useRef({ x: 0, z: 0 });
   const metricFrames = useRef(0);
   const metricElapsed = useRef(0);
   const worldRef = useRef<{ baseUrl: string; manifest: WorldManifest; data: WorldData; roads: RoadIndex } | null>(null);
@@ -182,20 +209,32 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
         group.add(roads);
       }
 
-      const nearGeometry = buildBuildingGeometry(chunk.buildings, chunk.decodedBuildings, chunk.terrain, qualityRef.current);
+      const qualityNow = qualityRef.current;
+      const chunkDistance = distanceToChunk(chunk.ref, focusRef.current.x, focusRef.current.z);
+      const ranges = GEO_LOD_POLICY[qualityNow];
+      const buildNear = shouldBuildNear(qualityNow, chunkDistance);
+      const nearGeometry = buildNear
+        ? buildBuildingGeometry(chunk.buildings, chunk.decodedBuildings, chunk.terrain, qualityNow)
+        : null;
       const farGeometry =
-        qualityRef.current === 'low' ? nearGeometry : buildBuildingGeometry(chunk.buildings, chunk.decodedBuildings, chunk.terrain, 'low');
-      const nearMaterial = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, flatShading: true });
-      const farMaterial = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, flatShading: true });
-      const buildingsNear = nearGeometry ? new THREE.Mesh(nearGeometry, nearMaterial) : null;
-      const buildingsFar = farGeometry && farGeometry !== nearGeometry ? new THREE.Mesh(farGeometry, farMaterial) : buildingsNear;
-      const player = useGame.getState().player;
-      const chunkDistance = distanceToChunk(chunk.ref, player.x, player.z);
-      const ranges = LOD_RANGES[qualityRef.current];
+        qualityNow === 'low' ? nearGeometry : buildBuildingGeometry(chunk.buildings, chunk.decodedBuildings, chunk.terrain, 'low');
+      const buildingsNear = nearGeometry
+        ? new THREE.Mesh(
+            nearGeometry,
+            new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, flatShading: true }),
+          )
+        : null;
+      let buildingsFar: THREE.Mesh | null = buildingsNear;
+      if (qualityNow !== 'low' && farGeometry) {
+        buildingsFar = new THREE.Mesh(
+          farGeometry,
+          new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, flatShading: true }),
+        );
+      }
       const nearVisible = chunkDistance < ranges.building;
       if (buildingsNear) {
         buildingsNear.name = `buildings-near-${chunk.ref.id}`;
-        buildingsNear.castShadow = qualityRef.current === 'high';
+        buildingsNear.castShadow = qualityNow === 'high' && chunkDistance < ranges.shadowCasters;
         buildingsNear.visible = nearVisible;
         group.add(buildingsNear);
       }
@@ -205,13 +244,13 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
         group.add(buildingsFar);
       }
 
-      const props = buildPropsGeometry(chunk.ref.id, localRoads, chunk.buildings, chunk.terrain, qualityRef.current, chunk.pois);
+      const props = buildPropsGeometry(chunk.ref.id, localRoads, chunk.buildings, chunk.terrain, qualityNow, chunk.pois);
       const propsMesh = props.geometry
         ? new THREE.Mesh(props.geometry, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true }))
         : null;
       if (propsMesh) {
         propsMesh.name = `props-${chunk.ref.id}`;
-        propsMesh.castShadow = qualityRef.current === 'high';
+        propsMesh.castShadow = qualityNow === 'high' && chunkDistance < ranges.shadowCasters;
         propsMesh.visible = chunkDistance < ranges.props;
         group.add(propsMesh);
       }
@@ -226,6 +265,9 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
         roads,
         buildingsNear,
         buildingsFar,
+        nearBuilt: buildNear,
+        buildings: chunk.buildings,
+        decodedBuildings: chunk.decodedBuildings,
         props: propsMesh,
         heightfield: chunk.terrain,
       };
@@ -256,9 +298,10 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
     const ensure = (x: number, z: number) => {
       const world = worldRef.current;
       if (!world) return;
-      const radius = qualityRef.current === 'low' ? 1 : qualityRef.current === 'mid' ? 1 : 2;
+      focusRef.current = { x, z };
+      const radius = 1;
       const keepRadius = radius + 1;
-      chunkLru.current.maxLoaded = qualityRef.current === 'low' ? 5 : qualityRef.current === 'mid' ? 10 : 16;
+      chunkLru.current.maxLoaded = GEO_LOD_POLICY[qualityRef.current].chunkCap;
       const current = chunkAt(world.manifest, x, z);
       if (!current) return;
       const desired = new Set<string>();
@@ -375,16 +418,33 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
     lodTimer.current += Math.min(dt, 0.1);
     if (lodTimer.current > 0.6) {
       lodTimer.current = 0;
-      const ranges = LOD_RANGES[qualityRef.current];
-      const nearRange = ranges.building;
-      const propRange = ranges.props;
+      const qualityNow = qualityRef.current;
+      const policy = GEO_LOD_POLICY[qualityNow];
+      let upgrade: { visual: ChunkVisual; distance: number } | null = null;
       for (const visual of chunkVisuals.current.values()) {
         const distance = distanceToChunk(visual.ref, px, pz);
-        const near = distance < nearRange;
-        if (visual.buildingsNear) visual.buildingsNear.visible = near;
-        if (visual.buildingsFar && visual.buildingsFar !== visual.buildingsNear) visual.buildingsFar.visible = !near;
-        if (visual.props) visual.props.visible = distance < propRange;
+        const near = distance < policy.building;
+        if (near && !visual.nearBuilt && (!upgrade || distance < upgrade.distance)) {
+          upgrade = { visual, distance };
+        }
+        if (!near && qualityNow !== 'low' && !shouldRetainNear(qualityNow, distance)) {
+          dropNearBuildings(visual);
+        }
+        if (visual.buildingsNear) {
+          visual.buildingsNear.visible = near;
+          visual.buildingsNear.castShadow = qualityNow === 'high' && distance < policy.shadowCasters;
+        }
+        if (visual.buildingsFar && visual.buildingsFar !== visual.buildingsNear) {
+          visual.buildingsFar.visible = !near || !visual.buildingsNear;
+        }
+        if (visual.props) {
+          visual.props.visible = distance < policy.props;
+          visual.props.castShadow = qualityNow === 'high' && distance < policy.shadowCasters;
+        }
       }
+      // Upgrading a dense chunk is synchronous geometry work; spread it across
+      // LOD ticks so entering a new block does not create a long frame.
+      if (upgrade) addNearBuildings(upgrade.visual, qualityNow, upgrade.distance);
     }
     metricFrames.current += 1;
     metricElapsed.current += Math.min(dt, 0.25);
