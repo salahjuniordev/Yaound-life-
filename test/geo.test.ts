@@ -176,6 +176,56 @@ test('geo terrain skirt faces outward on every chunk edge', () => {
   geo.dispose();
 });
 
+test('geo pack-edge skirts become broad outer embankments instead of vertical cliffs', () => {
+  const hf = flatField();
+  const geo = buildTerrainGeometry(hf, 'high', { south: true, east: true });
+  geo.computeBoundingBox();
+  assert.ok(geo.boundingBox);
+  const minX = hf.originX;
+  const minZ = hf.originZ;
+  const maxX = minX + (hf.width - 1) * hf.cellSize;
+  assert.ok(geo.boundingBox!.min.z < minZ - 40, 'south pack edge should run outward, not straight down');
+  assert.ok(geo.boundingBox!.max.x > maxX + 40, 'east pack edge should run outward, not straight down');
+
+  const positions = geo.attributes.position as THREE.BufferAttribute;
+  const index = geo.index!;
+  const a = new THREE.Vector3();
+  const b = new THREE.Vector3();
+  const c = new THREE.Vector3();
+  const ab = new THREE.Vector3();
+  const ac = new THREE.Vector3();
+  const normal = new THREE.Vector3();
+  let southVertical = 0;
+  let southSlope = 0;
+  let cornerWedge = 0;
+  for (let triangle = 0; triangle < index.count / 3; triangle++) {
+    const ia = index.getX(triangle * 3);
+    const ib = index.getX(triangle * 3 + 1);
+    const ic = index.getX(triangle * 3 + 2);
+    a.fromBufferAttribute(positions, ia);
+    b.fromBufferAttribute(positions, ib);
+    c.fromBufferAttribute(positions, ic);
+    const vertical = Math.max(a.y, b.y, c.y) - Math.min(a.y, b.y, c.y) > 1;
+    if (!vertical) continue;
+    ab.subVectors(b, a);
+    ac.subVectors(c, a);
+    normal.crossVectors(ab, ac).normalize();
+    const zs = [a.z, b.z, c.z];
+    const xs = [a.x, b.x, c.x];
+    if (zs.every((z) => z === minZ)) southVertical++;
+    if (zs.some((z) => z === minZ) && zs.some((z) => z < minZ) && normal.z < -0.4 && normal.y > 0.2) {
+      southSlope++;
+    }
+    if (xs.some((x) => x > maxX) && zs.some((z) => z < minZ) && normal.x > 0.2 && normal.z < -0.2) {
+      cornerWedge++;
+    }
+  }
+  assert.equal(southVertical, 0, 'pack-edge wall should have no vertical south face');
+  assert.ok(southSlope > 0, 'pack-edge wall should slope outward');
+  assert.ok(cornerWedge > 0, 'pack corner should close the wedge between two outer slopes');
+  geo.dispose();
+});
+
 test('heightAt substitutes corrupt height samples without losing the terrain surface', () => {
   const corrupt = createHeightfield(
     2,

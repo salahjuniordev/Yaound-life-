@@ -172,27 +172,46 @@ class MeshBuilder {
   }
 }
 
+export interface TerrainEdgeMask {
+  south?: boolean;
+  north?: boolean;
+  west?: boolean;
+  east?: boolean;
+}
+
 /**
- * Vertical soil wall around a chunk heightfield. Chunks stream in
- * asynchronously, so without this the player sees a hollow cut-away edge for a
- * frame or two at every boundary (and a permanent cliff at the pack edge).
+ * Soil wall around a chunk heightfield. Chunks stream in asynchronously, so
+ * without this the player sees a hollow cut-away edge for a frame or two at
+ * every boundary. At the outer pack edge there is no neighbour to hide the
+ * wall, so that edge is extended outward as a broad, grass-topped embankment
+ * instead of ending in a 14–22 m vertical cliff.
  */
-function buildTerrainSkirt(hf: Heightfield, depth: number): THREE.BufferGeometry | null {
+function buildTerrainSkirt(
+  hf: Heightfield,
+  depth: number,
+  outerEdges: TerrainEdgeMask = {},
+): THREE.BufferGeometry | null {
   const positions: number[] = [];
   const colors: number[] = [];
   const indices: number[] = [];
   const soil = rgb('#6f6756');
   const rock = rgb('#7b7263');
+  const grass = rgb('#6b7b4d');
+  const dryGrass = rgb('#9b8a5d');
+  const outerRun = depth * 2;
 
-  const addEdge = (points: Array<[number, number]>, outX: number, outZ: number) => {
+  const addEdge = (points: Array<[number, number]>, outX: number, outZ: number, outer: boolean) => {
     const base = positions.length / 3;
     for (const [x, z] of points) {
       const y = heightAt(hf, x, z);
       const shade = hash2(x * 0.19 + 4.1, z * 0.23 - 8.7);
-      const top = shade > 0.55 ? rock : soil;
+      const top = outer ? (shade > 0.52 ? dryGrass : grass) : shade > 0.55 ? rock : soil;
       const factor = 0.82 + shade * 0.14;
-      positions.push(x, y + 0.02, z, x, y - depth, z);
-      colors.push(top[0], top[1], top[2], top[0] * factor, top[1] * factor, top[2] * factor);
+      const bottom = outer ? (shade > 0.55 ? soil : rock) : top;
+      const bx = outer ? x + outX * outerRun : x;
+      const bz = outer ? z + outZ * outerRun : z;
+      positions.push(x, y + 0.02, z, bx, y - depth, bz);
+      colors.push(top[0], top[1], top[2], bottom[0] * factor, bottom[1] * factor, bottom[2] * factor);
     }
     for (let i = 0; i < points.length - 1; i++) {
       const t0 = base + i * 2;
@@ -204,7 +223,8 @@ function buildTerrainSkirt(hf: Heightfield, depth: number): THREE.BufferGeometry
       const dx = x1 - x0;
       const dz = z1 - z0;
       // Winding A (t0,b1,t1 / t0,b0,b1) has normal (-dz, 0, dx); winding B
-      // has the opposite normal. Pick the one facing out of the chunk.
+      // has the opposite normal. Pick the one facing out of the chunk. The
+      // same choice also faces outward when the bottom row is pushed outward.
       if (-dz * outX + dx * outZ >= 0) {
         indices.push(t0, b1, t1, t0, b0, b1);
       } else {
@@ -231,10 +251,101 @@ function buildTerrainSkirt(hf: Heightfield, depth: number): THREE.BufferGeometry
     west.push([minX, z]);
     east.push([maxX, z]);
   }
-  addEdge(south, 0, -1);
-  addEdge(north, 0, 1);
-  addEdge(west, -1, 0);
-  addEdge(east, 1, 0);
+  addEdge(south, 0, -1, outerEdges.south === true);
+  addEdge(north, 0, 1, outerEdges.north === true);
+  addEdge(west, -1, 0, outerEdges.west === true);
+  addEdge(east, 1, 0, outerEdges.east === true);
+
+  // Two beveled outer edges leave a wedge open just beyond a pack corner.
+  // Close it with the triangle between the shared top point and the two
+  // displaced bottom points.
+  const addCorner = (
+    x: number,
+    z: number,
+    first: [number, number, number],
+    second: [number, number, number],
+    outX: number,
+    outZ: number,
+  ) => {
+    const y = heightAt(hf, x, z);
+    const shade = hash2(x * 0.19 + 4.1, z * 0.23 - 8.7);
+    const top = shade > 0.52 ? dryGrass : grass;
+    const bottom = shade > 0.55 ? soil : rock;
+    const factor = 0.82 + shade * 0.14;
+    const base = positions.length / 3;
+    positions.push(x, y + 0.02, z, ...first, ...second);
+    // The caller passes the bottom vertices in the winding that produces an
+    // outward diagonal normal; keep a guard for future edge changes.
+    const ax = first[0] - x;
+    const ay = first[1] - (y + 0.02);
+    const az = first[2] - z;
+    const bx = second[0] - x;
+    const by = second[1] - (y + 0.02);
+    const bz = second[2] - z;
+    const nx = ay * bz - az * by;
+    const nz = ax * by - ay * bx;
+    colors.push(
+      top[0],
+      top[1],
+      top[2],
+      bottom[0] * factor,
+      bottom[1] * factor,
+      bottom[2] * factor,
+      bottom[0] * factor,
+      bottom[1] * factor,
+      bottom[2] * factor,
+    );
+    if (nx * outX + nz * outZ >= 0) {
+      indices.push(base, base + 1, base + 2);
+    } else {
+      indices.push(base, base + 2, base + 1);
+    }
+  };
+  if (outerEdges.south && outerEdges.east) {
+    const y = heightAt(hf, maxX, minZ);
+    addCorner(
+      maxX,
+      minZ,
+      [maxX + outerRun, y - depth, minZ],
+      [maxX, y - depth, minZ - outerRun],
+      1,
+      -1,
+    );
+  }
+  if (outerEdges.south && outerEdges.west) {
+    const y = heightAt(hf, minX, minZ);
+    addCorner(
+      minX,
+      minZ,
+      [minX, y - depth, minZ - outerRun],
+      [minX - outerRun, y - depth, minZ],
+      -1,
+      -1,
+    );
+  }
+  if (outerEdges.north && outerEdges.east) {
+    const y = heightAt(hf, maxX, maxZ);
+    addCorner(
+      maxX,
+      maxZ,
+      [maxX, y - depth, maxZ + outerRun],
+      [maxX + outerRun, y - depth, maxZ],
+      1,
+      1,
+    );
+  }
+  if (outerEdges.north && outerEdges.west) {
+    const y = heightAt(hf, minX, maxZ);
+    addCorner(
+      minX,
+      maxZ,
+      [minX - outerRun, y - depth, maxZ],
+      [minX, y - depth, maxZ + outerRun],
+      -1,
+      1,
+    );
+  }
+
   if (indices.length === 0) return null;
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
@@ -245,7 +356,11 @@ function buildTerrainSkirt(hf: Heightfield, depth: number): THREE.BufferGeometry
   return geo;
 }
 
-export function buildTerrainGeometry(hf: Heightfield, quality: QualityTier): THREE.BufferGeometry {
+export function buildTerrainGeometry(
+  hf: Heightfield,
+  quality: QualityTier,
+  outerEdges: TerrainEdgeMask = {},
+): THREE.BufferGeometry {
   const width = hf.width;
   const height = hf.height;
   const positions = new Float32Array(width * height * 3);
@@ -304,7 +419,7 @@ export function buildTerrainGeometry(hf: Heightfield, quality: QualityTier): THR
   geo.computeVertexNormals();
   geo.computeBoundingSphere();
 
-  const skirt = buildTerrainSkirt(hf, quality === 'low' ? 14 : quality === 'mid' ? 18 : 22);
+  const skirt = buildTerrainSkirt(hf, quality === 'low' ? 14 : quality === 'mid' ? 18 : 22, outerEdges);
   if (!skirt) return geo;
   const merged = mergeGeometries([geo, skirt], false);
   skirt.dispose();

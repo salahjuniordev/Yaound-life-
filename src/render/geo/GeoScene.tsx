@@ -27,6 +27,7 @@ import {
 } from './geometry';
 import { publishWorldMetrics } from './metrics';
 import { GEO_LOD_POLICY, shouldBuildNear, shouldRetainNear } from './lodPolicy';
+import { terrainEdgeMask } from './terrainEdges';
 
 export interface GeoStatus {
   phase: 'loading' | 'ready' | 'error';
@@ -189,7 +190,10 @@ export function GeoScene({ pack, quality, onInteract, onStatus, onUnavailable }:
       const group = new THREE.Group();
       group.name = `chunk-${chunk.ref.id}`;
       const terrainMaterial = new THREE.MeshLambertMaterial({ vertexColors: true });
-      const terrain = new THREE.Mesh(buildTerrainGeometry(chunk.terrain, qualityRef.current), terrainMaterial);
+      const outerEdges = worldRef.current
+        ? terrainEdgeMask(worldRef.current.manifest.chunks, chunk.ref.ix, chunk.ref.iz)
+        : undefined;
+      const terrain = new THREE.Mesh(buildTerrainGeometry(chunk.terrain, qualityRef.current, outerEdges), terrainMaterial);
       terrain.name = `terrain-${chunk.ref.id}`;
       terrain.receiveShadow = qualityRef.current === 'high';
       terrainGroup.add(terrain);
